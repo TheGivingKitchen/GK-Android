@@ -64,10 +64,10 @@
     <!-- Give Tab -->
     <style name="GiveTabButton" parent="ButtonText">
         <item name="android:textColor">@color/gk_orange</item>
-        <item name="android:paddingTop">@dimen/give_tab_spacing</item>
-        <item name="android:paddingBottom">@dimen/give_tab_spacing</item>
-        <item name="android:paddingStart">@dimen/give_tab_spacing</item>
-        <item name="android:paddingEnd">@dimen/give_tab_spacing</item>
+        <item name="android:paddingTop">@dimen/universal_horizontal_spacing</item>
+        <item name="android:paddingBottom">@dimen/universal_horizontal_spacing</item>
+        <item name="android:paddingStart">@dimen/universal_horizontal_spacing</item>
+        <item name="android:paddingEnd">@dimen/universal_horizontal_spacing</item>
         <item name="android:background">?attr/selectableItemBackground</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
@@ -83,13 +83,13 @@
 
     <style name="GiveTabHeader" parent="ParagraphText">
         <item name="android:textColor">@color/dark_grey</item>
-        <item name="android:paddingStart">@dimen/give_tab_spacing</item>
-        <item name="android:paddingEnd">@dimen/give_tab_spacing</item>
+        <item name="android:paddingStart">@dimen/universal_horizontal_spacing</item>
+        <item name="android:paddingEnd">@dimen/universal_horizontal_spacing</item>
     </style>
 
     <style name="GiveTabParagraph" parent="ParagraphText">
-        <item name="android:paddingStart">@dimen/give_tab_spacing</item>
-        <item name="android:paddingEnd">@dimen/give_tab_spacing</item>
+        <item name="android:paddingStart">@dimen/universal_horizontal_spacing</item>
+        <item name="android:paddingEnd">@dimen/universal_horizontal_spacing</item>
     </style>
 
 </resources>

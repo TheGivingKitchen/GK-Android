@@ -131,22 +131,22 @@
             style="@style/GiveTabHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/give_tab_spacing"
+            android:paddingTop="@dimen/universal_horizontal_spacing"
             android:text="@string/give_tab_volunteer_header" />
 
         <TextView
             style="@style/GiveTabParagraph"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/give_tab_spacing"
+            android:paddingTop="@dimen/universal_horizontal_spacing"
             android:text="@string/give_tab_volunteer_description" />
 
         <Button
             android:id="@+id/volunteer_button_giveTab"
             style="@style/CTAButton"
-            android:layout_marginTop="@dimen/give_tab_spacing"
-            android:layout_marginStart="@dimen/give_tab_spacing"
-            android:layout_marginEnd="@dimen/give_tab_spacing"
+            android:layout_marginTop="@dimen/universal_horizontal_spacing"
+            android:layout_marginStart="@dimen/universal_horizontal_spacing"
+            android:layout_marginEnd="@dimen/universal_horizontal_spacing"
             android:text="@string/give_tab_volunteer_button"/>
 
         <View style="@style/DividerViewLarge" />
@@ -155,23 +155,23 @@
             style="@style/GiveTabHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/give_tab_spacing"
+            android:paddingTop="@dimen/universal_horizontal_spacing"
             android:text="@string/give_tab_partner_header" />
 
         <TextView
             style="@style/GiveTabParagraph"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/give_tab_spacing"
+            android:paddingTop="@dimen/universal_horizontal_spacing"
             android:text="@string/give_tab_partner_description" />
 
         <Button
             android:id="@+id/partner_button_giveTab"
             style="@style/CTAButton"
-            android:layout_marginTop="@dimen/give_tab_spacing"
-            android:layout_marginStart="@dimen/give_tab_spacing"
-            android:layout_marginEnd="@dimen/give_tab_spacing"
-            android:layout_marginBottom="@dimen/give_tab_spacing"
+            android:layout_marginTop="@dimen/universal_horizontal_spacing"
+            android:layout_marginStart="@dimen/universal_horizontal_spacing"
+            android:layout_marginEnd="@dimen/universal_horizontal_spacing"
+            android:layout_marginBottom="@dimen/universal_horizontal_spacing"
             android:text="@string/give_tab_partner_button"/>
 
     </LinearLayout>
