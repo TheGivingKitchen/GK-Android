@@ -15,6 +15,7 @@ import android.text.style.ForegroundColorSpan
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.widget.Toast
+import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_assistance.*
 
 class AssistanceFragment : Fragment() {
@@ -55,13 +56,9 @@ class AssistanceFragment : Fragment() {
         return builder
     }
 
-    private val forYouButtonClickListener = View.OnClickListener {
-        Toast.makeText(context, "for you button clicked", Toast.LENGTH_SHORT).show()
-    }
+    private val forYouButtonClickListener = Navigation.createNavigateOnClickListener(R.id.action_assistanceFragment_to_assistanceInquiryFormPrologueFragment)
 
-    private val forSomeoneElseButtonClickListener = View.OnClickListener {
-        Toast.makeText(context, "for someone else button clicked", Toast.LENGTH_SHORT).show()
-    }
+    private val forSomeoneElseButtonClickListener = Navigation.createNavigateOnClickListener(R.id.action_assistanceFragment_to_assistanceInquiryReferralFormPrologueFragment)
 
     private val learnMoreButtonClickListener = View.OnClickListener {
         Toast.makeText(context, "learn more button clicked", Toast.LENGTH_SHORT).show()

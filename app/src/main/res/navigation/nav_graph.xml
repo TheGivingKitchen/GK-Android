@@ -14,16 +14,45 @@
         android:id="@+id/safetynetFragment"
         android:name="org.thegivingkitchen.android.thegivingkitchen.ui.home.safetynet.SafetynetFragment"
         android:label="SafetynetFragment"
-        tools:layout="@layout/fragment_safetynet"/>
+        tools:layout="@layout/fragment_safetynet" />
     <fragment
         android:id="@+id/assistanceFragment"
         android:name="org.thegivingkitchen.android.thegivingkitchen.ui.home.assistance.AssistanceFragment"
         android:label="AssistanceFragment"
-        tools:layout="@layout/fragment_assistance"/>
+        tools:layout="@layout/fragment_assistance">
+        <action
+            android:id="@+id/action_assistanceFragment_to_assistanceInquiryFormPrologueFragment"
+            app:destination="@id/assistanceInquiryFormPrologueFragment" />
+        <action
+            android:id="@+id/action_assistanceFragment_to_assistanceInquiryReferralFormPrologueFragment"
+            app:destination="@id/assistanceInquiryReferralFormPrologueFragment" />
+    </fragment>
     <fragment
         android:id="@+id/giveFragment"
         android:name="org.thegivingkitchen.android.thegivingkitchen.ui.home.give.GiveFragment"
         android:label="GiveFragment"
         tools:layout="@layout/fragment_give">
+        <action
+            android:id="@+id/action_giveFragment_to_volunteerFormPrologueFragment"
+            app:destination="@id/volunteerFormPrologueFragment" />
+        <action
+            android:id="@+id/action_giveFragment_to_safetynetFormPrologueFragment"
+            app:destination="@id/safetynetFormPrologueFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/volunteerFormPrologueFragment"
+        android:name="org.thegivingkitchen.android.thegivingkitchen.ui.forms.volunteerform.VolunteerFormPrologueFragment"
+        android:label="VolunteerFormPrologueFragment" />
+    <fragment
+        android:id="@+id/safetynetFormPrologueFragment"
+        android:name="org.thegivingkitchen.android.thegivingkitchen.ui.forms.safetynetform.SafetynetFormPrologueFragment"
+        android:label="SafetynetFormPrologueFragment" />
+    <fragment
+        android:id="@+id/assistanceInquiryFormPrologueFragment"
+        android:name="org.thegivingkitchen.android.thegivingkitchen.ui.forms.assistanceinquiryform.AssistanceInquiryFormPrologueFragment"
+        android:label="AssistanceInquiryFormPrologueFragment" />
+    <fragment
+        android:id="@+id/assistanceInquiryReferralFormPrologueFragment"
+        android:name="org.thegivingkitchen.android.thegivingkitchen.ui.forms.assistanceinquiryreferralform.AssistanceInquiryReferralFormPrologueFragment"
+        android:label="AssistanceInquiryReferralFormPrologueFragment" />
 </navigation>
