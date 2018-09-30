@@ -22,6 +22,10 @@
         <item name="android:fontFamily">@font/kulturista_bold</item>
     </style>
 
+    <style name="EgyptianText">
+        <item name="android:fontFamily">@font/becker_egyptian</item>
+    </style>
+
     <style name="ParagraphText" parent="RegularText">
         <item name="android:textSize">8pt</item>
     </style>
