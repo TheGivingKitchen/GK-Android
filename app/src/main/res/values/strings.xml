@@ -86,6 +86,4 @@
     <string name="give_tab_examples_left_chevron">Reduce the suggested donation amount</string>
     <string name="give_tab_examples_right_chevron">Increase the suggested donation amount</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

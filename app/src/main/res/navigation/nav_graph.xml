@@ -24,8 +24,8 @@
             android:id="@+id/action_assistanceFragment_to_assistanceInquiryFormPrologueFragment"
             app:destination="@id/assistanceInquiryFormPrologueFragment" />
         <action
-            android:id="@+id/action_assistanceFragment_to_assistanceInquiryReferralFormPrologueFragment"
-            app:destination="@id/assistanceInquiryReferralFormPrologueFragment" />
+            android:id="@+id/action_assistanceFragment_to_assistanceReferralFormPrologueFragment"
+            app:destination="@id/assistanceReferralFormPrologueFragment" />
     </fragment>
     <fragment
         android:id="@+id/giveFragment"
@@ -52,7 +52,7 @@
         android:name="org.thegivingkitchen.android.thegivingkitchen.ui.forms.assistanceinquiryform.AssistanceInquiryFormPrologueFragment"
         android:label="AssistanceInquiryFormPrologueFragment" />
     <fragment
-        android:id="@+id/assistanceInquiryReferralFormPrologueFragment"
-        android:name="org.thegivingkitchen.android.thegivingkitchen.ui.forms.assistanceinquiryreferralform.AssistanceInquiryReferralFormPrologueFragment"
-        android:label="AssistanceInquiryReferralFormPrologueFragment" />
+        android:id="@+id/assistanceReferralFormPrologueFragment"
+        android:name="org.thegivingkitchen.android.thegivingkitchen.ui.forms.assistancereferralform.AssistanceReferralFormPrologueFragment"
+        android:label="AssistanceReferralFormPrologueFragment" />
 </navigation>
