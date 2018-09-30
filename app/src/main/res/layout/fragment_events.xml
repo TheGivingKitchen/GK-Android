@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <ImageView
-        android:id="@+id/header_events"
+        android:id="@+id/header_eventsTab"
         android:layout_width="0dp"
         android:layout_height="@dimen/header_image_height"
         app:layout_constraintTop_toTopOf="parent"

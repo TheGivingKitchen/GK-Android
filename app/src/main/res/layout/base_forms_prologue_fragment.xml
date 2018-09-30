@@ -1,12 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_yellow">
 
     <TextView
+        android:id="@+id/cancel_baseFormsPrologue"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="yea boi"/>
+        android:layout_height="wrap_content"
+        style="@style/ParagraphText"
+        android:textColor="@color/gk_blue"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="@string/base_forms_prologue_cancel"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View style="@style/DividerViewSmall" />
+
+        <Button
+            android:id="@+id/start_button_baseFormsPrologue"
+            style="@style/CTAButton"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:text="@string/base_forms_prologue_start"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_share"
+            android:layout_marginTop="30dp"
+            android:contentDescription="@string/base_forms_prologue_cancel"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/base_forms_prologue_cancel"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="20dp"/>
+    </LinearLayout>
 
 </LinearLayout>
