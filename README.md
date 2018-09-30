@@ -1,2 +1,2 @@
-# TGK-Android
-The Giving Kitchen on Android
+# GK-Android
+The Giving Kitchen mobile app on Android
