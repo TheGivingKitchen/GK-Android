@@ -42,6 +42,46 @@
     <string name="assistance_tab_start_inquiry_description">You can start an assistance inquiry for yourself, or for someone else.</string>
     <string name="assistance_tab_learn_more">Learn more</string>
 
+    <!-- Base Form Prologue Strings -->
+    <string name="base_forms_prologue_cancel">Cancel</string>
+    <string name="base_forms_prologue_start">Start</string>
+    <string name="base_forms_prologue_share">SHARE THIS FORM</string>
+
+    <!-- Volunteer Form -->
+    <string name="volunteer_form_title">VOLUNTEER SIGNUP</string>
+    <string name="volunteer_form_subtitle">Join the Almighty\n Giving Team!</string>
+    <string name="volunteer_form_description">Thanks for your interest in volunteering!\nPlease fill this out and we\'ll contact you soon about upcoming opportunities!</string>
+
+    <!-- Safetynet Form -->
+    <string name="safetynet_form_title">SAFETYNET PARTNER</string>
+    <string name="safetynet_form_subtitle">Join our forces!</string>
+    <string name="safetynet_form_description">The mission of the Giving Kitchen is to provide emergency assistance to restaurant workers through financial
+    support and a network of community resources.\n\n
+        While much of our energy, time, and resources are focused on GK signature events like Team Hidi, The Pinky, and Multiply Joy, we recognize that the core
+    strength of our organization lies in support from our industry, supplier partners, and community advocates. We also know there are many causes worthy of your
+    support. By focusing our resources in a few areas, we feel our impact to the restaurant community is much greater.\n\n
+    We hate to put you "through the hoops" when you are eager to partner with us, but this system helps us immensely with our decision-making and
+    record-keeping process. We appreciate your commitment and time in supporting our efforts to make effective decisions toward the betterment
+    of our industry.</string>
+
+    <!-- Assistance Inquiry Form -->
+    <string name="assistance_inquiry_form_title">ASSISTANCE INQUIRY</string>
+    <string name="assistance_inquiry_form_subtitle">Do you need help?</string>
+    <string name="assistance_inquiry_form_description">Our Crisis Grants program currently serve restaurant workers living in Metro Atlanta, Athens,
+    Columbus, and Rome. Grants are awarded based on the restaurant worker\'s financial need as well as a set of criteria according to the type of crisis.
+    Most often, our financial assistance covers the cost of rent and utilities, paid directly to the service provider(s). Applications are reviewed by Giving Kitchen
+    staff and a review committee consisting of GK board members. The average time to fully process an application from beginning to end is three weeks.\n\n
+    Please note: we do not pay medical expenses.</string>
+
+    <!-- Assistance Referral Form -->
+    <string name="assistance_referral_form_title">ASSISTANCE INQUIRY REFERRAL</string>
+    <string name="assistance_referral_form_subtitle">Does someone you know\n need help?!</string>
+    <string name="assistance_referral_form_description">Our Crisis Grants program currently serve restaurant workers living in Metro Atlanta, Athens,
+    Columbus, and Rome. Grants are awarded based on the restaurant worker\'s financial need as well as a set of criteria according to the type of crisis.
+    Most often, our financial assistance covers the cost of rent and utilities, paid directly to the service provider(s). Applications are reviewed by Giving Kitchen
+    staff and a review committee consisting of GK board members. The average time to fully process an application from beginning to end is three weeks.\n\n
+    Please note: we do not pay medical expenses.</string>
+
     <!-- Content Descriptions -->
     <string name="give_tab_examples_left_chevron">Reduce the suggested donation amount</string>
     <string name="give_tab_examples_right_chevron">Increase the suggested donation amount</string>
