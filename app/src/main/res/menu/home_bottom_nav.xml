@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/eventsFragment"
+        android:icon="@drawable/ic_tab_events"
+        android:title="@string/tab_events" />
+
+    <item
+        android:id="@+id/assistanceFragment"
+        android:icon="@drawable/ic_tab_assistance"
+        android:title="@string/tab_assistance" />
+
+    <item
+        android:id="@+id/giveFragment"
+        android:icon="@drawable/ic_tab_give"
+        android:title="@string/tab_give" />
+
+    <item
+        android:id="@+id/safetynetFragment"
+        android:icon="@drawable/ic_tab_safetynet"
+        android:title="@string/tab_safetynet" />
+
+</menu>

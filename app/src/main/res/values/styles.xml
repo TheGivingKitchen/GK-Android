@@ -1,0 +1,95 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/gk_orange</item>
+        <item name="colorPrimaryDark">@color/gk_orange</item>
+        <item name="colorAccent">@color/gk_blue</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="AppThemeNoTitlebar" parent="AppTheme">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+    </style>
+
+    <!-- Default Text Styles -->
+    <style name="RegularText">
+        <item name="android:fontFamily">@font/kulturista_medium</item>
+    </style>
+
+    <style name="BoldText">
+        <item name="android:fontFamily">@font/kulturista_bold</item>
+    </style>
+
+    <style name="ParagraphText" parent="RegularText">
+        <item name="android:textSize">8pt</item>
+    </style>
+
+    <style name="ButtonText" parent="RegularText">
+        <item name="android:textSize">9pt</item>
+    </style>
+
+    <style name="LargeHeaderText" parent="RegularText">
+        <item name="android:textSize">10pt</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:lineSpacingExtra">5dp</item>
+    </style>
+
+    <!-- General UI Elements -->
+    <style name="DividerView">
+        <item name="android:background">@color/light_grey</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="DividerViewSmall" parent="DividerView">
+        <item name="android:layout_height">1dp</item>
+    </style>
+
+    <style name="DividerViewLarge" parent="DividerView">
+        <item name="android:layout_height">4dp</item>
+    </style>
+    
+    <style name="CTAButton" parent="ButtonText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:paddingBottom">15dp</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:background">@color/gk_orange</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:elevation">10dp</item>
+    </style>
+
+    <!-- Give Tab -->
+    <style name="GiveTabButton" parent="ButtonText">
+        <item name="android:textColor">@color/gk_orange</item>
+        <item name="android:paddingTop">@dimen/give_tab_spacing</item>
+        <item name="android:paddingBottom">@dimen/give_tab_spacing</item>
+        <item name="android:paddingStart">@dimen/give_tab_spacing</item>
+        <item name="android:paddingEnd">@dimen/give_tab_spacing</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <style name="GiveTabDonationExampleAmount">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">22pt</item>
+        <item name="android:paddingTop">8pt</item>
+    </style>
+
+    <style name="GiveTabHeader" parent="ParagraphText">
+        <item name="android:textColor">@color/dark_grey</item>
+        <item name="android:paddingStart">@dimen/give_tab_spacing</item>
+        <item name="android:paddingEnd">@dimen/give_tab_spacing</item>
+    </style>
+
+    <style name="GiveTabParagraph" parent="ParagraphText">
+        <item name="android:paddingStart">@dimen/give_tab_spacing</item>
+        <item name="android:paddingEnd">@dimen/give_tab_spacing</item>
+    </style>
+
+</resources>

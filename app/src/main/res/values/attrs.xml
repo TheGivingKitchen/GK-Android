@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- HeaderView -->
+    <declare-styleable name="HeaderView">
+        <attr name="drawable_HeaderView" format="reference"/>
+    </declare-styleable>
+</resources>

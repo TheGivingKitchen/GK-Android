@@ -1,0 +1,66 @@
+{
+  "project_info": {
+    "project_number": "538860340695",
+    "firebase_url": "https://thegivingkitchen-cdd28.firebaseio.com",
+    "project_id": "thegivingkitchen-cdd28",
+    "storage_bucket": "thegivingkitchen-cdd28.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:538860340695:android:b008f185841aab1e",
+        "android_client_info": {
+          "package_name": "org.thegivingkitchen.android.thegivingkitchen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "538860340695-88sispejrria9kbvsqvick4j956t7bbf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.thegivingkitchen.android.thegivingkitchen",
+            "certificate_hash": "605ec781a529685c97c8ae6de95acf9081d6ba8d"
+          }
+        },
+        {
+          "client_id": "538860340695-1b59qm3ngsfaeq3d8ujvdri405fj2ifo.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "538860340695-1b59qm3ngsfaeq3d8ujvdri405fj2ifo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_c_Q7wS-tWzw7sl0ogFRzt6RWDFQAKf0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "538860340695-1b59qm3ngsfaeq3d8ujvdri405fj2ifo.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "538860340695-e88h8b1pb87nhnvg99jsmcuhima7752k.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.thegivingkitchen.TGK"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,51 @@
+<resources>
+    <string name="app_name">The Giving Kitchen</string>
+
+    <!-- Tabs -->
+    <string name="tab_events">Events</string>
+    <string name="tab_assistance">Assistance</string>
+    <string name="tab_safetynet">SafetyNet</string>
+    <string name="tab_give">Give</string>
+
+    <!-- Give Tab -->
+    <string name="give_tab_credit_card_button">Donate with card</string>
+    <string name="give_tab_recurring_donation_button">Start a recurring donation</string>
+    <string name="give_tab_volunteer_header">Volunteer</string>
+    <string name="give_tab_volunteer_description">From educating the public about our program services to providing special event support, GK would not exist without the dedication of our champion volunteers. Join the team!</string>
+    <string name="give_tab_volunteer_button">Volunteer!</string>
+    <string name="give_tab_partner_header">Partner</string>
+    <string name="give_tab_partner_description">Would you like to become part of Giving Kitchen\'s social service or community resource referral program? We\'d love to hear from you!</string>
+    <string name="give_tab_partner_button">Become a SafetyNet Partner</string>
+    <string name="give_tab_examples_currency_sign">$</string>
+
+    <!-- Donation amount examples -->
+    <string name="give_tab_examples_late_fee">Covers a late fee</string>
+    <string name="give_tab_examples_water_bill">Covers a water bill</string>
+    <string name="give_tab_examples_power_bill">Covers a power bill</string>
+    <string name="give_tab_examples_gas_bill">Covers a gas bill</string>
+    <string name="give_tab_examples_housing">Covers housing</string>
+    <string name="give_tab_examples_total_grant">A total grant!!</string>
+
+    <!-- Assistance Tab -->
+    <string name="assistance_tab_crisis_grants_title">CRISIS GRANTS\n</string>
+    <string name="assistance_tab_crisis_grants_description">Through our Crisis Grants, we cover the cost of living expenses for restaurant workers impacted by </string>
+    <string name="assistance_tab_crisis_grants_illness">\u0020illness</string>
+    <string name="assistance_tab_crisis_grants_injury">injury</string>
+    <string name="assistance_tab_crisis_grants_death">death</string>
+    <string name="assistance_tab_crisis_grants_disaster">disaster</string>
+    <string name="assistance_tab_crisis_grants_comma">,\u0020</string>
+    <string name="assistance_tab_crisis_grants_ampersand">&amp;\u0020</string>
+    <string name="assistance_tab_crisis_grants_period">.</string>
+    <string name="assistance_tab_cta_for_you">For You</string>
+    <string name="assistance_tab_cta_for_someone_else">For Someone Else</string>
+    <string name="assistance_tab_start_inquiry">Start a crisis grant inquiry:</string>
+    <string name="assistance_tab_start_inquiry_description">You can start an assistance inquiry for yourself, or for someone else.</string>
+    <string name="assistance_tab_learn_more">Learn more</string>
+
+    <!-- Content Descriptions -->
+    <string name="give_tab_examples_left_chevron">Reduce the suggested donation amount</string>
+    <string name="give_tab_examples_right_chevron">Increase the suggested donation amount</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

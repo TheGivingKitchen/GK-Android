@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="gk_orange">#d9684d</color>
+    <color name="gk_blue">#2c4074</color>
+
+    <color name="white">#ffffff</color>
+    <color name="light_grey">#f5f5f3</color>
+    <color name="dark_grey">#a3a3a3</color>
+</resources>

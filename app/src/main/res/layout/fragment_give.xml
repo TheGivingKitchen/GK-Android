@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/header_giveTab"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/header_image_height"
+            android:layout_marginBottom="@dimen/header_image_bottom_margin"
+            android:layout_marginTop="@dimen/header_image_top_margin"
+            android:src="@drawable/give_header"
+            tools:ignore="ContentDescription" />
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@color/gk_blue">
+
+            <FrameLayout
+                android:id="@+id/leftChevronClickHolder_giveTab"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/donate_left_guideline_giveTab"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/leftChevron_giveTab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_vertical|start"
+                    android:layout_marginStart="15dp"
+                    android:contentDescription="@string/give_tab_examples_left_chevron"
+                    android:src="@drawable/ic_chevron_left" />
+            </FrameLayout>
+
+            <android.support.constraint.Guideline
+                android:id="@+id/donate_left_guideline_giveTab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.2" />
+
+            <TextView
+                app:layout_constraintEnd_toStartOf="@id/examples_amount_giveTab"
+                app:layout_constraintTop_toTopOf="parent"
+                style="@style/GiveTabDonationExampleAmount"
+                android:textSize="12pt"
+                android:layout_marginTop="13dp"
+                android:text="@string/give_tab_examples_currency_sign"
+                app:layout_constraintHorizontal_chainStyle="packed"/>
+
+            <EditText
+                android:id="@+id/examples_amount_giveTab"
+                style="@style/GiveTabDonationExampleAmount"
+                android:inputType="numberDecimal"
+                android:fontFamily="@font/kulturista_bold"
+                app:layout_constraintBottom_toTopOf="@id/examples_description_giveTab"
+                app:layout_constraintEnd_toStartOf="@id/donate_right_guideline_giveTab"
+                app:layout_constraintStart_toEndOf="@id/donate_left_guideline_giveTab"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintHorizontal_chainStyle="packed"/>
+
+            <TextView
+                android:id="@+id/examples_description_giveTab"
+                style="@style/ParagraphText"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/donate_right_guideline_giveTab"
+                app:layout_constraintStart_toEndOf="@id/donate_left_guideline_giveTab"
+                app:layout_constraintTop_toBottomOf="@id/examples_amount_giveTab" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/donate_right_guideline_giveTab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.8" />
+
+            <FrameLayout
+                android:id="@+id/rightChevronClickHolder_giveTab"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/donate_right_guideline_giveTab"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/rightChevron_giveTab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_marginEnd="15dp"
+                    android:contentDescription="@string/give_tab_examples_right_chevron"
+                    android:src="@drawable/ic_chevron_right" />
+            </FrameLayout>
+        </android.support.constraint.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/card_donate_button_giveTab"
+            style="@style/GiveTabButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/give_tab_credit_card_button" />
+
+        <View style="@style/DividerViewSmall" />
+
+        <TextView
+            android:id="@+id/recurring_donate_button_giveTab"
+            style="@style/GiveTabButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/give_tab_recurring_donation_button" />
+
+        <View style="@style/DividerViewLarge" />
+
+        <TextView
+            style="@style/GiveTabHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/give_tab_spacing"
+            android:text="@string/give_tab_volunteer_header" />
+
+        <TextView
+            style="@style/GiveTabParagraph"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/give_tab_spacing"
+            android:text="@string/give_tab_volunteer_description" />
+
+        <Button
+            android:id="@+id/volunteer_button_giveTab"
+            style="@style/CTAButton"
+            android:layout_marginTop="@dimen/give_tab_spacing"
+            android:layout_marginStart="@dimen/give_tab_spacing"
+            android:layout_marginEnd="@dimen/give_tab_spacing"
+            android:text="@string/give_tab_volunteer_button"/>
+
+        <View style="@style/DividerViewLarge" />
+
+        <TextView
+            style="@style/GiveTabHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/give_tab_spacing"
+            android:text="@string/give_tab_partner_header" />
+
+        <TextView
+            style="@style/GiveTabParagraph"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/give_tab_spacing"
+            android:text="@string/give_tab_partner_description" />
+
+        <Button
+            android:id="@+id/partner_button_giveTab"
+            style="@style/CTAButton"
+            android:layout_marginTop="@dimen/give_tab_spacing"
+            android:layout_marginStart="@dimen/give_tab_spacing"
+            android:layout_marginEnd="@dimen/give_tab_spacing"
+            android:layout_marginBottom="@dimen/give_tab_spacing"
+            android:text="@string/give_tab_partner_button"/>
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
