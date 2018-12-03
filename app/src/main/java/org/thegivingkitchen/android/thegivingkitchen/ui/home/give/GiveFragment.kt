@@ -70,9 +70,13 @@ class GiveFragment : Fragment() {
         model.onRightArrowClicked()
     }
 
-    private val volunteerButtonClickListener = Navigation.createNavigateOnClickListener(R.id.action_giveFragment_to_volunteerFormPrologueFragment)
+    private val volunteerButtonClickListener = View.OnClickListener {
+        Toast.makeText(context, "volunteer button clicked", Toast.LENGTH_SHORT).show()
+    }
 
-    private val partnerButtonClickListener = Navigation.createNavigateOnClickListener(R.id.action_giveFragment_to_safetynetFormPrologueFragment)
+    private val partnerButtonClickListener = View.OnClickListener {
+        Toast.makeText(context, "partner button clicked", Toast.LENGTH_SHORT).show()
+    }
 
     private fun updateDonationExamples(data: GiveViewModel.DonationExampleLiveData) {
         examples_amount_giveTab.setText(data.amount.toString(), TextView.BufferType.EDITABLE)

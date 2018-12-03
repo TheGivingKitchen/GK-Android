@@ -35,9 +35,13 @@ class AssistanceFragment : Fragment() {
         learn_more_button_assistanceTab.setOnClickListener(learnMoreButtonClickListener)
     }
 
-    private val forYouButtonClickListener = Navigation.createNavigateOnClickListener(R.id.action_assistanceFragment_to_assistanceInquiryFormPrologueFragment)
+    private val forYouButtonClickListener = View.OnClickListener {
+        Toast.makeText(context, "for you button clicked", Toast.LENGTH_SHORT).show()
+    }
 
-    private val forSomeoneElseButtonClickListener = Navigation.createNavigateOnClickListener(R.id.action_assistanceFragment_to_assistanceReferralFormPrologueFragment)
+    private val forSomeoneElseButtonClickListener = View.OnClickListener {
+        Toast.makeText(context, "for someone else button clicked", Toast.LENGTH_SHORT).show()
+    }
 
     private val learnMoreButtonClickListener = View.OnClickListener {
         Toast.makeText(context, "learn more button clicked", Toast.LENGTH_SHORT).show()
