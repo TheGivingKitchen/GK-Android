@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/eventsFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/eventsFragment"
@@ -55,4 +55,9 @@
         android:id="@+id/assistanceReferralFormPrologueFragment"
         android:name="org.thegivingkitchen.android.thegivingkitchen.ui.forms.assistancereferralform.AssistanceReferralFormPrologueFragment"
         android:label="AssistanceReferralFormPrologueFragment" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="org.thegivingkitchen.android.thegivingkitchen.ui.home.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home"/>
 </navigation>

@@ -64,15 +64,15 @@ class GiveFragment : Fragment() {
 
     private val leftExamplesArrowClickListener = View.OnClickListener {
         model.onLeftArrowClicked()
-    }  
+    }
 
     private val rightExamplesArrowClickListener = View.OnClickListener {
         model.onRightArrowClicked()
     }
 
-    private val volunteerButtonClickListener = Navigation.createNavigateOnClickListener(R.id.action_giveFragment_to_volunteerFormPrologueFragment)
+    private val volunteerButtonClickListener = Navigation.createNavigateOnClickListener(R.id.volunteerFormPrologueFragment)
 
-    private val partnerButtonClickListener = Navigation.createNavigateOnClickListener(R.id.action_giveFragment_to_safetynetFormPrologueFragment)
+    private val partnerButtonClickListener = Navigation.createNavigateOnClickListener(R.id.safetynetFormPrologueFragment)
 
     private fun updateDonationExamples(data: GiveViewModel.DonationExampleLiveData) {
         examples_amount_giveTab.setText(data.amount.toString(), TextView.BufferType.EDITABLE)
