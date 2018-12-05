@@ -1,21 +1,17 @@
 package org.thegivingkitchen.android.thegivingkitchen.ui.home.assistance
 
 import android.arch.lifecycle.ViewModelProviders
-import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Bundle
 import android.support.annotation.Nullable
-import android.support.customtabs.CustomTabsIntent
 import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
 import org.thegivingkitchen.android.thegivingkitchen.R
 import android.widget.TextView
-import android.widget.Toast
 import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_assistance.*
+import org.thegivingkitchen.android.thegivingkitchen.util.CustomTabs
 
 class AssistanceFragment : Fragment() {
     private lateinit var model: AssistanceViewModel
@@ -44,11 +40,6 @@ class AssistanceFragment : Fragment() {
     private val forSomeoneElseButtonClickListener = Navigation.createNavigateOnClickListener(R.id.assistanceReferralFormPrologueFragment)
 
     private val learnMoreButtonClickListener = View.OnClickListener {
-        CustomTabsIntent.Builder()
-                .setToolbarColor(ContextCompat.getColor(context!!, R.color.white))
-                // todo: this does't do anything?
-                .setCloseButtonIcon(BitmapFactory.decodeResource(resources, R.drawable.ic_chevron_left))
-                .build()
-                .launchUrl(context, Uri.parse(model.learnMoreURL))
+          CustomTabs.openCustomTab(context, model.learnMoreURL)
     }
 }

@@ -2,13 +2,9 @@ package org.thegivingkitchen.android.thegivingkitchen.ui.home.give
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
-import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Bundle
 import android.support.annotation.Nullable
-import android.support.customtabs.CustomTabsIntent
 import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +14,7 @@ import android.widget.Toast.LENGTH_SHORT
 import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_give.*
 import org.thegivingkitchen.android.thegivingkitchen.R
+import org.thegivingkitchen.android.thegivingkitchen.util.CustomTabs
 import org.thegivingkitchen.android.thegivingkitchen.util.getFloatDimension
 
 class GiveFragment : Fragment() {
@@ -50,16 +47,11 @@ class GiveFragment : Fragment() {
     }
 
     private val creditCardDonationClickListener = View.OnClickListener {
-        CustomTabsIntent.Builder()
-                .setToolbarColor(ContextCompat.getColor(context!!, R.color.white))
-                // todo: this does't do anything?
-                .setCloseButtonIcon(BitmapFactory.decodeResource(resources, R.drawable.ic_chevron_left))
-                .build()
-                .launchUrl(context, Uri.parse(model.creditCardDonationURL))
+        CustomTabs.openCustomTab(context, model.creditCardDonationURL)
     }
 
     private val recurringDonationClickListener = View.OnClickListener {
-        Toast.makeText(context, "recurring donate button clicked", LENGTH_SHORT).show()
+        CustomTabs.openCustomTab(context, model.recurringDonationURL)
     }
 
     private val leftExamplesArrowClickListener = View.OnClickListener {
