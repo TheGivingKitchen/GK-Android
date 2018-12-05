@@ -29,7 +29,7 @@ class AssistanceFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        crisis_grants_description_assistanceTab.setText(model.setHeaderText(context!!), TextView.BufferType.SPANNABLE)
+        header_description_assistanceTab.setText(model.setHeaderText(context!!), TextView.BufferType.SPANNABLE)
         for_you_button_assistanceTab.setOnClickListener(forYouButtonClickListener)
         for_someone_else_button_assistanceTab.setOnClickListener(forSomeoneElseButtonClickListener)
         learn_more_button_assistanceTab.setOnClickListener(learnMoreButtonClickListener)

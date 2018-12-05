@@ -8,6 +8,8 @@
     <string name="tab_give">Give</string>
 
     <!-- Give Tab -->
+    <string name="give_tab_credit_header_description">Donate, Volunteer, or Partner:\nThree Ways to Get Involved &amp;\u0020 Make a Difference.</string>
+    <string name="give_tab_learn_more">Learn more</string>
     <string name="give_tab_credit_card_button">Donate with card</string>
     <string name="give_tab_recurring_donation_button">Start a recurring donation</string>
     <string name="give_tab_volunteer_header">Volunteer</string>

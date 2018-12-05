@@ -38,6 +38,7 @@ class GiveFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        learn_more_button_giveTab.setOnClickListener(learnMoreButtonClickListener)
         card_donate_button_giveTab.setOnClickListener(creditCardDonationClickListener)
         recurring_donate_button_giveTab.setOnClickListener(recurringDonationClickListener)
         leftChevronClickHolder_giveTab.setOnClickListener(leftExamplesArrowClickListener)
@@ -52,6 +53,10 @@ class GiveFragment : Fragment() {
 
     private val recurringDonationClickListener = View.OnClickListener {
         CustomTabs.openCustomTab(context, model.recurringDonationURL)
+    }
+
+    private val learnMoreButtonClickListener = View.OnClickListener {
+        CustomTabs.openCustomTab(context, model.learnMoreURL)
     }
 
     private val leftExamplesArrowClickListener = View.OnClickListener {
