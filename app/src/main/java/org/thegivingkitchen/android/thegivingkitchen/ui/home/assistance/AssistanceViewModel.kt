@@ -11,6 +11,8 @@ import android.text.style.ForegroundColorSpan
 import org.thegivingkitchen.android.thegivingkitchen.R
 
 class AssistanceViewModel: ViewModel() {
+    val learnMoreURL = "https://connect.clickandpledge.com/w/Form/d11bff52-0cd0-44d8-9403-465614e4f342"
+
     private fun addColoredString(context: Context, @StringRes str: Int, @ColorRes color: Int): SpannableString {
         val string = context.getString(str)
         val spannableString = SpannableString(string)
