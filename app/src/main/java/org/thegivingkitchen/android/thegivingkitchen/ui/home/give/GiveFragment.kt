@@ -64,7 +64,7 @@ class GiveFragment : Fragment() {
 
     private val leftExamplesArrowClickListener = View.OnClickListener {
         model.onLeftArrowClicked()
-    }
+    }  
 
     private val rightExamplesArrowClickListener = View.OnClickListener {
         model.onRightArrowClicked()
