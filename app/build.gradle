@@ -44,6 +44,8 @@ dependencies {
     implementation "android.arch.navigation:navigation-ui-ktx:$nav_version"
     implementation "android.arch.lifecycle:extensions:$lifecycle_version"
     implementation 'com.android.support:support-v4:27.1.1'
+    implementation 'com.squareup.okhttp3:okhttp:3.12.0'
+    implementation 'com.squareup.okio:okio:2.1.0'
     kapt "android.arch.lifecycle:compiler:$lifecycle_version"
     implementation "android.arch.paging:runtime:1.0.1"
     testImplementation 'junit:junit:4.12'

@@ -11,6 +11,8 @@ import org.thegivingkitchen.android.thegivingkitchen.R
 import org.thegivingkitchen.android.thegivingkitchen.util.CustomTabs
 
 class EventsFragment : Fragment() {
+    // todo: ask about link to volunteer form in the screen on iOS
+
     private val learnMoreURL = "https://thegivingkitchen.org/events/"
 
     @Nullable
