@@ -18,8 +18,8 @@ class EventsFragment : Fragment() {
     // todo: ask about link to volunteer form in the screen on iOS
 
     companion object {
-        private val learnMoreURL = "https://thegivingkitchen.org/events/"
-        private val eventsDataURL = "https://thegivingkitchen.org/events-calendar?format=rss"
+        private const val learnMoreURL = "https://thegivingkitchen.org/events/"
+        private const val eventsDataURL = "https://thegivingkitchen.org/events-calendar?format=rss"
     }
 
     @Nullable
@@ -38,17 +38,16 @@ class EventsFragment : Fragment() {
         CustomTabs.openCustomTab(context, learnMoreURL)
     }
 
-
-    inner class GetEventsTask : AsyncTask<String, Boolean, String>() {
+    inner class GetEventsTask : AsyncTask<String, Void, String>() {
         private val httpClient = OkHttpClient()
 
         override fun doInBackground(vararg params: String): String? {
+            publishProgress()
             return getData(params[0])
         }
 
-        override fun onProgressUpdate(vararg values: Boolean?) {
+        override fun onProgressUpdate(vararg values: Void?) {
             progressBar_eventsTab.visibility = View.VISIBLE
-            response_eventsTab.text = "djkdnjkdbjkdnjkdnkdd"
         }
 
         override fun onPostExecute(result: String?) {
