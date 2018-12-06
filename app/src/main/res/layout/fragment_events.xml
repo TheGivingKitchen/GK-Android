@@ -40,4 +40,14 @@
 
     <View style="@style/DividerViewLarge" />
 
+    <ProgressBar
+        android:id="@+id/progressBar_eventsTab"
+        style="@style/ProgressBar"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/response_eventsTab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>
