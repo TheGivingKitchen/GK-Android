@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import kotlinx.android.synthetic.main.fragment_events.*
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -62,7 +63,11 @@ class EventsFragment : Fragment() {
                     .build()
 
             val response = httpClient.newCall(request).execute()
-            return response.body()?.string()
+
+            val mapper = jacksonObjectMapper()
+            val responseString = response.body()?.string()
+
+            return responseString
         }
     }
 }
