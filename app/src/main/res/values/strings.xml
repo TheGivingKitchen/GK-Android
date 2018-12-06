@@ -7,6 +7,10 @@
     <string name="tab_safetynet">SafetyNet</string>
     <string name="tab_give">Give</string>
 
+    <!-- Events Tab -->
+    <string name="events_tab_header_description">The Giving Kitchen is building a restaurant community where crisis is met with compassion and care, and anyone can be a hero. </string>
+    <string name="events_tab_learn_more">Learn more</string>
+
     <!-- Give Tab -->
     <string name="give_tab_credit_header_description">Donate, Volunteer, or Partner:\nThree Ways to Get Involved &amp;\u0020 Make a Difference.</string>
     <string name="give_tab_learn_more">Learn more</string>
@@ -19,6 +23,8 @@
     <string name="give_tab_partner_description">Would you like to become part of Giving Kitchen\'s social service or community resource referral program? We\'d love to hear from you!</string>
     <string name="give_tab_partner_button">Become a SafetyNet Partner</string>
     <string name="give_tab_examples_currency_sign">$</string>
+    <string name="give_tab_salad_image_description">A group of people eating salad together</string>
+    <string name="give_tab_teamwork_image_description">A meeting where people listen to a team leader</string>
 
     <!-- Donation amount examples -->
     <string name="give_tab_examples_late_fee">Covers a late fee</string>

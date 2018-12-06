@@ -82,10 +82,9 @@
                 android:text="@string/give_tab_examples_currency_sign"
                 app:layout_constraintHorizontal_chainStyle="packed"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/examples_amount_giveTab"
                 style="@style/GiveTabDonationExampleAmount"
-                android:inputType="numberDecimal"
                 android:fontFamily="@font/kulturista_bold"
                 app:layout_constraintBottom_toTopOf="@id/examples_description_giveTab"
                 app:layout_constraintEnd_toStartOf="@id/donate_right_guideline_giveTab"
@@ -172,6 +171,15 @@
             android:layout_marginEnd="@dimen/universal_horizontal_spacing"
             android:text="@string/give_tab_volunteer_button"/>
 
+        <ImageView
+            android:id="@+id/volunteerImage_giveTab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/pic_eating_salad"
+            android:contentDescription="@string/give_tab_salad_image_description"/>
+
         <View style="@style/DividerViewLarge" />
 
         <TextView
@@ -194,8 +202,16 @@
             android:layout_marginTop="@dimen/universal_horizontal_spacing"
             android:layout_marginStart="@dimen/universal_horizontal_spacing"
             android:layout_marginEnd="@dimen/universal_horizontal_spacing"
-            android:layout_marginBottom="@dimen/universal_horizontal_spacing"
             android:text="@string/give_tab_partner_button"/>
+
+        <ImageView
+            android:id="@+id/safetynetImage_giveTab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/pic_eating_salad"
+            android:contentDescription="@string/give_tab_teamwork_image_description"/>
 
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>
