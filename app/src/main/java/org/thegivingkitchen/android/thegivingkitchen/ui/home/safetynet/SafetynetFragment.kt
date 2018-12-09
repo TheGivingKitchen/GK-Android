@@ -21,6 +21,7 @@ class SafetynetFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // todo: delete this file when done
         val localFile = File.createTempFile("safetynet", "json")
         progressBar_safetynetTab.visibility = View.VISIBLE
 
