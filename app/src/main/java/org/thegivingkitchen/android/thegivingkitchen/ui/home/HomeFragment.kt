@@ -5,6 +5,7 @@ import android.support.annotation.Nullable
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -25,10 +26,23 @@ class HomeFragment: Fragment()  {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bottomNav_home.setOnNavigationItemSelectedListener(navListener)
+        loadFragment(getSelectedFragment(bottomNav_home.selectedItemId))
     }
 
     private val navListener = BottomNavigationView.OnNavigationItemSelectedListener {
-        val selectedFragment = when(it.itemId) {
+        loadFragment(getSelectedFragment(it.itemId))
+        true
+    }
+
+    private fun loadFragment(fragment: Fragment) {
+        activity?.supportFragmentManager!!
+                .beginTransaction()
+                .replace(R.id.fragmentContainer_home, fragment)
+                .commit()
+    }
+
+    private fun getSelectedFragment(item: Int): Fragment {
+        return when (item) {
             R.id.eventsFragment -> {
                 EventsFragment()
             }
@@ -46,12 +60,5 @@ class HomeFragment: Fragment()  {
                 EventsFragment()
             }
         }
-
-        activity?.supportFragmentManager!!
-                .beginTransaction()
-                .replace(R.id.fragmentContainer_home, selectedFragment)
-                .commit()
-
-        true
     }
 }
