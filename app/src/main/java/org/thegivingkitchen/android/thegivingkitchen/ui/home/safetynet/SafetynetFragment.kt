@@ -5,6 +5,8 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.annotation.Nullable
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
@@ -17,14 +19,15 @@ import org.thegivingkitchen.android.thegivingkitchen.util.Firebase.moshi
 import java.io.*
 
 class SafetynetFragment : Fragment() {
-    private lateinit var jsonAdapter: JsonAdapter<SocialServiceProvider>
+    private lateinit var jsonAdapter: JsonAdapter<SocialServiceProvidersList>
     private lateinit var model: SafetynetViewModel
+    private var adapter = SafetynetAdapter(listOf())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         model = ViewModelProviders.of(this).get(SafetynetViewModel::class.java)
-        jsonAdapter = moshi.adapter(SocialServiceProvider::class.java)
-        model.getCurrentJson().observe(this, Observer<String> { liveData ->
+        jsonAdapter = moshi.adapter(SocialServiceProvidersList::class.java)
+        model.getCurrentJson().observe(this, Observer<List<SocialServiceProvider>> { liveData ->
             updateJson(liveData!!)
         })
     }
@@ -40,6 +43,8 @@ class SafetynetFragment : Fragment() {
         // todo: delete this file when done
         val localFile = File.createTempFile("safetynet", "json")
         progressBar_safetynetTab.visibility = View.VISIBLE
+        recyclerView_safetynetTab.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        recyclerView_safetynetTab.adapter = adapter
 
         firebaseInstance.getReferenceFromUrl(safetynetDataUrl)
                 .getFile(localFile)
@@ -54,7 +59,11 @@ class SafetynetFragment : Fragment() {
                     line = bufferedReader.readLine()
                 }
                 bufferedReader.close()
-                model.setCurrentJson(stringBuilder.toString())
+                val jsonString = stringBuilder.toString()
+                val safetynetData = jsonAdapter.nullSafe().fromJson(jsonString)?.safetyNet
+                if (safetynetData != null) {
+                    model.setCurrentJson(safetynetData)
+                }
             } catch (e: IOException) {
                 progressBar_safetynetTab.visibility = View.GONE
                 // todo: log error
@@ -65,7 +74,8 @@ class SafetynetFragment : Fragment() {
         }
     }
 
-    private fun updateJson(data: String) {
-        textview_safetynet.text = data
+    private fun updateJson(data: List<SocialServiceProvider>) {
+        adapter.items  = data
+        adapter.notifyDataSetChanged()
     }
 }

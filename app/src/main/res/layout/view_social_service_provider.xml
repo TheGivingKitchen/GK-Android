@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/title_SafetynetRecycler"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/universal_horizontal_spacing"
+        android:layout_marginEnd="@dimen/universal_horizontal_spacing"
+        android:layout_marginTop="10dp"
+        style="@style/RegularText"
+        android:textSize="10pt"
+        android:textColor="@color/gk_orange"/>
+
+    <TextView
+        android:id="@+id/category_SafetynetRecycler"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/universal_horizontal_spacing"
+        android:layout_marginEnd="@dimen/universal_horizontal_spacing"
+        android:layout_marginTop="10dp"
+        style="@style/RegularText"
+        android:textColor="@color/gk_blue"/>
+
+    <TextView
+        android:id="@+id/address_SafetynetRecycler"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/universal_horizontal_spacing"
+        android:layout_marginEnd="@dimen/universal_horizontal_spacing"
+        android:layout_marginTop="20dp"
+        style="@style/RegularText"
+        android:textColor="@color/gk_blue"/>
+
+    <TextView
+        android:id="@+id/phone_SafetynetRecycler"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/universal_horizontal_spacing"
+        android:layout_marginEnd="@dimen/universal_horizontal_spacing"
+        android:layout_marginTop="20dp"
+        style="@style/RegularText"
+        android:textColor="@color/gk_blue"/>
+
+    <TextView
+        android:id="@+id/description_SafetynetRecycler"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/universal_horizontal_spacing"
+        android:layout_marginEnd="@dimen/universal_horizontal_spacing"
+        android:layout_marginTop="20dp"
+        style="@style/RegularText"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/counties_SafetynetRecycler"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/universal_horizontal_spacing"
+        android:layout_marginEnd="@dimen/universal_horizontal_spacing"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        style="@style/RegularText"
+        android:textColor="@color/black"/>
+
+    <View style="@style/DividerViewSmall"/>
+</LinearLayout>

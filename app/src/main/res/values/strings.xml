@@ -50,6 +50,9 @@
     <string name="assistance_tab_start_inquiry_description">You can start an assistance inquiry for yourself, or for someone else.</string>
     <string name="assistance_tab_learn_more">Learn more</string>
 
+    <!-- Safetynet Tab -->
+    <string name="safetynet_tab_counties_served">Serving counties: %1$s</string>
+
     <!-- Base Form Prologue Strings -->
     <string name="base_forms_prologue_cancel">Cancel</string>
     <string name="base_forms_prologue_start">Start</string>

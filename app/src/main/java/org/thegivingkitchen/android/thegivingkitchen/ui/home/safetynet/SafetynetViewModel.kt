@@ -10,13 +10,13 @@ class SafetynetViewModel : ViewModel() {
         const val safetynetDataUrl = firebaseStorageUrl + "safetyNet/safetyNet.json"
     }
 
-    private var currentJson: MutableLiveData<String> = MutableLiveData()
+    private var currentJson: MutableLiveData<List<SocialServiceProvider>> = MutableLiveData()
 
-    fun getCurrentJson(): LiveData<String> {
+    fun getCurrentJson(): LiveData<List<SocialServiceProvider>> {
         return currentJson
     }
 
-    fun setCurrentJson(json: String) {
-        currentJson.value = json
+    fun setCurrentJson(data: List<SocialServiceProvider>) {
+        currentJson.value = data
     }
 }

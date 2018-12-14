@@ -11,8 +11,15 @@
         style="@style/ProgressBar"/>
 
     <TextView
-        android:id="@+id/textview_safetynet"
+        android:id="@+id/textview_safetynetTab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView_safetynetTab"
+        android:scrollbars="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 </LinearLayout>

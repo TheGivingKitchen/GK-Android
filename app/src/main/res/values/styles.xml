@@ -16,6 +16,7 @@
     <!-- Default Text Styles -->
     <style name="RegularText">
         <item name="android:fontFamily">@font/kulturista_medium</item>
+        <item name="android:lineSpacingExtra">5dp</item>
     </style>
 
     <style name="BoldText">
