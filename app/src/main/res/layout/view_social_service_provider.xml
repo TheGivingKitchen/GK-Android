@@ -62,9 +62,9 @@
         android:layout_marginStart="@dimen/universal_horizontal_spacing"
         android:layout_marginEnd="@dimen/universal_horizontal_spacing"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"
         style="@style/RegularText"
         android:textColor="@color/black"/>
 
-    <View style="@style/DividerViewSmall"/>
+    <View style="@style/DividerViewSmall"
+        android:layout_marginTop="20dp"/>
 </LinearLayout>

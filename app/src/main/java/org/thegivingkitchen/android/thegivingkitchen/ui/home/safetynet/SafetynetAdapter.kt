@@ -21,7 +21,6 @@ class SafetynetAdapter(var items: List<SocialServiceProvider>) : RecyclerView.Ad
     override fun getItemCount() = items.size
 }
 
-
 class MyViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     fun bind(socialServiceProvider: SocialServiceProvider) {
         setTextIfItExists(R.id.title_SafetynetRecycler, socialServiceProvider.name)
@@ -29,7 +28,13 @@ class MyViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         setTextIfItExists(R.id.address_SafetynetRecycler, socialServiceProvider.address)
         setTextIfItExists(R.id.phone_SafetynetRecycler, socialServiceProvider.phone)
         setTextIfItExists(R.id.description_SafetynetRecycler, socialServiceProvider.description)
-        setTextIfItExists(R.id.counties_SafetynetRecycler, view.context.getString(R.string.safetynet_tab_counties_served, socialServiceProvider.countiesServed))
+        val countiesServedText = socialServiceProvider.countiesServed
+        val countiesServedTextView = view.findViewById<TextView>(R.id.counties_SafetynetRecycler)
+        if (countiesServedText.isNullOrBlank()) {
+            countiesServedTextView.visibility = View.GONE
+        } else {
+            countiesServedTextView.text = view.context.getString(R.string.safetynet_tab_counties_served, countiesServedText)
+        }
     }
 
     private fun setTextIfItExists(@IdRes id: Int, text: String?) {
