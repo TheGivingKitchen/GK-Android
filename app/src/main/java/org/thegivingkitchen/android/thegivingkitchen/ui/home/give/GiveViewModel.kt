@@ -5,12 +5,13 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.support.annotation.StringRes
 import org.thegivingkitchen.android.thegivingkitchen.R
+import org.thegivingkitchen.android.thegivingkitchen.util.Constants.givingKitchenUrl
 
 class GiveViewModel : ViewModel() {
     data class DonationExample(val amount: Int, @StringRes val description: Int)
     data class DonationExampleLiveData(val amount: Int, @StringRes val description: Int, val leftArrowEnabled: Boolean, val rightArrowEnabled: Boolean)
 
-    val learnMoreURL = "https://thegivingkitchen.org/support/"
+    val learnMoreURL = "$givingKitchenUrl/support/"
     val creditCardDonationURL = "https://connect.clickandpledge.com/w/Form/d11bff52-0cd0-44d8-9403-465614e4f342"
     val recurringDonationURL = "https://connect.clickandpledge.com/w/Form/40b3de1f-fa46-4735-874f-c152e272620e"
 

@@ -7,7 +7,7 @@ import org.thegivingkitchen.android.thegivingkitchen.util.Constants.firebaseStor
 
 class SafetynetViewModel : ViewModel() {
     companion object {
-        const val safetynetDataUrl = firebaseStorageUrl + "safetyNet/safetyNet.json"
+        const val safetynetDataUrl =  "$firebaseStorageUrl/safetyNet/safetyNet.json"
     }
 
     private var currentJson: MutableLiveData<List<SocialServiceProvider>> = MutableLiveData()
