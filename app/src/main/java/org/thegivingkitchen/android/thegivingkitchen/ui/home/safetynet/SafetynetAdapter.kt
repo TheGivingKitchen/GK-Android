@@ -39,6 +39,7 @@ class MyViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
     private fun setTextIfItExists(@IdRes id: Int, text: String?) {
         val view = view.findViewById<TextView>(id)
+        // todo: it you scroll really fast(?) the fields sometimes don't show up
         if (text.isNullOrBlank()) {
             view.visibility = View.GONE
         } else {

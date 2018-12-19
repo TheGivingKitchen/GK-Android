@@ -100,11 +100,20 @@ class StackOverflowXmlParser {
             if (parser.eventType != XmlPullParser.START_TAG) {
                 continue
             }
-            // Starts by looking for the "item" tag
-            if (parser.name == "item") {
-                entries.add(readItem(parser))
-            } else {
-                skip(parser)
+
+            if (parser.name == "channel") {
+                parser.require(XmlPullParser.START_TAG, ns, "channel")
+                while (parser.next() != XmlPullParser.END_TAG) {
+                    if (parser.eventType != XmlPullParser.START_TAG) {
+                        continue
+                    }
+
+                    if (parser.name == "item") {
+                        entries.add(readItem(parser))
+                    } else {
+                        skip(parser)
+                    }
+                }
             }
         }
         return entries
@@ -139,7 +148,7 @@ class StackOverflowXmlParser {
             }
             when (parser.name) {
                 "title" -> title = readTitle(parser)
-                "media:content" -> picUrl = readLink(parser)
+                // "media:content" -> picUrl = readLink(parser)
                 "description" -> description = readSummary(parser)
                 else -> skip(parser)
             }
