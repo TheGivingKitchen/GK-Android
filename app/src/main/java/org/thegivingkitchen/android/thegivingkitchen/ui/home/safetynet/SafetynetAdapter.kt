@@ -8,20 +8,20 @@ import android.view.ViewGroup
 import android.widget.TextView
 import org.thegivingkitchen.android.thegivingkitchen.R
 
-class SafetynetAdapter(var items: List<SocialServiceProvider>) : RecyclerView.Adapter<MyViewHolder>() {
+class SafetynetAdapter(var items: List<SocialServiceProvider>) : RecyclerView.Adapter<SocialServiceProviderViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        return MyViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_social_service_provider, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SocialServiceProviderViewHolder {
+        return SocialServiceProviderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_social_service_provider, parent, false))
     }
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: SocialServiceProviderViewHolder, position: Int) {
         holder.bind(items[position])
     }
 
     override fun getItemCount() = items.size
 }
 
-class MyViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+class SocialServiceProviderViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     fun bind(socialServiceProvider: SocialServiceProvider) {
         setTextIfItExists(R.id.title_SafetynetRecycler, socialServiceProvider.name)
         setTextIfItExists(R.id.category_SafetynetRecycler, socialServiceProvider.category)
