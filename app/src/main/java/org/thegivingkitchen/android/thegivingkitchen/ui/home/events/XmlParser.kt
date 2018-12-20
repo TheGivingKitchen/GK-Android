@@ -76,7 +76,7 @@ class XmlParser {
             }
             when (parser.name) {
                 "title" -> title = readTitle(parser)
-                // "media:content" -> picUrl = readLink(parser)
+                "media:content" -> picUrl = readLink(parser)
                 "description" -> description = readDescription(parser)
                 else -> skip(parser)
             }
@@ -101,9 +101,7 @@ class XmlParser {
         if (tag == "media:content") {
             if (relType == "image/jpeg" || relType == "image/png") {
                 link = parser.getAttributeValue(null, "url")
-                while (parser.next() != XmlPullParser.END_TAG) {
-                    parser.next()
-                }
+                skip(parser)
             }
         }
         parser.require(XmlPullParser.END_TAG, namespace, "media:content")
