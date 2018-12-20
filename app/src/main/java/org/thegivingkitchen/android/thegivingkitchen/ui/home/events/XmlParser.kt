@@ -6,7 +6,7 @@ import org.xmlpull.v1.XmlPullParserException
 import java.io.IOException
 import java.io.InputStream
 
-class StackOverflowXmlParser {
+class XmlParser {
     companion object {
         private val namespace: String? = null
     }

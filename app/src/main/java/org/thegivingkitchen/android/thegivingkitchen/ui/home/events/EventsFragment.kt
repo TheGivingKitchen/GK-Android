@@ -1,5 +1,7 @@
 package org.thegivingkitchen.android.thegivingkitchen.ui.home.events
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.annotation.Nullable
@@ -22,6 +24,17 @@ class EventsFragment : Fragment() {
         private const val eventsDataURL = "$givingKitchenUrl/events-calendar?format=rss"
     }
 
+    private var adapter = EventsAdapter(listOf())
+    private lateinit var model: EventsViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        model = ViewModelProviders.of(this).get(EventsViewModel::class.java)
+        model.getCurrentEventsList().observe(this, Observer<List<Event>> { liveData ->
+            updateEventsList(liveData!!)
+        })
+    }
+
     @Nullable
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -32,6 +45,7 @@ class EventsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         learn_more_button_eventsTab.setOnClickListener(learnMoreButtonClickListener)
         GetEventsTask().execute(eventsDataURL)
+        recyclerView_eventsTab.adapter = adapter
     }
 
     private val learnMoreButtonClickListener = View.OnClickListener {
@@ -52,7 +66,7 @@ class EventsFragment : Fragment() {
 
         override fun onPostExecute(result: String?) {
             progressBar_eventsTab.visibility = View.GONE
-            response_eventsTab.text = StackOverflowXmlParser().parse(ByteArrayInputStream(result?.toByteArray(Charsets.UTF_8))).toString()
+            model.setCurrentEventsList(XmlParser().parse(ByteArrayInputStream(result?.toByteArray(Charsets.UTF_8))))
         }
 
         @Throws(IOException::class)
@@ -66,5 +80,10 @@ class EventsFragment : Fragment() {
 
             return responseString
         }
+    }
+
+    private fun updateEventsList(data: List<Event>) {
+        adapter.items  = data
+        adapter.notifyDataSetChanged()
     }
 }
