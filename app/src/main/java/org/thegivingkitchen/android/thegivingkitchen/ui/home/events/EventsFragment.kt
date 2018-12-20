@@ -6,6 +6,8 @@ import android.os.AsyncTask
 import android.os.Bundle
 import android.support.annotation.Nullable
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
@@ -45,6 +47,7 @@ class EventsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         learn_more_button_eventsTab.setOnClickListener(learnMoreButtonClickListener)
         GetEventsTask().execute(eventsDataURL)
+        recyclerView_eventsTab.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         recyclerView_eventsTab.adapter = adapter
     }
 
@@ -61,11 +64,11 @@ class EventsFragment : Fragment() {
         }
 
         override fun onProgressUpdate(vararg values: Void?) {
-            progressBar_eventsTab.visibility = View.VISIBLE
+            // progressBar_eventsTab.visibility = View.VISIBLE
         }
 
         override fun onPostExecute(result: String?) {
-            progressBar_eventsTab.visibility = View.GONE
+      //       progressBar_eventsTab.visibility = View.GONE
             model.setCurrentEventsList(XmlParser().parse(ByteArrayInputStream(result?.toByteArray(Charsets.UTF_8))))
         }
 

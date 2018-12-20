@@ -23,7 +23,7 @@ class EventsAdapter(var items: List<Event>) : RecyclerView.Adapter<EventViewHold
 class EventViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     fun bind(event: Event) {
         setTextIfItExists(R.id.title_EventsRecycler, event.title)
-        setTextIfItExists(R.id.description_EventsRecycler, event.description)
+        setTextIfItExists(R.id.description_EventsRecycler, event.description?.replace("\n", ""))
         setTextIfItExists(R.id.picUrl_EventsRecycler, event.picUrl)
     }
 

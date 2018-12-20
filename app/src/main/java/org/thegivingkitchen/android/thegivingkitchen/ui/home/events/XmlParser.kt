@@ -76,8 +76,8 @@ class XmlParser {
             }
             when (parser.name) {
                 "title" -> title = readTitle(parser)
-                "media:content" -> picUrl = readLink(parser)
-                "description" -> description = readSummary(parser)
+                // "media:content" -> picUrl = readLink(parser)
+                "description" -> description = readDescription(parser)
                 else -> skip(parser)
             }
         }
@@ -99,9 +99,11 @@ class XmlParser {
         val tag = parser.name
         val relType = parser.getAttributeValue(null, "type")
         if (tag == "media:content") {
-            if (relType == "image/jpeg") {
+            if (relType == "image/jpeg" || relType == "image/png") {
                 link = parser.getAttributeValue(null, "url")
-                parser.nextTag()
+                while (parser.next() != XmlPullParser.END_TAG) {
+                    parser.next()
+                }
             }
         }
         parser.require(XmlPullParser.END_TAG, namespace, "media:content")
@@ -109,7 +111,7 @@ class XmlParser {
     }
 
     @Throws(IOException::class, XmlPullParserException::class)
-    private fun readSummary(parser: XmlPullParser): String {
+    private fun readDescription(parser: XmlPullParser): String {
         parser.require(XmlPullParser.START_TAG, namespace, "description")
         val summary = readText(parser)
         parser.require(XmlPullParser.END_TAG, namespace, "description")
