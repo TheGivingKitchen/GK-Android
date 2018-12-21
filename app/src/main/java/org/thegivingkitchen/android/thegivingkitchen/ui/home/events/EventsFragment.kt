@@ -11,6 +11,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
+import com.bumptech.glide.Glide
+import com.bumptech.glide.Priority
 import kotlinx.android.synthetic.main.fragment_events.*
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -19,6 +21,9 @@ import org.thegivingkitchen.android.thegivingkitchen.util.Constants.givingKitche
 import org.thegivingkitchen.android.thegivingkitchen.util.CustomTabs
 import java.io.ByteArrayInputStream
 import java.io.IOException
+import com.bumptech.glide.request.RequestOptions
+
+
 
 class EventsFragment : Fragment() {
     companion object {
@@ -26,7 +31,7 @@ class EventsFragment : Fragment() {
         private const val eventsDataURL = "$givingKitchenUrl/events-calendar?format=rss"
     }
 
-    private var adapter = EventsAdapter(listOf())
+    private var adapter = EventsAdapter(listOf(), this)
     private lateinit var model: EventsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
