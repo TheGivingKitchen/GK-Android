@@ -1,3 +1,5 @@
 package org.thegivingkitchen.android.thegivingkitchen.ui.home.events
 
-data class Event(val title: String?, val picUrl: String?, val description: String?)
+open class EventRecyclerItem(var title: String?, var subtitle: String?)
+
+class Event(title: String?, subtitle: String?, var picUrl: String? = null): EventRecyclerItem(title, subtitle)

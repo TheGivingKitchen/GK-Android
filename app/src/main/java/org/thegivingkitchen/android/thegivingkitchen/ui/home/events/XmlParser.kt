@@ -81,7 +81,7 @@ class XmlParser {
                 else -> skip(parser)
             }
         }
-        return Event(title, picUrl, description)
+        return Event(title, description, picUrl)
     }
 
     @Throws(IOException::class, XmlPullParserException::class)

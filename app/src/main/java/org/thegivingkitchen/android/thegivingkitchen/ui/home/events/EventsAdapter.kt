@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import org.thegivingkitchen.android.thegivingkitchen.R
@@ -26,7 +25,7 @@ class EventsAdapter(var items: List<Event>, val fragment: Fragment) : RecyclerVi
 class EventViewHolder(val view: View, val fragment: Fragment) : RecyclerView.ViewHolder(view) {
     fun bind(event: Event) {
         setTextIfItExists(R.id.title_EventsRecycler, event.title)
-        setTextIfItExists(R.id.description_EventsRecycler, event.description?.replace("\n", ""))
+        setTextIfItExists(R.id.description_EventsRecycler, event.subtitle?.replace("\n", ""))
         setPicture(event.picUrl, R.id.image_EventsRecycler)
     }
 
@@ -53,6 +52,6 @@ class EventViewHolder(val view: View, val fragment: Fragment) : RecyclerView.Vie
 
         Glide.with(fragment)
                 .load(httpsUrl)
-                .into(view.findViewById<ImageView>(id))
+                .into(view.findViewById(id))
     }
 }

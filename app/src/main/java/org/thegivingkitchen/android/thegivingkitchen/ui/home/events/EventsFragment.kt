@@ -69,11 +69,11 @@ class EventsFragment : Fragment() {
         }
 
         override fun onProgressUpdate(vararg values: Void?) {
-            // progressBar_eventsTab.visibility = View.VISIBLE
+            progressBar_eventsTab.visibility = View.VISIBLE
         }
 
         override fun onPostExecute(result: String?) {
-      //       progressBar_eventsTab.visibility = View.GONE
+            progressBar_eventsTab.visibility = View.GONE
             model.setCurrentEventsList(XmlParser().parse(ByteArrayInputStream(result?.toByteArray(Charsets.UTF_8))))
         }
 
@@ -91,7 +91,7 @@ class EventsFragment : Fragment() {
     }
 
     private fun updateEventsList(data: List<Event>) {
-        adapter.items  = data
+        adapter.items = data
         adapter.notifyDataSetChanged()
     }
 }
