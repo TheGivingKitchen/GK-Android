@@ -37,7 +37,6 @@ class HomeFragment: Fragment()  {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bottomNav_home.setOnNavigationItemSelectedListener(navListener)
-        loadFragment(model.getCurrentFragment().value!!)
     }
 
     private val navListener = BottomNavigationView.OnNavigationItemSelectedListener {
@@ -49,6 +48,7 @@ class HomeFragment: Fragment()  {
         activity?.supportFragmentManager!!
                 .beginTransaction()
                 .replace(R.id.fragmentContainer_home, fragment)
+                .addToBackStack(null)
                 .commit()
     }
 

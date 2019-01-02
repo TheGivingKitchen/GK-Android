@@ -73,6 +73,9 @@ class EventsFragment : Fragment() {
         }
 
         override fun onPostExecute(result: String?) {
+            // todo: put this progressbar visibility into the viewmodel so
+            // the app doesn't crash when this data is loaded when the user is
+            // no longer on this fragment
             progressBar_eventsTab.visibility = View.GONE
             model.setCurrentEventsList(XmlParser().parse(ByteArrayInputStream(result?.toByteArray(Charsets.UTF_8))))
         }
