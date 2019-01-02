@@ -18,15 +18,27 @@
         android:id="@+id/assistanceFragment"
         android:name="org.thegivingkitchen.android.thegivingkitchen.ui.home.assistance.AssistanceFragment"
         android:label="AssistanceFragment"
-        tools:layout="@layout/fragment_assistance" />
+        tools:layout="@layout/fragment_assistance" >
+        <action
+            android:id="@+id/action_assistanceFragment_to_formsFragment"
+            app:destination="@id/formsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/giveFragment"
         android:name="org.thegivingkitchen.android.thegivingkitchen.ui.home.give.GiveFragment"
         android:label="GiveFragment"
-        tools:layout="@layout/fragment_give" />
+        tools:layout="@layout/fragment_give" >
+        <action
+            android:id="@+id/action_giveFragment_to_formsFragment"
+            app:destination="@id/formsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="org.thegivingkitchen.android.thegivingkitchen.ui.home.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/formsFragment"
+        android:name="org.thegivingkitchen.android.thegivingkitchen.ui.forms.FormsFragment"
+        android:label="FormsFragment" />
 </navigation>

@@ -43,8 +43,8 @@ class GiveFragment : Fragment() {
         recurring_donate_button_giveTab.setOnClickListener(recurringDonationClickListener)
         leftChevronClickHolder_giveTab.setOnClickListener(leftExamplesArrowClickListener)
         rightChevronClickHolder_giveTab.setOnClickListener(rightExamplesArrowClickListener)
-        // volunteer_button_giveTab.setOnClickListener(volunteerButtonClickListener)
-        // partner_button_giveTab.setOnClickListener(partnerButtonClickListener)
+        volunteer_button_giveTab.setOnClickListener(volunteerButtonClickListener)
+        partner_button_giveTab.setOnClickListener(partnerButtonClickListener)
     }
 
     private val creditCardDonationClickListener = View.OnClickListener {
@@ -67,9 +67,9 @@ class GiveFragment : Fragment() {
         model.onRightArrowClicked()
     }
 
-    // private val volunteerButtonClickListener = Navigation.createNavigateOnClickListener(R.id.volunteerFormPrologueFragment)
+    private val volunteerButtonClickListener = Navigation.createNavigateOnClickListener(R.id.formsFragment)
 
-    // private val partnerButtonClickListener = Navigation.createNavigateOnClickListener(R.id.safetynetFormPrologueFragment)
+    private val partnerButtonClickListener = Navigation.createNavigateOnClickListener(R.id.formsFragment)
 
     private fun updateDonationExamples(data: GiveViewModel.DonationExampleLiveData) {
         examples_amount_giveTab.setText(data.amount.toString(), TextView.BufferType.EDITABLE)

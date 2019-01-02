@@ -30,14 +30,14 @@ class AssistanceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         header_description_assistanceTab.setText(model.setHeaderText(context!!), TextView.BufferType.SPANNABLE)
-        // for_you_button_assistanceTab.setOnClickListener(forYouButtonClickListener)
-        // for_someone_else_button_assistanceTab.setOnClickListener(forSomeoneElseButtonClickListener)
+        for_you_button_assistanceTab.setOnClickListener(forYouButtonClickListener)
+        for_someone_else_button_assistanceTab.setOnClickListener(forSomeoneElseButtonClickListener)
         learn_more_button_assistanceTab.setOnClickListener(learnMoreButtonClickListener)
     }
 
-    // private val forYouButtonClickListener = Navigation.createNavigateOnClickListener(R.id.assistanceInquiryFormPrologueFragment)
+    private val forYouButtonClickListener = Navigation.createNavigateOnClickListener(R.id.formsFragment)
 
-    // private val forSomeoneElseButtonClickListener = Navigation.createNavigateOnClickListener(R.id.assistanceReferralFormPrologueFragment)
+    private val forSomeoneElseButtonClickListener = Navigation.createNavigateOnClickListener(R.id.formsFragment)
 
     private val learnMoreButtonClickListener = View.OnClickListener {
           CustomTabs.openCustomTab(context, model.learnMoreURL)
