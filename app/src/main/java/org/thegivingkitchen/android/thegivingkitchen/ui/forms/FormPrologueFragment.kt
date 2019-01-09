@@ -2,7 +2,6 @@ package org.thegivingkitchen.android.thegivingkitchen.ui.forms
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Intent
 import android.os.Bundle
 import android.support.annotation.Nullable
 import android.support.v4.app.Fragment
@@ -10,7 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.squareup.moshi.JsonAdapter
-import kotlinx.android.synthetic.main.fragment_forms_prologue.*
+import kotlinx.android.synthetic.main.fragment_form_prologue.*
 import kotlinx.android.synthetic.main.fragment_safetynet.*
 import org.thegivingkitchen.android.thegivingkitchen.R
 import org.thegivingkitchen.android.thegivingkitchen.util.Constants.formShareWufooUrl
@@ -22,15 +21,15 @@ import java.io.File
 import java.io.FileReader
 import java.io.IOException
 
-class FormsPrologueFragment : Fragment() {
-    private lateinit var model: FormsPrologueViewModel
+class FormPrologueFragment : Fragment() {
+    private lateinit var model: FormPrologueViewModel
     private lateinit var jsonAdapter: JsonAdapter<Form>
     private var shareString: String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         jsonAdapter = Firebase.moshi.adapter(Form::class.java)
-        model = ViewModelProviders.of(this).get(FormsPrologueViewModel::class.java)
+        model = ViewModelProviders.of(this).get(FormPrologueViewModel::class.java)
         model.getCurrentJson().observe(this, Observer<Form> { liveData ->
             updateJson(liveData!!)
         })
@@ -39,7 +38,7 @@ class FormsPrologueFragment : Fragment() {
     @Nullable
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_forms_prologue, container, false)
+        return inflater.inflate(R.layout.fragment_form_prologue, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
