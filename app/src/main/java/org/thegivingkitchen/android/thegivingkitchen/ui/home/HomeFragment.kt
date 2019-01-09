@@ -39,6 +39,10 @@ class HomeFragment: Fragment()  {
         bottomNav_home.setOnNavigationItemSelectedListener(navListener)
     }
 
+    fun getRootLayout(): View {
+        return rootLayout_home
+    }
+
     private val navListener = BottomNavigationView.OnNavigationItemSelectedListener {
         model.setCurrentFragment(getSelectedFragment(it.itemId))
         true

@@ -9,9 +9,14 @@ import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import org.thegivingkitchen.android.thegivingkitchen.R
+import org.thegivingkitchen.android.thegivingkitchen.util.Constants.firebaseStorageUrl
 
 class AssistanceViewModel: ViewModel() {
-    val learnMoreURL = "https://connect.clickandpledge.com/w/Form/d11bff52-0cd0-44d8-9403-465614e4f342"
+    companion object {
+        const val learnMoreURL = "https://connect.clickandpledge.com/w/Form/d11bff52-0cd0-44d8-9403-465614e4f342"
+        const val selfAssistanceInquiryUrl = "$firebaseStorageUrl/forms/assistanceInquirySelf.json"
+        const val referralAssistanceInquiryUrl = "$firebaseStorageUrl/forms/assistanceInquiryReferral.json"
+    }
 
     private fun addColoredString(context: Context, @StringRes str: Int, @ColorRes color: Int): SpannableString {
         val string = context.getString(str)

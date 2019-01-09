@@ -11,6 +11,10 @@ import org.thegivingkitchen.android.thegivingkitchen.R
 import android.widget.TextView
 import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_assistance.*
+import org.thegivingkitchen.android.thegivingkitchen.ui.home.assistance.AssistanceViewModel.Companion.learnMoreURL
+import org.thegivingkitchen.android.thegivingkitchen.ui.home.assistance.AssistanceViewModel.Companion.referralAssistanceInquiryUrl
+import org.thegivingkitchen.android.thegivingkitchen.ui.home.assistance.AssistanceViewModel.Companion.selfAssistanceInquiryUrl
+import org.thegivingkitchen.android.thegivingkitchen.util.Constants.formsArg
 import org.thegivingkitchen.android.thegivingkitchen.util.CustomTabs
 
 class AssistanceFragment : Fragment() {
@@ -30,16 +34,20 @@ class AssistanceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         header_description_assistanceTab.setText(model.setHeaderText(context!!), TextView.BufferType.SPANNABLE)
-        for_you_button_assistanceTab.setOnClickListener(forYouButtonClickListener)
-        for_someone_else_button_assistanceTab.setOnClickListener(forSomeoneElseButtonClickListener)
+        for_you_button_assistanceTab.setOnClickListener { view ->
+            val args = Bundle()
+            args.putString(formsArg, selfAssistanceInquiryUrl)
+            Navigation.findNavController(getView()!!).navigate(R.id.formsFragment, args)
+        }
+        for_someone_else_button_assistanceTab.setOnClickListener {view ->
+            val args = Bundle()
+            args.putString(formsArg, referralAssistanceInquiryUrl)
+            Navigation.findNavController(getView()!!).navigate(R.id.formsFragment, args)
+        }
         learn_more_button_assistanceTab.setOnClickListener(learnMoreButtonClickListener)
     }
 
-    private val forYouButtonClickListener = Navigation.createNavigateOnClickListener(R.id.formsFragment)
-
-    private val forSomeoneElseButtonClickListener = Navigation.createNavigateOnClickListener(R.id.formsFragment)
-
     private val learnMoreButtonClickListener = View.OnClickListener {
-          CustomTabs.openCustomTab(context, model.learnMoreURL)
+        CustomTabs.openCustomTab(context, learnMoreURL)
     }
 }

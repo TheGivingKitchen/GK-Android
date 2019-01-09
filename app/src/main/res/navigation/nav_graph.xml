@@ -40,5 +40,9 @@
     <fragment
         android:id="@+id/formsFragment"
         android:name="org.thegivingkitchen.android.thegivingkitchen.ui.forms.FormsFragment"
-        android:label="FormsFragment" />
+        android:label="FormsFragment" >
+        <argument
+            android:name="formDataUrl"
+            app:argType="string" />
+    </fragment>
 </navigation>
