@@ -39,7 +39,7 @@
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/formsFragment"
-        android:name="org.thegivingkitchen.android.thegivingkitchen.ui.forms.FormsFragment"
+        android:name="org.thegivingkitchen.android.thegivingkitchen.ui.forms.FormsPrologueFragment"
         android:label="FormsFragment" >
         <argument
             android:name="formDataUrl"
