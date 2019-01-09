@@ -11,6 +11,8 @@ import com.bumptech.glide.Glide
 import org.thegivingkitchen.android.thegivingkitchen.R
 
 class EventsAdapter(var items: List<Event>, val fragment: Fragment) : RecyclerView.Adapter<EventViewHolder>(){
+    // todo: make more viewholders for the top cells so that they scroll with the events cells
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
         return EventViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_event, parent, false), fragment)
     }

@@ -9,6 +9,7 @@ import android.widget.TextView
 import org.thegivingkitchen.android.thegivingkitchen.R
 
 class SafetynetAdapter(var items: List<SocialServiceProvider>) : RecyclerView.Adapter<SocialServiceProviderViewHolder>() {
+    // todo: make more viewholders for the top cells so that they scroll with the safetynet provider cells
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SocialServiceProviderViewHolder {
         return SocialServiceProviderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_social_service_provider, parent, false))

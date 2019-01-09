@@ -5,13 +5,13 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 
 class FormsPrologueViewModel: ViewModel() {
-    private var currentJson: MutableLiveData<String> = MutableLiveData()
+    private var currentJson: MutableLiveData<Form> = MutableLiveData()
 
-    fun getCurrentJson(): LiveData<String> {
+    fun getCurrentJson(): LiveData<Form> {
         return currentJson
     }
 
-    fun setCurrentJson(data: String) {
+    fun setCurrentJson(data: Form) {
         currentJson.value = data
     }
 }

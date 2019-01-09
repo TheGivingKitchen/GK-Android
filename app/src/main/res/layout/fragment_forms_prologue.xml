@@ -1,18 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <ProgressBar
-        android:id="@+id/progressBar_forms"
-        android:visibility="visible"
-        style="@style/ProgressBar"/>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_yellow"
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textView_forms"
+        android:id="@+id/cancel_formsPrologue"
+        style="@style/ParagraphText"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:textSize="24sp"/>
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/universal_horizontal_spacing"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="@string/base_forms_prologue_cancel"
+        android:textColor="@color/gk_blue" />
 
-</android.support.constraint.ConstraintLayout>
+    <ProgressBar
+        android:id="@+id/progressBar_formsPrologue"
+        style="@style/ProgressBar"
+        android:visibility="visible" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/universal_horizontal_spacing"
+            android:paddingEnd="@dimen/universal_horizontal_spacing">
+
+            <TextView
+                android:id="@+id/title_formsPrologue"
+                style="@style/EgyptianText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:textColor="@color/gk_orange"
+                android:textSize="14pt" />
+
+            <TextView
+                android:id="@+id/subtitle_formsPrologue"
+                style="@style/RegularText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/gk_blue"
+                android:textSize="10pt" />
+
+            <TextView
+                android:id="@+id/description_formsPrologue"
+                style="@style/ParagraphText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="30dp"
+                android:lineSpacingExtra="5dp" />
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            style="@style/DividerViewSmall"
+            android:background="@color/medium_grey" />
+
+        <Button
+            android:id="@+id/startButton_formsPrologue"
+            style="@style/CTAButton"
+            android:layout_marginStart="@dimen/universal_horizontal_spacing"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="@dimen/universal_horizontal_spacing"
+            android:text="@string/base_forms_prologue_start"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:id="@+id/shareButton_formsPrologue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:paddingTop="10dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="10dp"
+            android:visibility="gone">
+
+            <!-- todo: use a textview compound drawable instead? -->
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center_horizontal"
+                android:contentDescription="@string/base_forms_prologue_share"
+                android:src="@drawable/ic_share" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:text="@string/base_forms_prologue_share" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
