@@ -34,17 +34,21 @@ class AssistanceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         header_description_assistanceTab.setText(model.setHeaderText(context!!), TextView.BufferType.SPANNABLE)
-        for_you_button_assistanceTab.setOnClickListener { view ->
-            val args = Bundle()
-            args.putString(formsArg, selfAssistanceInquiryUrl)
-            Navigation.findNavController(getView()!!).navigate(R.id.formsFragment, args)
-        }
-        for_someone_else_button_assistanceTab.setOnClickListener {view ->
-            val args = Bundle()
-            args.putString(formsArg, referralAssistanceInquiryUrl)
-            Navigation.findNavController(getView()!!).navigate(R.id.formsFragment, args)
-        }
+        for_you_button_assistanceTab.setOnClickListener(forYouButtonClickListener)
+        for_someone_else_button_assistanceTab.setOnClickListener(forSomeoneElseButtonClickListener)
         learn_more_button_assistanceTab.setOnClickListener(learnMoreButtonClickListener)
+    }
+
+    private val forYouButtonClickListener = View.OnClickListener {
+        val args = Bundle()
+        args.putString(formsArg, selfAssistanceInquiryUrl)
+        Navigation.findNavController(getView()!!).navigate(R.id.formsFragment, args)
+    }
+
+    private val forSomeoneElseButtonClickListener = View.OnClickListener {
+        val args = Bundle()
+        args.putString(formsArg, referralAssistanceInquiryUrl)
+        Navigation.findNavController(getView()!!).navigate(R.id.formsFragment, args)
     }
 
     private val learnMoreButtonClickListener = View.OnClickListener {

@@ -9,11 +9,13 @@ import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
-import android.widget.Toast.LENGTH_SHORT
 import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_give.*
 import org.thegivingkitchen.android.thegivingkitchen.R
+import org.thegivingkitchen.android.thegivingkitchen.ui.home.give.GiveViewModel.Companion.creditCardDonationURL
+import org.thegivingkitchen.android.thegivingkitchen.ui.home.give.GiveViewModel.Companion.learnMoreURL
+import org.thegivingkitchen.android.thegivingkitchen.ui.home.give.GiveViewModel.Companion.recurringDonationURL
+import org.thegivingkitchen.android.thegivingkitchen.util.Constants
 import org.thegivingkitchen.android.thegivingkitchen.util.CustomTabs
 import org.thegivingkitchen.android.thegivingkitchen.util.getFloatDimension
 
@@ -48,15 +50,15 @@ class GiveFragment : Fragment() {
     }
 
     private val creditCardDonationClickListener = View.OnClickListener {
-        CustomTabs.openCustomTab(context, model.creditCardDonationURL)
+        CustomTabs.openCustomTab(context, creditCardDonationURL)
     }
 
     private val recurringDonationClickListener = View.OnClickListener {
-        CustomTabs.openCustomTab(context, model.recurringDonationURL)
+        CustomTabs.openCustomTab(context, recurringDonationURL)
     }
 
     private val learnMoreButtonClickListener = View.OnClickListener {
-        CustomTabs.openCustomTab(context, model.learnMoreURL)
+        CustomTabs.openCustomTab(context, learnMoreURL)
     }
 
     private val leftExamplesArrowClickListener = View.OnClickListener {
@@ -67,9 +69,17 @@ class GiveFragment : Fragment() {
         model.onRightArrowClicked()
     }
 
-    private val volunteerButtonClickListener = Navigation.createNavigateOnClickListener(R.id.formsFragment)
+    private val volunteerButtonClickListener = View.OnClickListener {
+        val args = Bundle()
+        args.putString(Constants.formsArg, GiveViewModel.selfAssistanceInquiryUrl)
+        Navigation.findNavController(getView()!!).navigate(R.id.formsFragment, args)
+    }
 
-    private val partnerButtonClickListener = Navigation.createNavigateOnClickListener(R.id.formsFragment)
+    private val partnerButtonClickListener = View.OnClickListener {
+        val args = Bundle()
+        args.putString(Constants.formsArg, GiveViewModel.referralAssistanceInquiryUrl)
+        Navigation.findNavController(getView()!!).navigate(R.id.formsFragment, args)
+    }
 
     private fun updateDonationExamples(data: GiveViewModel.DonationExampleLiveData) {
         examples_amount_giveTab.setText(data.amount.toString(), TextView.BufferType.EDITABLE)
