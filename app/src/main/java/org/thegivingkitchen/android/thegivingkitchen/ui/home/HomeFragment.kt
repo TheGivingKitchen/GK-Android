@@ -18,6 +18,7 @@ import org.thegivingkitchen.android.thegivingkitchen.ui.home.give.GiveFragment
 import org.thegivingkitchen.android.thegivingkitchen.ui.home.safetynet.SafetynetFragment
 
 class HomeFragment: Fragment()  {
+    // todo: onboarding
     private lateinit var model: HomeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {

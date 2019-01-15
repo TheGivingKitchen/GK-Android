@@ -1,12 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="10dp"
+        android:paddingEnd="15dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:src="@drawable/ic_chevron_left"
+            android:layout_gravity="center_vertical"
+            android:tint="@color/gk_blue"
+            android:contentDescription="@string/forms_questions_back_icon"/>
+
+        <TextView
+            android:id="@+id/backButton_formQuestion"
+            style="@style/ButtonText"
+            android:textColor="@color/gk_blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:gravity="start"
+            android:text="@string/forms_questions_back" />
+
+        <TextView
+            android:id="@+id/nextButton_formQuestion"
+            style="@style/ButtonText"
+            android:text="@string/forms_questions_next"
+            android:textColor="@color/gk_orange"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="end"/>
+    </LinearLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager_questionsContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
 
-</FrameLayout>
+</LinearLayout>

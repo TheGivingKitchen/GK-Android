@@ -53,6 +53,10 @@
     <!-- Safetynet Tab -->
     <string name="safetynet_tab_counties_served">Serving counties: %1$s</string>
 
+    <!-- Forms Questions Strings -->
+    <string name="forms_questions_back">Back</string>
+    <string name="forms_questions_next">Next</string>
+
     <!-- Base Form Prologue Strings -->
     <string name="base_forms_prologue_cancel">Cancel</string>
     <string name="base_forms_prologue_start">Start</string>
@@ -93,5 +97,7 @@
     <!-- Content Descriptions -->
     <string name="give_tab_examples_left_chevron">Reduce the suggested donation amount</string>
     <string name="give_tab_examples_right_chevron">Increase the suggested donation amount</string>
+    <string name="forms_questions_back_icon">Go back a question</string>
+
 
 </resources>
