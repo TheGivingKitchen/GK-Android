@@ -39,10 +39,14 @@
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/formsFragment"
-        android:name="org.thegivingkitchen.android.thegivingkitchen.ui.forms.FormPrologueFragment"
+        android:name="org.thegivingkitchen.android.thegivingkitchen.ui.forms.prologue.FormPrologueFragment"
         android:label="FormsFragment" >
-        <argument
-            android:name="formDataUrl"
-            app:argType="string" />
+        <action
+            android:id="@+id/action_formsFragment_to_questionsContainerFragment"
+            app:destination="@id/questionsContainerFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/questionsContainerFragment"
+        android:name="org.thegivingkitchen.android.thegivingkitchen.ui.forms.QuestionsContainerFragment"
+        android:label="QuestionsContainerFragment" />
 </navigation>

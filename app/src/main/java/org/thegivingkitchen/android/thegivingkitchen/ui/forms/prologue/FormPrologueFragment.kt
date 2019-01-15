@@ -1,4 +1,4 @@
-package org.thegivingkitchen.android.thegivingkitchen.ui.forms
+package org.thegivingkitchen.android.thegivingkitchen.ui.forms.prologue
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
@@ -8,10 +8,14 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.navigation.Navigation
 import com.squareup.moshi.JsonAdapter
 import kotlinx.android.synthetic.main.fragment_form_prologue.*
 import kotlinx.android.synthetic.main.fragment_safetynet.*
 import org.thegivingkitchen.android.thegivingkitchen.R
+import org.thegivingkitchen.android.thegivingkitchen.ui.forms.Form
+import org.thegivingkitchen.android.thegivingkitchen.util.Constants
 import org.thegivingkitchen.android.thegivingkitchen.util.Constants.formShareWufooUrl
 import org.thegivingkitchen.android.thegivingkitchen.util.Constants.formsArg
 import org.thegivingkitchen.android.thegivingkitchen.util.Firebase
@@ -25,6 +29,11 @@ class FormPrologueFragment : Fragment() {
     private lateinit var model: FormPrologueViewModel
     private lateinit var jsonAdapter: JsonAdapter<Form>
     private var shareString: String? = ""
+    private var numberOfPages = 0
+
+    companion object {
+        const val pagesArg = "numPages"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +55,6 @@ class FormPrologueFragment : Fragment() {
         // todo: delete this file when done
         val localFile = File.createTempFile("form", "json")
         shareButton_formsPrologue.setOnClickListener(shareClickListener)
-
         if (arguments != null) {
             Firebase.firebaseInstance.getReferenceFromUrl(arguments!!.getString(formsArg))
                     .getFile(localFile)
@@ -73,6 +81,7 @@ class FormPrologueFragment : Fragment() {
                         // todo: log error and show error state
                     }
         }
+        startButton_formsPrologue.setOnClickListener(startButtonClickListener)
     }
 
     private fun updateJson(data: Form) {
@@ -80,8 +89,15 @@ class FormPrologueFragment : Fragment() {
         subtitle_formsPrologue.text = data.FormSubtitle
         description_formsPrologue.text = data.FormMetadata
         shareString = data.FormShareString + " " + formShareWufooUrl + data.ID
+        numberOfPages = data.Pages.size
         startButton_formsPrologue.visibility = View.VISIBLE
         shareButton_formsPrologue.visibility = View.VISIBLE
+    }
+
+    private val startButtonClickListener = View.OnClickListener {
+        val args = Bundle()
+        args.putInt(pagesArg, numberOfPages)
+        Navigation.findNavController(getView()!!).navigate(R.id.questionsContainerFragment, args)
     }
 
     private val shareClickListener = View.OnClickListener {
