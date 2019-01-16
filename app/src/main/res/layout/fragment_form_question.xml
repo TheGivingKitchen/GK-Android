@@ -8,6 +8,8 @@
         android:id="@+id/textView_formQuestion"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center" />
+        style="@style/LargeHeaderText"
+        android:textColor="@color/gk_blue"
+        android:gravity="center_horizontal" />
 
 </LinearLayout>

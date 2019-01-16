@@ -3,19 +3,19 @@ package org.thegivingkitchen.android.thegivingkitchen.ui.forms.prologue
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.os.Parcelable
 import android.support.annotation.Nullable
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.Navigation
 import com.squareup.moshi.JsonAdapter
 import kotlinx.android.synthetic.main.fragment_form_prologue.*
 import kotlinx.android.synthetic.main.fragment_safetynet.*
 import org.thegivingkitchen.android.thegivingkitchen.R
 import org.thegivingkitchen.android.thegivingkitchen.ui.forms.Form
-import org.thegivingkitchen.android.thegivingkitchen.util.Constants
+import org.thegivingkitchen.android.thegivingkitchen.ui.forms.Page
 import org.thegivingkitchen.android.thegivingkitchen.util.Constants.formShareWufooUrl
 import org.thegivingkitchen.android.thegivingkitchen.util.Constants.formsArg
 import org.thegivingkitchen.android.thegivingkitchen.util.Firebase
@@ -29,10 +29,10 @@ class FormPrologueFragment : Fragment() {
     private lateinit var model: FormPrologueViewModel
     private lateinit var jsonAdapter: JsonAdapter<Form>
     private var shareString: String? = ""
-    private var numberOfPages = 0
+    private var questionPages = listOf<Page>()
 
     companion object {
-        const val pagesArg = "numPages"
+        const val questionPagesArg = "questionPages"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -89,15 +89,15 @@ class FormPrologueFragment : Fragment() {
         subtitle_formsPrologue.text = data.FormSubtitle
         description_formsPrologue.text = data.FormMetadata
         shareString = data.FormShareString + " " + formShareWufooUrl + data.ID
-        numberOfPages = data.Pages.size
+        questionPages = data.Pages
         startButton_formsPrologue.visibility = View.VISIBLE
         shareButton_formsPrologue.visibility = View.VISIBLE
     }
 
     private val startButtonClickListener = View.OnClickListener {
         val args = Bundle()
-        args.putInt(pagesArg, numberOfPages)
-        Navigation.findNavController(getView()!!).navigate(R.id.questionsContainerFragment, args)
+        args.putParcelableArrayList(questionPagesArg, ArrayList(questionPages))
+        Navigation.findNavController(view!!).navigate(R.id.questionsContainerFragment, args)
     }
 
     private val shareClickListener = View.OnClickListener {

@@ -13,15 +13,16 @@ import kotlinx.android.synthetic.main.fragment_questions_container.*
 import org.thegivingkitchen.android.thegivingkitchen.R
 import org.thegivingkitchen.android.thegivingkitchen.ui.forms.prologue.FormPrologueFragment
 import org.thegivingkitchen.android.thegivingkitchen.ui.forms.question.FormQuestionFragment
+import org.thegivingkitchen.android.thegivingkitchen.util.BackPressedListener
 
-class QuestionsContainerFragment: Fragment() {
+class QuestionsContainerFragment: Fragment(), BackPressedListener {
     private lateinit var mPager: ViewPager
-    private var numPages = 0
+    private var questionPages = listOf<Page>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (arguments != null) {
-            numPages = arguments!!.getInt(FormPrologueFragment.pagesArg, 0)
+            questionPages = arguments!!.getParcelableArrayList<Page>(FormPrologueFragment.questionPagesArg)!!.toList()
         }
     }
 
@@ -38,22 +39,20 @@ class QuestionsContainerFragment: Fragment() {
         mPager.adapter = pagerAdapter
     }
 
-
-    /* override fun onBackPressed() {
+    override fun onBackPressed(): Boolean {
         if (mPager.currentItem == 0) {
-            // If the user is currently looking at the first step, allow the system to handle the
-            // Back button. This calls finish() on this activity and pops the back stack.
-            super.onBackPressed()
-        } else {
-            // Otherwise, select the previous step.
-            mPager.currentItem = mPager.currentItem - 1
+            return false
         }
-    }*/
+        mPager.currentItem = mPager.currentItem - 1
+        return true
+    }
 
     private inner class ScreenSlidePagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
-        override fun getCount(): Int = numPages
+        override fun getCount(): Int = questionPages.size
 
-        override fun getItem(position: Int): Fragment = FormQuestionFragment()
+        override fun getItem(position: Int): Fragment {
+            return FormQuestionFragment.newInstance(questionPages[position])
+        }
     }
 
 }
