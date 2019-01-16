@@ -37,6 +37,8 @@ class QuestionsContainerFragment: Fragment(), BackPressedListener {
         mPager = viewPager_questionsContainer
         val pagerAdapter = ScreenSlidePagerAdapter(fragmentManager!!)
         mPager.adapter = pagerAdapter
+        backButton_questionsContainer.setOnClickListener(backButtonClickListener)
+        nextButton_questionsContainer.setOnClickListener(nextButtonClickListener)
     }
 
     override fun onBackPressed(): Boolean {
@@ -45,6 +47,14 @@ class QuestionsContainerFragment: Fragment(), BackPressedListener {
         }
         mPager.currentItem = mPager.currentItem - 1
         return true
+    }
+
+    private val backButtonClickListener = View.OnClickListener {
+        mPager.currentItem = mPager.currentItem - 1
+    }
+
+    private val nextButtonClickListener = View.OnClickListener {
+        mPager.currentItem = mPager.currentItem + 1
     }
 
     private inner class ScreenSlidePagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
