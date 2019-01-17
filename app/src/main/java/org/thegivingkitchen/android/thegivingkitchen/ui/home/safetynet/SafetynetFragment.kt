@@ -49,33 +49,32 @@ class SafetynetFragment : Fragment() {
         firebaseInstance.getReferenceFromUrl(safetynetDataUrl)
                 .getFile(localFile)
                 .addOnSuccessListener {
-            val stringBuilder = StringBuilder()
-                    progressBar_safetynetTab.visibility = View.GONE
-            try {
-                val bufferedReader = BufferedReader(FileReader(localFile))
-                var line = bufferedReader.readLine()
-                while (line != null) {
-                    stringBuilder.append(line)
-                    line = bufferedReader.readLine()
-                }
-                bufferedReader.close()
-                val jsonString = stringBuilder.toString()
-                val safetynetData = jsonAdapter.nullSafe().fromJson(jsonString)?.safetyNet
-                if (safetynetData != null) {
-                    model.setCurrentJson(safetynetData)
-                }
-            } catch (e: IOException) {
-                progressBar_safetynetTab.visibility = View.GONE
-                // todo: log error
-            }
+                    val stringBuilder = StringBuilder()
+                    try {
+                        val bufferedReader = BufferedReader(FileReader(localFile))
+                        var line = bufferedReader.readLine()
+                        while (line != null) {
+                            stringBuilder.append(line)
+                            line = bufferedReader.readLine()
+                        }
+                        bufferedReader.close()
+                        val jsonString = stringBuilder.toString()
+                        val safetynetData = jsonAdapter.nullSafe().fromJson(jsonString)?.safetyNet
+                        if (safetynetData != null) {
+                            model.setCurrentJson(safetynetData)
+                        }
+                    } catch (e: IOException) {
+                        // todo: log error
+                    }
 
-        }.addOnFailureListener {
-            // todo: log error and show error state
-        }
+                }.addOnFailureListener {
+                    // todo: log error and show error state
+                }
     }
 
     private fun updateJson(data: List<SocialServiceProvider>) {
-        adapter.items  = data
+        adapter.items = data
         adapter.notifyDataSetChanged()
+        progressBar_safetynetTab.visibility = View.GONE
     }
 }
