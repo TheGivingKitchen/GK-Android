@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.fragment_form_question.*
 import org.thegivingkitchen.android.thegivingkitchen.R
 import org.thegivingkitchen.android.thegivingkitchen.ui.forms.Page
 import org.thegivingkitchen.android.thegivingkitchen.util.BackPressedListener
+import org.thegivingkitchen.android.thegivingkitchen.util.setTextIfItExists
 
 class FormQuestionFragment: Fragment(), BackPressedListener {
     companion object {
@@ -42,7 +43,7 @@ class FormQuestionFragment: Fragment(), BackPressedListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val randomNumber = Math.random()
-        textView_formQuestion.text = page.pageInformation
+        textView_formQuestion.setTextIfItExists(page.pageInformation)
     }
 
     override fun onBackPressed(): Boolean {

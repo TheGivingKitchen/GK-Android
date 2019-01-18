@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import org.thegivingkitchen.android.thegivingkitchen.R
+import org.thegivingkitchen.android.thegivingkitchen.util.setTextIfItExists
 
 class EventsAdapter(var items: List<Event>, val fragment: Fragment) : RecyclerView.Adapter<EventViewHolder>(){
     // todo: make more viewholders for the top cells so that they scroll with the events cells
@@ -26,23 +27,13 @@ class EventsAdapter(var items: List<Event>, val fragment: Fragment) : RecyclerVi
 
 class EventViewHolder(val view: View, val fragment: Fragment) : RecyclerView.ViewHolder(view) {
     fun bind(event: Event) {
-        setTextIfItExists(R.id.title_EventsRecycler, event.title)
-        setTextIfItExists(R.id.description_EventsRecycler, event.subtitle?.replace("\n", ""))
+        view.findViewById<TextView>(R.id.title_EventsRecycler).setTextIfItExists(event.title)
+        view.findViewById<TextView>(R.id.description_EventsRecycler).setTextIfItExists(event.subtitle?.replace("\n", ""))
         setPicture(event.picUrl, R.id.image_EventsRecycler)
     }
 
-    private fun setTextIfItExists(@IdRes id: Int, text: String?) {
-        val view = view.findViewById<TextView>(id)
-        // todo: it you scroll really fast(?) the fields sometimes don't show up
-        if (text.isNullOrBlank()) {
-            view.visibility = View.GONE
-        } else {
-            view.text = text
-        }
-    }
-
     private fun setPicture(url: String?, @IdRes id: Int) {
-        // need to make url https
+        // url must be https
         var httpsUrl = ""
         if (url != null) {
             if (url.startsWith("https")) {

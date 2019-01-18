@@ -23,8 +23,6 @@ import java.io.ByteArrayInputStream
 import java.io.IOException
 import com.bumptech.glide.request.RequestOptions
 
-
-
 class EventsFragment : Fragment() {
     companion object {
         private const val learnMoreURL = "$givingKitchenUrl/events/"

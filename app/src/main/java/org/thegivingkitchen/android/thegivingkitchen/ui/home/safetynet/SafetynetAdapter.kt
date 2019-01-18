@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import org.thegivingkitchen.android.thegivingkitchen.R
+import org.thegivingkitchen.android.thegivingkitchen.util.setTextIfItExists
 
 class SafetynetAdapter(var items: List<SocialServiceProvider>) : RecyclerView.Adapter<SocialServiceProviderViewHolder>() {
     // todo: make more viewholders for the top cells so that they scroll with the safetynet provider cells
@@ -24,27 +25,18 @@ class SafetynetAdapter(var items: List<SocialServiceProvider>) : RecyclerView.Ad
 
 class SocialServiceProviderViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     fun bind(socialServiceProvider: SocialServiceProvider) {
-        setTextIfItExists(R.id.title_SafetynetRecycler, socialServiceProvider.name)
-        setTextIfItExists(R.id.category_SafetynetRecycler, socialServiceProvider.category)
-        setTextIfItExists(R.id.address_SafetynetRecycler, socialServiceProvider.address)
-        setTextIfItExists(R.id.phone_SafetynetRecycler, socialServiceProvider.phone)
-        setTextIfItExists(R.id.description_SafetynetRecycler, socialServiceProvider.description)
+        view.findViewById<TextView>(R.id.title_SafetynetRecycler).setTextIfItExists(socialServiceProvider.name)
+        view.findViewById<TextView>(R.id.category_SafetynetRecycler).setTextIfItExists(socialServiceProvider.category)
+        view.findViewById<TextView>(R.id.address_SafetynetRecycler).setTextIfItExists(socialServiceProvider.address)
+        view.findViewById<TextView>(R.id.phone_SafetynetRecycler).setTextIfItExists(socialServiceProvider.phone)
+        view.findViewById<TextView>(R.id.description_SafetynetRecycler).setTextIfItExists(socialServiceProvider.description)
+
         val countiesServedText = socialServiceProvider.countiesServed
         val countiesServedTextView = view.findViewById<TextView>(R.id.counties_SafetynetRecycler)
         if (countiesServedText.isNullOrBlank()) {
             countiesServedTextView.visibility = View.GONE
         } else {
             countiesServedTextView.text = view.context.getString(R.string.safetynet_tab_counties_served, countiesServedText)
-        }
-    }
-
-    private fun setTextIfItExists(@IdRes id: Int, text: String?) {
-        val view = view.findViewById<TextView>(id)
-        // todo: it you scroll really fast(?) the fields sometimes don't show up
-        if (text.isNullOrBlank()) {
-            view.visibility = View.GONE
-        } else {
-            view.text = text
         }
     }
 }

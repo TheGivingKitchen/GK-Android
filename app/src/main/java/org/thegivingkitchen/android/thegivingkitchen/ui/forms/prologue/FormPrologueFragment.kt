@@ -19,6 +19,7 @@ import org.thegivingkitchen.android.thegivingkitchen.ui.forms.Page
 import org.thegivingkitchen.android.thegivingkitchen.util.Constants.formShareWufooUrl
 import org.thegivingkitchen.android.thegivingkitchen.util.Constants.formsArg
 import org.thegivingkitchen.android.thegivingkitchen.util.Firebase
+import org.thegivingkitchen.android.thegivingkitchen.util.setTextIfItExists
 import org.thegivingkitchen.android.thegivingkitchen.util.startShareAction
 import java.io.BufferedReader
 import java.io.File
@@ -85,9 +86,9 @@ class FormPrologueFragment : Fragment() {
     }
 
     private fun updateJson(data: Form) {
-        title_formsPrologue.text = data.FormTitle
-        subtitle_formsPrologue.text = data.FormSubtitle
-        description_formsPrologue.text = data.FormMetadata
+        title_formsPrologue.setTextIfItExists(data.FormTitle)
+        subtitle_formsPrologue.setTextIfItExists(data.FormSubtitle)
+        description_formsPrologue.setTextIfItExists(data.FormMetadata)
         shareString = data.FormShareString + " " + formShareWufooUrl + data.ID
         questionPages = data.Pages
         startButton_formsPrologue.visibility = View.VISIBLE
