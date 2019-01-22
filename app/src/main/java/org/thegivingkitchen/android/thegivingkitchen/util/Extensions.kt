@@ -24,11 +24,16 @@ fun Fragment.startShareAction(str: String) {
     startActivity(sendIntent)
 }
 
-fun TextView.setTextIfItExists(text: String?) {
+/**
+ * @return true if the text was set or false if the TextView is now Gone
+ */
+fun TextView.setTextIfItExists(text: String?): Boolean {
     // todo: it you scroll really fast(?) the fields sometimes don't show up
     if (text.isNullOrBlank()) {
         this.visibility = View.GONE
+        return false
     } else {
         this.text = text
+        return true
     }
 }
