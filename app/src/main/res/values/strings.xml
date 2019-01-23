@@ -53,11 +53,11 @@
     <!-- Safetynet Tab -->
     <string name="safetynet_tab_counties_served">Serving counties: %1$s</string>
 
-    <!-- Forms Questions Strings -->
+    <!-- Common Forms Strings -->
     <string name="forms_questions_back">Back</string>
     <string name="forms_questions_next">Next</string>
 
-    <!-- Base Form Prologue Strings -->
+    <!-- Form Prologue Strings -->
     <string name="base_forms_prologue_cancel">Cancel</string>
     <string name="base_forms_prologue_start">Start</string>
     <string name="base_forms_prologue_share">SHARE THIS FORM</string>
@@ -99,5 +99,8 @@
     <string name="give_tab_examples_right_chevron">Increase the suggested donation amount</string>
     <string name="forms_questions_back_icon">Go back a question</string>
 
+    <!-- Questions -->
+    <string name="fullname_question_firstname_hint">First</string>
+    <string name="fullname_question_lastname_hint">Last</string>
 
 </resources>

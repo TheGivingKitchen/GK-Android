@@ -11,4 +11,11 @@ class Form(val ID: String?,
            val Pages: List<Page> = listOf())
 
 @Parcelize
-data class Page(val pageInformation: String?): Parcelable
+data class Page(val pageInformation: String?,
+                val questions: List<Question> = listOf()): Parcelable
+
+@Parcelize
+data class Question(val Title: String?,
+                    val IsRequired: String?,
+                    val Type: String?): Parcelable
+

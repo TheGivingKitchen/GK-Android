@@ -12,7 +12,7 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_questions_container.*
 import org.thegivingkitchen.android.thegivingkitchen.R
 import org.thegivingkitchen.android.thegivingkitchen.ui.forms.prologue.FormPrologueFragment
-import org.thegivingkitchen.android.thegivingkitchen.ui.forms.question.FormQuestionFragment
+import org.thegivingkitchen.android.thegivingkitchen.ui.forms.question.QuestionFragment
 import org.thegivingkitchen.android.thegivingkitchen.util.BackPressedListener
 
 class QuestionsContainerFragment: Fragment(), BackPressedListener {
@@ -37,7 +37,10 @@ class QuestionsContainerFragment: Fragment(), BackPressedListener {
         mPager = viewPager_questionsContainer
         val pagerAdapter = ScreenSlidePagerAdapter(fragmentManager!!)
         mPager.adapter = pagerAdapter
-        backButton_questionsContainer.setOnClickListener(backButtonClickListener)
+
+        // todo: use a constraintlayout group here
+        backButtonText_questionsContainer.setOnClickListener(backButtonClickListener)
+        backButtonIcon_questionsContainer.setOnClickListener(backButtonClickListener)
         nextButton_questionsContainer.setOnClickListener(nextButtonClickListener)
     }
 
@@ -61,7 +64,7 @@ class QuestionsContainerFragment: Fragment(), BackPressedListener {
         override fun getCount(): Int = questionPages.size
 
         override fun getItem(position: Int): Fragment {
-            return FormQuestionFragment.newInstance(questionPages[position])
+            return QuestionFragment.newInstance(questionPages[position])
         }
     }
 

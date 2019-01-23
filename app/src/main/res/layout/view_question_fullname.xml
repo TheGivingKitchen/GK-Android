@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="15dp">
+
+    <TextView
+        android:id="@+id/title_fullnameQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="djndjlndjkdklndk"
+        style="@style/RegularText"/>
+
+    <EditText
+        android:id="@+id/firstName_fullnameQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textCapWords"
+        android:autofillHints=".AUTOFILL_HINT_NAME"
+        android:hint="@string/fullname_question_firstname_hint"/>
+
+    <EditText
+        android:id="@+id/lastName_fullnameQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textCapWords"
+        android:autofillHints=".AUTOFILL_HINT_NAME"
+        android:hint="@string/fullname_question_lastname_hint"/>
+
+</LinearLayout>
