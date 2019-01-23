@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.view_question_date.view.*
 import org.thegivingkitchen.android.thegivingkitchen.R
 
 // todo: stop passing in fragment manager here
-class DateQuestion(title: String?, fragmentManager: FragmentManager, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), ActionHandler {
+class DateQuestion(title: String?, fragmentManager: FragmentManager, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle){
     // todo: use merge tags in views
     private val textViewClickListener = View.OnClickListener {
         DatePickerFragment().show(fragmentManager, "hello")
@@ -31,43 +31,17 @@ class DateQuestion(title: String?, fragmentManager: FragmentManager, context: Co
         title_dateQuestion.text = title
         setOnClickListener(textViewClickListener)
     }
-
-    override fun handleAction(actionCode: String, result: String) {
-        when {
-            actionCode == DatePickerFragment.FRAGMENT_A_CLOSED -> {
-                date_dateQuestion.text = result
-            }
-        }
-    }
 }
 
 // todo: make this available to apis < 25
 @TargetApi(25)
 class DatePickerFragment: DialogFragment(), DatePickerDialog.OnDateSetListener {
-    companion object {
-        const val FRAGMENT_A_CLOSED = "com.example.fragment_a_closed"
-    }
-
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return DatePickerDialog(context!!)
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         // date_dateQuestion.text = context!!.getString(R.string.date_question_date, dayOfMonth, month, year)
-        closeFragment(context!!.getString(R.string.date_question_date, dayOfMonth, month, year))
     }
-
-    fun closeFragment(str: String) {
-        try {
-            (activity as ActionHandler).handleAction(FRAGMENT_A_CLOSED, str)
-        } catch (e: ClassCastException) {
-            // Timber.e("Calling activity can't get callback!")
-        }
-        dismiss()
-    }
-}
-
-interface ActionHandler {
-    fun handleAction(actionCode: String, result: String)
 }
 
