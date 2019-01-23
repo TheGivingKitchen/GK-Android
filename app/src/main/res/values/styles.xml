@@ -27,6 +27,11 @@
         <item name="android:fontFamily">@font/becker_egyptian</item>
     </style>
 
+    <style name="EditTextHint">
+        <item name="android:textSize">8pt</item>
+        <item name="android:textColor">@color/dark_grey</item>
+    </style>
+
     <style name="ParagraphText" parent="RegularText">
         <item name="android:textSize">8pt</item>
     </style>
