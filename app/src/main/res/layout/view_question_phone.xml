@@ -6,7 +6,7 @@
     android:layout_marginBottom="20dp">
 
     <TextView
-        android:id="@+id/title_fullnameQuestion"
+        android:id="@+id/title_phoneQuestion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="8pt"
@@ -14,13 +14,13 @@
         style="@style/RegularText"/>
 
     <EditText
-        android:id="@+id/name_fullnameQuestion"
+        android:id="@+id/phoneNumber_phoneQuestion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textCapWords"
+        android:inputType="phone"
         android:background="@drawable/edit_text_border"
-        android:autofillHints=".AUTOFILL_HINT_NAME"
-        android:hint="@string/fullname_question_hint"
+        android:autofillHints=".AUTOFILL_HINT_PHONE"
+        android:hint="@string/phone_question_hint"
         android:padding="10dp"/>
 
 </LinearLayout>

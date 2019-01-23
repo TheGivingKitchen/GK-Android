@@ -100,7 +100,8 @@
     <string name="forms_questions_back_icon">Go back a question</string>
 
     <!-- Questions -->
-    <string name="fullname_question_firstname_hint">First</string>
-    <string name="fullname_question_lastname_hint">Last</string>
+    <string name="fullname_question_hint">Johnny Appleseed</string>
+    <string name="email_question_hint">johnnyappleseed@gmail.com</string>
+    <string name="phone_question_hint">(404) 555&#8211;5555</string>
 
 </resources>

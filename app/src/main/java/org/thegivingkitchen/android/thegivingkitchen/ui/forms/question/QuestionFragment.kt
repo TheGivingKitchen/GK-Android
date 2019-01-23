@@ -10,7 +10,9 @@ import android.widget.TextView
 import kotlinx.android.synthetic.main.fragment_form_question.*
 import org.thegivingkitchen.android.thegivingkitchen.R
 import org.thegivingkitchen.android.thegivingkitchen.ui.forms.Page
+import org.thegivingkitchen.android.thegivingkitchen.ui.forms.questionviews.EmailQuestion
 import org.thegivingkitchen.android.thegivingkitchen.ui.forms.questionviews.FullnameQuestion
+import org.thegivingkitchen.android.thegivingkitchen.ui.forms.questionviews.PhoneQuestion
 import org.thegivingkitchen.android.thegivingkitchen.util.BackPressedListener
 import org.thegivingkitchen.android.thegivingkitchen.util.setTextIfItExists
 
@@ -45,7 +47,11 @@ class QuestionFragment: Fragment(), BackPressedListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         pageTitle_formQuestion.setTextIfItExists(page.pageInformation)
+
+        /*  Testing code  */
         container_formQuestion.addView(FullnameQuestion("Question 1", context!!))
+        container_formQuestion.addView(EmailQuestion("Question 2", context!!))
+        container_formQuestion.addView(PhoneQuestion("Question 3", context!!))
     }
 
     override fun onBackPressed(): Boolean {
