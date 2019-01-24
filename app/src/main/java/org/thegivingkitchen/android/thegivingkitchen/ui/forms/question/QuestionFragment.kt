@@ -2,6 +2,7 @@ package org.thegivingkitchen.android.thegivingkitchen.ui.forms.question
 
 import android.app.DatePickerDialog
 import android.app.Dialog
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.support.annotation.Nullable
 import android.support.v4.app.DialogFragment
@@ -10,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
+import android.widget.TimePicker
 import kotlinx.android.synthetic.main.fragment_form_question.*
 import org.thegivingkitchen.android.thegivingkitchen.R
 import org.thegivingkitchen.android.thegivingkitchen.ui.forms.Page
@@ -18,11 +20,15 @@ import org.thegivingkitchen.android.thegivingkitchen.util.BackPressedListener
 import org.thegivingkitchen.android.thegivingkitchen.util.setTextIfItExists
 import java.util.*
 
-class QuestionFragment: Fragment(), BackPressedListener, DatePickerDialog.OnDateSetListener {
+class QuestionFragment: Fragment(), BackPressedListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
     private var dateQuestion: DateQuestion? = null
     private var dateYear: Int? = null
     private var dateMonth: Int? = null
     private var dateDay: Int? = null
+
+    private var timeQuestion: TimeQuestion? = null
+    private var timeHour: Int? = null
+    private var timeMinute: Int? = null
 
     companion object {
         const val pageArg = "page"
@@ -64,6 +70,11 @@ class QuestionFragment: Fragment(), BackPressedListener, DatePickerDialog.OnDate
         dateQuestion = dateQuestionView
         container_formQuestion.addView(dateQuestion)
         dateQuestion!!.setOnClickListener(dateViewClickListener)
+
+        val timeQuestionView = TimeQuestion("Question 5", context!!)
+        timeQuestion = timeQuestionView
+        container_formQuestion.addView(timeQuestion)
+        timeQuestion!!.setOnClickListener(timeViewClickListener)
     }
 
     override fun onBackPressed(): Boolean {
@@ -76,12 +87,34 @@ class QuestionFragment: Fragment(), BackPressedListener, DatePickerDialog.OnDate
         datePickerFragment.show(fragmentManager, "hello")
     }
 
+    private val timeViewClickListener = View.OnClickListener {
+        val timePickerFragment = TimePickerFragment()
+        timePickerFragment.newInstance(this, timeHour, timeMinute)
+        timePickerFragment.show(fragmentManager, "hello")
+    }
+
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         dateYear = year
         dateMonth = month
         dateDay = dayOfMonth
 
         dateQuestion?.setDate(dateMonth!!, dateDay!!, dateYear!!)
+    }
+
+    override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+        timeHour = hourOfDay
+        timeMinute = minute
+
+        var timePeriod = "am"
+        var formattedHour = timeHour!!
+        if (timeHour!! >= 12) {
+            timePeriod = "pm"
+            formattedHour-=12
+        }
+        if (formattedHour == 0) {
+            formattedHour = 12
+        }
+        timeQuestion?.setTime(formattedHour, timeMinute!!, timePeriod)
     }
 }
 
@@ -114,5 +147,30 @@ class DatePickerFragment: DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return DatePickerDialog(context!!, dateSetListener, year, month, day)
+    }
+}
+
+class TimePickerFragment: DialogFragment() {
+    private lateinit var timeSetListener: TimePickerDialog.OnTimeSetListener
+    private var hour: Int = 0
+    private var minute: Int = 0
+
+    fun newInstance(listener: TimePickerDialog.OnTimeSetListener, selectedHour: Int? = null, selectedMinute: Int? = null) {
+        timeSetListener = listener
+
+        if (selectedHour != null) {
+            hour = selectedHour
+        } else {
+            hour = 11
+        }
+        if (selectedMinute != null) {
+            minute = selectedMinute
+        } else {
+            minute = 0
+        }
+    }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return TimePickerDialog(context!!, timeSetListener, hour, minute, false)
     }
 }
