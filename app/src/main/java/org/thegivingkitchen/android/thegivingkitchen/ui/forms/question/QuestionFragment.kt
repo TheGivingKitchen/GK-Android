@@ -75,6 +75,8 @@ class QuestionFragment: Fragment(), BackPressedListener, DatePickerDialog.OnDate
         timeQuestion = timeQuestionView
         container_formQuestion.addView(timeQuestion)
         timeQuestion!!.setOnClickListener(timeViewClickListener)
+
+        container_formQuestion.addView(NumberQuestion("Question 6", context!!))
     }
 
     override fun onBackPressed(): Boolean {
