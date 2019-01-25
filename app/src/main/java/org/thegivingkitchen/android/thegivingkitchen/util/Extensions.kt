@@ -24,6 +24,15 @@ fun Fragment.startShareAction(str: String) {
     startActivity(sendIntent)
 }
 
+fun View.setPaddingDp(leftDp: Int, topDp: Int, rightDp: Int, bottomDp: Int) {
+    this.setPadding(convertToDp(leftDp, resources), convertToDp(topDp, resources), convertToDp(rightDp, resources), convertToDp(bottomDp, resources))
+}
+
+fun convertToDp(sizeInDp: Int, resources: Resources): Int {
+    val scale = resources.displayMetrics.density
+    return (sizeInDp * scale + 0.5f).toInt()
+}
+
 /**
  * @return true if the text was set or false if the TextView is now Gone
  */
