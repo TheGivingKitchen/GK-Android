@@ -32,6 +32,7 @@ class EventsFragment : Fragment() {
     private var adapter = EventsAdapter(listOf(), this)
     private lateinit var model: EventsViewModel
 
+    // todo: don't crash the app if a response is not received within 30 seconds
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         model = ViewModelProviders.of(this).get(EventsViewModel::class.java)
