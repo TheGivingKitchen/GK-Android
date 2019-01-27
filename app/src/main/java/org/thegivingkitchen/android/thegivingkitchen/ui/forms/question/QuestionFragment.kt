@@ -62,7 +62,7 @@ class QuestionFragment: Fragment(), BackPressedListener, DatePickerDialog.OnDate
         pageTitle_formQuestion.setTextIfItExists(page.pageInformation)
 
         /*  Testing code  */
-        container_formQuestion.addView(FullnameQuestion("Question 1", context!!))
+        container_formQuestion.addView(ShortnameQuestion("Question 1", context!!))
         container_formQuestion.addView(PhoneQuestion("Question 2", context!!))
         container_formQuestion.addView(EmailQuestion("Question 3", context!!))
 
@@ -82,6 +82,8 @@ class QuestionFragment: Fragment(), BackPressedListener, DatePickerDialog.OnDate
         container_formQuestion.addView(TextareaQuestion("Question 9", context!!))
         container_formQuestion.addView(CheckboxQuestion("Question 10", listOf("hi", "hello", "namaste", "whatsup", "hola"), true, context!!))
         container_formQuestion.addView(RadioQuestion("Question 11", listOf("bye", "goodbye", "alvida", "see ya later", "adiós"), true, context!!))
+        container_formQuestion.addView(RadioQuestion("Question 11", listOf("bye", "goodbye", "alvida", "see ya later", "adiós"), true, context!!))
+        container_formQuestion.addView(FullnameQuestion("Question 12", context!!))
     }
 
     override fun onBackPressed(): Boolean {
