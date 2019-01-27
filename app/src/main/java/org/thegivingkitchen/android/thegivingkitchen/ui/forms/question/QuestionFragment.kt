@@ -80,7 +80,7 @@ class QuestionFragment: Fragment(), BackPressedListener, DatePickerDialog.OnDate
         container_formQuestion.addView(TextQuestion("Question 7", context!!))
         container_formQuestion.addView(UrlQuestion("Question 8", context!!))
         container_formQuestion.addView(TextareaQuestion("Question 9", context!!))
-        container_formQuestion.addView(CheckboxQuestion("Question 10", listOf("hi", "hello", "namaste", "whatsup", "hola"), context!!))
+        container_formQuestion.addView(CheckboxQuestion("Question 10", listOf("hi", "hello", "namaste", "whatsup", "hola"), true, context!!))
 
     }
 
@@ -112,6 +112,7 @@ class QuestionFragment: Fragment(), BackPressedListener, DatePickerDialog.OnDate
         timeHour = hourOfDay
         timeMinute = minute
 
+        // todo: use string resources for am and pm
         var timePeriod = "am"
         var formattedHour = timeHour!!
         if (timeHour!! >= 12) {

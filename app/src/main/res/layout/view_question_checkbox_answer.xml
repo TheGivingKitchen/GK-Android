@@ -12,6 +12,17 @@
         android:background="@drawable/checkbox_answer_border"
         android:textSize="8pt"
         android:textColor="@color/gk_blue"
-        android:padding="10dp"/>
+        android:padding="10dp" />
+
+    <EditText
+        android:id="@+id/answerChoice_checkboxOtherAnswer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:background="@drawable/edit_text_border"
+        android:hint="@string/checkbox_other_hint"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"/>
 
 </LinearLayout>

@@ -105,7 +105,11 @@
     <string name="phone_question_hint">(404) 555&#8211;5555</string>
     <string name="number_question_hint">123</string>
     <string name="url_question_hint">https://example.com</string>
+    <string name="checkbox_other_hint">Please Specify</string>
     <string name="date_question_date">%1$d/%2$d/%3$d</string>
     <string name="time_question_time">%1$d:%2$s %3$s</string>
+
+    <string name="answer_choice_other">Other</string>
+
 
 </resources>

@@ -37,6 +37,7 @@ class FormPrologueFragment : Fragment() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // todo: set cancel button action
         super.onCreate(savedInstanceState)
         jsonAdapter = Firebase.moshi.adapter(Form::class.java)
         model = ViewModelProviders.of(this).get(FormPrologueViewModel::class.java)
