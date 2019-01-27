@@ -81,7 +81,7 @@ class QuestionFragment: Fragment(), BackPressedListener, DatePickerDialog.OnDate
         container_formQuestion.addView(UrlQuestion("Question 8", context!!))
         container_formQuestion.addView(TextareaQuestion("Question 9", context!!))
         container_formQuestion.addView(CheckboxQuestion("Question 10", listOf("hi", "hello", "namaste", "whatsup", "hola"), true, context!!))
-
+        container_formQuestion.addView(RadioQuestion("Question 11", listOf("bye", "goodbye", "alvida", "see ya later", "adiós"), true, context!!))
     }
 
     override fun onBackPressed(): Boolean {
@@ -91,13 +91,13 @@ class QuestionFragment: Fragment(), BackPressedListener, DatePickerDialog.OnDate
     private val dateViewClickListener = View.OnClickListener {
         val datePickerFragment = DatePickerFragment()
         datePickerFragment.newInstance(this, dateYear, dateMonth, dateDay)
-        datePickerFragment.show(fragmentManager, "hello")
+        datePickerFragment.show(fragmentManager, "Date")
     }
 
     private val timeViewClickListener = View.OnClickListener {
         val timePickerFragment = TimePickerFragment()
         timePickerFragment.newInstance(this, timeHour, timeMinute)
-        timePickerFragment.show(fragmentManager, "hello")
+        timePickerFragment.show(fragmentManager, "Time")
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {

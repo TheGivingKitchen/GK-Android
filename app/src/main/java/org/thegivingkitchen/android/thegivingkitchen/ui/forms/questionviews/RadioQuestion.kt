@@ -13,6 +13,8 @@ import org.thegivingkitchen.android.thegivingkitchen.util.setTextIfItExists
 
 class RadioQuestion(title: String?, answerChoices: List<String>?, hasOtherField: Boolean?, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle) {
     // todo: use merge tags in views
+    private var answerChoiceViews: List<RadioAnswerChoice>?
+
     init {
         LayoutInflater.from(context).inflate(R.layout.view_question_radio, this, true)
         layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -22,17 +24,30 @@ class RadioQuestion(title: String?, answerChoices: List<String>?, hasOtherField:
         if (hasOtherField != null && hasOtherField) {
             mutableAnswerChoicesList?.add(resources.getString(R.string.answer_choice_other))
         }
-        if (mutableAnswerChoicesList != null) {
-            for (answerChoice in mutableAnswerChoicesList) {
-                val radioAnswerChoice = CheckboxAnswerChoice(answerChoice, context)
-                RxView.clicks(radioAnswerChoice)
+
+        answerChoiceViews = mutableAnswerChoicesList?.map { RadioAnswerChoice(it, context) }
+
+        if (answerChoiceViews != null) {
+            for (answerChoiceView in answerChoiceViews!!) {
+                RxView.clicks(answerChoiceView)
                         .takeUntil(RxView.detaches(this))
-                        .map { radioAnswerChoice }
-                        .subscribe { it.clickAction() }
-                this.addView(radioAnswerChoice)
+                        .map { answerChoiceView }
+                        .subscribe {
+                            onSelection(it)
+                        }
+                this.addView(answerChoiceView)
             }
         }
 
         this.setPaddingDp(0, 0, 0, 20)
+    }
+
+    private fun onSelection(radioAnswerChoice: RadioAnswerChoice) {
+        for (answerChoiceView in answerChoiceViews!!) {
+            if (answerChoiceView.currentSelectedState) {
+                answerChoiceView.clickAction()
+            }
+        }
+        radioAnswerChoice.clickAction()
     }
 }

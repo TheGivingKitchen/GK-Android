@@ -13,6 +13,8 @@ import org.thegivingkitchen.android.thegivingkitchen.util.setTextIfItExists
 
 class CheckboxQuestion(title: String?, answerChoices: List<String>?, hasOtherField: Boolean?, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle) {
     // todo: use merge tags in views
+    private var answerChoiceViews: List<CheckboxAnswerChoice>?
+
     init {
         LayoutInflater.from(context).inflate(R.layout.view_question_checkbox, this, true)
         layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -22,14 +24,16 @@ class CheckboxQuestion(title: String?, answerChoices: List<String>?, hasOtherFie
         if (hasOtherField != null && hasOtherField) {
             mutableAnswerChoicesList?.add(resources.getString(R.string.answer_choice_other))
         }
-        if (mutableAnswerChoicesList != null) {
-            for (answerChoice in mutableAnswerChoicesList) {
-                val checkboxAnswerChoice = CheckboxAnswerChoice(answerChoice, context)
-                RxView.clicks(checkboxAnswerChoice)
+
+        answerChoiceViews = mutableAnswerChoicesList?.map { CheckboxAnswerChoice(it, context) }
+
+        if (answerChoiceViews != null) {
+            for (answerChoiceView in answerChoiceViews!!) {
+                RxView.clicks(answerChoiceView)
                         .takeUntil(RxView.detaches(this))
-                        .map { checkboxAnswerChoice }
+                        .map { answerChoiceView }
                         .subscribe { it.clickAction() }
-                this.addView(checkboxAnswerChoice)
+                this.addView(answerChoiceView)
             }
         }
 
