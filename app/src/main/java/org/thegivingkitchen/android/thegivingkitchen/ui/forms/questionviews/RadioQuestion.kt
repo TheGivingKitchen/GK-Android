@@ -5,7 +5,6 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import com.jakewharton.rxbinding.view.RxView
 import kotlinx.android.synthetic.main.view_question_radio.view.*
 import org.thegivingkitchen.android.thegivingkitchen.R
 import org.thegivingkitchen.android.thegivingkitchen.util.setPaddingDp
@@ -29,12 +28,9 @@ class RadioQuestion(title: String?, answerChoices: List<String>?, hasOtherField:
 
         if (answerChoiceViews != null) {
             for (answerChoiceView in answerChoiceViews!!) {
-                RxView.clicks(answerChoiceView)
-                        .takeUntil(RxView.detaches(this))
-                        .map { answerChoiceView }
-                        .subscribe {
-                            onSelection(it)
-                        }
+                answerChoiceView.setOnClickListener {
+                    onSelection(it as RadioAnswerChoice)
+                }
                 this.addView(answerChoiceView)
             }
         }

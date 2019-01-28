@@ -1,16 +1,17 @@
-package org.thegivingkitchen.android.thegivingkitchen.ui.forms.questionviews
+package org.thegivingkitchen.android.thegivingkitchen.ui.forms.questionviews.selectquestion
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import kotlinx.android.synthetic.main.view_question_date.view.*
 import kotlinx.android.synthetic.main.view_question_select.view.*
 import org.thegivingkitchen.android.thegivingkitchen.R
 import org.thegivingkitchen.android.thegivingkitchen.util.setTextIfItExists
 import java.util.*
 
-class DateQuestion(title: String?, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle){
+class SelectQuestion(title: String?, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle) {
     // todo: use merge tags in views
     init {
         LayoutInflater.from(context).inflate(R.layout.view_question_select, this, true)
@@ -21,9 +22,6 @@ class DateQuestion(title: String?, context: Context, attrs: AttributeSet? = null
     }
 
     fun setDate(month: Int, day: Int, year: Int) {
-        selection_selectQuestion.text = context.getString(R.string.date_question_date, month+1, day, year)
+        date_dateQuestion.text = context.getString(R.string.date_question_date, month+1, day, year)
     }
 }
-
-
-

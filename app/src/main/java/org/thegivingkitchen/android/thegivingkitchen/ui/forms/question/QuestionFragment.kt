@@ -82,7 +82,6 @@ class QuestionFragment: Fragment(), BackPressedListener, DatePickerDialog.OnDate
         container_formQuestion.addView(TextareaQuestion("Question 9", context!!))
         container_formQuestion.addView(CheckboxQuestion("Question 10", listOf("hi", "hello", "namaste", "whatsup", "hola"), true, context!!))
         container_formQuestion.addView(RadioQuestion("Question 11", listOf("bye", "goodbye", "alvida", "see ya later", "adiós"), true, context!!))
-        container_formQuestion.addView(RadioQuestion("Question 11", listOf("bye", "goodbye", "alvida", "see ya later", "adiós"), true, context!!))
         container_formQuestion.addView(FullnameQuestion("Question 12", context!!))
     }
 
