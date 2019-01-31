@@ -42,7 +42,7 @@ class QuestionFragment: Fragment(), BackPressedListener, DatePickerDialog.OnDate
         }
     }
 
-    lateinit var page: Page
+    private lateinit var page: Page
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,27 +62,28 @@ class QuestionFragment: Fragment(), BackPressedListener, DatePickerDialog.OnDate
         pageTitle_formQuestion.setTextIfItExists(page.pageInformation)
 
         /*  Testing code  */
-        container_formQuestion.addView(ShortnameQuestion("Question 1", context!!))
-        container_formQuestion.addView(PhoneQuestion("Question 2", context!!))
-        container_formQuestion.addView(EmailQuestion("Question 3", context!!))
+        container_formQuestion.addView(ShortnameQuestion("Shortname Question", context!!))
+        container_formQuestion.addView(PhoneQuestion("Phone Question", context!!))
+        container_formQuestion.addView(EmailQuestion("Email Question", context!!))
 
-        val dateQuestionView = DateQuestion("Question 4", context!!)
+        val dateQuestionView = DateQuestion("Date Question", context!!)
         dateQuestion = dateQuestionView
         container_formQuestion.addView(dateQuestion)
         dateQuestion!!.setOnClickListener(dateViewClickListener)
 
-        val timeQuestionView = TimeQuestion("Question 5", context!!)
+        val timeQuestionView = TimeQuestion("Time Question", context!!)
         timeQuestion = timeQuestionView
         container_formQuestion.addView(timeQuestion)
         timeQuestion!!.setOnClickListener(timeViewClickListener)
 
-        container_formQuestion.addView(NumberQuestion("Question 6", context!!))
-        container_formQuestion.addView(TextQuestion("Question 7", context!!))
-        container_formQuestion.addView(UrlQuestion("Question 8", context!!))
-        container_formQuestion.addView(TextareaQuestion("Question 9", context!!))
-        container_formQuestion.addView(CheckboxQuestion("Question 10", listOf("hi", "hello", "namaste", "whatsup", "hola"), true, context!!))
-        container_formQuestion.addView(RadioQuestion("Question 11", listOf("bye", "goodbye", "alvida", "see ya later", "adiós"), true, context!!))
-        container_formQuestion.addView(FullnameQuestion("Question 12", context!!))
+        container_formQuestion.addView(NumberQuestion("Number Question", context!!))
+        container_formQuestion.addView(TextQuestion("Text Question", context!!))
+        container_formQuestion.addView(UrlQuestion("Url Question", context!!))
+        container_formQuestion.addView(TextareaQuestion("Textarea Question", context!!))
+        container_formQuestion.addView(CheckboxQuestion("Checkbox Question", listOf("hi", "hello", "namaste", "whatsup", "hola"), true, context!!))
+        container_formQuestion.addView(RadioQuestion("Radio Question", listOf("bye", "goodbye", "alvida", "see ya later", "adiós"), true, context!!))
+        container_formQuestion.addView(FullnameQuestion("Fullname Question", context!!))
+        container_formQuestion.addView(MoneyQuestion("Money Question", context!!))
     }
 
     override fun onBackPressed(): Boolean {

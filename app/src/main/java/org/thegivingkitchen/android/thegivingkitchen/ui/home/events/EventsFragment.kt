@@ -77,14 +77,7 @@ class EventsFragment : Fragment() {
 
         @Throws(IOException::class)
         fun getData(url: String): String? {
-            val request = Request.Builder()
-                    .url(url)
-                    .build()
-
-            val response = httpClient.newCall(request).execute()
-            val responseString = response.body()?.string()
-
-            return responseString
+            return httpClient.newCall(Request.Builder().url(url).build()).execute().body()?.string()
         }
     }
 

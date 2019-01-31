@@ -71,9 +71,7 @@ class XmlParser {
         var picUrl: String? = null
         var description: String? = null
         while (parser.next() != XmlPullParser.END_TAG) {
-            if (parser.eventType != XmlPullParser.START_TAG) {
-                continue
-            }
+            if (parser.eventType != XmlPullParser.START_TAG) { continue }
             when (parser.name) {
                 "title" -> title = readTitle(parser)
                 "media:content" -> picUrl = readLink(parser)
