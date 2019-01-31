@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.Navigation
 import com.squareup.moshi.JsonAdapter
 import kotlinx.android.synthetic.main.fragment_form_prologue.*
@@ -57,6 +58,7 @@ class FormPrologueFragment : Fragment() {
         // todo: delete this file when done
         val localFile = File.createTempFile("form", "json")
         shareButton_formsPrologue.setOnClickListener(shareClickListener)
+        cancel_formsPrologue.setOnClickListener(cancelClickListener)
         if (arguments != null) {
             Firebase.firebaseInstance.getReferenceFromUrl(arguments!!.getString(formsArg))
                     .getFile(localFile)
@@ -106,5 +108,9 @@ class FormPrologueFragment : Fragment() {
         if (shareString != null) {
             startShareAction(shareString!!)
         }
+    }
+
+    private val cancelClickListener = View.OnClickListener {
+        Toast.makeText(context, "cancel button clicked", Toast.LENGTH_SHORT).show()
     }
 }
