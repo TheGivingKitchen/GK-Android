@@ -1,4 +1,4 @@
-package org.thegivingkitchen.android.thegivingkitchen.ui.forms.questionviews
+package org.thegivingkitchen.android.thegivingkitchen.ui.forms.questionviews.radioquestion
 
 import android.content.Context
 import android.support.v4.content.ContextCompat

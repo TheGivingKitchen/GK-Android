@@ -1,4 +1,4 @@
-package org.thegivingkitchen.android.thegivingkitchen.ui.forms.questionviews
+package org.thegivingkitchen.android.thegivingkitchen.ui.forms.questionviews.checkboxquestion
 
 import android.content.Context
 import android.util.AttributeSet

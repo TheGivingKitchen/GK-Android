@@ -1,4 +1,4 @@
-package org.thegivingkitchen.android.thegivingkitchen.ui.forms.questionviews
+package org.thegivingkitchen.android.thegivingkitchen.ui.forms.questionviews.radioquestion
 
 import android.content.Context
 import android.util.AttributeSet
@@ -10,6 +10,8 @@ import org.thegivingkitchen.android.thegivingkitchen.R
 import org.thegivingkitchen.android.thegivingkitchen.util.setPaddingDp
 import org.thegivingkitchen.android.thegivingkitchen.util.setTextIfItExists
 
+// This is currently being used as a select question view
+// todo: make a select question view docs.google.com/presentation/d/1EO0VWQaoIrQXHB8EucHnPXx1IBLR0AEHc5hVTl7hiLg/edit#slide=id.g4bfbc276d8_0_94
 class RadioQuestion(title: String?, answerChoices: List<String>?, hasOtherField: Boolean?, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle) {
     // todo: use merge tags in views
     private var answerChoiceViews: List<RadioAnswerChoice>?

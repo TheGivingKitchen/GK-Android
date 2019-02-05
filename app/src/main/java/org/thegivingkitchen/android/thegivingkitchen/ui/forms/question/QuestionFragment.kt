@@ -1,11 +1,9 @@
 package org.thegivingkitchen.android.thegivingkitchen.ui.forms.question
 
 import android.app.DatePickerDialog
-import android.app.Dialog
 import android.app.TimePickerDialog
 import android.os.Bundle
 import android.support.annotation.Nullable
-import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,9 +14,15 @@ import kotlinx.android.synthetic.main.fragment_form_question.*
 import org.thegivingkitchen.android.thegivingkitchen.R
 import org.thegivingkitchen.android.thegivingkitchen.ui.forms.Page
 import org.thegivingkitchen.android.thegivingkitchen.ui.forms.questionviews.*
+import org.thegivingkitchen.android.thegivingkitchen.ui.forms.questionviews.checkboxquestion.CheckboxQuestion
+import org.thegivingkitchen.android.thegivingkitchen.ui.forms.questionviews.datequestion.DatePickerFragment
+import org.thegivingkitchen.android.thegivingkitchen.ui.forms.questionviews.datequestion.DateQuestion
+import org.thegivingkitchen.android.thegivingkitchen.ui.forms.questionviews.moneyquestion.MoneyQuestion
+import org.thegivingkitchen.android.thegivingkitchen.ui.forms.questionviews.radioquestion.RadioQuestion
+import org.thegivingkitchen.android.thegivingkitchen.ui.forms.questionviews.timequestion.TimePickerFragment
+import org.thegivingkitchen.android.thegivingkitchen.ui.forms.questionviews.timequestion.TimeQuestion
 import org.thegivingkitchen.android.thegivingkitchen.util.BackPressedListener
 import org.thegivingkitchen.android.thegivingkitchen.util.setTextIfItExists
-import java.util.*
 
 class QuestionFragment: Fragment(), BackPressedListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
     private var dateQuestion: DateQuestion? = null
@@ -114,73 +118,15 @@ class QuestionFragment: Fragment(), BackPressedListener, DatePickerDialog.OnDate
         timeHour = hourOfDay
         timeMinute = minute
 
-        // todo: use string resources for am and pm
-        var timePeriod = "am"
+        var timePeriod = getString(R.string.time_question_am)
         var formattedHour = timeHour!!
         if (timeHour!! >= 12) {
-            timePeriod = "pm"
+            timePeriod = getString(R.string.time_question_pm)
             formattedHour-=12
         }
         if (formattedHour == 0) {
             formattedHour = 12
         }
         timeQuestion?.setTime(formattedHour, timeMinute!!, timePeriod)
-    }
-}
-
-class DatePickerFragment: DialogFragment() {
-    private lateinit var dateSetListener: DatePickerDialog.OnDateSetListener
-    private var year: Int = 0
-    private var month: Int = 0
-    private var day: Int = 0
-
-    fun newInstance(listener: DatePickerDialog.OnDateSetListener, selectedYear: Int? = null, selectedMonth: Int? = null, selectedDay: Int? = null) {
-        dateSetListener = listener
-
-        val calendar = Calendar.getInstance()
-        if (selectedYear != null) {
-            year = selectedYear
-        } else {
-            year = calendar.get(Calendar.YEAR)
-        }
-        if (selectedMonth != null) {
-            month = selectedMonth
-        } else {
-            month = calendar.get(Calendar.MONTH)
-        }
-        if (selectedDay != null) {
-            day = selectedDay
-        } else {
-            day = calendar.get(Calendar.DAY_OF_MONTH)
-        }
-    }
-
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return DatePickerDialog(context!!, dateSetListener, year, month, day)
-    }
-}
-
-class TimePickerFragment: DialogFragment() {
-    private lateinit var timeSetListener: TimePickerDialog.OnTimeSetListener
-    private var hour: Int = 0
-    private var minute: Int = 0
-
-    fun newInstance(listener: TimePickerDialog.OnTimeSetListener, selectedHour: Int? = null, selectedMinute: Int? = null) {
-        timeSetListener = listener
-
-        if (selectedHour != null) {
-            hour = selectedHour
-        } else {
-            hour = 11
-        }
-        if (selectedMinute != null) {
-            minute = selectedMinute
-        } else {
-            minute = 0
-        }
-    }
-
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return TimePickerDialog(context!!, timeSetListener, hour, minute, false)
     }
 }
