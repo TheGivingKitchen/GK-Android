@@ -1,9 +1,12 @@
 package org.thegivingkitchen.android.thegivingkitchen.ui.forms.questionviews
 
 import android.content.Context
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.LinearLayout
 import kotlinx.android.synthetic.main.view_question_money.view.*
 import org.thegivingkitchen.android.thegivingkitchen.R
@@ -15,7 +18,9 @@ class MoneyQuestion(title: String?, context: Context, attrs: AttributeSet? = nul
         LayoutInflater.from(context).inflate(R.layout.view_question_money, this, true)
         layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         title_moneyQuestion.setTextIfItExists(title)
-        amount_moneyQuestion.setOnFocusChangeListener { v, hasFocus ->
+
+        // todo: when focus is lost, add a dollar sign to the beginning of the amount
+        /* amount_moneyQuestion.setOnFocusChangeListener { v, hasFocus ->
             when (hasFocus) {
                 true -> {
                     val currentText = amount_moneyQuestion.text
@@ -24,24 +29,12 @@ class MoneyQuestion(title: String?, context: Context, attrs: AttributeSet? = nul
                     }
                 }
                 false -> {
-                    title_moneyQuestion.text = "lost focus"
+                    amount_moneyQuestion.text = "hello" // amount_moneyQuestion.text.insert(0, "$")
                 }
             }
-        }
-        // amount_moneyQuestion.addTextChangedListener(CurrencyInputFormatter(amount_moneyQuestion))
+        }*/
+
+        // todo: format currency properly
+        // amount_moneyQuestion.addTextChangedListener(CurrencyInputFormatter(amount_moneyQuestion, "#,###"))
     }
 }
-/*
-class CurrencyInputFormatter(val editText: EditText): TextWatcher {
-    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-    }
-
-    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-    }
-
-    override fun afterTextChanged(s: Editable?) {
-
-    }
-}*/
