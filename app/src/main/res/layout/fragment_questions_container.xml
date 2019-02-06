@@ -36,7 +36,6 @@
         <TextView
             android:id="@+id/nextButton_questionsContainer"
             style="@style/ButtonText"
-            android:text="@string/forms_questions_next"
             android:textColor="@color/gk_orange"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

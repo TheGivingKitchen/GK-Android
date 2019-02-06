@@ -1,5 +1,7 @@
 package org.thegivingkitchen.android.thegivingkitchen.ui.forms
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.annotation.Nullable
 import android.support.v4.app.Fragment
@@ -9,6 +11,7 @@ import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_questions_container.*
 import org.thegivingkitchen.android.thegivingkitchen.R
 import org.thegivingkitchen.android.thegivingkitchen.ui.forms.prologue.FormPrologueFragment
@@ -18,12 +21,19 @@ import org.thegivingkitchen.android.thegivingkitchen.util.BackPressedListener
 class QuestionsContainerFragment: Fragment(), BackPressedListener {
     private lateinit var mPager: ViewPager
     private var questionPages = listOf<Page>()
+    private lateinit var model: QuestionsContainerViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        model = ViewModelProviders.of(this).get(QuestionsContainerViewModel::class.java)
+
         if (arguments != null) {
             questionPages = arguments!!.getParcelableArrayList<Page>(FormPrologueFragment.questionPagesArg)!!.toList()
         }
+
+        model.getForwardButtonState().observe(this, Observer<QuestionsContainerViewModel.Companion.ForwardButtonState> { forwardButtonState ->
+            updateForwardButton(forwardButtonState!!)
+        })
     }
 
     @Nullable
@@ -38,19 +48,18 @@ class QuestionsContainerFragment: Fragment(), BackPressedListener {
         val questionPagesAdapter = ScreenSlidePagerAdapter(fragmentManager!!)
         mPager.adapter = questionPagesAdapter
         if (questionPagesAdapter.count < 2) {
-            transformNextButtonToSubmit()
+            model.setForwardButtonState(QuestionsContainerViewModel.Companion.ForwardButtonState.SUBMIT)
         } else {
+            model.setForwardButtonState(QuestionsContainerViewModel.Companion.ForwardButtonState.NEXT)
             mPager.addOnPageChangeListener(object: ViewPager.OnPageChangeListener {
                 override fun onPageScrollStateChanged(state: Int) { }
 
-                override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-
-                }
+                override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) { }
                 override fun onPageSelected(position: Int) {
                     if (position == questionPagesAdapter.count-1) {
-                        transformNextButtonToSubmit()
+                        model.setForwardButtonState(QuestionsContainerViewModel.Companion.ForwardButtonState.SUBMIT)
                     } else {
-                        nextButton_questionsContainer.text = getString(R.string.forms_questions_next)
+                        model.setForwardButtonState(QuestionsContainerViewModel.Companion.ForwardButtonState.NEXT)
                     }
                 }
             })
@@ -59,7 +68,6 @@ class QuestionsContainerFragment: Fragment(), BackPressedListener {
         // todo: use a constraintlayout group here
         backButtonText_questionsContainer.setOnClickListener(backButtonClickListener)
         backButtonIcon_questionsContainer.setOnClickListener(backButtonClickListener)
-        nextButton_questionsContainer.setOnClickListener(nextButtonClickListener)
     }
 
     override fun onBackPressed(): Boolean {
@@ -69,17 +77,30 @@ class QuestionsContainerFragment: Fragment(), BackPressedListener {
         mPager.currentItem = mPager.currentItem - 1
         return true
     }
-    
-    private fun transformNextButtonToSubmit() {
-        nextButton_questionsContainer.text = getString(R.string.forms_questions_submit)
-    }
 
+    private fun updateForwardButton(state: QuestionsContainerViewModel.Companion.ForwardButtonState) {
+        val forwardButtonClickAction: View.OnClickListener = when (state) {
+            QuestionsContainerViewModel.Companion.ForwardButtonState.NEXT -> {
+                nextButtonClickListener
+            }
+            QuestionsContainerViewModel.Companion.ForwardButtonState.SUBMIT -> {
+                submitButtonClickListener
+            }
+        }
+        nextButton_questionsContainer.setOnClickListener(forwardButtonClickAction)
+        nextButton_questionsContainer.text = getString(state.text)
+    }
+    
     private val backButtonClickListener = View.OnClickListener {
         mPager.currentItem = mPager.currentItem - 1
     }
 
     private val nextButtonClickListener = View.OnClickListener {
         mPager.currentItem = mPager.currentItem + 1
+    }
+
+    private val submitButtonClickListener = View.OnClickListener {
+        Toast.makeText(context, "submit pressed", Toast.LENGTH_SHORT).show()
     }
 
     private inner class ScreenSlidePagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {

@@ -34,8 +34,7 @@ dependencies {
     def lifecycle_version = "1.1.1"
     def nav_version = "1.0.0-alpha10"
     def supportLibVersion = "28.0.0"
-
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "com.android.support:appcompat-v7:$supportLibVersion"
     implementation "com.android.support:design:$supportLibVersion"
@@ -46,7 +45,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:16.0.5'
     implementation 'com.google.firebase:firebase-auth:16.1.0'
     implementation 'com.google.firebase:firebase-core:16.0.6'
-    implementation "android.arch.paging:runtime:1.0.1"
+    implementation 'android.arch.paging:runtime:1.0.1'
     implementation "android.arch.navigation:navigation-fragment-ktx:$nav_version"
     implementation "android.arch.navigation:navigation-ui-ktx:$nav_version"
     implementation "android.arch.lifecycle:extensions:$lifecycle_version"
@@ -55,9 +54,9 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
     implementation 'com.squareup.okhttp3:okhttp:3.12.0'
     implementation 'com.squareup.okio:okio:2.1.0'
-    implementation("com.squareup.moshi:moshi:1.8.0")
+    implementation 'com.squareup.moshi:moshi:1.8.0'
     kapt("com.squareup.moshi:moshi-kotlin-codegen:1.8.0")
-    implementation "android.arch.paging:runtime:1.0.1"
+    implementation 'android.arch.paging:runtime:1.0.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
