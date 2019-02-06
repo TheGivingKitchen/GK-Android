@@ -48,7 +48,8 @@
         android:id="@+id/viewPager_questionsContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         android:layout_weight="1"/>
 
 </LinearLayout>

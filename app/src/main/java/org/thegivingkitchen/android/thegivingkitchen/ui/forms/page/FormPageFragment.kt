@@ -1,16 +1,15 @@
 package org.thegivingkitchen.android.thegivingkitchen.ui.forms.page
 
-import android.app.TimePickerDialog
 import android.os.Bundle
 import android.support.annotation.Nullable
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TimePicker
 import kotlinx.android.synthetic.main.fragment_form_question.*
 import org.thegivingkitchen.android.thegivingkitchen.R
 import org.thegivingkitchen.android.thegivingkitchen.ui.forms.Page
+import org.thegivingkitchen.android.thegivingkitchen.ui.forms.Question
 import org.thegivingkitchen.android.thegivingkitchen.ui.forms.questionviews.*
 import org.thegivingkitchen.android.thegivingkitchen.ui.forms.questionviews.checkboxquestion.CheckboxQuestion
 import org.thegivingkitchen.android.thegivingkitchen.ui.forms.questionviews.datequestion.DatePickerFragment
@@ -22,7 +21,7 @@ import org.thegivingkitchen.android.thegivingkitchen.ui.forms.questionviews.time
 import org.thegivingkitchen.android.thegivingkitchen.util.BackPressedListener
 import org.thegivingkitchen.android.thegivingkitchen.util.setTextIfItExists
 
-class FormPageFragment: Fragment(), BackPressedListener {
+class FormPageFragment : Fragment(), BackPressedListener {
 
     companion object {
         const val pageArg = "page"
@@ -58,70 +57,78 @@ class FormPageFragment: Fragment(), BackPressedListener {
         val questions = page.questions
         if (questions != null) {
             for (question in questions) {
-                val questionView: View? = when (question.Type) {
-                    QuestionType.shortname -> {
-                        ShortnameQuestion(question.Title, context!!)
-                    }
-                    QuestionType.fullname -> {
-                        FullnameQuestion(question.Title, context!!)
-                    }
-                    QuestionType.text -> {
-                        TextQuestion(question.Title, context!!)
-                    }
-                    QuestionType.phone -> {
-                        PhoneQuestion(question.Title, context!!)
-                    }
-                    QuestionType.email -> {
-                        EmailQuestion(question.Title, context!!)
-                    }
-                    QuestionType.address -> {
-                        AddressQuestion(question.Title, context!!)
-                    }
-                    QuestionType.date -> {
-                        val dateQuestion = DateQuestion(question.Title, context!!)
-                        dateQuestion.setOnClickListener {
-                            DatePickerFragment().newInstance(dateQuestion, dateQuestion.dateYear, dateQuestion.dateMonth, dateQuestion.dateDay).show(fragmentManager, "Date")
-                        }
-                        dateQuestion
-                    }
-                    QuestionType.time -> {
-                        val timeQuestion = TimeQuestion(question.Title, context!!)
-                        timeQuestion.setOnClickListener {
-                            TimePickerFragment().newInstance(timeQuestion, timeQuestion.timeHour, timeQuestion.timeMinute).show(fragmentManager, "Time")
-                        }
-                        timeQuestion
-                    }
-                    QuestionType.number -> {
-                        NumberQuestion(question.Title, context!!)
-                    }
-                    QuestionType.money -> {
-                        MoneyQuestion(question.Title, context!!)
-                    }
-                    QuestionType.checkbox -> {
-                        CheckboxQuestion(question.Title, question.SubFields?.map { it.Label }, question.HasOtherField, context!!)
-                    }
-                    QuestionType.textarea -> {
-                        TextareaQuestion(question.Title, context!!)
-                    }
-                    QuestionType.url -> {
-                        UrlQuestion(question.Title, context!!)
-                    }
-                    QuestionType.radio -> {
-                        RadioQuestion(question.Title, question.Choices?.map { it.Label }, question.HasOtherField, context!!)
-                    }
-                    QuestionType.select -> {
-                        RadioQuestion(question.Title, question.Choices?.map { it.Label }, question.HasOtherField, context!!)
-                    }
-                    else -> {
-                        null
-                    }
+                val questionView = getQuestionView(question)
+                if (questionView != null) {
+                    container_formQuestion.addView(questionView)
+                } else {
+                    // todo: log unexpected question type crash
                 }
-                container_formQuestion.addView(questionView)
             }
         }
     }
 
     override fun onBackPressed(): Boolean {
         return false
+    }
+
+    private fun getQuestionView(question: Question): View? {
+        return when (question.Type) {
+            QuestionType.shortname -> {
+                ShortnameQuestion(question.Title, context!!)
+            }
+            QuestionType.fullname -> {
+                FullnameQuestion(question.Title, context!!)
+            }
+            QuestionType.text -> {
+                TextQuestion(question.Title, context!!)
+            }
+            QuestionType.phone -> {
+                PhoneQuestion(question.Title, context!!)
+            }
+            QuestionType.email -> {
+                EmailQuestion(question.Title, context!!)
+            }
+            QuestionType.address -> {
+                AddressQuestion(question.Title, context!!)
+            }
+            QuestionType.date -> {
+                val dateQuestion = DateQuestion(question.Title, context!!)
+                dateQuestion.setOnClickListener {
+                    DatePickerFragment().newInstance(dateQuestion, dateQuestion.dateYear, dateQuestion.dateMonth, dateQuestion.dateDay).show(fragmentManager, "Date")
+                }
+                dateQuestion
+            }
+            QuestionType.time -> {
+                val timeQuestion = TimeQuestion(question.Title, context!!)
+                timeQuestion.setOnClickListener {
+                    TimePickerFragment().newInstance(timeQuestion, timeQuestion.timeHour, timeQuestion.timeMinute).show(fragmentManager, "Time")
+                }
+                timeQuestion
+            }
+            QuestionType.number -> {
+                NumberQuestion(question.Title, context!!)
+            }
+            QuestionType.money -> {
+                MoneyQuestion(question.Title, context!!)
+            }
+            QuestionType.checkbox -> {
+                CheckboxQuestion(question.Title, question.SubFields?.map { it.Label }, question.HasOtherField, context!!)
+            }
+            QuestionType.textarea -> {
+                TextareaQuestion(question.Title, context!!)
+            }
+            QuestionType.url -> {
+                UrlQuestion(question.Title, context!!)
+            }
+            QuestionType.radio -> {
+                RadioQuestion(question.Title, question.Choices?.map { it.Label }, question.HasOtherField, context!!)
+            }
+            QuestionType.select -> {
+                RadioQuestion(question.Title, question.Choices?.map { it.Label }, question.HasOtherField, context!!)
+            }
+            else -> {
+                null
+            }
+        }
     }
 }

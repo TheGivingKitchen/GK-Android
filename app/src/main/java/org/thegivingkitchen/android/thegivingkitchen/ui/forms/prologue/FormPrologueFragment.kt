@@ -59,7 +59,7 @@ class FormPrologueFragment : Fragment() {
         shareButton_formsPrologue.setOnClickListener(shareClickListener)
         cancel_formsPrologue.setOnClickListener(cancelClickListener)
         if (arguments != null) {
-            Services.firebaseInstance.getReferenceFromUrl(arguments!!.getString(formsArg))
+            Services.firebaseInstance.getReferenceFromUrl(arguments!!.getString(formsArg)!!)
                     .getFile(localFile)
                     .addOnSuccessListener {
                         val stringBuilder = StringBuilder()
@@ -92,7 +92,9 @@ class FormPrologueFragment : Fragment() {
         subtitle_formsPrologue.setTextIfItExists(data.FormSubtitle)
         description_formsPrologue.setTextIfItExists(data.FormMetadata)
         shareString = data.FormShareString + " " + formShareWufooUrl + data.ID
-        questionPages = data.Pages
+        if (data.Pages != null) {
+            questionPages = data.Pages
+        }
         startButton_formsPrologue.visibility = View.VISIBLE
         shareButton_formsPrologue.visibility = View.VISIBLE
     }

@@ -60,7 +60,7 @@ class QuestionsContainerFragment: Fragment(), BackPressedListener {
         mPager.currentItem = mPager.currentItem + 1
     }
 
-    private inner class ScreenSlidePagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
+    private inner class ScreenSlidePagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
         override fun getCount(): Int = questionPages.size
 
         override fun getItem(position: Int): Fragment {

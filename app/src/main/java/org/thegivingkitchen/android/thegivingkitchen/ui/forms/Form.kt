@@ -9,7 +9,7 @@ class Form(val ID: String?,
            val FormSubtitle: String?,
            val FormMetadata: String?,
            val FormShareString: String?,
-           val Pages: List<Page> = listOf())
+           val Pages: List<Page>? = listOf())
 
 @Parcelize
 data class Page(val pageInformation: String?,
