@@ -2,6 +2,7 @@ package org.thegivingkitchen.android.thegivingkitchen.ui.forms
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
+import org.thegivingkitchen.android.thegivingkitchen.ui.forms.page.QuestionType
 
 class Form(val ID: String?,
            val FormTitle: String?,
@@ -17,5 +18,5 @@ data class Page(val pageInformation: String?,
 @Parcelize
 data class Question(val Title: String?,
                     val IsRequired: String?,
-                    val Type: String?): Parcelable
+                    val Type: QuestionType?): Parcelable
 

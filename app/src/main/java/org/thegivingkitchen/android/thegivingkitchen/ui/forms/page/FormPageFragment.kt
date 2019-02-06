@@ -1,4 +1,4 @@
-package org.thegivingkitchen.android.thegivingkitchen.ui.forms.question
+package org.thegivingkitchen.android.thegivingkitchen.ui.forms.page
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
@@ -24,7 +24,7 @@ import org.thegivingkitchen.android.thegivingkitchen.ui.forms.questionviews.time
 import org.thegivingkitchen.android.thegivingkitchen.util.BackPressedListener
 import org.thegivingkitchen.android.thegivingkitchen.util.setTextIfItExists
 
-class QuestionFragment: Fragment(), BackPressedListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+class FormPageFragment: Fragment(), BackPressedListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
     private var dateQuestion: DateQuestion? = null
     private var dateYear: Int? = null
     private var dateMonth: Int? = null
@@ -37,8 +37,8 @@ class QuestionFragment: Fragment(), BackPressedListener, DatePickerDialog.OnDate
     companion object {
         const val pageArg = "page"
 
-        fun newInstance(page: Page): QuestionFragment {
-            val formQuestionFragment = QuestionFragment()
+        fun newInstance(page: Page): FormPageFragment {
+            val formQuestionFragment = FormPageFragment()
             val args = Bundle()
             args.putParcelable(pageArg, page)
             formQuestionFragment.arguments = args
