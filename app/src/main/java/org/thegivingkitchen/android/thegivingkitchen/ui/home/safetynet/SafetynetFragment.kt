@@ -14,8 +14,8 @@ import com.squareup.moshi.JsonAdapter
 import kotlinx.android.synthetic.main.fragment_safetynet.*
 import org.thegivingkitchen.android.thegivingkitchen.R
 import org.thegivingkitchen.android.thegivingkitchen.ui.home.safetynet.SafetynetViewModel.Companion.safetynetDataUrl
-import org.thegivingkitchen.android.thegivingkitchen.util.Firebase.firebaseInstance
-import org.thegivingkitchen.android.thegivingkitchen.util.Firebase.moshi
+import org.thegivingkitchen.android.thegivingkitchen.util.Services.firebaseInstance
+import org.thegivingkitchen.android.thegivingkitchen.util.Services.moshi
 import java.io.*
 
 class SafetynetFragment : Fragment() {

@@ -1,6 +1,5 @@
 package org.thegivingkitchen.android.thegivingkitchen.ui.forms.page
 
-import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
 import android.support.annotation.Nullable
@@ -8,7 +7,6 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.DatePicker
 import android.widget.TimePicker
 import kotlinx.android.synthetic.main.fragment_form_question.*
 import org.thegivingkitchen.android.thegivingkitchen.R
@@ -24,25 +22,17 @@ import org.thegivingkitchen.android.thegivingkitchen.ui.forms.questionviews.time
 import org.thegivingkitchen.android.thegivingkitchen.util.BackPressedListener
 import org.thegivingkitchen.android.thegivingkitchen.util.setTextIfItExists
 
-class FormPageFragment: Fragment(), BackPressedListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
-    private var dateQuestion: DateQuestion? = null
-    private var dateYear: Int? = null
-    private var dateMonth: Int? = null
-    private var dateDay: Int? = null
-
-    private var timeQuestion: TimeQuestion? = null
-    private var timeHour: Int? = null
-    private var timeMinute: Int? = null
+class FormPageFragment: Fragment(), BackPressedListener {
 
     companion object {
         const val pageArg = "page"
 
         fun newInstance(page: Page): FormPageFragment {
-            val formQuestionFragment = FormPageFragment()
+            val formPageFragment = FormPageFragment()
             val args = Bundle()
             args.putParcelable(pageArg, page)
-            formQuestionFragment.arguments = args
-            return formQuestionFragment
+            formPageFragment.arguments = args
+            return formPageFragment
         }
     }
 
@@ -65,70 +55,73 @@ class FormPageFragment: Fragment(), BackPressedListener, DatePickerDialog.OnDate
         super.onViewCreated(view, savedInstanceState)
         pageTitle_formQuestion.setTextIfItExists(page.pageInformation)
 
-        /*  Testing code  */
-        container_formQuestion.addView(ShortnameQuestion("Shortname Question", context!!))
-        container_formQuestion.addView(PhoneQuestion("Phone Question", context!!))
-        container_formQuestion.addView(EmailQuestion("Email Question", context!!))
-
-        val dateQuestionView = DateQuestion("Date Question", context!!)
-        dateQuestion = dateQuestionView
-        container_formQuestion.addView(dateQuestion)
-        dateQuestion!!.setOnClickListener(dateViewClickListener)
-
-        val timeQuestionView = TimeQuestion("Time Question", context!!)
-        timeQuestion = timeQuestionView
-        container_formQuestion.addView(timeQuestion)
-        timeQuestion!!.setOnClickListener(timeViewClickListener)
-
-        container_formQuestion.addView(NumberQuestion("Number Question", context!!))
-        container_formQuestion.addView(TextQuestion("Text Question", context!!))
-        container_formQuestion.addView(UrlQuestion("Url Question", context!!))
-        container_formQuestion.addView(TextareaQuestion("Textarea Question", context!!))
-        container_formQuestion.addView(CheckboxQuestion("Checkbox Question", listOf("hi", "hello", "namaste", "whatsup", "hola"), true, context!!))
-        container_formQuestion.addView(RadioQuestion("Radio Question", listOf("bye", "goodbye", "alvida", "see ya later", "adiós"), true, context!!))
-        container_formQuestion.addView(FullnameQuestion("Fullname Question", context!!))
-        container_formQuestion.addView(MoneyQuestion("Money Question", context!!))
-        container_formQuestion.addView(AddressQuestion("Address Question", context!!))
-
+        val questions = page.questions
+        if (questions != null) {
+            for (question in questions) {
+                val questionView: View? = when (question.Type) {
+                    QuestionType.shortname -> {
+                        ShortnameQuestion(question.Title, context!!)
+                    }
+                    QuestionType.fullname -> {
+                        FullnameQuestion(question.Title, context!!)
+                    }
+                    QuestionType.text -> {
+                        TextQuestion(question.Title, context!!)
+                    }
+                    QuestionType.phone -> {
+                        PhoneQuestion(question.Title, context!!)
+                    }
+                    QuestionType.email -> {
+                        EmailQuestion(question.Title, context!!)
+                    }
+                    QuestionType.address -> {
+                        AddressQuestion(question.Title, context!!)
+                    }
+                    QuestionType.date -> {
+                        val dateQuestion = DateQuestion(question.Title, context!!)
+                        dateQuestion.setOnClickListener {
+                            DatePickerFragment().newInstance(dateQuestion, dateQuestion.dateYear, dateQuestion.dateMonth, dateQuestion.dateDay).show(fragmentManager, "Date")
+                        }
+                        dateQuestion
+                    }
+                    QuestionType.time -> {
+                        val timeQuestion = TimeQuestion(question.Title, context!!)
+                        timeQuestion.setOnClickListener {
+                            TimePickerFragment().newInstance(timeQuestion, timeQuestion.timeHour, timeQuestion.timeMinute).show(fragmentManager, "Time")
+                        }
+                        timeQuestion
+                    }
+                    QuestionType.number -> {
+                        NumberQuestion(question.Title, context!!)
+                    }
+                    QuestionType.money -> {
+                        MoneyQuestion(question.Title, context!!)
+                    }
+                    QuestionType.checkbox -> {
+                        CheckboxQuestion(question.Title, question.SubFields?.map { it.Label }, question.HasOtherField, context!!)
+                    }
+                    QuestionType.textarea -> {
+                        TextareaQuestion(question.Title, context!!)
+                    }
+                    QuestionType.url -> {
+                        UrlQuestion(question.Title, context!!)
+                    }
+                    QuestionType.radio -> {
+                        RadioQuestion(question.Title, question.Choices?.map { it.Label }, question.HasOtherField, context!!)
+                    }
+                    QuestionType.select -> {
+                        RadioQuestion(question.Title, question.Choices?.map { it.Label }, question.HasOtherField, context!!)
+                    }
+                    else -> {
+                        null
+                    }
+                }
+                container_formQuestion.addView(questionView)
+            }
+        }
     }
 
     override fun onBackPressed(): Boolean {
         return false
-    }
-
-    private val dateViewClickListener = View.OnClickListener {
-        val datePickerFragment = DatePickerFragment()
-        datePickerFragment.newInstance(this, dateYear, dateMonth, dateDay)
-        datePickerFragment.show(fragmentManager, "Date")
-    }
-
-    private val timeViewClickListener = View.OnClickListener {
-        val timePickerFragment = TimePickerFragment()
-        timePickerFragment.newInstance(this, timeHour, timeMinute)
-        timePickerFragment.show(fragmentManager, "Time")
-    }
-
-    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-        dateYear = year
-        dateMonth = month
-        dateDay = dayOfMonth
-
-        dateQuestion?.setDate(dateMonth!!, dateDay!!, dateYear!!)
-    }
-
-    override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
-        timeHour = hourOfDay
-        timeMinute = minute
-
-        var timePeriod = getString(R.string.time_question_am)
-        var formattedHour = timeHour!!
-        if (timeHour!! >= 12) {
-            timePeriod = getString(R.string.time_question_pm)
-            formattedHour-=12
-        }
-        if (formattedHour == 0) {
-            formattedHour = 12
-        }
-        timeQuestion?.setTime(formattedHour, timeMinute!!, timePeriod)
     }
 }

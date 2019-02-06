@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/checkbox_answer_border"
         android:textSize="8pt"
+        style="@style/RegularText"
         android:textColor="@color/gk_blue"
         android:padding="10dp" />
 

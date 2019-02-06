@@ -3,7 +3,7 @@ package org.thegivingkitchen.android.thegivingkitchen.util
 import com.google.firebase.storage.FirebaseStorage
 import com.squareup.moshi.Moshi
 
-object Firebase {
+object Services {
     val firebaseInstance = FirebaseStorage.getInstance()
     val moshi = Moshi.Builder().build()
 }

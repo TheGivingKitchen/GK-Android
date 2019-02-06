@@ -3,7 +3,6 @@ package org.thegivingkitchen.android.thegivingkitchen.ui.forms.prologue
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.os.Parcelable
 import android.support.annotation.Nullable
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -19,7 +18,7 @@ import org.thegivingkitchen.android.thegivingkitchen.ui.forms.Form
 import org.thegivingkitchen.android.thegivingkitchen.ui.forms.Page
 import org.thegivingkitchen.android.thegivingkitchen.util.Constants.formShareWufooUrl
 import org.thegivingkitchen.android.thegivingkitchen.util.Constants.formsArg
-import org.thegivingkitchen.android.thegivingkitchen.util.Firebase
+import org.thegivingkitchen.android.thegivingkitchen.util.Services
 import org.thegivingkitchen.android.thegivingkitchen.util.setTextIfItExists
 import org.thegivingkitchen.android.thegivingkitchen.util.startShareAction
 import java.io.BufferedReader
@@ -40,7 +39,7 @@ class FormPrologueFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         // todo: set cancel button action
         super.onCreate(savedInstanceState)
-        jsonAdapter = Firebase.moshi.adapter(Form::class.java)
+        jsonAdapter = Services.moshi.adapter(Form::class.java)
         model = ViewModelProviders.of(this).get(FormPrologueViewModel::class.java)
         model.getCurrentJson().observe(this, Observer<Form> { liveData ->
             updateJson(liveData!!)
@@ -60,7 +59,7 @@ class FormPrologueFragment : Fragment() {
         shareButton_formsPrologue.setOnClickListener(shareClickListener)
         cancel_formsPrologue.setOnClickListener(cancelClickListener)
         if (arguments != null) {
-            Firebase.firebaseInstance.getReferenceFromUrl(arguments!!.getString(formsArg))
+            Services.firebaseInstance.getReferenceFromUrl(arguments!!.getString(formsArg))
                     .getFile(localFile)
                     .addOnSuccessListener {
                         val stringBuilder = StringBuilder()

@@ -1,19 +1,19 @@
 package org.thegivingkitchen.android.thegivingkitchen.ui.forms.page
 
 enum class QuestionType {
-    SHORTNAME,
-    FULLNAME,
-    TEXT,
-    PHONE,
-    EMAIL,
-    ADDRESS,
-    DATE,
-    TIME,
-    NUMBER,
-    MONEY,
-    CHECKBOX,
-    TEXTAREA,
-    URL,
-    RADIO,
-    SELECT
+    shortname,
+    fullname,
+    text,
+    phone,
+    email,
+    address,
+    date,
+    time,
+    number,
+    money,
+    checkbox,
+    textarea,
+    url,
+    radio,
+    select
 }

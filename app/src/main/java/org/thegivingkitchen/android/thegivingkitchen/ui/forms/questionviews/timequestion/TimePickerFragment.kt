@@ -10,19 +10,13 @@ class TimePickerFragment: DialogFragment() {
     private var hour: Int = 0
     private var minute: Int = 0
 
-    fun newInstance(listener: TimePickerDialog.OnTimeSetListener, selectedHour: Int? = null, selectedMinute: Int? = null) {
+    fun newInstance(listener: TimePickerDialog.OnTimeSetListener, selectedHour: Int? = null, selectedMinute: Int? = null): TimePickerFragment {
         timeSetListener = listener
 
-        if (selectedHour != null) {
-            hour = selectedHour
-        } else {
-            hour = 11
-        }
-        if (selectedMinute != null) {
-            minute = selectedMinute
-        } else {
-            minute = 0
-        }
+        hour = selectedHour ?: 11
+        minute = selectedMinute ?: 0
+
+        return this
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
