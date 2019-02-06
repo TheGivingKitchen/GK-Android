@@ -88,6 +88,8 @@ class QuestionFragment: Fragment(), BackPressedListener, DatePickerDialog.OnDate
         container_formQuestion.addView(RadioQuestion("Radio Question", listOf("bye", "goodbye", "alvida", "see ya later", "adiós"), true, context!!))
         container_formQuestion.addView(FullnameQuestion("Fullname Question", context!!))
         container_formQuestion.addView(MoneyQuestion("Money Question", context!!))
+        container_formQuestion.addView(AddressQuestion("Address Question", context!!))
+
     }
 
     override fun onBackPressed(): Boolean {
