@@ -35,8 +35,26 @@ class QuestionsContainerFragment: Fragment(), BackPressedListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mPager = viewPager_questionsContainer
-        val pagerAdapter = ScreenSlidePagerAdapter(fragmentManager!!)
-        mPager.adapter = pagerAdapter
+        val questionPagesAdapter = ScreenSlidePagerAdapter(fragmentManager!!)
+        mPager.adapter = questionPagesAdapter
+        if (questionPagesAdapter.count < 2) {
+            transformNextButtonToSubmit()
+        } else {
+            mPager.addOnPageChangeListener(object: ViewPager.OnPageChangeListener {
+                override fun onPageScrollStateChanged(state: Int) { }
+
+                override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+
+                }
+                override fun onPageSelected(position: Int) {
+                    if (position == questionPagesAdapter.count-1) {
+                        transformNextButtonToSubmit()
+                    } else {
+                        nextButton_questionsContainer.text = getString(R.string.forms_questions_next)
+                    }
+                }
+            })
+        }
 
         // todo: use a constraintlayout group here
         backButtonText_questionsContainer.setOnClickListener(backButtonClickListener)
@@ -50,6 +68,10 @@ class QuestionsContainerFragment: Fragment(), BackPressedListener {
         }
         mPager.currentItem = mPager.currentItem - 1
         return true
+    }
+    
+    private fun transformNextButtonToSubmit() {
+        nextButton_questionsContainer.text = getString(R.string.forms_questions_submit)
     }
 
     private val backButtonClickListener = View.OnClickListener {

@@ -74,61 +74,65 @@ class FormPageFragment : Fragment(), BackPressedListener {
     private fun getQuestionView(question: Question): View? {
         return when (question.Type) {
             QuestionType.shortname -> {
-                ShortnameQuestion(question.Title, context!!)
+                ShortnameQuestion(formatTitle(question.Title, question.IsRequired), context!!)
             }
             QuestionType.fullname -> {
-                FullnameQuestion(question.Title, context!!)
+                FullnameQuestion(formatTitle(question.Title, question.IsRequired), context!!)
             }
             QuestionType.text -> {
-                TextQuestion(question.Title, context!!)
+                TextQuestion(formatTitle(question.Title, question.IsRequired), context!!)
             }
             QuestionType.phone -> {
-                PhoneQuestion(question.Title, context!!)
+                PhoneQuestion(formatTitle(question.Title, question.IsRequired), context!!)
             }
             QuestionType.email -> {
-                EmailQuestion(question.Title, context!!)
+                EmailQuestion(formatTitle(question.Title, question.IsRequired), context!!)
             }
             QuestionType.address -> {
-                AddressQuestion(question.Title, context!!)
+                AddressQuestion(formatTitle(question.Title, question.IsRequired), context!!)
             }
             QuestionType.date -> {
-                val dateQuestion = DateQuestion(question.Title, context!!)
+                val dateQuestion = DateQuestion(formatTitle(question.Title, question.IsRequired), context!!)
                 dateQuestion.setOnClickListener {
                     DatePickerFragment().newInstance(dateQuestion, dateQuestion.dateYear, dateQuestion.dateMonth, dateQuestion.dateDay).show(fragmentManager, "Date")
                 }
                 dateQuestion
             }
             QuestionType.time -> {
-                val timeQuestion = TimeQuestion(question.Title, context!!)
+                val timeQuestion = TimeQuestion(formatTitle(question.Title, question.IsRequired), context!!)
                 timeQuestion.setOnClickListener {
                     TimePickerFragment().newInstance(timeQuestion, timeQuestion.timeHour, timeQuestion.timeMinute).show(fragmentManager, "Time")
                 }
                 timeQuestion
             }
             QuestionType.number -> {
-                NumberQuestion(question.Title, context!!)
+                NumberQuestion(formatTitle(question.Title, question.IsRequired), context!!)
             }
             QuestionType.money -> {
-                MoneyQuestion(question.Title, context!!)
+                MoneyQuestion(formatTitle(question.Title, question.IsRequired), context!!)
             }
             QuestionType.checkbox -> {
-                CheckboxQuestion(question.Title, question.SubFields?.map { it.Label }, question.HasOtherField, context!!)
+                CheckboxQuestion(formatTitle(question.Title, question.IsRequired), question.SubFields?.map { it.Label }, question.HasOtherField, context!!)
             }
             QuestionType.textarea -> {
-                TextareaQuestion(question.Title, context!!)
+                TextareaQuestion(formatTitle(question.Title, question.IsRequired), context!!)
             }
             QuestionType.url -> {
-                UrlQuestion(question.Title, context!!)
+                UrlQuestion(formatTitle(question.Title, question.IsRequired), context!!)
             }
             QuestionType.radio -> {
-                RadioQuestion(question.Title, question.Choices?.map { it.Label }, question.HasOtherField, context!!)
+                RadioQuestion(formatTitle(question.Title, question.IsRequired), question.Choices?.map { it.Label }, question.HasOtherField, context!!)
             }
             QuestionType.select -> {
-                RadioQuestion(question.Title, question.Choices?.map { it.Label }, question.HasOtherField, context!!)
+                RadioQuestion(formatTitle(question.Title, question.IsRequired), question.Choices?.map { it.Label }, question.HasOtherField, context!!)
             }
             else -> {
                 null
             }
         }
+    }
+
+    private fun formatTitle(title: String?, isRequired: String?): String? {
+        return if (title != null && isRequired != null && isRequired == "1") "$title*" else title
     }
 }

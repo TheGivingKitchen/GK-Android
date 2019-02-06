@@ -56,6 +56,7 @@
     <!-- Common Forms Strings -->
     <string name="forms_questions_back">Back</string>
     <string name="forms_questions_next">Next</string>
+    <string name="forms_questions_submit">Submit</string>
 
     <!-- Form Prologue Strings -->
     <string name="base_forms_prologue_cancel">Cancel</string>
