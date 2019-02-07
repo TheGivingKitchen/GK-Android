@@ -1,4 +1,4 @@
-package org.thegivingkitchen.android.thegivingkitchen.ui.forms
+package org.thegivingkitchen.android.thegivingkitchen.util
 
 import android.content.Context
 import android.support.v4.view.ViewPager
@@ -6,7 +6,6 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.animation.DecelerateInterpolator
 import android.widget.Scroller
-import java.lang.reflect.Field
 
 class NonSwipeableViewPager(context: Context, attrs: AttributeSet? = null) : ViewPager(context, attrs) {
     init {
@@ -25,8 +24,7 @@ class NonSwipeableViewPager(context: Context, attrs: AttributeSet? = null) : Vie
 
     private fun setMyScroller() {
         try {
-            val viewpager = ViewPager::class.java
-            val scroller = viewpager.getDeclaredField("mScroller")
+            val scroller = ViewPager::class.java.getDeclaredField("mScroller")
             scroller.isAccessible = true
             scroller.set(this, MyScroller(context))
         } catch (e: Exception) {

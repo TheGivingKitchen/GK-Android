@@ -18,7 +18,6 @@ import org.thegivingkitchen.android.thegivingkitchen.ui.forms.questionviews.mone
 import org.thegivingkitchen.android.thegivingkitchen.ui.forms.questionviews.radioquestion.RadioQuestion
 import org.thegivingkitchen.android.thegivingkitchen.ui.forms.questionviews.timequestion.TimePickerFragment
 import org.thegivingkitchen.android.thegivingkitchen.ui.forms.questionviews.timequestion.TimeQuestion
-import org.thegivingkitchen.android.thegivingkitchen.util.BackPressedListener
 import org.thegivingkitchen.android.thegivingkitchen.util.setTextIfItExists
 
 class FormPageFragment : Fragment() {

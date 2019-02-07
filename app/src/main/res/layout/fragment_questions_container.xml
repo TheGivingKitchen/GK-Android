@@ -43,7 +43,7 @@
             android:gravity="end"/>
     </LinearLayout>
 
-    <org.thegivingkitchen.android.thegivingkitchen.ui.forms.NonSwipeableViewPager
+    <org.thegivingkitchen.android.thegivingkitchen.util.NonSwipeableViewPager
         android:id="@+id/viewPager_questionsContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"

@@ -55,6 +55,7 @@ class QuestionsContainerFragment: Fragment(), BackPressedListener {
                 override fun onPageScrollStateChanged(state: Int) { }
 
                 override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) { }
+
                 override fun onPageSelected(position: Int) {
                     if (position == questionPagesAdapter.count-1) {
                         model.setForwardButtonState(QuestionsContainerViewModel.Companion.ForwardButtonState.SUBMIT)
