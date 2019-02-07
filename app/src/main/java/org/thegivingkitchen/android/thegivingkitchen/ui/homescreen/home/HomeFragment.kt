@@ -24,7 +24,7 @@ class HomeFragment: Fragment()  {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         model = ViewModelProviders.of(this).get(HomeViewModel::class.java)
-        model.getCurrentFragment().observe(this, Observer<Fragment> { liveData ->
+        model.getCurrentFragment().observe(this, Observer<HomeSection> { liveData ->
             loadFragment(liveData!!)
         })
     }
@@ -38,43 +38,74 @@ class HomeFragment: Fragment()  {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bottomNav_home.setOnNavigationItemSelectedListener(navListener)
-    }
-
-    fun getRootLayout(): View {
-        return rootLayout_home
+        model.setCurrentFragment(HomeSection.GIVE)
     }
 
     private val navListener = BottomNavigationView.OnNavigationItemSelectedListener {
-        model.setCurrentFragment(getSelectedFragment(it.itemId))
-        true
-    }
-
-    private fun loadFragment(fragment: Fragment) {
-        activity?.supportFragmentManager!!
-                .beginTransaction()
-                .replace(R.id.fragmentContainer_home, fragment)
-                .addToBackStack(null)
-                .commit()
-    }
-
-    private fun getSelectedFragment(item: Int): Fragment {
-        return when (item) {
+        val selectedHomeSection: HomeSection = when (it.itemId) {
             R.id.eventsFragment -> {
-                EventsFragment()
+                HomeSection.EVENTS
             }
             R.id.assistanceFragment -> {
-                AssistanceFragment()
+                HomeSection.ASSISTANCE
             }
             R.id.giveFragment -> {
-                GiveFragment()
+                HomeSection.GIVE
             }
             R.id.safetynetFragment -> {
-                SafetynetFragment()
+                HomeSection.SAFETYNET
             }
             else -> {
                 // todo: log error here
-                EventsFragment()
+                HomeSection.EVENTS
             }
+        }
+
+        model.setCurrentFragment(selectedHomeSection)
+        true
+    }
+
+    private fun loadFragment(homeSection: HomeSection) {
+        val tag = homeSection.screenName
+        var fragment: Fragment? = childFragmentManager.findFragmentByTag(tag)
+
+        if (fragment == null) {
+            fragment = when (homeSection) {
+                HomeSection.EVENTS -> EventsFragment()
+                HomeSection.ASSISTANCE -> AssistanceFragment()
+                HomeSection.GIVE -> GiveFragment()
+                HomeSection.SAFETYNET -> SafetynetFragment()
+            }
+
+            detachCurrentFragment()
+            childFragmentManager
+                    .beginTransaction()
+                    .add(R.id.fragmentContainer_home, fragment, tag)
+                    .commit()
+        } else {
+            detachCurrentFragment()
+            childFragmentManager
+                    .beginTransaction()
+                    .attach(fragment)
+                    .commit()
+        }
+
+        /* activity?.supportFragmentManager!!
+                .beginTransaction()
+                .replace(R.id.fragmentContainer_home, homeSection)
+                .addToBackStack(null)
+                .commit()*/
+    }
+
+    private fun getCurrentFragment(): Fragment? = childFragmentManager.findFragmentById(R.id.fragmentContainer_home)
+
+    private fun detachCurrentFragment() {
+        val currentFragment = getCurrentFragment()
+        if (currentFragment != null) {
+            childFragmentManager
+                    .beginTransaction()
+                    .detach(currentFragment)
+                    .commit()
         }
     }
 }

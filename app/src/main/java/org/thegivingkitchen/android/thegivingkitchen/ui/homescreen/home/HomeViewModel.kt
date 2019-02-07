@@ -8,21 +8,13 @@ import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.events.Events
 
 class HomeViewModel : ViewModel() {
 
-    private var currentFragment: MutableLiveData<Fragment>? = null
+    private var currentFragment: MutableLiveData<HomeSection> = MutableLiveData()
 
-    fun getCurrentFragment(): LiveData<Fragment> {
-        if (currentFragment == null) {
-            currentFragment = MutableLiveData()
-            currentFragment!!.value = EventsFragment()
-        }
-        return currentFragment!!
+    fun getCurrentFragment(): LiveData<HomeSection> {
+        return currentFragment
     }
 
-    fun setCurrentFragment(fragment: Fragment) {
-        if (currentFragment == null) {
-            currentFragment = MutableLiveData()
-        }
-        currentFragment!!.value = fragment
+    fun setCurrentFragment(fragment: HomeSection) {
+        currentFragment.value = fragment
     }
-
 }
