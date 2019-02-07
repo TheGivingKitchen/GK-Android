@@ -127,5 +127,6 @@
     <string name="address_question_zipcode_hint">Zip</string>
 
     <string name="answer_choice_other">Other</string>
+    <string name="question_unanswered_warning">This field is required. Please enter a value.</string>
 
 </resources>

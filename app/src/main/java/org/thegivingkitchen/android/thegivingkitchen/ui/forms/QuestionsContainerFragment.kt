@@ -92,11 +92,11 @@ class QuestionsContainerFragment: Fragment(), BackPressedListener {
     }
     
     private val backButtonClickListener = View.OnClickListener {
-        viewPager_questionsContainer.currentItem = viewPager_questionsContainer.currentItem - 1
+        viewPager_questionsContainer.setCurrentItem(viewPager_questionsContainer.currentItem - 1, true)
     }
 
     private val nextButtonClickListener = View.OnClickListener {
-        viewPager_questionsContainer.currentItem = viewPager_questionsContainer.currentItem + 1
+        viewPager_questionsContainer.setCurrentItem(viewPager_questionsContainer.currentItem + 1, true)
     }
 
     private val submitButtonClickListener = View.OnClickListener {
@@ -114,7 +114,7 @@ class QuestionsContainerFragment: Fragment(), BackPressedListener {
         }
 
         if (firstUnansweredPage != null) {
-            viewPager_questionsContainer.currentItem = firstUnansweredPage
+            viewPager_questionsContainer.setCurrentItem(firstUnansweredPage, true)
         } else {
             // todo: submit the form
         }

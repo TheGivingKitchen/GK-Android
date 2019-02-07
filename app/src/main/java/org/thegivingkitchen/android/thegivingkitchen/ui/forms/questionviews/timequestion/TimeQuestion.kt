@@ -4,8 +4,10 @@ import android.app.TimePickerDialog
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.TimePicker
 import kotlinx.android.synthetic.main.view_question_time.view.*
 import org.thegivingkitchen.android.thegivingkitchen.R
@@ -20,6 +22,7 @@ class TimeQuestion(title: String?, context: Context, attrs: AttributeSet? = null
     init {
         LayoutInflater.from(context).inflate(R.layout.view_question_time, this, true)
         layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        this.orientation = VERTICAL
         title_timeQuestion.setTextIfItExists(title)
         setTime(11,0, "am")
     }
@@ -48,6 +51,10 @@ class TimeQuestion(title: String?, context: Context, attrs: AttributeSet? = null
 
     override fun isAnswered(): Boolean {
         return true
+    }
+
+    override fun placeUnansweredWarning() {
+        warning_timeQuestion.visibility = View.VISIBLE
     }
 }
 

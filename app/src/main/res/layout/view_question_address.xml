@@ -1,116 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="20dp">
+    android:layout_marginBottom="20dp"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/title_addressQuestion"
+        style="@style/RegularText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="8pt"
         android:layout_marginBottom="15dp"
-        style="@style/RegularText"/>
+        android:textSize="8pt" />
 
     <TextView
         android:id="@+id/streetAddressLabel_addressQuestion"
+        style="@style/RegularText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="8pt"
-        style="@style/RegularText"
+        android:layout_marginBottom="10dp"
         android:text="@string/address_question_street_label"
-        android:layout_marginBottom="10dp" />
+        android:textSize="8pt" />
 
     <EditText
         android:id="@+id/streetAddressField_addressQuestion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="text"
-        android:hint="@string/address_question_street_hint"
+        android:layout_marginBottom="15dp"
         android:autofillHints=".AUTOFILL_HINT_POSTAL_ADDRESS"
         android:background="@drawable/edit_text_border"
-        android:padding="10dp"
-        android:layout_marginBottom="15dp" />
+        android:hint="@string/address_question_street_hint"
+        android:inputType="text"
+        android:padding="10dp" />
 
     <TextView
         android:id="@+id/AddressLineTwoLabel_addressQuestion"
+        style="@style/RegularText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="8pt"
         android:layout_marginBottom="10dp"
-        style="@style/RegularText"
-        android:text="@string/address_question_linetwo_label"/>
+        android:text="@string/address_question_linetwo_label"
+        android:textSize="8pt" />
 
     <EditText
         android:id="@+id/AddressLineTwoField_addressQuestion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="text"
-        android:hint="@string/address_question_linetwo_hint"
+        android:layout_marginBottom="15dp"
         android:autofillHints=".AUTOFILL_HINT_POSTAL_ADDRESS"
         android:background="@drawable/edit_text_border"
-        android:padding="10dp"
-        android:layout_marginBottom="15dp" />
+        android:hint="@string/address_question_linetwo_hint"
+        android:inputType="text"
+        android:padding="10dp" />
 
     <TextView
         android:id="@+id/cityLabel_addressQuestion"
+        style="@style/RegularText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="8pt"
         android:layout_marginBottom="10dp"
-        style="@style/RegularText"
-        android:text="@string/address_question_city_label"/>
+        android:text="@string/address_question_city_label"
+        android:textSize="8pt" />
 
     <EditText
         android:id="@+id/cityField_addressQuestion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="text"
-        android:hint="@string/address_question_city_hint"
+        android:layout_marginBottom="15dp"
         android:autofillHints=".AUTOFILL_HINT_POSTAL_ADDRESS"
         android:background="@drawable/edit_text_border"
-        android:padding="10dp"
-        android:layout_marginBottom="15dp" />
+        android:hint="@string/address_question_city_hint"
+        android:inputType="text"
+        android:padding="10dp" />
 
     <TextView
         android:id="@+id/stateLabel_addressQuestion"
+        style="@style/RegularText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="8pt"
         android:layout_marginBottom="10dp"
-        style="@style/RegularText"
-        android:text="@string/address_question_state_label"/>
+        android:text="@string/address_question_state_label"
+        android:textSize="8pt" />
 
     <EditText
         android:id="@+id/stateField_addressQuestion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="text"
-        android:hint="@string/address_question_state_hint"
+        android:layout_marginBottom="15dp"
         android:autofillHints=".AUTOFILL_HINT_POSTAL_ADDRESS"
         android:background="@drawable/edit_text_border"
-        android:padding="10dp"
-        android:layout_marginBottom="15dp" />
+        android:hint="@string/address_question_state_hint"
+        android:inputType="text"
+        android:padding="10dp" />
 
     <TextView
         android:id="@+id/zipcodeLabel_addressQuestion"
+        style="@style/RegularText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="8pt"
         android:layout_marginBottom="10dp"
-        style="@style/RegularText"
-        android:text="@string/address_question_zipcode_label"/>
+        android:text="@string/address_question_zipcode_label"
+        android:textSize="8pt" />
 
     <EditText
         android:id="@+id/zipcodeField_addressQuestion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="text"
-        android:hint="@string/address_question_zipcode_hint"
+        android:layout_marginBottom="15dp"
         android:autofillHints=".AUTOFILL_HINT_POSTAL_ADDRESS"
         android:background="@drawable/edit_text_border"
-        android:padding="10dp"
-        android:layout_marginBottom="15dp" />
+        android:hint="@string/address_question_zipcode_hint"
+        android:inputType="text"
+        android:padding="10dp" />
+
+    <TextView android:id="@+id/warning_addressQuestion" style="@style/UnansweredQuestionWarning" />
 
 </LinearLayout>

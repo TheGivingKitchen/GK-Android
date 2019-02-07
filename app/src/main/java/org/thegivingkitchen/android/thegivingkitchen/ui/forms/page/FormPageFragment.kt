@@ -82,7 +82,7 @@ class FormPageFragment : Fragment() {
     fun placeQuestionUnansweredWarnings() {
         for (questionView in questionsWithViews) {
             if (questionView.question.IsRequired == "1" && !questionView.questionView.isAnswered()) {
-                // questionView.questionView.placeUnansweredWarning()
+                questionView.questionView.placeUnansweredWarning()
             }
         }
     }

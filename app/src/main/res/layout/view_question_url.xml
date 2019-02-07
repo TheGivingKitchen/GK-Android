@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="20dp">
+    android:layout_marginBottom="20dp"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/title_urlQuestion"
+        style="@style/RegularText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="8pt"
         android:layout_marginBottom="15dp"
-        style="@style/RegularText"/>
+        android:textSize="8pt" />
 
     <EditText
         android:id="@+id/url_urlQuestion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textUri"
         android:background="@drawable/edit_text_border"
         android:hint="@string/url_question_hint"
-        android:padding="10dp"/>
+        android:inputType="textUri"
+        android:padding="10dp" />
+
+    <TextView android:id="@+id/warning_urlQuestion" style="@style/UnansweredQuestionWarning" />
 
 </LinearLayout>

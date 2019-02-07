@@ -7,22 +7,22 @@
 
     <TextView
         android:id="@+id/title_shortnameQuestion"
+        style="@style/RegularText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="8pt"
         android:layout_marginBottom="15dp"
-        style="@style/RegularText"/>
+        android:textSize="8pt" />
 
     <EditText
         android:id="@+id/firstName_shortnameQuestion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:autofillHints=".AUTOFILL_HINT_NAME"
         android:background="@drawable/edit_text_border"
         android:hint="@string/shortname_question_firstname_hint"
         android:inputType="textCapWords"
-        android:padding="10dp"
-        android:layout_marginBottom="20dp"/>
+        android:padding="10dp" />
 
     <EditText
         android:id="@+id/lastName_shortnameQuestion"
@@ -33,5 +33,7 @@
         android:hint="@string/shortname_question_lastname_hint"
         android:inputType="textCapWords"
         android:padding="10dp" />
+
+    <TextView android:id="@+id/warning_shortnameQuestion" style="@style/UnansweredQuestionWarning" />
 
 </LinearLayout>

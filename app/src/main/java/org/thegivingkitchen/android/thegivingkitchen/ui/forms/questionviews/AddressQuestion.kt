@@ -3,8 +3,10 @@ package org.thegivingkitchen.android.thegivingkitchen.ui.forms.questionviews
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.TextView
 import kotlinx.android.synthetic.main.view_question_address.view.*
 import org.thegivingkitchen.android.thegivingkitchen.R
 import org.thegivingkitchen.android.thegivingkitchen.util.setTextIfItExists
@@ -14,6 +16,7 @@ class AddressQuestion(title: String?, context: Context, attrs: AttributeSet? = n
     init {
         LayoutInflater.from(context).inflate(R.layout.view_question_address, this, true)
         layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        this.orientation = VERTICAL
         title_addressQuestion.setTextIfItExists(title)
     }
 
@@ -22,5 +25,9 @@ class AddressQuestion(title: String?, context: Context, attrs: AttributeSet? = n
                 cityField_addressQuestion.text.isNotBlank() &&
                 stateField_addressQuestion.text.isNotBlank() &&
                 zipcodeField_addressQuestion.text.isNotBlank())
+    }
+
+    override fun placeUnansweredWarning() {
+        warning_addressQuestion.visibility = View.VISIBLE
     }
 }
