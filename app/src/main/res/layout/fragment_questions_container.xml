@@ -43,12 +43,12 @@
             android:gravity="end"/>
     </LinearLayout>
 
-    <android.support.v4.view.ViewPager
+    <org.thegivingkitchen.android.thegivingkitchen.ui.forms.NonSwipeableViewPager
         android:id="@+id/viewPager_questionsContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_weight="1"
         android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_weight="1"/>
+        android:layout_marginEnd="15dp"/>
 
 </LinearLayout>

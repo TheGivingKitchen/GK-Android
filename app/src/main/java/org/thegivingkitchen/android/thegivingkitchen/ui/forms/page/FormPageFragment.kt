@@ -21,7 +21,7 @@ import org.thegivingkitchen.android.thegivingkitchen.ui.forms.questionviews.time
 import org.thegivingkitchen.android.thegivingkitchen.util.BackPressedListener
 import org.thegivingkitchen.android.thegivingkitchen.util.setTextIfItExists
 
-class FormPageFragment : Fragment(), BackPressedListener {
+class FormPageFragment : Fragment() {
 
     companion object {
         const val pageArg = "page"
@@ -65,10 +65,6 @@ class FormPageFragment : Fragment(), BackPressedListener {
                 }
             }
         }
-    }
-
-    override fun onBackPressed(): Boolean {
-        return false
     }
 
     private fun getQuestionView(question: Question): View? {

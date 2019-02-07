@@ -13,9 +13,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        // val fragment =
-        // this.supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
-
         val fragment = this.supportFragmentManager
                 .findFragmentById(R.id.nav_host_fragment)?.childFragmentManager?.fragments?.get(0)
         val controller = Navigation.findNavController(this, R.id.nav_host_fragment)
