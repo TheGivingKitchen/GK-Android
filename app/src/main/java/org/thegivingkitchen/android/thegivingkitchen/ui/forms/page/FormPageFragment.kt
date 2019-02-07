@@ -35,6 +35,7 @@ class FormPageFragment : Fragment() {
     }
 
     private lateinit var page: Page
+    private val questionViews: ArrayList<QuestionView> = arrayListOf<QuestionView>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,11 +58,29 @@ class FormPageFragment : Fragment() {
         if (questions != null) {
             for (question in questions) {
                 val questionView = getQuestionView(question)
-                if (questionView != null) {
+                if (questionView != null && questionView is QuestionView) {
                     container_formQuestion.addView(questionView)
+                    questionViews.add(questionView as QuestionView)
                 } else {
                     // todo: log unexpected question type crash
                 }
+            }
+        }
+    }
+
+    fun areAllQuestionsAnswered(): Boolean {
+        for (questionView in questionViews) {
+            if (!questionView.isAnswered()) {
+                return false
+            }
+        }
+        return true
+    }
+
+    fun placeQuestionUnansweredWarnings() {
+        for (questionView in questionViews) {
+            if (!questionView.isAnswered()) {
+                questionView.placeUnansweredWarning()
             }
         }
     }

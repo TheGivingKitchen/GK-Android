@@ -19,8 +19,7 @@ import org.thegivingkitchen.android.thegivingkitchen.ui.forms.page.FormPageFragm
 import org.thegivingkitchen.android.thegivingkitchen.util.BackPressedListener
 
 class QuestionsContainerFragment: Fragment(), BackPressedListener {
-    private lateinit var mPager: ViewPager
-    private var questionPages = listOf<Page>()
+    private lateinit var questionPages: List<FormPageFragment>
     private lateinit var model: QuestionsContainerViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +27,8 @@ class QuestionsContainerFragment: Fragment(), BackPressedListener {
         model = ViewModelProviders.of(this).get(QuestionsContainerViewModel::class.java)
 
         if (arguments != null) {
-            questionPages = arguments!!.getParcelableArrayList<Page>(FormPrologueFragment.questionPagesArg)!!.toList()
+            val questions = arguments!!.getParcelableArrayList<Page>(FormPrologueFragment.questionPagesArg)!!.toList()
+            questionPages = questions.map { FormPageFragment.newInstance(it) }
         }
 
         model.getForwardButtonState().observe(this, Observer<QuestionsContainerViewModel.Companion.ForwardButtonState> { forwardButtonState ->
@@ -44,14 +44,13 @@ class QuestionsContainerFragment: Fragment(), BackPressedListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mPager = viewPager_questionsContainer
         val questionPagesAdapter = ScreenSlidePagerAdapter(fragmentManager!!)
-        mPager.adapter = questionPagesAdapter
+        viewPager_questionsContainer.adapter = questionPagesAdapter
         if (questionPagesAdapter.count < 2) {
             model.setForwardButtonState(QuestionsContainerViewModel.Companion.ForwardButtonState.SUBMIT)
         } else {
             model.setForwardButtonState(QuestionsContainerViewModel.Companion.ForwardButtonState.NEXT)
-            mPager.addOnPageChangeListener(object: ViewPager.OnPageChangeListener {
+            viewPager_questionsContainer.addOnPageChangeListener(object: ViewPager.OnPageChangeListener {
                 override fun onPageScrollStateChanged(state: Int) { }
 
                 override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) { }
@@ -72,10 +71,10 @@ class QuestionsContainerFragment: Fragment(), BackPressedListener {
     }
 
     override fun onBackPressed(): Boolean {
-        if (mPager.currentItem == 0) {
+        if (viewPager_questionsContainer.currentItem == 0) {
             return false
         }
-        mPager.currentItem = mPager.currentItem - 1
+        viewPager_questionsContainer.currentItem = viewPager_questionsContainer.currentItem - 1
         return true
     }
 
@@ -93,22 +92,39 @@ class QuestionsContainerFragment: Fragment(), BackPressedListener {
     }
     
     private val backButtonClickListener = View.OnClickListener {
-        mPager.currentItem = mPager.currentItem - 1
+        viewPager_questionsContainer.currentItem = viewPager_questionsContainer.currentItem - 1
     }
 
     private val nextButtonClickListener = View.OnClickListener {
-        mPager.currentItem = mPager.currentItem + 1
+        viewPager_questionsContainer.currentItem = viewPager_questionsContainer.currentItem + 1
     }
 
     private val submitButtonClickListener = View.OnClickListener {
-        Toast.makeText(context, "submit pressed", Toast.LENGTH_SHORT).show()
+        var firstUnansweredPage: Int? = null
+
+        for (i in 0 until questionPages.size) {
+            val questionPage = questionPages[i]
+
+            if (!questionPage.areAllQuestionsAnswered()) {
+                questionPage.placeQuestionUnansweredWarnings()
+                if (firstUnansweredPage == null) {
+                    firstUnansweredPage = i
+                }
+            }
+        }
+        
+        if (firstUnansweredPage != null) {
+            viewPager_questionsContainer.currentItem = firstUnansweredPage
+        } else {
+            // todo: submit the form
+        }
     }
 
     private inner class ScreenSlidePagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
         override fun getCount(): Int = questionPages.size
 
         override fun getItem(position: Int): Fragment {
-            return FormPageFragment.newInstance(questionPages[position])
+            return questionPages[position]
         }
     }
 }

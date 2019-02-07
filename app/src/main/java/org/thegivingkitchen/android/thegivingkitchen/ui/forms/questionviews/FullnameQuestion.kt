@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.view_question_fullname.view.*
 import org.thegivingkitchen.android.thegivingkitchen.R
 import org.thegivingkitchen.android.thegivingkitchen.util.setTextIfItExists
 
-class FullnameQuestion(title: String?, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle) {
+class FullnameQuestion(title: String?, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), QuestionView {
     // todo: use merge tags in views
     init {
         LayoutInflater.from(context).inflate(R.layout.view_question_fullname, this, true)

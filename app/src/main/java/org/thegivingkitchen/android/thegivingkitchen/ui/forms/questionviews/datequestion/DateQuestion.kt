@@ -9,10 +9,11 @@ import android.widget.DatePicker
 import android.widget.LinearLayout
 import kotlinx.android.synthetic.main.view_question_select.view.*
 import org.thegivingkitchen.android.thegivingkitchen.R
+import org.thegivingkitchen.android.thegivingkitchen.ui.forms.questionviews.QuestionView
 import org.thegivingkitchen.android.thegivingkitchen.util.setTextIfItExists
 import java.util.*
 
-class DateQuestion(title: String?, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), DatePickerDialog.OnDateSetListener{
+class DateQuestion(title: String?, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), DatePickerDialog.OnDateSetListener, QuestionView {
     // todo: use merge tags in views
     var dateYear: Int? = null
     var dateMonth: Int? = null

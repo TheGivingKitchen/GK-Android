@@ -7,10 +7,11 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import kotlinx.android.synthetic.main.view_question_checkbox.view.*
 import org.thegivingkitchen.android.thegivingkitchen.R
+import org.thegivingkitchen.android.thegivingkitchen.ui.forms.questionviews.QuestionView
 import org.thegivingkitchen.android.thegivingkitchen.util.setPaddingDp
 import org.thegivingkitchen.android.thegivingkitchen.util.setTextIfItExists
 
-class CheckboxQuestion(title: String?, answerChoices: List<String?>?, hasOtherField: Boolean?, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle) {
+class CheckboxQuestion(title: String?, answerChoices: List<String?>?, hasOtherField: Boolean?, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), QuestionView {
     // todo: use merge tags in views
     private var answerChoiceViews: List<CheckboxAnswerChoice>?
 

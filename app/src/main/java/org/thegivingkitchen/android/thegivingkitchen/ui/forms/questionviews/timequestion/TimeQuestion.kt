@@ -9,9 +9,10 @@ import android.widget.LinearLayout
 import android.widget.TimePicker
 import kotlinx.android.synthetic.main.view_question_time.view.*
 import org.thegivingkitchen.android.thegivingkitchen.R
+import org.thegivingkitchen.android.thegivingkitchen.ui.forms.questionviews.QuestionView
 import org.thegivingkitchen.android.thegivingkitchen.util.setTextIfItExists
 
-class TimeQuestion(title: String?, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), TimePickerDialog.OnTimeSetListener {
+class TimeQuestion(title: String?, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), TimePickerDialog.OnTimeSetListener, QuestionView {
     var timeHour: Int? = null
     var timeMinute: Int? = null
 
