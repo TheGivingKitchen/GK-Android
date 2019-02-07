@@ -1,4 +1,4 @@
-package org.thegivingkitchen.android.thegivingkitchen.ui.home.events
+package org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.events
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData

@@ -1,4 +1,4 @@
-package org.thegivingkitchen.android.thegivingkitchen.ui.home.events
+package org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.events
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
@@ -11,8 +11,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
-import com.bumptech.glide.Glide
-import com.bumptech.glide.Priority
 import kotlinx.android.synthetic.main.fragment_events.*
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -21,7 +19,6 @@ import org.thegivingkitchen.android.thegivingkitchen.util.Constants.givingKitche
 import org.thegivingkitchen.android.thegivingkitchen.util.CustomTabs
 import java.io.ByteArrayInputStream
 import java.io.IOException
-import com.bumptech.glide.request.RequestOptions
 
 class EventsFragment : Fragment() {
     companion object {

@@ -6,17 +6,17 @@
     app:startDestination="@id/homeFragment">
     <fragment
         android:id="@+id/eventsFragment"
-        android:name="org.thegivingkitchen.android.thegivingkitchen.ui.home.events.EventsFragment"
+        android:name="org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.events.EventsFragment"
         android:label="EventsFragment"
         tools:layout="@layout/fragment_events" />
     <fragment
         android:id="@+id/safetynetFragment"
-        android:name="org.thegivingkitchen.android.thegivingkitchen.ui.home.safetynet.SafetynetFragment"
+        android:name="org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.safetynet.SafetynetFragment"
         android:label="SafetynetFragment"
         tools:layout="@layout/fragment_safetynet" />
     <fragment
         android:id="@+id/assistanceFragment"
-        android:name="org.thegivingkitchen.android.thegivingkitchen.ui.home.assistance.AssistanceFragment"
+        android:name="org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.assistance.AssistanceFragment"
         android:label="AssistanceFragment"
         tools:layout="@layout/fragment_assistance" >
         <action
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/giveFragment"
-        android:name="org.thegivingkitchen.android.thegivingkitchen.ui.home.give.GiveFragment"
+        android:name="org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.give.GiveFragment"
         android:label="GiveFragment"
         tools:layout="@layout/fragment_give" >
         <action
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="org.thegivingkitchen.android.thegivingkitchen.ui.home.HomeFragment"
+        android:name="org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.home.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home" />
     <fragment

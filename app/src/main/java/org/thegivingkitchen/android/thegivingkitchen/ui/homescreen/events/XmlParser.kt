@@ -1,4 +1,4 @@
-package org.thegivingkitchen.android.thegivingkitchen.ui.home.events
+package org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.events
 
 import android.util.Xml
 import org.xmlpull.v1.XmlPullParser

@@ -1,4 +1,4 @@
-package org.thegivingkitchen.android.thegivingkitchen.ui.home.safetynet
+package org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.safetynet
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
@@ -13,7 +13,7 @@ import android.view.View
 import com.squareup.moshi.JsonAdapter
 import kotlinx.android.synthetic.main.fragment_safetynet.*
 import org.thegivingkitchen.android.thegivingkitchen.R
-import org.thegivingkitchen.android.thegivingkitchen.ui.home.safetynet.SafetynetViewModel.Companion.safetynetDataUrl
+import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.safetynet.SafetynetViewModel.Companion.safetynetDataUrl
 import org.thegivingkitchen.android.thegivingkitchen.util.Services.firebaseInstance
 import org.thegivingkitchen.android.thegivingkitchen.util.Services.moshi
 import java.io.*

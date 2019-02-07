@@ -1,4 +1,4 @@
-package org.thegivingkitchen.android.thegivingkitchen.ui.home.assistance
+package org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.assistance
 
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -11,9 +11,9 @@ import org.thegivingkitchen.android.thegivingkitchen.R
 import android.widget.TextView
 import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_assistance.*
-import org.thegivingkitchen.android.thegivingkitchen.ui.home.assistance.AssistanceViewModel.Companion.learnMoreURL
-import org.thegivingkitchen.android.thegivingkitchen.ui.home.assistance.AssistanceViewModel.Companion.referralAssistanceInquiryUrl
-import org.thegivingkitchen.android.thegivingkitchen.ui.home.assistance.AssistanceViewModel.Companion.selfAssistanceInquiryUrl
+import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.assistance.AssistanceViewModel.Companion.learnMoreURL
+import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.assistance.AssistanceViewModel.Companion.referralAssistanceInquiryUrl
+import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.assistance.AssistanceViewModel.Companion.selfAssistanceInquiryUrl
 import org.thegivingkitchen.android.thegivingkitchen.util.Constants.formsArg
 import org.thegivingkitchen.android.thegivingkitchen.util.CustomTabs
 

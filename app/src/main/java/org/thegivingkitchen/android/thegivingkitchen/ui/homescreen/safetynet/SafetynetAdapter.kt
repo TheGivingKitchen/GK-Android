@@ -1,6 +1,5 @@
-package org.thegivingkitchen.android.thegivingkitchen.ui.home.safetynet
+package org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.safetynet
 
-import android.support.annotation.IdRes
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View

@@ -1,4 +1,4 @@
-package org.thegivingkitchen.android.thegivingkitchen.ui.home.assistance
+package org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.assistance
 
 import android.arch.lifecycle.ViewModel
 import android.content.Context

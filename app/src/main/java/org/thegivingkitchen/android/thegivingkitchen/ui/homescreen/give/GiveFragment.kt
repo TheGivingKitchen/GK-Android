@@ -1,4 +1,4 @@
-package org.thegivingkitchen.android.thegivingkitchen.ui.home.give
+package org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.give
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
@@ -12,9 +12,9 @@ import android.widget.TextView
 import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_give.*
 import org.thegivingkitchen.android.thegivingkitchen.R
-import org.thegivingkitchen.android.thegivingkitchen.ui.home.give.GiveViewModel.Companion.creditCardDonationURL
-import org.thegivingkitchen.android.thegivingkitchen.ui.home.give.GiveViewModel.Companion.learnMoreURL
-import org.thegivingkitchen.android.thegivingkitchen.ui.home.give.GiveViewModel.Companion.recurringDonationURL
+import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.give.GiveViewModel.Companion.creditCardDonationURL
+import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.give.GiveViewModel.Companion.learnMoreURL
+import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.give.GiveViewModel.Companion.recurringDonationURL
 import org.thegivingkitchen.android.thegivingkitchen.util.Constants
 import org.thegivingkitchen.android.thegivingkitchen.util.CustomTabs
 import org.thegivingkitchen.android.thegivingkitchen.util.getFloatDimension

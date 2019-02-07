@@ -1,4 +1,4 @@
-package org.thegivingkitchen.android.thegivingkitchen.ui.home.events
+package org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.events
 
 import android.support.annotation.IdRes
 import android.support.v4.app.Fragment

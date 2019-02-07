@@ -1,4 +1,4 @@
-package org.thegivingkitchen.android.thegivingkitchen.ui.home
+package org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.home
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
@@ -11,14 +11,14 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.thegivingkitchen.android.thegivingkitchen.R
-import org.thegivingkitchen.android.thegivingkitchen.ui.home.assistance.AssistanceFragment
-import org.thegivingkitchen.android.thegivingkitchen.ui.home.events.EventsFragment
-import org.thegivingkitchen.android.thegivingkitchen.ui.home.events.EventsViewModel
-import org.thegivingkitchen.android.thegivingkitchen.ui.home.give.GiveFragment
-import org.thegivingkitchen.android.thegivingkitchen.ui.home.safetynet.SafetynetFragment
+import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.assistance.AssistanceFragment
+import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.events.EventsFragment
+import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.give.GiveFragment
+import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.safetynet.SafetynetFragment
 
 class HomeFragment: Fragment()  {
     // todo: onboarding
+    // todo: splash screen
     private lateinit var model: HomeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,10 +1,10 @@
-package org.thegivingkitchen.android.thegivingkitchen.ui.home
+package org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.home
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.support.v4.app.Fragment
-import org.thegivingkitchen.android.thegivingkitchen.ui.home.events.EventsFragment
+import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.events.EventsFragment
 
 class HomeViewModel : ViewModel() {
 

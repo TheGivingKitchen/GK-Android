@@ -1,11 +1,10 @@
-package org.thegivingkitchen.android.thegivingkitchen.ui.home.give
+package org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.give
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.support.annotation.StringRes
 import org.thegivingkitchen.android.thegivingkitchen.R
-import org.thegivingkitchen.android.thegivingkitchen.util.Constants
 import org.thegivingkitchen.android.thegivingkitchen.util.Constants.firebaseStorageUrl
 import org.thegivingkitchen.android.thegivingkitchen.util.Constants.givingKitchenUrl
 
