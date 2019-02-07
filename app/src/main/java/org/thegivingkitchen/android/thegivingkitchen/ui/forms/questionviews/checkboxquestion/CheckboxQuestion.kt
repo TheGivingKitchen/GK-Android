@@ -38,4 +38,17 @@ class CheckboxQuestion(title: String?, answerChoices: List<String?>?, hasOtherFi
 
         this.setPaddingDp(0, 0, 0, 20)
     }
+
+    override fun isAnswered(): Boolean {
+        if (answerChoiceViews.isNullOrEmpty()) {
+            return true
+        } else {
+            for (checkboxAnswerChoiceView in answerChoiceViews!!) {
+                if (checkboxAnswerChoiceView.isChecked()) {
+                    return true
+                }
+            }
+        }
+        return false
+    }
 }

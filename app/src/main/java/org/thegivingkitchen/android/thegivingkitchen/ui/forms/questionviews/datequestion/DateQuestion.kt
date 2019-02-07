@@ -38,6 +38,10 @@ class DateQuestion(title: String?, context: Context, attrs: AttributeSet? = null
 
         setDate(dateMonth!!, dateDay!!, dateYear!!)
     }
+
+    override fun isAnswered(): Boolean {
+        return true
+    }
 }
 
 

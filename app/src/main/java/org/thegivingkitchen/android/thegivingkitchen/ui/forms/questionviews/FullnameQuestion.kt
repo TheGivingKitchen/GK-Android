@@ -16,4 +16,8 @@ class FullnameQuestion(title: String?, context: Context, attrs: AttributeSet? = 
         layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         title_fullnameQuestion.setTextIfItExists(title)
     }
+
+    override fun isAnswered(): Boolean {
+        return name_fullnameQuestion.text.isNotBlank()
+    }
 }

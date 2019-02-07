@@ -16,4 +16,8 @@ class EmailQuestion(title: String?, context: Context, attrs: AttributeSet? = nul
         layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         title_emailQuestion.setTextIfItExists(title)
     }
+
+    override fun isAnswered(): Boolean {
+        return email_emailQuestion.text.isNotBlank()
+    }
 }

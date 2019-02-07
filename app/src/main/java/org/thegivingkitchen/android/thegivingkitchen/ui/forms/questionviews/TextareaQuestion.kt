@@ -16,4 +16,8 @@ class TextareaQuestion(title: String?, context: Context, attrs: AttributeSet? = 
         layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         title_textareaQuestion.setTextIfItExists(title)
     }
+
+    override fun isAnswered(): Boolean {
+        return text_textareaQuestion.text.isNotBlank()
+    }
 }

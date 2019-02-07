@@ -48,5 +48,9 @@ class CheckboxAnswerChoice(val title: String?, context: Context, attrs: Attribut
             }
         }
     }
+
+    fun isChecked(): Boolean {
+        return currentSelectedState
+    }
 }
 

@@ -16,4 +16,11 @@ class AddressQuestion(title: String?, context: Context, attrs: AttributeSet? = n
         layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         title_addressQuestion.setTextIfItExists(title)
     }
+
+    override fun isAnswered(): Boolean {
+        return (streetAddressField_addressQuestion.text.isNotBlank() &&
+                cityField_addressQuestion.text.isNotBlank() &&
+                stateField_addressQuestion.text.isNotBlank() &&
+                zipcodeField_addressQuestion.text.isNotBlank())
+    }
 }

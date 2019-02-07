@@ -16,4 +16,8 @@ class PhoneQuestion(title: String?, context: Context, attrs: AttributeSet? = nul
         layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         title_phoneQuestion.setTextIfItExists(title)
     }
+
+    override fun isAnswered(): Boolean {
+        return phoneNumber_phoneQuestion.text.isNotBlank()
+    }
 }

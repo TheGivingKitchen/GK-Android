@@ -34,8 +34,10 @@ class FormPageFragment : Fragment() {
         }
     }
 
+    private data class QuestionWithView(val question: Question, val questionView: QuestionView)
+
     private lateinit var page: Page
-    private val questionViews: ArrayList<QuestionView> = arrayListOf<QuestionView>()
+    private val questionsWithViews: ArrayList<QuestionWithView> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,7 +62,7 @@ class FormPageFragment : Fragment() {
                 val questionView = getQuestionView(question)
                 if (questionView != null && questionView is QuestionView) {
                     container_formQuestion.addView(questionView)
-                    questionViews.add(questionView as QuestionView)
+                    questionsWithViews.add(QuestionWithView(question, questionView as QuestionView))
                 } else {
                     // todo: log unexpected question type crash
                 }
@@ -69,8 +71,8 @@ class FormPageFragment : Fragment() {
     }
 
     fun areAllQuestionsAnswered(): Boolean {
-        for (questionView in questionViews) {
-            if (!questionView.isAnswered()) {
+        for (questionView in questionsWithViews) {
+            if (questionView.question.IsRequired == "1" && !questionView.questionView.isAnswered()) {
                 return false
             }
         }
@@ -78,9 +80,9 @@ class FormPageFragment : Fragment() {
     }
 
     fun placeQuestionUnansweredWarnings() {
-        for (questionView in questionViews) {
-            if (!questionView.isAnswered()) {
-                questionView.placeUnansweredWarning()
+        for (questionView in questionsWithViews) {
+            if (questionView.question.IsRequired == "1" && !questionView.questionView.isAnswered()) {
+                // questionView.questionView.placeUnansweredWarning()
             }
         }
     }

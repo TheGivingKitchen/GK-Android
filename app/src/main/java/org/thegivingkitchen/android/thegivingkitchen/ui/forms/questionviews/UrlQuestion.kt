@@ -16,4 +16,8 @@ class UrlQuestion(title: String?, context: Context, attrs: AttributeSet? = null,
         layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         title_urlQuestion.setTextIfItExists(title)
     }
+
+    override fun isAnswered(): Boolean {
+        return url_urlQuestion.text.isNotBlank()
+    }
 }

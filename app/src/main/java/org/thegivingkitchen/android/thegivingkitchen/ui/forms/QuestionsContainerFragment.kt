@@ -112,7 +112,7 @@ class QuestionsContainerFragment: Fragment(), BackPressedListener {
                 }
             }
         }
-        
+
         if (firstUnansweredPage != null) {
             viewPager_questionsContainer.currentItem = firstUnansweredPage
         } else {

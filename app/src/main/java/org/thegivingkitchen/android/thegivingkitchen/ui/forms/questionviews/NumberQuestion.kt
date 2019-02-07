@@ -16,4 +16,8 @@ class NumberQuestion(title: String?, context: Context, attrs: AttributeSet? = nu
         layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         title_numberQuestion.setTextIfItExists(title)
     }
+
+    override fun isAnswered(): Boolean {
+        return number_numberQuestion.text.isNotBlank()
+    }
 }

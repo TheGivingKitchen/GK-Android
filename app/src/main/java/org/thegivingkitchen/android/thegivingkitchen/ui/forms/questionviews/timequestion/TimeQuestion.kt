@@ -45,6 +45,10 @@ class TimeQuestion(title: String?, context: Context, attrs: AttributeSet? = null
         }
         setTime(formattedHour, timeMinute!!, timePeriod)
     }
+
+    override fun isAnswered(): Boolean {
+        return true
+    }
 }
 
 

@@ -48,5 +48,9 @@ class RadioAnswerChoice(val title: String?, context: Context, attrs: AttributeSe
             }
         }
     }
+
+    fun isChecked(): Boolean {
+        return currentSelectedState
+    }
 }
 

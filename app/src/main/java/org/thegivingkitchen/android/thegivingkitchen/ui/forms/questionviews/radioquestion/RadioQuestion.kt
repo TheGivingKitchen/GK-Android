@@ -49,4 +49,17 @@ class RadioQuestion(title: String?, answerChoices: List<String?>?, hasOtherField
         }
         radioAnswerChoice.clickAction()
     }
+
+    override fun isAnswered(): Boolean {
+        if (answerChoiceViews.isNullOrEmpty()) {
+            return true
+        } else {
+            for (radioAnswerChoiceView in answerChoiceViews!!) {
+                if (radioAnswerChoiceView.isChecked()) {
+                    return true
+                }
+            }
+        }
+        return false
+    }
 }

@@ -38,4 +38,8 @@ class MoneyQuestion(title: String?, context: Context, attrs: AttributeSet? = nul
         // todo: format currency properly
         // amount_moneyQuestion.addTextChangedListener(CurrencyInputFormatter(amount_moneyQuestion, "#,###"))
     }
+
+    override fun isAnswered(): Boolean {
+        return amount_moneyQuestion.text.isNotBlank()
+    }
 }
