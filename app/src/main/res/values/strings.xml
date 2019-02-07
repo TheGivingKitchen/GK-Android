@@ -128,5 +128,6 @@
 
     <string name="answer_choice_other">Other</string>
     <string name="question_unanswered_warning">This field is required. Please enter a value.</string>
+    <string name="selection_question_unanswered_warning">This field is required. Please make a selection.</string>
 
 </resources>

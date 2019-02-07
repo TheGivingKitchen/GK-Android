@@ -12,6 +12,9 @@
         android:layout_marginBottom="15dp"
         android:textSize="8pt" />
 
-    <TextView style="@style/UnansweredQuestionWarning" />
+    <TextView
+        android:id="@+id/warning_checkboxQuestion"
+        style="@style/UnansweredQuestionWarning"
+        android:text="@string/selection_question_unanswered_warning"/>
 
 </LinearLayout>

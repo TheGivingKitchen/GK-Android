@@ -13,6 +13,8 @@
         android:layout_marginBottom="15dp"
         android:textSize="8pt" />
 
+    <TextView android:id="@+id/warning_phoneQuestion" style="@style/UnansweredQuestionWarning" />
+
     <EditText
         android:id="@+id/phoneNumber_phoneQuestion"
         android:layout_width="match_parent"
@@ -22,7 +24,5 @@
         android:hint="@string/phone_question_hint"
         android:inputType="phone"
         android:padding="10dp" />
-
-    <TextView android:id="@+id/warning_phoneQuestion" style="@style/UnansweredQuestionWarning" />
 
 </LinearLayout>

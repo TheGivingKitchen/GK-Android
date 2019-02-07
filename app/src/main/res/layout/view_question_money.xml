@@ -13,6 +13,8 @@
         android:layout_marginBottom="15dp"
         android:textSize="8pt" />
 
+    <TextView android:id="@+id/warning_moneyQuestion" style="@style/UnansweredQuestionWarning" />
+
     <EditText
         android:id="@+id/amount_moneyQuestion"
         android:layout_width="match_parent"
@@ -21,7 +23,5 @@
         android:hint="@string/money_question_hint"
         android:inputType="numberDecimal"
         android:padding="10dp" />
-
-    <TextView android:id="@+id/warning_moneyQuestion" style="@style/UnansweredQuestionWarning" />
 
 </LinearLayout>

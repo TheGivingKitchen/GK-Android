@@ -18,6 +18,8 @@
             android:id="@+id/backButtonIcon_questionsContainer"
             android:layout_width="wrap_content"
             android:layout_height="15dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="0dp"
             android:src="@drawable/ic_chevron_left"
             android:layout_gravity="center_vertical"
             android:tint="@color/gk_blue"
@@ -33,14 +35,17 @@
             android:gravity="start"
             android:text="@string/forms_questions_back" />
 
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
         <TextView
             android:id="@+id/nextButton_questionsContainer"
             style="@style/ButtonText"
             android:textColor="@color/gk_orange"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="end"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 
     <org.thegivingkitchen.android.thegivingkitchen.util.NonSwipeableViewPager

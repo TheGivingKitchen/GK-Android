@@ -92,7 +92,13 @@ class QuestionsContainerFragment: Fragment(), BackPressedListener {
     }
     
     private val backButtonClickListener = View.OnClickListener {
-        viewPager_questionsContainer.setCurrentItem(viewPager_questionsContainer.currentItem - 1, true)
+        // viewPager_questionsContainer.setCurrentItem(viewPager_questionsContainer.currentItem - 1, true)
+
+        val questionPage = questionPages[viewPager_questionsContainer.currentItem]
+
+        if (!questionPage.areAllQuestionsAnswered()) {
+            questionPage.placeQuestionUnansweredWarnings()
+        }
     }
 
     private val nextButtonClickListener = View.OnClickListener {

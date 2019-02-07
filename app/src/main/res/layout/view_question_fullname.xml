@@ -5,6 +5,7 @@
     android:layout_marginBottom="20dp"
     android:orientation="vertical">
 
+
     <TextView
         android:id="@+id/title_fullnameQuestion"
         style="@style/RegularText"
@@ -12,6 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
         android:textSize="8pt" />
+
+    <TextView android:id="@+id/warning_fullnameQuestion" style="@style/UnansweredQuestionWarning" />
 
     <EditText
         android:id="@+id/name_fullnameQuestion"
@@ -22,7 +25,5 @@
         android:hint="@string/fullname_question_hint"
         android:inputType="textCapWords"
         android:padding="10dp" />
-
-    <TextView android:id="@+id/warning_fullnameQuestion" style="@style/UnansweredQuestionWarning" />
 
 </LinearLayout>

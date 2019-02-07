@@ -13,6 +13,8 @@
         android:layout_marginBottom="15dp"
         android:textSize="8pt" />
 
+    <TextView android:id="@+id/warning_textareaQuestion" style="@style/UnansweredQuestionWarning" />
+
     <EditText
         android:id="@+id/text_textareaQuestion"
         android:layout_width="match_parent"
@@ -21,7 +23,5 @@
         android:inputType="textMultiLine"
         android:lines="5"
         android:padding="10dp" />
-
-    <TextView android:id="@+id/warning_textareaQuestion" style="@style/UnansweredQuestionWarning" />
 
 </LinearLayout>

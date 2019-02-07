@@ -12,4 +12,9 @@
         android:layout_marginBottom="15dp"
         style="@style/RegularText"/>
 
+    <TextView
+        android:id="@+id/warning_radioQuestion"
+        style="@style/UnansweredQuestionWarning"
+        android:text="@string/selection_question_unanswered_warning"/>
+
 </LinearLayout>

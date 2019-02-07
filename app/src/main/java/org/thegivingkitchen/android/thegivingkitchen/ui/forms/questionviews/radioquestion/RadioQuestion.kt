@@ -3,9 +3,9 @@ package org.thegivingkitchen.android.thegivingkitchen.ui.forms.questionviews.rad
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.TextView
 import kotlinx.android.synthetic.main.view_question_radio.view.*
 import org.thegivingkitchen.android.thegivingkitchen.R
 import org.thegivingkitchen.android.thegivingkitchen.ui.forms.questionviews.QuestionView
@@ -65,8 +65,6 @@ class RadioQuestion(title: String?, answerChoices: List<String?>?, hasOtherField
     }
 
     override fun placeUnansweredWarning() {
-        val tv = TextView(context)
-        tv.text = "answer this question plz"
-        addView(tv)
+        warning_radioQuestion.visibility = View.VISIBLE
     }
 }

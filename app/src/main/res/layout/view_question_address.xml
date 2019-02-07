@@ -13,6 +13,8 @@
         android:layout_marginBottom="15dp"
         android:textSize="8pt" />
 
+    <TextView android:id="@+id/warning_addressQuestion" style="@style/UnansweredQuestionWarning" />
+
     <TextView
         android:id="@+id/streetAddressLabel_addressQuestion"
         style="@style/RegularText"
@@ -112,7 +114,5 @@
         android:hint="@string/address_question_zipcode_hint"
         android:inputType="text"
         android:padding="10dp" />
-
-    <TextView android:id="@+id/warning_addressQuestion" style="@style/UnansweredQuestionWarning" />
 
 </LinearLayout>
