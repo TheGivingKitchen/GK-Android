@@ -11,6 +11,7 @@ class SafetynetViewModel : ViewModel() {
     }
 
     private var currentJson: MutableLiveData<List<SocialServiceProvider>> = MutableLiveData()
+    private var progressBarVisible: MutableLiveData<Boolean> = MutableLiveData()
 
     fun getCurrentJson(): LiveData<List<SocialServiceProvider>> {
         return currentJson
@@ -18,5 +19,13 @@ class SafetynetViewModel : ViewModel() {
 
     fun setCurrentJson(data: List<SocialServiceProvider>) {
         currentJson.value = data
+    }
+
+    fun isProgressBarVisible(): LiveData<Boolean> {
+        return progressBarVisible
+    }
+
+    fun setProgressBarVisibility(visibility: Boolean) {
+        progressBarVisible.value = visibility
     }
 }

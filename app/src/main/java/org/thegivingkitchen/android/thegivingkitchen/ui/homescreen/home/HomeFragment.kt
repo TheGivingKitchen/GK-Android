@@ -27,6 +27,7 @@ class HomeFragment: Fragment()  {
         model.getCurrentFragment().observe(this, Observer<HomeSection> { liveData ->
             loadFragment(liveData!!)
         })
+        model.setCurrentFragment(HomeSection.EVENTS)
     }
 
     @Nullable
@@ -38,7 +39,6 @@ class HomeFragment: Fragment()  {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bottomNav_home.setOnNavigationItemSelectedListener(navListener)
-        model.setCurrentFragment(HomeSection.GIVE)
     }
 
     private val navListener = BottomNavigationView.OnNavigationItemSelectedListener {

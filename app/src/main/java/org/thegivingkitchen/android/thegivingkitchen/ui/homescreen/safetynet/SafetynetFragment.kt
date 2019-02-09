@@ -30,6 +30,10 @@ class SafetynetFragment : Fragment() {
         model.getCurrentJson().observe(this, Observer<List<SocialServiceProvider>> { liveData ->
             updateJson(liveData!!)
         })
+        model.isProgressBarVisible().observe(this, Observer<Boolean> { liveData ->
+            updateProgressBarVisibility(liveData!!)
+        })
+        getData()
     }
 
     @Nullable
@@ -40,11 +44,14 @@ class SafetynetFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // todo: delete this file when done
-        val localFile = File.createTempFile("safetynet", "json")
-        progressBar_safetynetTab.visibility = View.VISIBLE
         recyclerView_safetynetTab.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         recyclerView_safetynetTab.adapter = adapter
+    }
+
+    private fun getData() {
+        // todo: delete this file when done
+        val localFile = File.createTempFile("safetynet", "json")
+        model.setProgressBarVisibility(true)
 
         firebaseInstance.getReferenceFromUrl(safetynetDataUrl)
                 .getFile(localFile)
@@ -64,6 +71,7 @@ class SafetynetFragment : Fragment() {
                             model.setCurrentJson(safetynetData)
                         }
                     } catch (e: IOException) {
+                        model.setProgressBarVisibility(false)
                         // todo: log error
                     }
 
@@ -75,6 +83,17 @@ class SafetynetFragment : Fragment() {
     private fun updateJson(data: List<SocialServiceProvider>) {
         adapter.items = data
         adapter.notifyDataSetChanged()
-        progressBar_safetynetTab.visibility = View.GONE
+        model.setProgressBarVisibility(false)
+    }
+
+    private fun updateProgressBarVisibility(visibility: Boolean) {
+        when (visibility) {
+            true -> {
+                progressBar_safetynetTab.visibility = View.VISIBLE
+            }
+            false -> {
+                progressBar_safetynetTab.visibility = View.GONE
+            }
+        }
     }
 }

@@ -7,6 +7,7 @@ import org.thegivingkitchen.android.thegivingkitchen.ui.forms.Form
 
 class FormPrologueViewModel: ViewModel() {
     private var currentJson: MutableLiveData<Form> = MutableLiveData()
+    private var progressBarVisible: MutableLiveData<Boolean> = MutableLiveData()
 
     fun getCurrentJson(): LiveData<Form> {
         return currentJson
@@ -14,5 +15,13 @@ class FormPrologueViewModel: ViewModel() {
 
     fun setCurrentJson(data: Form) {
         currentJson.value = data
+    }
+
+    fun isProgressBarVisible(): LiveData<Boolean> {
+        return progressBarVisible
+    }
+
+    fun setProgressBarVisibility(visibility: Boolean) {
+        progressBarVisible.value = visibility
     }
 }

@@ -36,6 +36,10 @@ class EventsFragment : Fragment() {
         model.getCurrentEventsList().observe(this, Observer<List<Event>> { liveData ->
             updateEventsList(liveData!!)
         })
+        model.isProgressBarVisible().observe(this, Observer<Boolean> { liveData ->
+            updateProgressBarVisibility(liveData!!)
+        })
+        GetEventsTask().execute(eventsDataURL)
     }
 
     @Nullable
@@ -47,7 +51,6 @@ class EventsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         learn_more_button_eventsTab.setOnClickListener(learnMoreButtonClickListener)
-        GetEventsTask().execute(eventsDataURL)
         recyclerView_eventsTab.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         recyclerView_eventsTab.adapter = adapter
     }
@@ -65,7 +68,7 @@ class EventsFragment : Fragment() {
         }
 
         override fun onProgressUpdate(vararg values: Void?) {
-            progressBar_eventsTab.visibility = View.VISIBLE
+            model.setProgressBarVisibility(true)
         }
 
         override fun onPostExecute(result: String?) {
@@ -81,6 +84,17 @@ class EventsFragment : Fragment() {
     private fun updateEventsList(data: List<Event>) {
         adapter.items = data
         adapter.notifyDataSetChanged()
-        progressBar_eventsTab.visibility = View.GONE
+        model.setProgressBarVisibility(false)
+    }
+
+    private fun updateProgressBarVisibility(visibility: Boolean) {
+        when (visibility) {
+            true -> {
+                progressBar_eventsTab.visibility = View.VISIBLE
+            }
+            false -> {
+                progressBar_eventsTab.visibility = View.GONE
+            }
+        }
     }
 }

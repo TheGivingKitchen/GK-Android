@@ -12,7 +12,6 @@ import android.widget.Toast
 import androidx.navigation.Navigation
 import com.squareup.moshi.JsonAdapter
 import kotlinx.android.synthetic.main.fragment_form_prologue.*
-import kotlinx.android.synthetic.main.fragment_safetynet.*
 import org.thegivingkitchen.android.thegivingkitchen.R
 import org.thegivingkitchen.android.thegivingkitchen.ui.forms.Form
 import org.thegivingkitchen.android.thegivingkitchen.ui.forms.Page
@@ -44,6 +43,10 @@ class FormPrologueFragment : Fragment() {
         model.getCurrentJson().observe(this, Observer<Form> { liveData ->
             updateJson(liveData!!)
         })
+        model.isProgressBarVisible().observe(this, Observer<Boolean> { liveData ->
+            updateProgressBarVisibility(liveData!!)
+        })
+        getData()
     }
 
     @Nullable
@@ -54,16 +57,21 @@ class FormPrologueFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // todo: delete this file when done
-        val localFile = File.createTempFile("form", "json")
         shareButton_formsPrologue.setOnClickListener(shareClickListener)
         cancel_formsPrologue.setOnClickListener(cancelClickListener)
+        startButton_formsPrologue.setOnClickListener(startButtonClickListener)
+    }
+
+    private fun getData() {
+        val localFile = File.createTempFile("form", "json")
+        model.setProgressBarVisibility(true)
+
+        // todo: delete this file when done
         if (arguments != null) {
             Services.firebaseInstance.getReferenceFromUrl(arguments!!.getString(formsArg)!!)
                     .getFile(localFile)
                     .addOnSuccessListener {
                         val stringBuilder = StringBuilder()
-                        progressBar_formsPrologue.visibility = View.GONE
                         try {
                             val bufferedReader = BufferedReader(FileReader(localFile))
                             var line = bufferedReader.readLine()
@@ -75,16 +83,15 @@ class FormPrologueFragment : Fragment() {
                             val formData = jsonAdapter.nullSafe().fromJson(stringBuilder.toString())
                             if (formData != null) {
                                 model.setCurrentJson(formData)
-                             }
+                            }
                         } catch (e: IOException) {
-                            progressBar_safetynetTab.visibility = View.GONE
+                            model.setProgressBarVisibility(false)
                             // todo: log error
                         }
                     }.addOnFailureListener {
                         // todo: log error and show error state
                     }
         }
-        startButton_formsPrologue.setOnClickListener(startButtonClickListener)
     }
 
     private fun updateJson(data: Form) {
@@ -97,6 +104,18 @@ class FormPrologueFragment : Fragment() {
         }
         startButton_formsPrologue.visibility = View.VISIBLE
         shareButton_formsPrologue.visibility = View.VISIBLE
+        model.setProgressBarVisibility(false)
+    }
+
+    private fun updateProgressBarVisibility(visibility: Boolean) {
+        when (visibility) {
+            true -> {
+                progressBar_formsPrologue.visibility = View.VISIBLE
+            }
+            false -> {
+                progressBar_formsPrologue.visibility = View.GONE
+            }
+        }
     }
 
     private val startButtonClickListener = View.OnClickListener {
