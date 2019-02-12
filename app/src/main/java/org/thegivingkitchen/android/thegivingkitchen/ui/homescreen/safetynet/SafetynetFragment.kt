@@ -21,7 +21,7 @@ import java.io.*
 class SafetynetFragment : Fragment() {
     private lateinit var jsonAdapter: JsonAdapter<SocialServiceProvidersList>
     private lateinit var model: SafetynetViewModel
-    private var adapter = SafetynetAdapter(listOf())
+    private var adapter = SafetynetAdapter(mutableListOf())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,7 +81,9 @@ class SafetynetFragment : Fragment() {
     }
 
     private fun updateJson(data: List<SocialServiceProvider>) {
-        adapter.items = data
+        val dataMutableList = data.toMutableList<Any>()
+        dataMutableList.add(0, Header())
+        adapter.items = dataMutableList
         adapter.notifyDataSetChanged()
         model.setProgressBarVisibility(false)
     }

@@ -52,6 +52,11 @@
 
     <!-- Safetynet Tab -->
     <string name="safetynet_tab_counties_served">Serving counties: %1$s</string>
+    <string name="safetynet_tab_header_description">SafetyNet is a network of local resources providing aid. If the Giving Kitchen is unable to assist, these local heroes are here to help.</string>
+    <string name="safetynet_tab_learn_more">Learn more</string>
+    <string name="safetynet_tab_facebook_description">Join our Restaurant Workers group on Facebook</string>
+    <string name="safetynet_tab_groups_description">Our groups are places to share industry events, community resources (including job postings), and best practices.</string>
+    <string name="safetynet_tab_join_us">Join us on Facebook</string>
 
     <!-- Common Forms Strings -->
     <string name="forms_questions_back">Back</string>

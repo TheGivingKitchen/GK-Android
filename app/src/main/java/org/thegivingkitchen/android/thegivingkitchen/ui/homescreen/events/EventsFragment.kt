@@ -26,7 +26,7 @@ class EventsFragment : Fragment() {
         private const val eventsDataURL = "$givingKitchenUrl/events-calendar?format=rss"
     }
 
-    private var adapter = EventsAdapter(listOf(), this)
+    private var adapter = EventsAdapter(mutableListOf(), this)
     private lateinit var model: EventsViewModel
 
     // todo: don't crash the app if a response is not received within 30 seconds
@@ -40,6 +40,7 @@ class EventsFragment : Fragment() {
             updateProgressBarVisibility(liveData!!)
         })
         GetEventsTask().execute(eventsDataURL)
+        adapter.domainClicks().subscribe { CustomTabs.openCustomTab(context, learnMoreURL) }
     }
 
     @Nullable
@@ -50,13 +51,8 @@ class EventsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        learn_more_button_eventsTab.setOnClickListener(learnMoreButtonClickListener)
         recyclerView_eventsTab.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         recyclerView_eventsTab.adapter = adapter
-    }
-
-    private val learnMoreButtonClickListener = View.OnClickListener {
-        CustomTabs.openCustomTab(context, learnMoreURL)
     }
 
     inner class GetEventsTask : AsyncTask<String, Void, String>() {
@@ -82,7 +78,9 @@ class EventsFragment : Fragment() {
     }
 
     private fun updateEventsList(data: List<Event>) {
-        adapter.items = data
+        val dataMutableList = data.toMutableList<Any>()
+        dataMutableList.add(0, Header())
+        adapter.items = dataMutableList
         adapter.notifyDataSetChanged()
         model.setProgressBarVisibility(false)
     }

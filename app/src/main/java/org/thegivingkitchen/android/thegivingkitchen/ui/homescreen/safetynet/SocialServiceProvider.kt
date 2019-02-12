@@ -17,3 +17,6 @@ data class SocialServiceProvider(
         val description: String?,
         val countiesServed: String?
 )
+
+class Header
+

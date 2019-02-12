@@ -8,15 +8,39 @@ import android.widget.TextView
 import org.thegivingkitchen.android.thegivingkitchen.R
 import org.thegivingkitchen.android.thegivingkitchen.util.setTextIfItExists
 
-class SafetynetAdapter(var items: List<SocialServiceProvider>) : RecyclerView.Adapter<SocialServiceProviderViewHolder>() {
-    // todo: make more viewholders for the top cells so that they scroll with the safetynet provider cells
+class SafetynetAdapter(var items: MutableList<Any>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SocialServiceProviderViewHolder {
-        return SocialServiceProviderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_social_service_provider, parent, false))
+    companion object {
+        const val VIEW_TYPE_HEADER = 0
+        const val VIEW_TYPE_SERVICE_PROVIDER = 2
     }
 
-    override fun onBindViewHolder(holder: SocialServiceProviderViewHolder, position: Int) {
-        holder.bind(items[position])
+    override fun getItemViewType(position: Int): Int {
+        return when (position) {
+            0 -> {
+                VIEW_TYPE_HEADER
+            }
+            else -> {
+                VIEW_TYPE_SERVICE_PROVIDER
+            }
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (viewType) {
+            VIEW_TYPE_HEADER -> {
+                HeaderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_safetynet_header, parent, false))
+            }
+            else -> {
+                SocialServiceProviderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_social_service_provider, parent, false))
+            }
+        }
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (holder is SocialServiceProviderViewHolder) {
+            holder.bind(items[position] as SocialServiceProvider)
+        }
     }
 
     override fun getItemCount() = items.size
@@ -40,3 +64,6 @@ class SocialServiceProviderViewHolder(val view: View) : RecyclerView.ViewHolder(
     }
 }
 
+class HeaderViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+
+}

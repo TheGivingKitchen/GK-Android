@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/header_safetynetTab"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/header_image_height"
+        android:layout_marginTop="@dimen/header_image_top_margin"
+        android:layout_marginBottom="25dp"
+        android:src="@drawable/assistance_header"
+        tools:ignore="ContentDescription"/>
+
+    <TextView
+        android:id="@+id/header_description_safetynetTab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/LargeHeaderText"
+        android:text="@string/safetynet_tab_header_description"
+        android:layout_marginStart="@dimen/universal_horizontal_spacing"
+        android:layout_marginEnd="@dimen/universal_horizontal_spacing"
+        android:textColor="@color/gk_blue"/>
+
+    <TextView
+        android:id="@+id/learn_more_button_safetynetTab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        style="@style/ParagraphText"
+        android:textColor="@color/gk_orange"
+        android:background="?android:attr/selectableItemBackground"
+        android:padding="5dp"
+        android:text="@string/safetynet_tab_learn_more"
+        android:layout_marginTop="@dimen/universal_horizontal_spacing"
+        android:layout_marginBottom="25dp" />
+
+    <View style="@style/DividerViewLarge" />
+
+    <ImageView
+        android:id="@+id/facebookIcon_safetynetTab"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/header_image_height"
+        android:layout_marginTop="@dimen/header_image_top_margin"
+        android:layout_marginBottom="25dp"
+        android:src="@drawable/ic_facebook_icon"
+        tools:ignore="ContentDescription"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/safetynet_tab_facebook_description"
+        android:textSize="8pt"
+        android:gravity="center_horizontal"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="20dp"
+        android:textColor="@color/dark_grey"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/safetynet_tab_groups_description"
+        android:textSize="8pt"
+        android:gravity="center_horizontal"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"/>
+
+    <View style="@style/DividerViewSmall"
+        android:layout_marginBottom="20dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/safetynet_tab_join_us"
+        android:textSize="8pt"
+        android:gravity="center_horizontal"
+        style="@style/ParagraphText"
+        android:textColor="@color/gk_orange"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"/>
+
+    <View style="@style/DividerViewLarge" />
+
+</LinearLayout>

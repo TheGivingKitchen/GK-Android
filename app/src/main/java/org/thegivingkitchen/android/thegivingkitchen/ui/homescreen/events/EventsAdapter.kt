@@ -8,35 +8,47 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 import org.thegivingkitchen.android.thegivingkitchen.R
-import org.thegivingkitchen.android.thegivingkitchen.util.RecyclerViewAdapterWithHeaders
 import org.thegivingkitchen.android.thegivingkitchen.util.setTextIfItExists
 
-class EventsAdapter(items: List<Event>, val fragment: Fragment) : RecyclerViewAdapterWithHeaders<RecyclerView.ViewHolder>(items) {
+class EventsAdapter(var items: MutableList<Any>, val fragment: Fragment) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private val domainClicks: PublishSubject<Boolean> = PublishSubject.create()
+
     companion object {
         const val VIEW_TYPE_EVENT = 0
         const val VIEW_TYPE_HEADER = 1
     }
 
     override fun getItemViewType(position: Int): Int {
-        if (items[position] is Event) {
-            return VIEW_TYPE_EVENT
+        return if (items[position] is Event) {
+            VIEW_TYPE_EVENT
+        } else {
+            VIEW_TYPE_HEADER
         }
-        return VIEW_TYPE_HEADER
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
-        if (viewType == VIEW_TYPE_HEADER) {
-
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return if (viewType == VIEW_TYPE_HEADER) {
+            HeaderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_events_header, parent, false), domainClicks)
+        } else {
+            EventViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_event, parent, false))
         }
-        return EventViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_event, parent, false))
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is EventViewHolder) {
             holder.bind(items[position] as Event, fragment)
+        } else {
+            (holder as HeaderViewHolder).bind()
         }
     }
+
+    override fun getItemCount() = items.size
+
+    fun domainClicks(): Observable<Boolean> = domainClicks
 }
 
 class EventViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
@@ -60,5 +72,11 @@ class EventViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         Glide.with(fragment)
                 .load(httpsUrl)
                 .into(view.findViewById(id))
+    }
+}
+
+class HeaderViewHolder(val view: View, val clicks: PublishSubject<Boolean>) : RecyclerView.ViewHolder(view) {
+    fun bind() {
+        view.findViewById<TextView>(R.id.learn_more_button_eventsTab).setOnClickListener { clicks.onNext(false) }
     }
 }
