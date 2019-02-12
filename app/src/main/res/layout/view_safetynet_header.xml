@@ -73,6 +73,7 @@
         android:layout_marginBottom="20dp"/>
 
     <TextView
+        android:id="@+id/join_us_button_safetynetTab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/safetynet_tab_join_us"
@@ -85,5 +86,52 @@
         android:layout_marginBottom="20dp"/>
 
     <View style="@style/DividerViewLarge" />
+    
+    <LinearLayout
+        android:id="@+id/resourcesFilter_safetynetTab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="6pt"
+            android:textColor="@color/dark_grey"
+            android:text="@string/safetynet_tab_resources_filter_label" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gk_blue"
+            android:textSize="6pt"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:text="@string/safetynet_tab_resources_filter_button" />
+    </LinearLayout>
+
+    <View style="@style/DividerViewSmall" />
+
+    <LinearLayout
+        android:id="@+id/countiesFilter_safetynetTab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="6pt"
+            android:text="@string/safetynet_tab_counties_filter_label" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gk_orange"
+            android:textSize="6pt"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:text="@string/safetynet_tab_counties_filter_button" />
+    </LinearLayout>
+
+    <View style="@style/DividerViewSmall" />
 
 </LinearLayout>

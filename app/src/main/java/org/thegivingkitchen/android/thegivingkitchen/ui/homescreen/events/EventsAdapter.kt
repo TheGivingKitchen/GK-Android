@@ -15,7 +15,7 @@ import org.thegivingkitchen.android.thegivingkitchen.util.setTextIfItExists
 
 class EventsAdapter(var items: MutableList<Any>, val fragment: Fragment) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val domainClicks: PublishSubject<Boolean> = PublishSubject.create()
+    private val learnMoreClicks: PublishSubject<Boolean> = PublishSubject.create()
 
     companion object {
         const val VIEW_TYPE_EVENT = 0
@@ -32,7 +32,7 @@ class EventsAdapter(var items: MutableList<Any>, val fragment: Fragment) : Recyc
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == VIEW_TYPE_HEADER) {
-            HeaderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_events_header, parent, false), domainClicks)
+            HeaderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_events_header, parent, false), learnMoreClicks)
         } else {
             EventViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_event, parent, false))
         }
@@ -48,7 +48,7 @@ class EventsAdapter(var items: MutableList<Any>, val fragment: Fragment) : Recyc
 
     override fun getItemCount() = items.size
 
-    fun domainClicks(): Observable<Boolean> = domainClicks
+    fun learnMoreClicks(): Observable<Boolean> = learnMoreClicks
 }
 
 class EventViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
@@ -75,7 +75,7 @@ class EventViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     }
 }
 
-class HeaderViewHolder(val view: View, val clicks: PublishSubject<Boolean>) : RecyclerView.ViewHolder(view) {
+class HeaderViewHolder(val view: View, private val clicks: PublishSubject<Boolean>) : RecyclerView.ViewHolder(view) {
     fun bind() {
         view.findViewById<TextView>(R.id.learn_more_button_eventsTab).setOnClickListener { clicks.onNext(false) }
     }

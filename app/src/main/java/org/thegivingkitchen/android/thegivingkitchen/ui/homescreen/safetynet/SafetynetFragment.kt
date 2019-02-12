@@ -10,10 +10,13 @@ import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
 import com.squareup.moshi.JsonAdapter
 import kotlinx.android.synthetic.main.fragment_safetynet.*
 import org.thegivingkitchen.android.thegivingkitchen.R
 import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.safetynet.SafetynetViewModel.Companion.safetynetDataUrl
+import org.thegivingkitchen.android.thegivingkitchen.util.Constants.givingKitchenUrl
+import org.thegivingkitchen.android.thegivingkitchen.util.CustomTabs
 import org.thegivingkitchen.android.thegivingkitchen.util.Services.firebaseInstance
 import org.thegivingkitchen.android.thegivingkitchen.util.Services.moshi
 import java.io.*
@@ -22,6 +25,10 @@ class SafetynetFragment : Fragment() {
     private lateinit var jsonAdapter: JsonAdapter<SocialServiceProvidersList>
     private lateinit var model: SafetynetViewModel
     private var adapter = SafetynetAdapter(mutableListOf())
+
+    companion object {
+        private const val learnMoreURL = "$givingKitchenUrl/"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +40,10 @@ class SafetynetFragment : Fragment() {
         model.isProgressBarVisible().observe(this, Observer<Boolean> { liveData ->
             updateProgressBarVisibility(liveData!!)
         })
+        adapter.learnMoreClicks().subscribe { CustomTabs.openCustomTab(context, learnMoreURL) }
+        adapter.joinUsClicks().subscribe { Toast.makeText(context, "Join us on FB clicked", Toast.LENGTH_SHORT).show() }
+        adapter.resourcesFilterClicks().subscribe { Toast.makeText(context, "Resources Filter clicked", Toast.LENGTH_SHORT).show() }
+        adapter.countiesFilterClicks().subscribe { Toast.makeText(context, "Counties Filter clicked", Toast.LENGTH_SHORT).show() }
         getData()
     }
 

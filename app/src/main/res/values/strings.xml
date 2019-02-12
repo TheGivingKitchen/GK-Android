@@ -57,6 +57,10 @@
     <string name="safetynet_tab_facebook_description">Join our Restaurant Workers group on Facebook</string>
     <string name="safetynet_tab_groups_description">Our groups are places to share industry events, community resources (including job postings), and best practices.</string>
     <string name="safetynet_tab_join_us">Join us on Facebook</string>
+    <string name="safetynet_tab_resources_filter_label">Resources</string>
+    <string name="safetynet_tab_resources_filter_button">Filter</string>
+    <string name="safetynet_tab_counties_filter_label">Show resources for</string>
+    <string name="safetynet_tab_counties_filter_button">All Counties</string>
 
     <!-- Common Forms Strings -->
     <string name="forms_questions_back">Back</string>

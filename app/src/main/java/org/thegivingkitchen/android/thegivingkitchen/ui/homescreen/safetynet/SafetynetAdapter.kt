@@ -4,11 +4,19 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
+import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 import org.thegivingkitchen.android.thegivingkitchen.R
 import org.thegivingkitchen.android.thegivingkitchen.util.setTextIfItExists
 
 class SafetynetAdapter(var items: MutableList<Any>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private val learnMoreClicks: PublishSubject<Boolean> = PublishSubject.create()
+    private val joinUsClicks: PublishSubject<Boolean> = PublishSubject.create()
+    private val resourcesFilterClicks: PublishSubject<Boolean> = PublishSubject.create()
+    private val countyFilterClicks: PublishSubject<Boolean> = PublishSubject.create()
 
     companion object {
         const val VIEW_TYPE_HEADER = 0
@@ -29,7 +37,7 @@ class SafetynetAdapter(var items: MutableList<Any>) : RecyclerView.Adapter<Recyc
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             VIEW_TYPE_HEADER -> {
-                HeaderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_safetynet_header, parent, false))
+                HeaderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_safetynet_header, parent, false), learnMoreClicks, joinUsClicks, resourcesFilterClicks, countyFilterClicks)
             }
             else -> {
                 SocialServiceProviderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_social_service_provider, parent, false))
@@ -40,10 +48,17 @@ class SafetynetAdapter(var items: MutableList<Any>) : RecyclerView.Adapter<Recyc
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is SocialServiceProviderViewHolder) {
             holder.bind(items[position] as SocialServiceProvider)
+        } else {
+            (holder as HeaderViewHolder).bind()
         }
     }
 
     override fun getItemCount() = items.size
+
+    fun learnMoreClicks(): Observable<Boolean> = learnMoreClicks
+    fun joinUsClicks(): Observable<Boolean> = joinUsClicks
+    fun resourcesFilterClicks(): Observable<Boolean> = resourcesFilterClicks
+    fun countiesFilterClicks(): Observable<Boolean> = countyFilterClicks
 }
 
 class SocialServiceProviderViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
@@ -64,6 +79,11 @@ class SocialServiceProviderViewHolder(val view: View) : RecyclerView.ViewHolder(
     }
 }
 
-class HeaderViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-
+class HeaderViewHolder(val view: View, private val learnMoreClicks: PublishSubject<Boolean>, private val joinUsClicks: PublishSubject<Boolean>, private val resourcesFilterClicks: PublishSubject<Boolean>, private val countyFilterClicks: PublishSubject<Boolean>) : RecyclerView.ViewHolder(view) {
+    fun bind() {
+        view.findViewById<TextView>(R.id.learn_more_button_safetynetTab).setOnClickListener { learnMoreClicks.onNext(false) }
+        view.findViewById<TextView>(R.id.join_us_button_safetynetTab).setOnClickListener { joinUsClicks.onNext(false) }
+        view.findViewById<LinearLayout>(R.id.resourcesFilter_safetynetTab).setOnClickListener { resourcesFilterClicks.onNext(false) }
+        view.findViewById<LinearLayout>(R.id.countiesFilter_safetynetTab).setOnClickListener { countyFilterClicks.onNext(false) }
+    }
 }

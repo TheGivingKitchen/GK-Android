@@ -21,6 +21,7 @@ import java.io.ByteArrayInputStream
 import java.io.IOException
 
 class EventsFragment : Fragment() {
+
     companion object {
         private const val learnMoreURL = "$givingKitchenUrl/events/"
         private const val eventsDataURL = "$givingKitchenUrl/events-calendar?format=rss"
@@ -40,7 +41,7 @@ class EventsFragment : Fragment() {
             updateProgressBarVisibility(liveData!!)
         })
         GetEventsTask().execute(eventsDataURL)
-        adapter.domainClicks().subscribe { CustomTabs.openCustomTab(context, learnMoreURL) }
+        adapter.learnMoreClicks().subscribe { CustomTabs.openCustomTab(context, learnMoreURL) }
     }
 
     @Nullable
