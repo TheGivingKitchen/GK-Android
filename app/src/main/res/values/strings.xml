@@ -121,6 +121,15 @@
     <string name="give_tab_examples_left_chevron">Reduce the suggested donation amount</string>
     <string name="give_tab_examples_right_chevron">Increase the suggested donation amount</string>
     <string name="forms_questions_back_icon">Go back a question</string>
+    <string name="facebook_groups_metro_atl">Go back the Metro Atlanta Facebook Group</string>
+    <string name="facebook_groups_athens">Go back the Athens Facebook Group</string>
+    <string name="facebook_groups_columbus">Go back the Columbus Facebook Group</string>
+    <string name="facebook_groups_rome">Go back the Rome Facebook Group</string>
+    <string name="facebook_groups_macon">Go back the Macon Facebook Group</string>
+    <string name="facebook_groups_gainesville">Go back the Gainesville Facebook Group</string>
+    <string name="facebook_groups_north_ga">Go back the North Georgia Facebook Group</string>
+    <string name="facebook_groups_south_ga">Go back the South Georgia Facebook Group</string>
+    <string name="facebook_groups_coastal_ga">Go back the Coastal Georgia Facebook Group</string>
 
     <!-- Questions -->
     <string name="shortname_question_firstname_hint">First</string>

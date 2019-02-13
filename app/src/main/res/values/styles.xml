@@ -110,7 +110,7 @@
         <item name="android:paddingEnd">@dimen/universal_horizontal_spacing</item>
     </style>
 
-    <!-- Give Tab -->
+    <!-- Forms -->
     <style name="UnansweredQuestionWarning" parent="RegularText">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -120,5 +120,19 @@
         <item name="android:text">@string/question_unanswered_warning</item>
         <item name="android:visibility">gone</item>
     </style>
+
+    <!-- Facebook Groups -->
+    <style name="FacebookGroupsPlaceIcon">
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
+    </style>
+
+    <style name="FacebookGroupsPlaceText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:textColor">@color/gk_blue</item>
+    </style>
+
 
 </resources>

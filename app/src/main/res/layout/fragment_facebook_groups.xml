@@ -1,41 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/headerText_facebookGroups"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="30dp"
-        style="@style/LargeHeaderText"
-        android:text="@string/facebook_groups_header"
-        android:textColor="@color/gk_orange"/>
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/headerDescription_facebookGroups"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/headerText_facebookGroups"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="30dp"
-        android:gravity="center_horizontal"
-        style="@style/RegularText"
-        android:textSize="8pt"
-        android:text="@string/facebook_groups_header_description"/>
+        <TextView
+            android:id="@+id/headerText_facebookGroups"
+            style="@style/LargeHeaderText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/facebook_groups_header"
+            android:textColor="@color/gk_orange"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/headerDescription_facebookGroups"
-        app:layout_constraintStart_toStartOf="parent"
-        android:src="@drawable/ic_facebook_group_city"/>
+        <TextView
+            android:id="@+id/headerDescription_facebookGroups"
+            style="@style/RegularText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="30dp"
+            android:gravity="center_horizontal"
+            android:text="@string/facebook_groups_header_description"
+            android:textSize="8pt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/headerText_facebookGroups" />
 
-</android.support.constraint.ConstraintLayout>
+        <ImageView
+            android:id="@+id/metroAtlIcon_facebookGroups"
+            android:src="@drawable/ic_facebook_group_city"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/headerDescription_facebookGroups"
+            android:contentDescription="@string/facebook_groups_metro_atl"
+            android:layout_marginTop="40dp"
+            style="@style/FacebookGroupsPlaceIcon"/>
+
+        <TextView
+            android:id="@+id/metroAtlText_facebookGroups"
+            android:text="@string/facebook_groups_group_metro_atl"
+            app:layout_constraintTop_toBottomOf="@id/metroAtlIcon_facebookGroups"
+            app:layout_constraintStart_toStartOf="@id/metroAtlIcon_facebookGroups"
+            app:layout_constraintEnd_toEndOf="@id/metroAtlIcon_facebookGroups"
+            style="@style/FacebookGroupsPlaceText"/>
+
+        <ImageView
+            android:id="@+id/athensIcon_facebookGroups"
+            android:src="@drawable/ic_facebook_group_city"
+            app:layout_constraintStart_toEndOf="@id/metroAtlIcon_facebookGroups"
+            app:layout_constraintTop_toBottomOf="@id/headerDescription_facebookGroups"
+            android:contentDescription="@string/facebook_groups_athens"
+            android:layout_marginTop="40dp"
+            style="@style/FacebookGroupsPlaceIcon"/>
+
+        <TextView
+            android:id="@+id/athensText_facebookGroups"
+            android:text="@string/facebook_groups_group_athens"
+            app:layout_constraintTop_toBottomOf="@id/athensIcon_facebookGroups"
+            app:layout_constraintStart_toStartOf="@id/athensIcon_facebookGroups"
+            app:layout_constraintEnd_toEndOf="@id/athensIcon_facebookGroups"
+            style="@style/FacebookGroupsPlaceText"/>
+
+        <ImageView
+            android:id="@+id/columbusIcon_facebookGroups"
+            android:src="@drawable/ic_facebook_group_city"
+            app:layout_constraintStart_toEndOf="@id/athensIcon_facebookGroups"
+            app:layout_constraintTop_toBottomOf="@id/headerDescription_facebookGroups"
+            android:contentDescription="@string/facebook_groups_columbus"
+            android:layout_marginTop="40dp"
+            style="@style/FacebookGroupsPlaceIcon"/>
+
+        <TextView
+            android:id="@+id/columbusText_facebookGroups"
+            android:text="@string/facebook_groups_group_columbus"
+            app:layout_constraintTop_toBottomOf="@id/columbusIcon_facebookGroups"
+            app:layout_constraintStart_toStartOf="@id/columbusIcon_facebookGroups"
+            app:layout_constraintEnd_toEndOf="@id/columbusIcon_facebookGroups"
+            style="@style/FacebookGroupsPlaceText"/>
+
+    </android.support.constraint.ConstraintLayout>
+</android.support.v4.widget.NestedScrollView>
