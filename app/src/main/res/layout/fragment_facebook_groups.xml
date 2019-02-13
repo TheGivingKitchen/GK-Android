@@ -38,54 +38,183 @@
 
         <ImageView
             android:id="@+id/metroAtlIcon_facebookGroups"
-            android:src="@drawable/ic_facebook_group_city"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/headerDescription_facebookGroups"
-            android:contentDescription="@string/facebook_groups_metro_atl"
+            style="@style/FacebookGroupsPlaceIcon"
             android:layout_marginTop="40dp"
-            style="@style/FacebookGroupsPlaceIcon"/>
+            android:contentDescription="@string/facebook_groups_metro_atl"
+            android:src="@drawable/ic_facebook_group_city"
+            app:layout_constraintEnd_toStartOf="@+id/athensIcon_facebookGroups"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/headerDescription_facebookGroups" />
 
         <TextView
             android:id="@+id/metroAtlText_facebookGroups"
+            style="@style/FacebookGroupsPlaceText"
             android:text="@string/facebook_groups_group_metro_atl"
-            app:layout_constraintTop_toBottomOf="@id/metroAtlIcon_facebookGroups"
-            app:layout_constraintStart_toStartOf="@id/metroAtlIcon_facebookGroups"
             app:layout_constraintEnd_toEndOf="@id/metroAtlIcon_facebookGroups"
-            style="@style/FacebookGroupsPlaceText"/>
+            app:layout_constraintStart_toStartOf="@id/metroAtlIcon_facebookGroups"
+            app:layout_constraintTop_toBottomOf="@id/metroAtlIcon_facebookGroups" />
+
+        <View
+            android:id="@+id/metroAtlTouchTarget_facebookGroups"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/metroAtlText_facebookGroups"
+            app:layout_constraintEnd_toEndOf="@id/metroAtlText_facebookGroups"
+            app:layout_constraintStart_toStartOf="@id/metroAtlText_facebookGroups"
+            app:layout_constraintTop_toTopOf="@id/metroAtlIcon_facebookGroups" />
 
         <ImageView
             android:id="@+id/athensIcon_facebookGroups"
-            android:src="@drawable/ic_facebook_group_city"
-            app:layout_constraintStart_toEndOf="@id/metroAtlIcon_facebookGroups"
-            app:layout_constraintTop_toBottomOf="@id/headerDescription_facebookGroups"
-            android:contentDescription="@string/facebook_groups_athens"
+            style="@style/FacebookGroupsPlaceIcon"
             android:layout_marginTop="40dp"
-            style="@style/FacebookGroupsPlaceIcon"/>
+            android:contentDescription="@string/facebook_groups_athens"
+            android:src="@drawable/ic_facebook_group_city"
+            app:layout_constraintEnd_toStartOf="@+id/columbusIcon_facebookGroups"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/metroAtlIcon_facebookGroups"
+            app:layout_constraintTop_toBottomOf="@id/headerDescription_facebookGroups" />
 
         <TextView
             android:id="@+id/athensText_facebookGroups"
+            style="@style/FacebookGroupsPlaceText"
             android:text="@string/facebook_groups_group_athens"
-            app:layout_constraintTop_toBottomOf="@id/athensIcon_facebookGroups"
-            app:layout_constraintStart_toStartOf="@id/athensIcon_facebookGroups"
             app:layout_constraintEnd_toEndOf="@id/athensIcon_facebookGroups"
-            style="@style/FacebookGroupsPlaceText"/>
+            app:layout_constraintStart_toStartOf="@id/athensIcon_facebookGroups"
+            app:layout_constraintTop_toBottomOf="@id/athensIcon_facebookGroups" />
 
         <ImageView
             android:id="@+id/columbusIcon_facebookGroups"
-            android:src="@drawable/ic_facebook_group_city"
-            app:layout_constraintStart_toEndOf="@id/athensIcon_facebookGroups"
-            app:layout_constraintTop_toBottomOf="@id/headerDescription_facebookGroups"
-            android:contentDescription="@string/facebook_groups_columbus"
+            style="@style/FacebookGroupsPlaceIcon"
             android:layout_marginTop="40dp"
-            style="@style/FacebookGroupsPlaceIcon"/>
+            android:contentDescription="@string/facebook_groups_columbus"
+            android:src="@drawable/ic_facebook_group_city"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/athensIcon_facebookGroups"
+            app:layout_constraintTop_toBottomOf="@id/headerDescription_facebookGroups" />
 
         <TextView
             android:id="@+id/columbusText_facebookGroups"
+            style="@style/FacebookGroupsPlaceText"
             android:text="@string/facebook_groups_group_columbus"
-            app:layout_constraintTop_toBottomOf="@id/columbusIcon_facebookGroups"
-            app:layout_constraintStart_toStartOf="@id/columbusIcon_facebookGroups"
             app:layout_constraintEnd_toEndOf="@id/columbusIcon_facebookGroups"
-            style="@style/FacebookGroupsPlaceText"/>
+            app:layout_constraintStart_toStartOf="@id/columbusIcon_facebookGroups"
+            app:layout_constraintTop_toBottomOf="@id/columbusIcon_facebookGroups" />
+
+        <ImageView
+            android:id="@+id/romeIcon_facebookGroups"
+            style="@style/FacebookGroupsPlaceIcon"
+            android:layout_marginTop="40dp"
+            android:contentDescription="@string/facebook_groups_rome"
+            android:src="@drawable/ic_facebook_group_city"
+            app:layout_constraintEnd_toStartOf="@+id/maconIcon_facebookGroups"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/metroAtlText_facebookGroups" />
+
+        <TextView
+            android:id="@+id/romeText_facebookGroups"
+            style="@style/FacebookGroupsPlaceText"
+            android:text="@string/facebook_groups_group_rome"
+            app:layout_constraintEnd_toEndOf="@id/romeIcon_facebookGroups"
+            app:layout_constraintStart_toStartOf="@id/romeIcon_facebookGroups"
+            app:layout_constraintTop_toBottomOf="@id/romeIcon_facebookGroups" />
+
+        <ImageView
+            android:id="@+id/maconIcon_facebookGroups"
+            style="@style/FacebookGroupsPlaceIcon"
+            android:layout_marginTop="40dp"
+            android:contentDescription="@string/facebook_groups_macon"
+            android:src="@drawable/ic_facebook_group_city"
+            app:layout_constraintEnd_toStartOf="@+id/columbusIcon_facebookGroups"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/romeIcon_facebookGroups"
+            app:layout_constraintTop_toBottomOf="@id/athensText_facebookGroups" />
+
+        <TextView
+            android:id="@+id/maconText_facebookGroups"
+            style="@style/FacebookGroupsPlaceText"
+            android:text="@string/facebook_groups_group_macon"
+            app:layout_constraintEnd_toEndOf="@id/maconIcon_facebookGroups"
+            app:layout_constraintStart_toStartOf="@id/maconIcon_facebookGroups"
+            app:layout_constraintTop_toBottomOf="@id/maconIcon_facebookGroups" />
+
+        <ImageView
+            android:id="@+id/gainesvilleIcon_facebookGroups"
+            style="@style/FacebookGroupsPlaceIcon"
+            android:layout_marginTop="40dp"
+            android:contentDescription="@string/facebook_groups_gainesville"
+            android:src="@drawable/ic_facebook_group_city"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/maconIcon_facebookGroups"
+            app:layout_constraintTop_toBottomOf="@id/columbusText_facebookGroups" />
+
+        <TextView
+            android:id="@+id/gainesvilleText_facebookGroups"
+            style="@style/FacebookGroupsPlaceText"
+            android:text="@string/facebook_groups_group_gainesville"
+            app:layout_constraintEnd_toEndOf="@id/gainesvilleIcon_facebookGroups"
+            app:layout_constraintStart_toStartOf="@id/gainesvilleIcon_facebookGroups"
+            app:layout_constraintTop_toBottomOf="@id/gainesvilleIcon_facebookGroups" />
+
+        <ImageView
+            android:id="@+id/northGaIcon_facebookGroups"
+            style="@style/FacebookGroupsPlaceIcon"
+            android:layout_marginTop="40dp"
+            android:contentDescription="@string/facebook_groups_north_ga"
+            android:src="@drawable/ic_facebook_group_north_ga"
+            app:layout_constraintEnd_toStartOf="@+id/southGaIcon_facebookGroups"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/romeText_facebookGroups" />
+
+        <TextView
+            android:id="@+id/northGaText_facebookGroups"
+            style="@style/FacebookGroupsPlaceText"
+            android:text="@string/facebook_groups_group_north_ga"
+            app:layout_constraintEnd_toEndOf="@id/northGaIcon_facebookGroups"
+            app:layout_constraintStart_toStartOf="@id/northGaIcon_facebookGroups"
+            app:layout_constraintTop_toBottomOf="@id/northGaIcon_facebookGroups" />
+
+        <ImageView
+            android:id="@+id/southGaIcon_facebookGroups"
+            style="@style/FacebookGroupsPlaceIcon"
+            android:layout_marginTop="40dp"
+            android:contentDescription="@string/facebook_groups_south_ga"
+            android:src="@drawable/ic_facebook_group_south_ga"
+            app:layout_constraintEnd_toStartOf="@+id/coastalGaIcon_facebookGroups"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/northGaIcon_facebookGroups"
+            app:layout_constraintTop_toBottomOf="@id/maconText_facebookGroups" />
+
+        <TextView
+            android:id="@+id/southGaText_facebookGroups"
+            style="@style/FacebookGroupsPlaceText"
+            android:text="@string/facebook_groups_group_south_ga"
+            app:layout_constraintEnd_toEndOf="@id/southGaIcon_facebookGroups"
+            app:layout_constraintStart_toStartOf="@id/southGaIcon_facebookGroups"
+            app:layout_constraintTop_toBottomOf="@id/southGaIcon_facebookGroups" />
+
+        <ImageView
+            android:id="@+id/coastalGaIcon_facebookGroups"
+            style="@style/FacebookGroupsPlaceIcon"
+            android:layout_marginTop="40dp"
+            android:contentDescription="@string/facebook_groups_coastal_ga"
+            android:src="@drawable/ic_facebook_group_coastal_ga"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/southGaIcon_facebookGroups"
+            app:layout_constraintTop_toBottomOf="@id/gainesvilleText_facebookGroups" />
+
+        <TextView
+            android:id="@+id/coastalGaText_facebookGroups"
+            style="@style/FacebookGroupsPlaceText"
+            android:text="@string/facebook_groups_group_coastal_ga"
+            app:layout_constraintEnd_toEndOf="@id/coastalGaIcon_facebookGroups"
+            app:layout_constraintStart_toStartOf="@id/coastalGaIcon_facebookGroups"
+            app:layout_constraintTop_toBottomOf="@id/coastalGaIcon_facebookGroups" />
 
     </android.support.constraint.ConstraintLayout>
 </android.support.v4.widget.NestedScrollView>
