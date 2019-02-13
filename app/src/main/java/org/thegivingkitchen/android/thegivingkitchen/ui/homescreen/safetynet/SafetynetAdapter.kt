@@ -17,6 +17,7 @@ class SafetynetAdapter(var items: MutableList<Any>) : RecyclerView.Adapter<Recyc
     private val joinUsClicks: PublishSubject<Boolean> = PublishSubject.create()
     private val resourcesFilterClicks: PublishSubject<Boolean> = PublishSubject.create()
     private val countyFilterClicks: PublishSubject<Boolean> = PublishSubject.create()
+    private val serviceProviderClicks: PublishSubject<Int> = PublishSubject.create()
 
     companion object {
         const val VIEW_TYPE_HEADER = 0
@@ -40,7 +41,7 @@ class SafetynetAdapter(var items: MutableList<Any>) : RecyclerView.Adapter<Recyc
                 HeaderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_safetynet_header, parent, false), learnMoreClicks, joinUsClicks, resourcesFilterClicks, countyFilterClicks)
             }
             else -> {
-                SocialServiceProviderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_social_service_provider, parent, false))
+                SocialServiceProviderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_social_service_provider, parent, false), serviceProviderClicks)
             }
         }
     }
@@ -59,15 +60,20 @@ class SafetynetAdapter(var items: MutableList<Any>) : RecyclerView.Adapter<Recyc
     fun joinUsClicks(): Observable<Boolean> = joinUsClicks
     fun resourcesFilterClicks(): Observable<Boolean> = resourcesFilterClicks
     fun countiesFilterClicks(): Observable<Boolean> = countyFilterClicks
+    fun serviceProviderClicks(): Observable<Int> = serviceProviderClicks
 }
 
-class SocialServiceProviderViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+class SocialServiceProviderViewHolder(val view: View, private val clicks: PublishSubject<Int>) : RecyclerView.ViewHolder(view) {
     fun bind(socialServiceProvider: SocialServiceProvider) {
         view.findViewById<TextView>(R.id.title_SafetynetRecycler).setTextIfItExists(socialServiceProvider.name)
         view.findViewById<TextView>(R.id.category_SafetynetRecycler).setTextIfItExists(socialServiceProvider.category)
         view.findViewById<TextView>(R.id.address_SafetynetRecycler).setTextIfItExists(socialServiceProvider.address)
         view.findViewById<TextView>(R.id.phone_SafetynetRecycler).setTextIfItExists(socialServiceProvider.phone)
         view.findViewById<TextView>(R.id.description_SafetynetRecycler).setTextIfItExists(socialServiceProvider.description)
+        val cellIndex = socialServiceProvider.index
+        if (cellIndex != null) {
+            view.setOnClickListener { clicks.onNext(cellIndex) }
+        }
 
         val countiesServedText = socialServiceProvider.countiesServed
         val countiesServedTextView = view.findViewById<TextView>(R.id.counties_SafetynetRecycler)

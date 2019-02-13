@@ -8,6 +8,7 @@ data class SocialServiceProvidersList(
 )
 
 data class SocialServiceProvider(
+        var index: Int?,
         val name: String?,
         val address: String?,
         val website: String?,
@@ -19,4 +20,3 @@ data class SocialServiceProvider(
 )
 
 class Header
-

@@ -40,10 +40,11 @@ class SafetynetFragment : Fragment() {
         model.isProgressBarVisible().observe(this, Observer<Boolean> { liveData ->
             updateProgressBarVisibility(liveData!!)
         })
-        adapter.learnMoreClicks().subscribe { CustomTabs.openCustomTab(context, learnMoreURL) }
-        adapter.joinUsClicks().subscribe { Toast.makeText(context, "Join us on FB clicked", Toast.LENGTH_SHORT).show() }
-        adapter.resourcesFilterClicks().subscribe { Toast.makeText(context, "Resources Filter clicked", Toast.LENGTH_SHORT).show() }
-        adapter.countiesFilterClicks().subscribe { Toast.makeText(context, "Counties Filter clicked", Toast.LENGTH_SHORT).show() }
+        adapter.learnMoreClicks().subscribe { openLearnMoreLink() }
+        adapter.joinUsClicks().subscribe { goToFacebookGroupsScreen() }
+        adapter.resourcesFilterClicks().subscribe { showResourcesFilter() }
+        adapter.countiesFilterClicks().subscribe { showCountiesFilter() }
+        adapter.serviceProviderClicks().subscribe { showProviderData(it) }
         getData()
     }
 
@@ -79,6 +80,9 @@ class SafetynetFragment : Fragment() {
                         val jsonString = stringBuilder.toString()
                         val safetynetData = jsonAdapter.nullSafe().fromJson(jsonString)?.safetyNet
                         if (safetynetData != null) {
+                            for (i in 0 until safetynetData.size) {
+                                safetynetData[i].index = i
+                            }
                             model.setCurrentJson(safetynetData)
                         }
                     } catch (e: IOException) {
@@ -97,6 +101,29 @@ class SafetynetFragment : Fragment() {
         adapter.items = dataMutableList
         adapter.notifyDataSetChanged()
         model.setProgressBarVisibility(false)
+    }
+
+    private fun openLearnMoreLink() {
+        CustomTabs.openCustomTab(context, learnMoreURL)
+    }
+
+    private fun goToFacebookGroupsScreen() {
+        Toast.makeText(context, "Join us on FB clicked", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showProviderData(index: Int) {
+        val providerData = model.getCurrentJson().value
+        if (providerData != null) {
+            Toast.makeText(context, providerData[index].toString(), Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun showResourcesFilter() {
+        Toast.makeText(context, "Resources Filter clicked", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showCountiesFilter() {
+        Toast.makeText(context, "Counties Filter clicked", Toast.LENGTH_SHORT).show()
     }
 
     private fun updateProgressBarVisibility(visibility: Boolean) {
