@@ -83,6 +83,15 @@
             app:layout_constraintStart_toStartOf="@id/athensIcon_facebookGroups"
             app:layout_constraintTop_toBottomOf="@id/athensIcon_facebookGroups" />
 
+        <View
+            android:id="@+id/athensTouchTarget_facebookGroups"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/athensText_facebookGroups"
+            app:layout_constraintEnd_toEndOf="@id/athensText_facebookGroups"
+            app:layout_constraintStart_toStartOf="@id/athensText_facebookGroups"
+            app:layout_constraintTop_toTopOf="@id/athensIcon_facebookGroups" />
+
         <ImageView
             android:id="@+id/columbusIcon_facebookGroups"
             style="@style/FacebookGroupsPlaceIcon"
@@ -101,6 +110,15 @@
             app:layout_constraintEnd_toEndOf="@id/columbusIcon_facebookGroups"
             app:layout_constraintStart_toStartOf="@id/columbusIcon_facebookGroups"
             app:layout_constraintTop_toBottomOf="@id/columbusIcon_facebookGroups" />
+
+        <View
+            android:id="@+id/columbusTouchTarget_facebookGroups"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/columbusText_facebookGroups"
+            app:layout_constraintEnd_toEndOf="@id/columbusText_facebookGroups"
+            app:layout_constraintStart_toStartOf="@id/columbusText_facebookGroups"
+            app:layout_constraintTop_toTopOf="@id/columbusIcon_facebookGroups" />
 
         <ImageView
             android:id="@+id/romeIcon_facebookGroups"
@@ -121,6 +139,15 @@
             app:layout_constraintStart_toStartOf="@id/romeIcon_facebookGroups"
             app:layout_constraintTop_toBottomOf="@id/romeIcon_facebookGroups" />
 
+        <View
+            android:id="@+id/romeTouchTarget_facebookGroups"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/romeText_facebookGroups"
+            app:layout_constraintEnd_toEndOf="@id/romeIcon_facebookGroups"
+            app:layout_constraintStart_toStartOf="@id/romeIcon_facebookGroups"
+            app:layout_constraintTop_toTopOf="@id/romeIcon_facebookGroups" />
+
         <ImageView
             android:id="@+id/maconIcon_facebookGroups"
             style="@style/FacebookGroupsPlaceIcon"
@@ -139,6 +166,15 @@
             app:layout_constraintEnd_toEndOf="@id/maconIcon_facebookGroups"
             app:layout_constraintStart_toStartOf="@id/maconIcon_facebookGroups"
             app:layout_constraintTop_toBottomOf="@id/maconIcon_facebookGroups" />
+
+        <View
+            android:id="@+id/maconTouchTarget_facebookGroups"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/maconText_facebookGroups"
+            app:layout_constraintEnd_toEndOf="@id/maconIcon_facebookGroups"
+            app:layout_constraintStart_toStartOf="@id/maconIcon_facebookGroups"
+            app:layout_constraintTop_toTopOf="@id/maconIcon_facebookGroups" />
 
         <ImageView
             android:id="@+id/gainesvilleIcon_facebookGroups"
@@ -159,6 +195,15 @@
             app:layout_constraintStart_toStartOf="@id/gainesvilleIcon_facebookGroups"
             app:layout_constraintTop_toBottomOf="@id/gainesvilleIcon_facebookGroups" />
 
+        <View
+            android:id="@+id/gainesvilleTouchTarget_facebookGroups"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/gainesvilleText_facebookGroups"
+            app:layout_constraintEnd_toEndOf="@id/gainesvilleText_facebookGroups"
+            app:layout_constraintStart_toStartOf="@id/gainesvilleText_facebookGroups"
+            app:layout_constraintTop_toTopOf="@id/gainesvilleIcon_facebookGroups" />
+
         <ImageView
             android:id="@+id/northGaIcon_facebookGroups"
             style="@style/FacebookGroupsPlaceIcon"
@@ -177,6 +222,15 @@
             app:layout_constraintEnd_toEndOf="@id/northGaIcon_facebookGroups"
             app:layout_constraintStart_toStartOf="@id/northGaIcon_facebookGroups"
             app:layout_constraintTop_toBottomOf="@id/northGaIcon_facebookGroups" />
+
+        <View
+            android:id="@+id/northGaTouchTarget_facebookGroups"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/northGaText_facebookGroups"
+            app:layout_constraintEnd_toEndOf="@id/northGaText_facebookGroups"
+            app:layout_constraintStart_toStartOf="@id/northGaText_facebookGroups"
+            app:layout_constraintTop_toTopOf="@id/northGaIcon_facebookGroups" />
 
         <ImageView
             android:id="@+id/southGaIcon_facebookGroups"
@@ -197,6 +251,15 @@
             app:layout_constraintStart_toStartOf="@id/southGaIcon_facebookGroups"
             app:layout_constraintTop_toBottomOf="@id/southGaIcon_facebookGroups" />
 
+        <View
+            android:id="@+id/southGaTouchTarget_facebookGroups"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/southGaText_facebookGroups"
+            app:layout_constraintEnd_toEndOf="@id/southGaText_facebookGroups"
+            app:layout_constraintStart_toStartOf="@id/southGaText_facebookGroups"
+            app:layout_constraintTop_toTopOf="@id/southGaIcon_facebookGroups" />
+
         <ImageView
             android:id="@+id/coastalGaIcon_facebookGroups"
             style="@style/FacebookGroupsPlaceIcon"
@@ -215,6 +278,15 @@
             app:layout_constraintEnd_toEndOf="@id/coastalGaIcon_facebookGroups"
             app:layout_constraintStart_toStartOf="@id/coastalGaIcon_facebookGroups"
             app:layout_constraintTop_toBottomOf="@id/coastalGaIcon_facebookGroups" />
+
+        <View
+            android:id="@+id/coastalGaTouchTarget_facebookGroups"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/coastalGaText_facebookGroups"
+            app:layout_constraintEnd_toEndOf="@id/coastalGaText_facebookGroups"
+            app:layout_constraintStart_toStartOf="@id/coastalGaText_facebookGroups"
+            app:layout_constraintTop_toTopOf="@id/coastalGaIcon_facebookGroups" />
 
     </android.support.constraint.ConstraintLayout>
 </android.support.v4.widget.NestedScrollView>
