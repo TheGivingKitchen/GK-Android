@@ -14,7 +14,7 @@ import org.thegivingkitchen.android.thegivingkitchen.R
 import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.assistance.AssistanceFragment
 import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.events.EventsFragment
 import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.give.GiveFragment
-import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.safetynet.SafetynetFragment
+import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.safetynet.safetynettab.SafetynetFragment
 
 class HomeFragment: Fragment()  {
     // todo: onboarding

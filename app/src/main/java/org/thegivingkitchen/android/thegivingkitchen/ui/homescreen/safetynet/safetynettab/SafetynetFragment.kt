@@ -1,4 +1,4 @@
-package org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.safetynet
+package org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.safetynet.safetynettab
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
@@ -11,10 +11,11 @@ import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
+import androidx.navigation.Navigation
 import com.squareup.moshi.JsonAdapter
 import kotlinx.android.synthetic.main.fragment_safetynet.*
 import org.thegivingkitchen.android.thegivingkitchen.R
-import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.safetynet.SafetynetViewModel.Companion.safetynetDataUrl
+import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.safetynet.safetynettab.SafetynetViewModel.Companion.safetynetDataUrl
 import org.thegivingkitchen.android.thegivingkitchen.util.Constants.givingKitchenUrl
 import org.thegivingkitchen.android.thegivingkitchen.util.CustomTabs
 import org.thegivingkitchen.android.thegivingkitchen.util.Services.firebaseInstance
@@ -108,7 +109,7 @@ class SafetynetFragment : Fragment() {
     }
 
     private fun goToFacebookGroupsScreen() {
-        Toast.makeText(context, "Join us on FB clicked", Toast.LENGTH_SHORT).show()
+        Navigation.findNavController(getView()!!).navigate(R.id.facebookGroupsFragment)
     }
 
     private fun showProviderData(index: Int) {

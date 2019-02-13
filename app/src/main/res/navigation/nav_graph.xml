@@ -11,9 +11,13 @@
         tools:layout="@layout/fragment_events" />
     <fragment
         android:id="@+id/safetynetFragment"
-        android:name="org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.safetynet.SafetynetFragment"
+        android:name="org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.safetynet.safetynettab.SafetynetFragment"
         android:label="SafetynetFragment"
-        tools:layout="@layout/fragment_safetynet" />
+        tools:layout="@layout/fragment_safetynet" >
+        <action
+            android:id="@+id/action_safetynetFragment_to_facebookGroupsFragment"
+            app:destination="@id/facebookGroupsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/assistanceFragment"
         android:name="org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.assistance.AssistanceFragment"
@@ -49,4 +53,8 @@
         android:id="@+id/questionsContainerFragment"
         android:name="org.thegivingkitchen.android.thegivingkitchen.ui.forms.QuestionsContainerFragment"
         android:label="QuestionsContainerFragment" />
+    <fragment
+        android:id="@+id/facebookGroupsFragment"
+        android:name="org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.safetynet.FacebookGroupsFragment"
+        android:label="FacebookGroupsFragment" />
 </navigation>

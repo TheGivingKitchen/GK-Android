@@ -1,4 +1,4 @@
-package org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.safetynet
+package org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.safetynet.safetynettab
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData

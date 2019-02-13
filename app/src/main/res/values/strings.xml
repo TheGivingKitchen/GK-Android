@@ -62,6 +62,19 @@
     <string name="safetynet_tab_counties_filter_label">Show resources for</string>
     <string name="safetynet_tab_counties_filter_button">All Counties</string>
 
+    <!-- Facebook Groups -->
+    <string name="facebook_groups_header">JOIN US ON FACEBOOK</string>
+    <string name="facebook_groups_header_description">Our groups are places to share industry events, community resources (including job postings), and best practices.</string>
+    <string name="facebook_groups_group_metro_atl">Metro ATL</string>
+    <string name="facebook_groups_group_athens">Athens</string>
+    <string name="facebook_groups_group_columbus">Columbus</string>
+    <string name="facebook_groups_group_rome">Rome</string>
+    <string name="facebook_groups_group_macon">Macon</string>
+    <string name="facebook_groups_group_gainesville">Gainesville</string>
+    <string name="facebook_groups_group_north_ga">North GA</string>
+    <string name="facebook_groups_group_south_ga">South GA</string>
+    <string name="facebook_groups_group_coastal_ga">Coastal GA</string>
+
     <!-- Common Forms Strings -->
     <string name="forms_questions_back">Back</string>
     <string name="forms_questions_next">Next</string>

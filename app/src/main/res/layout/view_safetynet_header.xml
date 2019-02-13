@@ -69,8 +69,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"/>
 
-    <View style="@style/DividerViewSmall"
-        android:layout_marginBottom="20dp"/>
+    <View style="@style/DividerViewSmall"/>
 
     <TextView
         android:id="@+id/join_us_button_safetynetTab"
@@ -81,9 +80,10 @@
         android:gravity="center_horizontal"
         style="@style/ParagraphText"
         android:textColor="@color/gk_orange"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"/>
+        android:paddingTop="20dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="20dp"/>
 
     <View style="@style/DividerViewLarge" />
     

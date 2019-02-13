@@ -1,4 +1,4 @@
-package org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.safetynet
+package org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.safetynet.safetynettab
 
 import com.squareup.moshi.JsonClass
 

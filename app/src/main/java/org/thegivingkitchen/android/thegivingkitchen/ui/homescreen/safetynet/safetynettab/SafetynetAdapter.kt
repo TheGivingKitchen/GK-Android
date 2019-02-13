@@ -1,4 +1,4 @@
-package org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.safetynet
+package org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.safetynet.safetynettab
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
