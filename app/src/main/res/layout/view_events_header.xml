@@ -1,33 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
         android:id="@+id/header_eventsTab"
         android:layout_width="match_parent"
         android:layout_height="@dimen/header_image_height"
         android:layout_marginTop="@dimen/header_image_top_margin"
-        android:layout_marginBottom="25dp"
         android:src="@drawable/ic_gk_orange"
-        tools:ignore="ContentDescription"/>
+        tools:ignore="ContentDescription"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
-        android:id="@+id/header_description_eventsTab"
+        android:id="@+id/headerDescription_eventsTab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/LargeHeaderText"
         android:text="@string/events_tab_header_description"
         android:layout_marginStart="@dimen/universal_horizontal_spacing"
         android:layout_marginEnd="@dimen/universal_horizontal_spacing"
-        android:textColor="@color/gk_blue"/>
+        android:layout_marginTop="25dp"
+        android:textColor="@color/gk_blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header_eventsTab"/>
 
     <View style="@style/DividerViewLarge"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/headerDescription_eventsTab"/>
 
-    
+    <TextView
+        android:id="@+id/crisisSectionTitle_eventsTab"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/universal_horizontal_spacing"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="40dp"
+        android:text="@string/safetynet_tab_facebook_description"
+        android:textSize="8pt"
+        android:textColor="@color/dark_grey"
+        app:layout_constraintEnd_toEndOf="@id/collapseFacebookButton_safetynetTab"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/facebookTopDivider_safetynetTab" />
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/collapseCrisisSectionButton_eventsTab"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:contentDescription="@string/facebook_groups_coastal_ga"
+        android:src="@drawable/ic_expand_more"
+        android:tint="@color/dark_grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/facebookGroupsTitle_safetynetTab" />
+
+    <TextView
+        android:id="@+id/crisisSectionDescription_eventsTab"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/universal_horizontal_spacing"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="@dimen/universal_horizontal_spacing"
+        android:gravity="center_horizontal"
+        android:text="@string/safetynet_tab_groups_description"
+        android:textSize="8pt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/facebookGroupsTitle_safetynetTab" />
+
+</android.support.constraint.ConstraintLayout>
