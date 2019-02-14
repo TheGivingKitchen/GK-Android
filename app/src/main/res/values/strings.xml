@@ -130,6 +130,7 @@
     <string name="facebook_groups_north_ga">Go back the North Georgia Facebook Group</string>
     <string name="facebook_groups_south_ga">Go back the South Georgia Facebook Group</string>
     <string name="facebook_groups_coastal_ga">Go back the Coastal Georgia Facebook Group</string>
+    <string name="safetynet_collapse_fb_section_button">Collapse or expand the Facebook Groups section</string>
 
     <!-- Questions -->
     <string name="shortname_question_firstname_hint">First</string>

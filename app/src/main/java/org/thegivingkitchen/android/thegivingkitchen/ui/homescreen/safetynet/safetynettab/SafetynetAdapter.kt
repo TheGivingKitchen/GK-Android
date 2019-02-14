@@ -67,29 +67,23 @@ class SocialServiceProviderViewHolder(val view: View, private val clicks: Publis
     fun bind(socialServiceProvider: SocialServiceProvider) {
         view.findViewById<TextView>(R.id.title_SafetynetRecycler).setTextIfItExists(socialServiceProvider.name)
         view.findViewById<TextView>(R.id.category_SafetynetRecycler).setTextIfItExists(socialServiceProvider.category)
-        view.findViewById<TextView>(R.id.address_SafetynetRecycler).setTextIfItExists(socialServiceProvider.address)
-        view.findViewById<TextView>(R.id.phone_SafetynetRecycler).setTextIfItExists(socialServiceProvider.phone)
         view.findViewById<TextView>(R.id.description_SafetynetRecycler).setTextIfItExists(socialServiceProvider.description)
         val cellIndex = socialServiceProvider.index
         if (cellIndex != null) {
             view.setOnClickListener { clicks.onNext(cellIndex) }
-        }
-
-        val countiesServedText = socialServiceProvider.countiesServed
-        val countiesServedTextView = view.findViewById<TextView>(R.id.counties_SafetynetRecycler)
-        if (countiesServedText.isNullOrBlank()) {
-            countiesServedTextView.visibility = View.GONE
-        } else {
-            countiesServedTextView.text = view.context.getString(R.string.safetynet_tab_counties_served, countiesServedText)
         }
     }
 }
 
 class HeaderViewHolder(val view: View, private val learnMoreClicks: PublishSubject<Boolean>, private val joinUsClicks: PublishSubject<Boolean>, private val resourcesFilterClicks: PublishSubject<Boolean>, private val countyFilterClicks: PublishSubject<Boolean>) : RecyclerView.ViewHolder(view) {
     fun bind() {
-        view.findViewById<TextView>(R.id.learn_more_button_safetynetTab).setOnClickListener { learnMoreClicks.onNext(false) }
-        view.findViewById<TextView>(R.id.join_us_button_safetynetTab).setOnClickListener { joinUsClicks.onNext(false) }
-        view.findViewById<LinearLayout>(R.id.resourcesFilter_safetynetTab).setOnClickListener { resourcesFilterClicks.onNext(false) }
-        view.findViewById<LinearLayout>(R.id.countiesFilter_safetynetTab).setOnClickListener { countyFilterClicks.onNext(false) }
+        view.findViewById<TextView>(R.id.learnMoreButton_safetynetTab).setOnClickListener { learnMoreClicks.onNext(false) }
+        view.findViewById<TextView>(R.id.joinUsButton_safetynetTab).setOnClickListener { joinUsClicks.onNext(false) }
+        view.findViewById<View>(R.id.resourcesFilterTouchTarget_safetynetTab).setOnClickListener { resourcesFilterClicks.onNext(false) }
+        view.findViewById<View>(R.id.countiesFilterTouchTarget_safetynetTab).setOnClickListener { countyFilterClicks.onNext(false) }
+    }
+
+    fun toggleFacebookGroupsExpandedState() {
+
     }
 }
