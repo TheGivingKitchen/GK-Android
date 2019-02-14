@@ -11,14 +11,12 @@ import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_questions_container.*
 import org.thegivingkitchen.android.thegivingkitchen.R
 import org.thegivingkitchen.android.thegivingkitchen.ui.forms.prologue.FormPrologueFragment
 import org.thegivingkitchen.android.thegivingkitchen.ui.forms.page.FormPageFragment
-import org.thegivingkitchen.android.thegivingkitchen.util.BackPressedListener
 
-class QuestionsContainerFragment: Fragment(), BackPressedListener {
+class QuestionsContainerFragment: Fragment() {
     private lateinit var questionPages: List<FormPageFragment>
     private lateinit var model: QuestionsContainerViewModel
 
@@ -68,14 +66,6 @@ class QuestionsContainerFragment: Fragment(), BackPressedListener {
         // todo: use a constraintlayout group here
         backButtonText_questionsContainer.setOnClickListener(backButtonClickListener)
         backButtonIcon_questionsContainer.setOnClickListener(backButtonClickListener)
-    }
-
-    override fun onBackPressed(): Boolean {
-        if (viewPager_questionsContainer.currentItem == 0) {
-            return false
-        }
-        viewPager_questionsContainer.currentItem = viewPager_questionsContainer.currentItem - 1
-        return true
     }
 
     private fun updateForwardButton(state: QuestionsContainerViewModel.Companion.ForwardButtonState) {

@@ -76,6 +76,5 @@ class EventViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 }
 
 class HeaderViewHolder(val view: View, private val clicks: PublishSubject<Boolean>) : RecyclerView.ViewHolder(view) {
-    fun bind() {
-    }
+    fun bind() { }
 }

@@ -1,10 +1,12 @@
 package org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.safetynet.safetynettab
 
+import android.os.Build
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
+import android.widget.ImageView
 import android.widget.TextView
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
@@ -76,14 +78,30 @@ class SocialServiceProviderViewHolder(val view: View, private val clicks: Publis
 }
 
 class HeaderViewHolder(val view: View, private val learnMoreClicks: PublishSubject<Boolean>, private val joinUsClicks: PublishSubject<Boolean>, private val resourcesFilterClicks: PublishSubject<Boolean>, private val countyFilterClicks: PublishSubject<Boolean>) : RecyclerView.ViewHolder(view) {
+    var isExpanded = true
+
     fun bind() {
         view.findViewById<TextView>(R.id.learnMoreButton_safetynetTab).setOnClickListener { learnMoreClicks.onNext(false) }
         view.findViewById<TextView>(R.id.joinUsButton_safetynetTab).setOnClickListener { joinUsClicks.onNext(false) }
         view.findViewById<View>(R.id.resourcesFilterTouchTarget_safetynetTab).setOnClickListener { resourcesFilterClicks.onNext(false) }
         view.findViewById<View>(R.id.countiesFilterTouchTarget_safetynetTab).setOnClickListener { countyFilterClicks.onNext(false) }
+        view.findViewById<View>(R.id.collapseFacebookButton_safetynetTab).setOnClickListener { toggleFacebookGroupsExpandedState() }
     }
 
-    fun toggleFacebookGroupsExpandedState() {
+    private fun toggleFacebookGroupsExpandedState() {
+        val collapseSectionButton: ImageView = view.findViewById<View>(R.id.collapseFacebookButton_safetynetTab) as ImageView
+        isExpanded = !isExpanded
 
+        if (isExpanded) {
+            collapseSectionButton.setImageDrawable(collapseSectionButton.resources.getDrawable(R.drawable.ic_expand_more, collapseSectionButton.context.theme))
+            view.findViewById<View>(R.id.facebookGroupsDescription_safetynetTab).visibility = View.VISIBLE
+            view.findViewById<View>(R.id.facebookBottomDivider_safetynetTab).visibility = View.VISIBLE
+            view.findViewById<View>(R.id.joinUsButton_safetynetTab).visibility = View.VISIBLE
+        } else {
+            collapseSectionButton.setImageDrawable(collapseSectionButton.resources.getDrawable(R.drawable.ic_expand_less, collapseSectionButton.context.theme))
+            view.findViewById<View>(R.id.facebookGroupsDescription_safetynetTab).visibility = View.GONE
+            view.findViewById<View>(R.id.facebookBottomDivider_safetynetTab).visibility = View.GONE
+            view.findViewById<View>(R.id.joinUsButton_safetynetTab).visibility = View.GONE
+        }
     }
 }
