@@ -77,6 +77,5 @@ class EventViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
 class HeaderViewHolder(val view: View, private val clicks: PublishSubject<Boolean>) : RecyclerView.ViewHolder(view) {
     fun bind() {
-        view.findViewById<TextView>(R.id.learn_more_button_eventsTab).setOnClickListener { clicks.onNext(false) }
     }
 }
