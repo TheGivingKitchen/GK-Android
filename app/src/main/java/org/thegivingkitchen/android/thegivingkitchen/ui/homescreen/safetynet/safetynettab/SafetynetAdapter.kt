@@ -89,7 +89,7 @@ class HeaderViewHolder(val view: View, private val learnMoreClicks: PublishSubje
     }
 
     private fun toggleFacebookGroupsExpandedState() {
-        val collapseSectionButton: ImageView = view.findViewById<View>(R.id.collapseFacebookButton_safetynetTab) as ImageView
+        val collapseSectionButton = view.findViewById<ImageView>(R.id.collapseFacebookButton_safetynetTab)
         isExpanded = !isExpanded
 
         if (isExpanded) {

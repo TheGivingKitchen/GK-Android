@@ -85,7 +85,6 @@
         android:layout_marginStart="@dimen/universal_horizontal_spacing"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="@dimen/universal_horizontal_spacing"
-        android:gravity="center_horizontal"
         android:text="@string/safetynet_tab_groups_description"
         android:textSize="8pt"
         app:layout_constraintEnd_toEndOf="parent"

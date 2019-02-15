@@ -16,14 +16,12 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.thegivingkitchen.android.thegivingkitchen.R
 import org.thegivingkitchen.android.thegivingkitchen.util.Constants.givingKitchenUrl
-import org.thegivingkitchen.android.thegivingkitchen.util.CustomTabs
 import java.io.ByteArrayInputStream
 import java.io.IOException
 
 class EventsFragment : Fragment() {
 
     companion object {
-        private const val learnMoreURL = "$givingKitchenUrl/events/"
         private const val eventsDataURL = "$givingKitchenUrl/events-calendar?format=rss"
     }
 
@@ -41,7 +39,6 @@ class EventsFragment : Fragment() {
             updateProgressBarVisibility(liveData!!)
         })
         GetEventsTask().execute(eventsDataURL)
-        adapter.learnMoreClicks().subscribe { CustomTabs.openCustomTab(context, learnMoreURL) }
     }
 
     @Nullable

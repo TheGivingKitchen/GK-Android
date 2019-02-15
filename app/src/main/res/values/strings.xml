@@ -9,7 +9,10 @@
 
     <!-- Events Tab -->
     <string name="events_tab_header_description">The Giving Kitchen is building a restaurant community where crisis is met with compassion and care, and anyone can be a hero. </string>
-    <string name="events_tab_learn_more">Learn more</string>
+    <string name="events_tab_crisis_header">How it works</string>
+    <string name="events_tab_crisis_description">Are you or someone you know a restaurant worker in crisis? Learn more about what Giving Kitchen can do to assist.</string>
+    <string name="events_tab_self_crisis_button">I\'m in crisis</string>
+    <string name="events_tab_crisis_referral_button">I know someone in crisis</string>
 
     <!-- Give Tab -->
     <string name="give_tab_credit_header_description">Donate, Volunteer, or Partner:\nThree Ways to Get Involved &amp;\u0020 Make a Difference.</string>
@@ -108,6 +111,10 @@
     Most often, our financial assistance covers the cost of rent and utilities, paid directly to the service provider(s). Applications are reviewed by Giving Kitchen
     staff and a review committee consisting of GK board members. The average time to fully process an application from beginning to end is three weeks.
         \n\nPlease note: we do not pay medical expenses.</string>
+
+    <!-- Events Tab -->
+    <string name="crisis_survey_header_you">you</string>
+    <string name="crisis_survey_header_they">they</string>
 
     <!-- Assistance Referral Form -->
     <string name="assistance_referral_form_title">ASSISTANCE INQUIRY REFERRAL</string>
