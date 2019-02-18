@@ -56,4 +56,24 @@ class CheckboxQuestion(title: String?, answerChoices: List<String?>?, hasOtherFi
     override fun placeUnansweredWarning() {
         warning_checkboxQuestion.visibility = View.VISIBLE
     }
+
+    override fun getAnswer(): String? {
+        val selectedCheckboxes = arrayListOf<String>()
+
+        if (answerChoiceViews.isNullOrEmpty()) {
+            return null
+        } else {
+            for (checkboxAnswerChoiceView in answerChoiceViews!!) {
+                if (checkboxAnswerChoiceView.isChecked()) {
+                    selectedCheckboxes.add(checkboxAnswerChoiceView.title!!)
+                }
+            }
+        }
+
+        return if (selectedCheckboxes.isNotEmpty()) {
+            selectedCheckboxes.joinToString()
+        } else {
+            null
+        }
+    }
 }

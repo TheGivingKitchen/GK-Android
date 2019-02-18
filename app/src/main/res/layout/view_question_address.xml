@@ -13,7 +13,9 @@
         android:layout_marginBottom="15dp"
         android:textSize="8pt" />
 
-    <TextView android:id="@+id/warning_addressQuestion" style="@style/UnansweredQuestionWarning" />
+    <TextView
+        android:id="@+id/warning_addressQuestion"
+        style="@style/UnansweredQuestionWarning" />
 
     <TextView
         android:id="@+id/streetAddressLabel_addressQuestion"
@@ -36,7 +38,7 @@
         android:padding="10dp" />
 
     <TextView
-        android:id="@+id/AddressLineTwoLabel_addressQuestion"
+        android:id="@+id/addressLineTwoLabel_addressQuestion"
         style="@style/RegularText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,7 +47,7 @@
         android:textSize="8pt" />
 
     <EditText
-        android:id="@+id/AddressLineTwoField_addressQuestion"
+        android:id="@+id/addressLineTwoField_addressQuestion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"

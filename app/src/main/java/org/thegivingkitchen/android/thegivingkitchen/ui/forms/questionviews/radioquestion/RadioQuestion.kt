@@ -67,4 +67,18 @@ class RadioQuestion(title: String?, answerChoices: List<String?>?, hasOtherField
     override fun placeUnansweredWarning() {
         warning_radioQuestion.visibility = View.VISIBLE
     }
+
+    override fun getAnswer(): String? {
+        if (answerChoiceViews.isNullOrEmpty()) {
+            return null
+        } else {
+            for (radioAnswerChoiceView in answerChoiceViews!!) {
+                if (radioAnswerChoiceView.isChecked()) {
+                    return radioAnswerChoiceView.title
+                }
+            }
+        }
+
+        return null
+    }
 }

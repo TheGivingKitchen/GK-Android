@@ -73,7 +73,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:contentDescription="@string/facebook_groups_coastal_ga"
-        android:src="@drawable/ic_expand_more"
+        android:src="@drawable/ic_expand_less"
         android:tint="@color/dark_grey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/facebookGroupsTitle_safetynetTab" />

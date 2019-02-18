@@ -56,6 +56,16 @@ class TimeQuestion(title: String?, context: Context, attrs: AttributeSet? = null
     override fun placeUnansweredWarning() {
         warning_timeQuestion.visibility = View.VISIBLE
     }
+
+    override fun getAnswer(): String? {
+        val answer = time_timeQuestion.text.toString()
+
+        return if (answer.isBlank()) {
+            null
+        } else {
+            answer
+        }
+    }
 }
 
 

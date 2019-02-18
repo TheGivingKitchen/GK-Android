@@ -48,6 +48,16 @@ class DateQuestion(title: String?, context: Context, attrs: AttributeSet? = null
     override fun placeUnansweredWarning() {
         warning_dateQuestion.visibility = View.VISIBLE
     }
+
+    override fun getAnswer(): String? {
+        val answer = date_dateQuestion.text.toString()
+
+        return if (answer.isBlank()) {
+            null
+        } else {
+            answer
+        }
+    }
 }
 
 

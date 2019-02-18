@@ -70,6 +70,21 @@ class FormPageFragment : Fragment() {
         }
     }
 
+    fun getQuestionsAndAnswers(): List<Pair<String, String>> {
+        val questionsAndAnswers = arrayListOf<Pair<String, String>>()
+
+        for (questionView in questionsWithViews) {
+            val questionTitle = questionView.question.Title
+            val questionAnswer = questionView.questionView.getAnswer()
+
+            if (questionTitle != null && questionAnswer != null) {
+                questionsAndAnswers.add(Pair(questionTitle, questionAnswer))
+            }
+        }
+
+        return questionsAndAnswers
+    }
+
     fun areAllQuestionsAnswered(): Boolean {
         for (questionView in questionsWithViews) {
             if (questionView.question.IsRequired == "1" && !questionView.questionView.isAnswered()) {

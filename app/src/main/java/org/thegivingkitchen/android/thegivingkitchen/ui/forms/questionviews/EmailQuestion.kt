@@ -27,4 +27,14 @@ class EmailQuestion(title: String?, context: Context, attrs: AttributeSet? = nul
     override fun placeUnansweredWarning() {
         warning_emailQuestion.visibility = View.VISIBLE
     }
+
+    override fun getAnswer(): String? {
+        val answer = email_emailQuestion.text.toString()
+
+        return if (answer.isBlank()) {
+            null
+        } else {
+            answer
+        }
+    }
 }

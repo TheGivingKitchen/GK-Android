@@ -27,4 +27,14 @@ class PhoneQuestion(title: String?, context: Context, attrs: AttributeSet? = nul
     override fun placeUnansweredWarning() {
         warning_phoneQuestion.visibility = View.VISIBLE
     }
+
+    override fun getAnswer(): String? {
+        val answer = phoneNumber_phoneQuestion.text.toString()
+
+        return if (answer.isBlank()) {
+            null
+        } else {
+            answer
+        }
+    }
 }

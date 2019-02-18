@@ -2,6 +2,7 @@ package org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.safetynet.sa
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
 import android.os.Bundle
 import android.support.annotation.Nullable
 import android.support.v4.app.Fragment
@@ -25,7 +26,7 @@ import java.io.*
 class SafetynetFragment : Fragment() {
     private lateinit var jsonAdapter: JsonAdapter<SocialServiceProvidersList>
     private lateinit var model: SafetynetViewModel
-    private var adapter = SafetynetAdapter(mutableListOf())
+    private lateinit var adapter: SafetynetAdapter
 
     companion object {
         private const val learnMoreURL = "$givingKitchenUrl/"
@@ -35,6 +36,11 @@ class SafetynetFragment : Fragment() {
         super.onCreate(savedInstanceState)
         model = ViewModelProviders.of(this).get(SafetynetViewModel::class.java)
         jsonAdapter = moshi.adapter(SocialServiceProvidersList::class.java)
+
+        val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE) ?: return
+        val facebookSectionExpanded = sharedPref.getBoolean(getString(R.string.facebook_groups_expanded_key), true)
+
+        adapter = SafetynetAdapter(mutableListOf(), facebookSectionExpanded)
         model.getCurrentJson().observe(this, Observer<List<SocialServiceProvider>> { liveData ->
             updateJson(liveData!!)
         })
@@ -45,6 +51,7 @@ class SafetynetFragment : Fragment() {
         adapter.joinUsClicks().subscribe { goToFacebookGroupsScreen() }
         adapter.resourcesFilterClicks().subscribe { showResourcesFilter() }
         adapter.countiesFilterClicks().subscribe { showCountiesFilter() }
+        adapter.expandFacebookSectionClicks().subscribe { saveFacebookSectionState(it) }
         adapter.serviceProviderClicks().subscribe { showProviderData(it) }
         getData()
     }
@@ -116,6 +123,14 @@ class SafetynetFragment : Fragment() {
         val providerData = model.getCurrentJson().value
         if (providerData != null) {
             Toast.makeText(context, providerData[index].toString(), Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun saveFacebookSectionState(expanded: Boolean) {
+        val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE) ?: return
+        with (sharedPref.edit()) {
+            putBoolean(getString(R.string.facebook_groups_expanded_key), expanded)
+            apply()
         }
     }
 

@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.TextView
 import kotlinx.android.synthetic.main.view_question_address.view.*
 import org.thegivingkitchen.android.thegivingkitchen.R
 import org.thegivingkitchen.android.thegivingkitchen.util.setTextIfItExists
+import java.lang.StringBuilder
 
 class AddressQuestion(title: String?, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), QuestionView {
     // todo: use merge tags in views
@@ -29,5 +29,36 @@ class AddressQuestion(title: String?, context: Context, attrs: AttributeSet? = n
 
     override fun placeUnansweredWarning() {
         warning_addressQuestion.visibility = View.VISIBLE
+    }
+
+    override fun getAnswer(): String? {
+        val address = StringBuilder()
+
+        address.append(getTextFieldValue(streetAddressField_addressQuestion.text))
+
+        // Address Line Two does not need to be filled out
+        val addressLineTwoAnswer = addressLineTwoField_addressQuestion.text
+        if (addressLineTwoAnswer.isNotBlank()) {
+            address.append(addressLineTwoAnswer)
+        }
+
+        address.append(getTextFieldValue(cityField_addressQuestion.text))
+        address.append(getTextFieldValue(stateField_addressQuestion.text))
+        address.append(getTextFieldValue(zipcodeField_addressQuestion.text))
+
+        val fullAddress = address.toString()
+        return if (fullAddress.isNotBlank()) {
+            fullAddress
+        } else {
+            null
+        }
+    }
+
+    private fun getTextFieldValue(answer: CharSequence): String? {
+        return if (answer.isNotBlank()) {
+            answer.toString()
+        } else {
+            null
+        }
     }
 }

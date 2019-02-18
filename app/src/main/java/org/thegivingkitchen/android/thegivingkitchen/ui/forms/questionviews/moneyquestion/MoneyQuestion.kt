@@ -49,4 +49,14 @@ class MoneyQuestion(title: String?, context: Context, attrs: AttributeSet? = nul
     override fun placeUnansweredWarning() {
         warning_moneyQuestion.visibility = View.VISIBLE
     }
+
+    override fun getAnswer(): String? {
+        val answer = amount_moneyQuestion.text.toString()
+
+        return if (answer.isBlank()) {
+            null
+        } else {
+            answer
+        }
+    }
 }

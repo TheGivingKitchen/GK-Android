@@ -169,4 +169,8 @@
     <string name="question_unanswered_warning">This field is required. Please enter a value.</string>
     <string name="selection_question_unanswered_warning">This field is required. Please make a selection.</string>
 
+    <!-- Shared Prefs -->
+    <string name="preference_file_key">org.thegivingkitchen.android.preferences</string>
+    <string name="facebook_groups_expanded_key">facebook_groups_expanded_key</string>
+
 </resources>

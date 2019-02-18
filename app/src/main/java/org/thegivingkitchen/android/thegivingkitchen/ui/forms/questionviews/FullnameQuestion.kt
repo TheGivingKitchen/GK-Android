@@ -27,4 +27,14 @@ class FullnameQuestion(title: String?, context: Context, attrs: AttributeSet? = 
     override fun placeUnansweredWarning() {
         warning_fullnameQuestion.visibility = View.VISIBLE
     }
+
+    override fun getAnswer(): String? {
+        val answer = name_fullnameQuestion.text.toString()
+
+        return if (answer.isBlank()) {
+            null
+        } else {
+            answer
+        }
+    }
 }

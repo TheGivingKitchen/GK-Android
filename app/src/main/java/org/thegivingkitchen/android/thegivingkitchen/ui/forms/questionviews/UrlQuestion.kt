@@ -27,4 +27,14 @@ class UrlQuestion(title: String?, context: Context, attrs: AttributeSet? = null,
     override fun placeUnansweredWarning() {
         warning_urlQuestion.visibility = View.VISIBLE
     }
+
+    override fun getAnswer(): String? {
+        val answer = url_urlQuestion.text.toString()
+
+        return if (answer.isBlank()) {
+            null
+        } else {
+            answer
+        }
+    }
 }

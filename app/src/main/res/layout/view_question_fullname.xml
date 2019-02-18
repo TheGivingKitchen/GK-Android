@@ -5,7 +5,6 @@
     android:layout_marginBottom="20dp"
     android:orientation="vertical">
 
-
     <TextView
         android:id="@+id/title_fullnameQuestion"
         style="@style/RegularText"
@@ -14,7 +13,9 @@
         android:layout_marginBottom="15dp"
         android:textSize="8pt" />
 
-    <TextView android:id="@+id/warning_fullnameQuestion" style="@style/UnansweredQuestionWarning" />
+    <TextView
+        android:id="@+id/warning_fullnameQuestion"
+        style="@style/UnansweredQuestionWarning" />
 
     <EditText
         android:id="@+id/name_fullnameQuestion"

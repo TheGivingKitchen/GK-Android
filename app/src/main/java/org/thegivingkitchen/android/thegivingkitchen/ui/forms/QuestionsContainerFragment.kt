@@ -2,6 +2,7 @@ package org.thegivingkitchen.android.thegivingkitchen.ui.forms
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
 import android.os.Bundle
 import android.support.annotation.Nullable
 import android.support.v4.app.Fragment
@@ -92,7 +93,18 @@ class QuestionsContainerFragment: Fragment() {
     }
 
     private val nextButtonClickListener = View.OnClickListener {
-        viewPager_questionsContainer.setCurrentItem(viewPager_questionsContainer.currentItem + 1, true)
+        val currentItem = viewPager_questionsContainer.currentItem
+        for (answer in questionPages[currentItem].getQuestionsAndAnswers()) {
+            val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+            if (sharedPref != null) {
+                with (sharedPref.edit()) {
+                    putString(answer.first, answer.second)
+                    apply()
+                }
+            }
+        }
+
+        viewPager_questionsContainer.setCurrentItem(currentItem + 1, true)
     }
 
     private val submitButtonClickListener = View.OnClickListener {

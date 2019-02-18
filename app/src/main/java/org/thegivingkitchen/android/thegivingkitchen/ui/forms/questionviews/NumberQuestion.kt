@@ -27,4 +27,14 @@ class NumberQuestion(title: String?, context: Context, attrs: AttributeSet? = nu
     override fun placeUnansweredWarning() {
         warning_numberQuestion.visibility = View.VISIBLE
     }
+
+    override fun getAnswer(): String? {
+        val answer = number_numberQuestion.text.toString()
+
+        return if (answer.isBlank()) {
+            null
+        } else {
+            answer
+        }
+    }
 }

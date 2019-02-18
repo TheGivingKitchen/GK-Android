@@ -5,4 +5,6 @@ interface QuestionView {
     fun isAnswered(): Boolean
 
     fun placeUnansweredWarning()
+
+    fun getAnswer(): String?
 }

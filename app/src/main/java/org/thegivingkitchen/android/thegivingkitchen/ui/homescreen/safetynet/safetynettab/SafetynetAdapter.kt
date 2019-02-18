@@ -13,12 +13,13 @@ import io.reactivex.subjects.PublishSubject
 import org.thegivingkitchen.android.thegivingkitchen.R
 import org.thegivingkitchen.android.thegivingkitchen.util.setTextIfItExists
 
-class SafetynetAdapter(var items: MutableList<Any>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class SafetynetAdapter(var items: MutableList<Any>, val facebookSectionExpanded: Boolean) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val learnMoreClicks: PublishSubject<Boolean> = PublishSubject.create()
     private val joinUsClicks: PublishSubject<Boolean> = PublishSubject.create()
     private val resourcesFilterClicks: PublishSubject<Boolean> = PublishSubject.create()
     private val countyFilterClicks: PublishSubject<Boolean> = PublishSubject.create()
+    private val expandFacebookSectionClicks: PublishSubject<Boolean> = PublishSubject.create()
     private val serviceProviderClicks: PublishSubject<Int> = PublishSubject.create()
 
     companion object {
@@ -40,7 +41,7 @@ class SafetynetAdapter(var items: MutableList<Any>) : RecyclerView.Adapter<Recyc
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             VIEW_TYPE_HEADER -> {
-                HeaderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_safetynet_header, parent, false), learnMoreClicks, joinUsClicks, resourcesFilterClicks, countyFilterClicks)
+                HeaderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_safetynet_header, parent, false), learnMoreClicks, joinUsClicks, resourcesFilterClicks, countyFilterClicks, expandFacebookSectionClicks)
             }
             else -> {
                 SocialServiceProviderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_social_service_provider, parent, false), serviceProviderClicks)
@@ -52,7 +53,7 @@ class SafetynetAdapter(var items: MutableList<Any>) : RecyclerView.Adapter<Recyc
         if (holder is SocialServiceProviderViewHolder) {
             holder.bind(items[position] as SocialServiceProvider)
         } else {
-            (holder as HeaderViewHolder).bind()
+            (holder as HeaderViewHolder).bind(facebookSectionExpanded)
         }
     }
 
@@ -62,6 +63,7 @@ class SafetynetAdapter(var items: MutableList<Any>) : RecyclerView.Adapter<Recyc
     fun joinUsClicks(): Observable<Boolean> = joinUsClicks
     fun resourcesFilterClicks(): Observable<Boolean> = resourcesFilterClicks
     fun countiesFilterClicks(): Observable<Boolean> = countyFilterClicks
+    fun expandFacebookSectionClicks(): Observable<Boolean> = expandFacebookSectionClicks
     fun serviceProviderClicks(): Observable<Int> = serviceProviderClicks
 }
 
@@ -77,31 +79,41 @@ class SocialServiceProviderViewHolder(val view: View, private val clicks: Publis
     }
 }
 
-class HeaderViewHolder(val view: View, private val learnMoreClicks: PublishSubject<Boolean>, private val joinUsClicks: PublishSubject<Boolean>, private val resourcesFilterClicks: PublishSubject<Boolean>, private val countyFilterClicks: PublishSubject<Boolean>) : RecyclerView.ViewHolder(view) {
-    var isExpanded = true
+class HeaderViewHolder(val view: View, private val learnMoreClicks: PublishSubject<Boolean>, private val joinUsClicks: PublishSubject<Boolean>, private val resourcesFilterClicks: PublishSubject<Boolean>, private val countyFilterClicks: PublishSubject<Boolean>, private val expandSectionClicks: PublishSubject<Boolean>) : RecyclerView.ViewHolder(view) {
+    private var isExpanded = true
 
-    fun bind() {
+    fun bind(expandFacebookSection: Boolean) {
         view.findViewById<TextView>(R.id.learnMoreButton_safetynetTab).setOnClickListener { learnMoreClicks.onNext(false) }
         view.findViewById<TextView>(R.id.joinUsButton_safetynetTab).setOnClickListener { joinUsClicks.onNext(false) }
         view.findViewById<View>(R.id.resourcesFilterTouchTarget_safetynetTab).setOnClickListener { resourcesFilterClicks.onNext(false) }
         view.findViewById<View>(R.id.countiesFilterTouchTarget_safetynetTab).setOnClickListener { countyFilterClicks.onNext(false) }
-        view.findViewById<View>(R.id.collapseFacebookButton_safetynetTab).setOnClickListener { toggleFacebookGroupsExpandedState() }
+        view.findViewById<View>(R.id.collapseFacebookButton_safetynetTab).setOnClickListener { expandSectionClicks.onNext(toggleFacebookGroupsExpandedState()) }
+        setFacebookGroupsExpandedState(expandFacebookSection)
     }
 
-    private fun toggleFacebookGroupsExpandedState() {
-        val collapseSectionButton = view.findViewById<ImageView>(R.id.collapseFacebookButton_safetynetTab)
+    private fun toggleFacebookGroupsExpandedState(): Boolean {
         isExpanded = !isExpanded
+        return setFacebookGroupsExpandedState(isExpanded)
+    }
 
-        if (isExpanded) {
-            collapseSectionButton.setImageDrawable(collapseSectionButton.resources.getDrawable(R.drawable.ic_expand_more, collapseSectionButton.context.theme))
-            view.findViewById<View>(R.id.facebookGroupsDescription_safetynetTab).visibility = View.VISIBLE
-            view.findViewById<View>(R.id.facebookBottomDivider_safetynetTab).visibility = View.VISIBLE
-            view.findViewById<View>(R.id.joinUsButton_safetynetTab).visibility = View.VISIBLE
-        } else {
+    private fun setFacebookGroupsExpandedState(expanded: Boolean): Boolean {
+        val collapseSectionButton = view.findViewById<ImageView>(R.id.collapseFacebookButton_safetynetTab)
+        val facebookGroupsDescription = view.findViewById<View>(R.id.facebookGroupsDescription_safetynetTab)
+        val facebookBottomDivider = view.findViewById<View>(R.id.facebookBottomDivider_safetynetTab)
+        val joinUsButton = view.findViewById<View>(R.id.joinUsButton_safetynetTab)
+
+        return if (expanded) {
             collapseSectionButton.setImageDrawable(collapseSectionButton.resources.getDrawable(R.drawable.ic_expand_less, collapseSectionButton.context.theme))
-            view.findViewById<View>(R.id.facebookGroupsDescription_safetynetTab).visibility = View.GONE
-            view.findViewById<View>(R.id.facebookBottomDivider_safetynetTab).visibility = View.GONE
-            view.findViewById<View>(R.id.joinUsButton_safetynetTab).visibility = View.GONE
+            facebookGroupsDescription.visibility = View.VISIBLE
+            facebookBottomDivider.visibility = View.VISIBLE
+            joinUsButton.visibility = View.VISIBLE
+            true
+        } else {
+            collapseSectionButton.setImageDrawable(collapseSectionButton.resources.getDrawable(R.drawable.ic_expand_more, collapseSectionButton.context.theme))
+            facebookGroupsDescription.visibility = View.GONE
+            facebookBottomDivider.visibility = View.GONE
+            joinUsButton.visibility = View.GONE
+            false
         }
     }
 }
