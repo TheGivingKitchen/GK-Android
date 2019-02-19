@@ -2,9 +2,10 @@
     <string name="app_name">The Giving Kitchen</string>
 
     <!-- Tabs -->
-    <string name="tab_home">Home</string>
+    <string name="tab_about">About</string>
+    <string name="tab_events">Events</string>
     <string name="tab_assistance">Assistance</string>
-    <string name="tab_safetynet">SafetyNet</string>
+    <string name="tab_resources">Resources</string>
     <string name="tab_give">Give</string>
 
     <!-- Events Tab -->
