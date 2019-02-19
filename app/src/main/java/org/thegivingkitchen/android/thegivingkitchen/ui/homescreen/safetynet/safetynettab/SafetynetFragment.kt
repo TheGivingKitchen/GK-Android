@@ -127,6 +127,7 @@ class SafetynetFragment : Fragment() {
     }
 
     private fun saveFacebookSectionState(expanded: Boolean) {
+        // todo: troubleshoot this
         val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE) ?: return
         with (sharedPref.edit()) {
             putBoolean(getString(R.string.facebook_groups_expanded_key), expanded)

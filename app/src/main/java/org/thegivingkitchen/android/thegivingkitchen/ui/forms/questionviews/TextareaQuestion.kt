@@ -18,6 +18,9 @@ class TextareaQuestion(title: String?, answer: String? = null, context: Context,
         layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         this.orientation = VERTICAL
         title_textareaQuestion.setTextIfItExists(title)
+        if (!answer.isNullOrBlank()) {
+            text_textareaQuestion.setText(answer)
+        }
     }
 
     override fun isAnswered(): Boolean {

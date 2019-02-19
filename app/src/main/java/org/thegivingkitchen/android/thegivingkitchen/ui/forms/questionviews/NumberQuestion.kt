@@ -18,6 +18,9 @@ class NumberQuestion(title: String?, answer: String? = null, context: Context, a
         layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         this.orientation = VERTICAL
         title_numberQuestion.setTextIfItExists(title)
+        if (!answer.isNullOrBlank()) {
+            number_numberQuestion.setText(answer)
+        }
     }
 
     override fun isAnswered(): Boolean {

@@ -18,6 +18,9 @@ class UrlQuestion(title: String?, answer: String? = null, context: Context, attr
         layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         this.orientation = VERTICAL
         title_urlQuestion.setTextIfItExists(title)
+        if (!answer.isNullOrBlank()) {
+            url_urlQuestion.setText(answer)
+        }
     }
 
     override fun isAnswered(): Boolean {

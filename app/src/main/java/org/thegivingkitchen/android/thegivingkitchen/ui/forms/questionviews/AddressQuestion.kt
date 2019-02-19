@@ -18,6 +18,10 @@ class AddressQuestion(title: String?, answer: String? = null, context: Context, 
         layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         this.orientation = VERTICAL
         title_addressQuestion.setTextIfItExists(title)
+        if (!answer.isNullOrBlank()) {
+            // amount_moneyQuestion.setText(answer)
+
+        }
     }
 
     override fun isAnswered(): Boolean {
