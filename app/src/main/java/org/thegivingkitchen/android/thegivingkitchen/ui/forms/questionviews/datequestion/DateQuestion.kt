@@ -14,7 +14,7 @@ import org.thegivingkitchen.android.thegivingkitchen.ui.forms.questionviews.Ques
 import org.thegivingkitchen.android.thegivingkitchen.util.setTextIfItExists
 import java.util.*
 
-class DateQuestion(title: String?, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), DatePickerDialog.OnDateSetListener, QuestionView {
+class DateQuestion(title: String?, answer: String? = null, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), DatePickerDialog.OnDateSetListener, QuestionView {
     // todo: use merge tags in views
     var dateYear: Int? = null
     var dateMonth: Int? = null
@@ -26,10 +26,15 @@ class DateQuestion(title: String?, context: Context, attrs: AttributeSet? = null
         this.orientation = VERTICAL
         title_dateQuestion.setTextIfItExists(title)
         val calendar = Calendar.getInstance()
-        setDate(calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.YEAR))
+        if (answer.isNullOrBlank()) {
+            setDate(calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.YEAR))
+        } else {
+            val a = answer.split("/")
+            setDate(a[0].toInt(), a[1].toInt(), a[2].toInt())
+        }
     }
 
-    fun setDate(month: Int, day: Int, year: Int) {
+    private fun setDate(month: Int, day: Int, year: Int) {
         date_dateQuestion.text = context.getString(R.string.date_question_date, month+1, day, year)
     }
 

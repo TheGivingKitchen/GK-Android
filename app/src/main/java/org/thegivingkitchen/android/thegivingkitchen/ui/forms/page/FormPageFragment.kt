@@ -1,11 +1,13 @@
 package org.thegivingkitchen.android.thegivingkitchen.ui.forms.page
 
+import android.content.Context
 import android.os.Bundle
 import android.support.annotation.Nullable
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_form_question.*
 import org.thegivingkitchen.android.thegivingkitchen.R
 import org.thegivingkitchen.android.thegivingkitchen.ui.forms.Page
@@ -103,59 +105,62 @@ class FormPageFragment : Fragment() {
     }
 
     private fun getQuestionView(question: Question): View? {
+        val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+        val savedAnswer = sharedPref?.getString(question.Title, null)
+
         return when (question.Type) {
             QuestionType.shortname -> {
-                ShortnameQuestion(formatTitle(question.Title, question.IsRequired), context!!)
+                ShortnameQuestion(formatTitle(question.Title, question.IsRequired), savedAnswer, context!!)
             }
             QuestionType.fullname -> {
-                FullnameQuestion(formatTitle(question.Title, question.IsRequired), context!!)
+                FullnameQuestion(formatTitle(question.Title, question.IsRequired), savedAnswer, context!!)
             }
             QuestionType.text -> {
-                TextQuestion(formatTitle(question.Title, question.IsRequired), context!!)
+                TextQuestion(formatTitle(question.Title, question.IsRequired), savedAnswer, context!!)
             }
             QuestionType.phone -> {
-                PhoneQuestion(formatTitle(question.Title, question.IsRequired), context!!)
+                PhoneQuestion(formatTitle(question.Title, question.IsRequired), savedAnswer, context!!)
             }
             QuestionType.email -> {
-                EmailQuestion(formatTitle(question.Title, question.IsRequired), context!!)
+                EmailQuestion(formatTitle(question.Title, question.IsRequired), savedAnswer, context!!)
             }
             QuestionType.address -> {
-                AddressQuestion(formatTitle(question.Title, question.IsRequired), context!!)
+                AddressQuestion(formatTitle(question.Title, question.IsRequired), savedAnswer, context!!)
             }
             QuestionType.date -> {
-                val dateQuestion = DateQuestion(formatTitle(question.Title, question.IsRequired), context!!)
+                val dateQuestion = DateQuestion(formatTitle(question.Title, question.IsRequired), savedAnswer, context!!)
                 dateQuestion.setOnClickListener {
                     DatePickerFragment().newInstance(dateQuestion, dateQuestion.dateYear, dateQuestion.dateMonth, dateQuestion.dateDay).show(fragmentManager, "Date")
                 }
                 dateQuestion
             }
             QuestionType.time -> {
-                val timeQuestion = TimeQuestion(formatTitle(question.Title, question.IsRequired), context!!)
+                val timeQuestion = TimeQuestion(formatTitle(question.Title, question.IsRequired), savedAnswer, context!!)
                 timeQuestion.setOnClickListener {
                     TimePickerFragment().newInstance(timeQuestion, timeQuestion.timeHour, timeQuestion.timeMinute).show(fragmentManager, "Time")
                 }
                 timeQuestion
             }
             QuestionType.number -> {
-                NumberQuestion(formatTitle(question.Title, question.IsRequired), context!!)
+                NumberQuestion(formatTitle(question.Title, question.IsRequired), savedAnswer, context!!)
             }
             QuestionType.money -> {
-                MoneyQuestion(formatTitle(question.Title, question.IsRequired), context!!)
+                MoneyQuestion(formatTitle(question.Title, question.IsRequired), savedAnswer, context!!)
             }
             QuestionType.checkbox -> {
-                CheckboxQuestion(formatTitle(question.Title, question.IsRequired), question.SubFields?.map { it.Label }, question.HasOtherField, context!!)
+                CheckboxQuestion(formatTitle(question.Title, question.IsRequired), question.SubFields?.map { it.Label }, question.HasOtherField, savedAnswer, context!!)
             }
             QuestionType.textarea -> {
-                TextareaQuestion(formatTitle(question.Title, question.IsRequired), context!!)
+                TextareaQuestion(formatTitle(question.Title, question.IsRequired), savedAnswer, context!!)
             }
             QuestionType.url -> {
-                UrlQuestion(formatTitle(question.Title, question.IsRequired), context!!)
+                UrlQuestion(formatTitle(question.Title, question.IsRequired), savedAnswer, context!!)
             }
             QuestionType.radio -> {
-                RadioQuestion(formatTitle(question.Title, question.IsRequired), question.Choices?.map { it.Label }, question.HasOtherField, context!!)
+                RadioQuestion(formatTitle(question.Title, question.IsRequired), question.Choices?.map { it.Label }, question.HasOtherField, savedAnswer, context!!)
             }
             QuestionType.select -> {
-                RadioQuestion(formatTitle(question.Title, question.IsRequired), question.Choices?.map { it.Label }, question.HasOtherField, context!!)
+                RadioQuestion(formatTitle(question.Title, question.IsRequired), question.Choices?.map { it.Label }, question.HasOtherField, savedAnswer, context!!)
             }
             else -> {
                 null

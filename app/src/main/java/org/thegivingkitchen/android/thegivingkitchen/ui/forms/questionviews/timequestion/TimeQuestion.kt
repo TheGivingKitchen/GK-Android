@@ -14,7 +14,7 @@ import org.thegivingkitchen.android.thegivingkitchen.R
 import org.thegivingkitchen.android.thegivingkitchen.ui.forms.questionviews.QuestionView
 import org.thegivingkitchen.android.thegivingkitchen.util.setTextIfItExists
 
-class TimeQuestion(title: String?, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), TimePickerDialog.OnTimeSetListener, QuestionView {
+class TimeQuestion(title: String?, answer: String? = null, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), TimePickerDialog.OnTimeSetListener, QuestionView {
     var timeHour: Int? = null
     var timeMinute: Int? = null
 

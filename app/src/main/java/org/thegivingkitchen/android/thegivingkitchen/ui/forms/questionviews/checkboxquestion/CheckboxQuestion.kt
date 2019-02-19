@@ -12,7 +12,7 @@ import org.thegivingkitchen.android.thegivingkitchen.ui.forms.questionviews.Ques
 import org.thegivingkitchen.android.thegivingkitchen.util.setPaddingDp
 import org.thegivingkitchen.android.thegivingkitchen.util.setTextIfItExists
 
-class CheckboxQuestion(title: String?, answerChoices: List<String?>?, hasOtherField: Boolean?, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), QuestionView {
+class CheckboxQuestion(title: String?, answerChoices: List<String?>?, hasOtherField: Boolean?, answer: String? = null, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), QuestionView {
     // todo: use merge tags in views
     private var answerChoiceViews: List<CheckboxAnswerChoice>?
 
@@ -26,7 +26,9 @@ class CheckboxQuestion(title: String?, answerChoices: List<String?>?, hasOtherFi
             mutableAnswerChoicesList?.add(resources.getString(R.string.answer_choice_other))
         }
 
-        answerChoiceViews = mutableAnswerChoicesList?.map { CheckboxAnswerChoice(it, context) }
+        answerChoiceViews = mutableAnswerChoicesList?.map {
+            CheckboxAnswerChoice(it, it == answer, context)
+        }
 
         if (answerChoiceViews != null) {
             for (answerChoiceView in answerChoiceViews!!) {

@@ -11,13 +11,16 @@ import kotlinx.android.synthetic.main.view_question_checkbox_answer.view.*
 import org.thegivingkitchen.android.thegivingkitchen.R
 import org.thegivingkitchen.android.thegivingkitchen.util.setTextIfItExists
 
-class CheckboxAnswerChoice(val title: String?, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle) {
+class CheckboxAnswerChoice(val title: String?, selected: Boolean, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle) {
     // todo: use merge tags in views
     init {
         LayoutInflater.from(context).inflate(R.layout.view_question_checkbox_answer, this, true)
         layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         answerChoice_checkboxAnswer.setTextIfItExists(title)
         this.orientation = VERTICAL
+        if (selected) {
+            clickAction()
+        }
     }
 
     private var currentSelectedState: Boolean = false

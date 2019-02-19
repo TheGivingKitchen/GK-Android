@@ -11,7 +11,7 @@ import org.thegivingkitchen.android.thegivingkitchen.R
 import org.thegivingkitchen.android.thegivingkitchen.util.setTextIfItExists
 import java.lang.StringBuilder
 
-class ShortnameQuestion(title: String?, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), QuestionView {
+class ShortnameQuestion(title: String?, answer: String? = null, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), QuestionView {
     // todo: use merge tags in views
     init {
         LayoutInflater.from(context).inflate(R.layout.view_question_shortname, this, true)
