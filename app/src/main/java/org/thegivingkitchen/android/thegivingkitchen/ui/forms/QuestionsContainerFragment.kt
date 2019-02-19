@@ -109,6 +109,7 @@ class QuestionsContainerFragment: Fragment() {
     }
 
     private val submitButtonClickListener = View.OnClickListener {
+        // todo: make the keyboard disappear when submit or next is pressed
         var firstUnansweredPage: Int? = null
 
         for (i in 0 until questionPages.size) {

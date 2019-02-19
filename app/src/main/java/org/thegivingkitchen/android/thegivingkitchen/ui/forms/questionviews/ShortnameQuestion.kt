@@ -29,10 +29,21 @@ class ShortnameQuestion(title: String?, answer: String? = null, context: Context
     }
 
     override fun getAnswer(): String? {
-        val address = StringBuilder()
+        val address = arrayListOf<String>()
 
-        address.append(getTextFieldValue(firstName_shortnameQuestion.text))
-        address.append(getTextFieldValue(lastName_shortnameQuestion.text))
+        val firstNameFieldValue = getTextFieldValue(firstName_shortnameQuestion.text)
+        if (firstNameFieldValue != null) {
+            address.add(firstNameFieldValue)
+        } else {
+            return null
+        }
+
+        val lastNameFieldValue = getTextFieldValue(lastName_shortnameQuestion.text)
+        if (lastNameFieldValue != null) {
+            address.add(lastNameFieldValue)
+        } else {
+            return null
+        }
 
         val fullName = address.toString()
         return if (fullName.isNotBlank()) {
