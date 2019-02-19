@@ -6,5 +6,5 @@ interface QuestionView {
 
     fun placeUnansweredWarning()
 
-    fun getAnswer(): String?
+    fun getAnswer(): String? /* returns null if the question hasn't been answered */
 }

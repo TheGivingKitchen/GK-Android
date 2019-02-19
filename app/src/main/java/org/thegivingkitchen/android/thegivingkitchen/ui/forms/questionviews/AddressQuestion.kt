@@ -36,21 +36,43 @@ class AddressQuestion(title: String?, answer: String? = null, context: Context, 
     }
 
     override fun getAnswer(): String? {
-        val address = StringBuilder()
+        val address = arrayListOf<String>()
 
-        address.append(getTextFieldValue(streetAddressField_addressQuestion.text))
+        val streetAddressFieldValue = getTextFieldValue(streetAddressField_addressQuestion.text)
+        if (streetAddressFieldValue != null) {
+            address.add(streetAddressFieldValue)
+        } else {
+            return null
+        }
 
         // Address Line Two does not need to be filled out
         val addressLineTwoAnswer = addressLineTwoField_addressQuestion.text
         if (addressLineTwoAnswer.isNotBlank()) {
-            address.append(addressLineTwoAnswer)
+            address.add(addressLineTwoAnswer.toString())
         }
 
-        address.append(getTextFieldValue(cityField_addressQuestion.text))
-        address.append(getTextFieldValue(stateField_addressQuestion.text))
-        address.append(getTextFieldValue(zipcodeField_addressQuestion.text))
+        val cityFieldValue = getTextFieldValue(cityField_addressQuestion.text)
+        if (cityFieldValue != null) {
+            address.add(cityFieldValue)
+        } else {
+            return null
+        }
 
-        val fullAddress = address.toString()
+        val stateFieldValue = getTextFieldValue(stateField_addressQuestion.text)
+        if (stateFieldValue != null) {
+            address.add(stateFieldValue)
+        } else {
+            return null
+        }
+
+        val zipcodeFieldValue = getTextFieldValue(zipcodeField_addressQuestion.text)
+        if (zipcodeFieldValue != null) {
+            address.add(zipcodeFieldValue)
+        } else {
+            return null
+        }
+
+        val fullAddress = address.joinToString()
         return if (fullAddress.isNotBlank()) {
             fullAddress
         } else {
