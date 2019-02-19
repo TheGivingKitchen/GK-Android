@@ -28,7 +28,7 @@ class RadioQuestion(title: String?, answerChoices: List<String?>?, hasOtherField
             mutableAnswerChoicesList?.add(resources.getString(R.string.answer_choice_other))
         }
 
-        answerChoiceViews = mutableAnswerChoicesList?.map { RadioAnswerChoice(it, context) }
+        answerChoiceViews = mutableAnswerChoicesList?.map { RadioAnswerChoice(it, it == answer, context) }
 
         if (answerChoiceViews != null) {
             for (answerChoiceView in answerChoiceViews!!) {

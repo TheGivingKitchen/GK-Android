@@ -47,6 +47,7 @@ class GiveFragment : Fragment() {
         rightChevronClickHolder_giveTab.setOnClickListener(rightExamplesArrowClickListener)
         volunteer_button_giveTab.setOnClickListener(volunteerButtonClickListener)
         partner_button_giveTab.setOnClickListener(partnerButtonClickListener)
+        joinOurForcesButton_giveTab.setOnClickListener(joinForcesButtonClickListener)
     }
 
     private val creditCardDonationClickListener = View.OnClickListener {
@@ -71,13 +72,19 @@ class GiveFragment : Fragment() {
 
     private val volunteerButtonClickListener = View.OnClickListener {
         val args = Bundle()
-        args.putString(Constants.formsArg, GiveViewModel.selfAssistanceInquiryUrl)
+        args.putString(Constants.formsArg, GiveViewModel.volunteerSignupUrl)
+        Navigation.findNavController(getView()!!).navigate(R.id.formsFragment, args)
+    }
+
+    private val joinForcesButtonClickListener = View.OnClickListener {
+        val args = Bundle()
+        args.putString(Constants.formsArg, GiveViewModel.joinOurForcesUrl)
         Navigation.findNavController(getView()!!).navigate(R.id.formsFragment, args)
     }
 
     private val partnerButtonClickListener = View.OnClickListener {
         val args = Bundle()
-        args.putString(Constants.formsArg, GiveViewModel.referralAssistanceInquiryUrl)
+        args.putString(Constants.formsArg, GiveViewModel.stabilityNetworkPartnerUrl)
         Navigation.findNavController(getView()!!).navigate(R.id.formsFragment, args)
     }
 

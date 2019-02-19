@@ -16,9 +16,9 @@ import java.util.*
 
 class DateQuestion(title: String?, answer: String? = null, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), DatePickerDialog.OnDateSetListener, QuestionView {
     // todo: use merge tags in views
-    var dateYear: Int? = null
-    var dateMonth: Int? = null
-    var dateDay: Int? = null
+    var dateYear: Int = 0
+    var dateMonth: Int = 0
+    var dateDay: Int = 0
 
     init {
         LayoutInflater.from(context).inflate(R.layout.view_question_date, this, true)
@@ -29,21 +29,21 @@ class DateQuestion(title: String?, answer: String? = null, context: Context, att
         if (answer.isNullOrBlank()) {
             setDate(calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.YEAR))
         } else {
-            val a = answer.split("/")
-            setDate(a[0].toInt(), a[1].toInt(), a[2].toInt())
+            val dateComponents = answer.split("/")
+            setDate(dateComponents[0].toInt(), dateComponents[1].toInt(), dateComponents[2].toInt())
         }
     }
 
-    private fun setDate(month: Int, day: Int, year: Int) {
-        date_dateQuestion.text = context.getString(R.string.date_question_date, month+1, day, year)
+    private fun setDate(month: Int, dayOfMonth: Int, year: Int) {
+        dateMonth = month
+        dateDay = dayOfMonth
+        dateYear = year
+
+        date_dateQuestion.text = context.getString(R.string.date_question_date, month+1, dayOfMonth, year)
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-        dateYear = year
-        dateMonth = month
-        dateDay = dayOfMonth
-
-        setDate(dateMonth!!, dateDay!!, dateYear!!)
+        setDate(month, dayOfMonth, year)
     }
 
     override fun isAnswered(): Boolean {

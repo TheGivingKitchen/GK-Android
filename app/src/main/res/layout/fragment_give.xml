@@ -171,6 +171,14 @@
             android:layout_marginEnd="@dimen/universal_horizontal_spacing"
             android:text="@string/give_tab_volunteer_button"/>
 
+        <Button
+            android:id="@+id/joinOurForcesButton_giveTab"
+            style="@style/CTAButton"
+            android:layout_marginTop="@dimen/universal_horizontal_spacing"
+            android:layout_marginStart="@dimen/universal_horizontal_spacing"
+            android:layout_marginEnd="@dimen/universal_horizontal_spacing"
+            android:text="@string/give_tab_join_forces_button"/>
+
         <ImageView
             android:id="@+id/volunteerImage_giveTab"
             android:layout_width="match_parent"

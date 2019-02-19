@@ -22,6 +22,9 @@ class MoneyQuestion(title: String?, answer: String? = null, context: Context, at
         layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         this.orientation = VERTICAL
         title_moneyQuestion.setTextIfItExists(title)
+        if (!answer.isNullOrBlank()) {
+            amount_moneyQuestion.setText(answer)
+        }
 
         // todo: when focus is lost, add a dollar sign to the beginning of the amount
         /* amount_moneyQuestion.setOnFocusChangeListener { v, hasFocus ->

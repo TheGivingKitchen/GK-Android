@@ -11,13 +11,16 @@ import kotlinx.android.synthetic.main.view_question_radio_answer.view.*
 import org.thegivingkitchen.android.thegivingkitchen.R
 import org.thegivingkitchen.android.thegivingkitchen.util.setTextIfItExists
 
-class RadioAnswerChoice(val title: String?, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle) {
+class RadioAnswerChoice(val title: String?, selected: Boolean, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle) {
     // todo: use merge tags in views
     init {
         LayoutInflater.from(context).inflate(R.layout.view_question_radio_answer, this, true)
         layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         answerChoice_radioAnswer.setTextIfItExists(title)
         this.orientation = VERTICAL
+        if (selected) {
+            clickAction()
+        }
     }
 
     var currentSelectedState: Boolean = false

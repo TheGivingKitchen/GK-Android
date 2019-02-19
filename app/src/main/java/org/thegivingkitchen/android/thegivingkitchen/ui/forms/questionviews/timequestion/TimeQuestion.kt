@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.TextView
 import android.widget.TimePicker
 import kotlinx.android.synthetic.main.view_question_time.view.*
 import org.thegivingkitchen.android.thegivingkitchen.R
@@ -24,17 +23,21 @@ class TimeQuestion(title: String?, answer: String? = null, context: Context, att
         layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         this.orientation = VERTICAL
         title_timeQuestion.setTextIfItExists(title)
-        setTime(11,0, "am")
+
+        if (answer.isNullOrBlank()) {
+            setTime(11,0)
+        } else {
+            // an example answer is "5:30 pm"
+            val firstSection = answer.split(":")
+            val secondSection = firstSection[1].split(" ")
+
+            val unformattedTime = getUnformattedTime(firstSection[0].toInt(), secondSection[0].toInt(), secondSection[1])
+            setTime(unformattedTime.first, unformattedTime.second)
+        }
     }
 
-    fun setTime(hour: Int, minute: Int, timePeriod: String) {
-        val formattedMinute = String.format("%02d", minute)
-
-        time_timeQuestion.text = context.getString(R.string.time_question_time, hour, formattedMinute, timePeriod)
-    }
-
-    override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
-        timeHour = hourOfDay
+    private fun setTime(hour: Int, minute: Int) {
+        timeHour = hour
         timeMinute = minute
 
         var timePeriod = context.getString(R.string.time_question_am)
@@ -46,7 +49,21 @@ class TimeQuestion(title: String?, answer: String? = null, context: Context, att
         if (formattedHour == 0) {
             formattedHour = 12
         }
-        setTime(formattedHour, timeMinute!!, timePeriod)
+
+        val formattedMinute = String.format("%02d", minute)
+
+        time_timeQuestion.text = context.getString(R.string.time_question_time, formattedHour, formattedMinute, timePeriod)
+    }
+
+    private fun getUnformattedTime(hour: Int, minute: Int, timePeriod: String): Pair<Int, Int> {
+        val unformattedHour = if (timePeriod == context.getString(R.string.time_question_am) && hour == 12) 0 else hour
+        val additionalHours = if (timePeriod == context.getString(R.string.time_question_pm) && hour != 12) 12 else 0
+
+        return Pair(unformattedHour+additionalHours, minute)
+    }
+
+    override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+        setTime(hourOfDay, minute)
     }
 
     override fun isAnswered(): Boolean {
