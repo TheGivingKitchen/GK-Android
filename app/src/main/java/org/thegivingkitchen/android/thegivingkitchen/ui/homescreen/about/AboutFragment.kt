@@ -1,5 +1,6 @@
 package org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.about
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.annotation.Nullable
 import android.support.v4.app.Fragment
@@ -9,8 +10,18 @@ import android.view.ViewGroup
 import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_about.*
 import org.thegivingkitchen.android.thegivingkitchen.R
+import org.thegivingkitchen.android.thegivingkitchen.util.Constants.givingKitchenUrl
+import org.thegivingkitchen.android.thegivingkitchen.util.CustomTabs
 
 class AboutFragment : Fragment()  {
+
+    companion object {
+        const val newsletterSignupUrl = "https://thegivingkitchen.us3.list-manage.com/subscribe?u=8ce234d2bdddfb2c1ba574d4f&id=9071a9bab9"
+        const val gkContactUrl = "$givingKitchenUrl/contact"
+        const val storyOneUrl = "$givingKitchenUrl/reggie-ealy"
+        const val storyTwoUrl = "$givingKitchenUrl/when-irma-hit"
+        const val storyThreeUrl = "$givingKitchenUrl/shannon-brown-shares-her-story-in-athens"
+    }
 
     @Nullable
     override fun onCreateView(
@@ -38,19 +49,19 @@ class AboutFragment : Fragment()  {
     }
 
     private val newsletterSignupClickListener = View.OnClickListener {
-        Toast.makeText(context, "Newsletter signup clicked", Toast.LENGTH_SHORT).show()
+        CustomTabs.openCustomTab(context, newsletterSignupUrl)
     }
 
     private val storyOneClickListener = View.OnClickListener {
-        Toast.makeText(context, "Story One clicked", Toast.LENGTH_SHORT).show()
+        CustomTabs.openCustomTab(context, storyOneUrl)
     }
 
     private val storyTwoClickListener = View.OnClickListener {
-        Toast.makeText(context, "Story Two clicked", Toast.LENGTH_SHORT).show()
+        CustomTabs.openCustomTab(context, storyTwoUrl)
     }
 
     private val storyThreeClickListener = View.OnClickListener {
-        Toast.makeText(context, "Story Three clicked", Toast.LENGTH_SHORT).show()
+        CustomTabs.openCustomTab(context, storyThreeUrl)
     }
 
     private val feedbackPositiveClickListener = View.OnClickListener {
@@ -62,6 +73,18 @@ class AboutFragment : Fragment()  {
     }
 
     private val feedbackNegativeClickListener = View.OnClickListener {
-        Toast.makeText(context, "- Feedback clicked", Toast.LENGTH_SHORT).show()
+        val emailIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SENDTO
+            putExtra(Intent.EXTRA_EMAIL, getString(R.string.about_tab_gk_email_address))
+            putExtra(Intent.EXTRA_SUBJECT, getString(R.string.about_tab_gk_email_subject))
+            type = "text/plain"
+        }
+
+        // todo: see if the email app opens on a real device
+        if (emailIntent.resolveActivity(context!!.packageManager) != null) {
+            startActivity(emailIntent)
+        } else {
+            CustomTabs.openCustomTab(context, gkContactUrl)
+        }
     }
 }

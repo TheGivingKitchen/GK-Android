@@ -23,6 +23,8 @@
     <string name="about_tab_feedback_positive">I\'m a fan!</string>
     <string name="about_tab_feedback_neutral">It could be better.</string>
     <string name="about_tab_feedback_negative">I\'d like to report a problem.</string>
+    <string name="about_tab_gk_email_address">info@thegivingkitchen.org</string>
+    <string name="about_tab_gk_email_subject">I\'d like to report a problem with the GK app</string>
 
     <!-- Events Tab -->
     <string name="events_tab_header_description">Giving Kitchen\'s signature and third-party events are rooted in great food, drink, service - and care for those who serve us every day.</string>
