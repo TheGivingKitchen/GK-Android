@@ -1,6 +1,7 @@
 package org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.about
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.annotation.Nullable
 import android.support.v4.app.Fragment
@@ -8,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_about.*
 import org.thegivingkitchen.android.thegivingkitchen.R
 import org.thegivingkitchen.android.thegivingkitchen.util.Constants.givingKitchenUrl
@@ -65,11 +67,18 @@ class AboutFragment : Fragment()  {
     }
 
     private val feedbackPositiveClickListener = View.OnClickListener {
-        Toast.makeText(context, "+ Feedback clicked", Toast.LENGTH_SHORT).show()
+        // todo: pop up a dialog before sending the user to the Play Store
+        // todo: make sure this works once app is on the Play Store
+        val appPackageName = context!!.packageName
+        try {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$appPackageName")))
+        } catch (exception: android.content.ActivityNotFoundException) {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")))
+        }
     }
 
     private val feedbackNeutralClickListener = View.OnClickListener {
-        Toast.makeText(context, "/ Feedback clicked", Toast.LENGTH_SHORT).show()
+        Navigation.findNavController(getView()!!).navigate(R.id.feedbackFragment)
     }
 
     private val feedbackNegativeClickListener = View.OnClickListener {
