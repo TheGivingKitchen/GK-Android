@@ -1,4 +1,4 @@
-package org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.about
+package org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.about.feedback
 
 import android.os.Bundle
 import android.support.annotation.Nullable
@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_feedback.*
 import org.thegivingkitchen.android.thegivingkitchen.R
 
@@ -28,6 +27,7 @@ class FeedbackFragment: Fragment()  {
     }
 
     private val submitButtonClickListener = View.OnClickListener {
+        // todo: actually submit the feedback
         val a = SubmitFeedbackDialogFragment()
         a.show(fragmentManager, "Feedback_Submit_Success")
     }

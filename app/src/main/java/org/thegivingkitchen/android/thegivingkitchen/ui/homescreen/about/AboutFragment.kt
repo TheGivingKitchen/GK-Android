@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_about.*
 import org.thegivingkitchen.android.thegivingkitchen.R
@@ -47,7 +46,7 @@ class AboutFragment : Fragment()  {
     }
 
     private val aboutUsButtonClickListener = View.OnClickListener {
-        Toast.makeText(context, "How it works button clicked", Toast.LENGTH_SHORT).show()
+        // todo: show the How it Works pdf here
     }
 
     private val newsletterSignupClickListener = View.OnClickListener {

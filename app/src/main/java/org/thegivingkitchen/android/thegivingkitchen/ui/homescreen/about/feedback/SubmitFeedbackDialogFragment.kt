@@ -1,4 +1,4 @@
-package org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.about
+package org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.about.feedback
 
 import android.app.Dialog
 import android.content.DialogInterface
@@ -15,8 +15,9 @@ class SubmitFeedbackDialogFragment : AppCompatDialogFragment() {
             builder.setMessage(R.string.feedback_dialog_description)
                     .setTitle(R.string.feedback_dialog_header)
                     .setPositiveButton(R.string.feedback_dialog_button,
+                            // todo: make FeedbackFragment call onBackPressed upon dismissing this dialog
                             DialogInterface.OnClickListener { dialog, id ->
-                                // FIRE ZE MISSILES!
+
                             })
 
             builder.create()
