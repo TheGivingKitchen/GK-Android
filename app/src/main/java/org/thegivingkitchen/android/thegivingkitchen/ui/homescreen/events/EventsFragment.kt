@@ -15,7 +15,9 @@ import kotlinx.android.synthetic.main.fragment_events.*
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.thegivingkitchen.android.thegivingkitchen.R
+import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.events.EventsViewModel.Companion.learnMoreURL
 import org.thegivingkitchen.android.thegivingkitchen.util.Constants.givingKitchenUrl
+import org.thegivingkitchen.android.thegivingkitchen.util.CustomTabs
 import java.io.ByteArrayInputStream
 import java.io.IOException
 
@@ -38,6 +40,7 @@ class EventsFragment : Fragment() {
         model.isProgressBarVisible().observe(this, Observer<Boolean> { liveData ->
             updateProgressBarVisibility(liveData!!)
         })
+        adapter.learnMoreClicks().subscribe { openLearnMoreLink() }
         GetEventsTask().execute(eventsDataURL)
     }
 
@@ -73,6 +76,10 @@ class EventsFragment : Fragment() {
         fun getData(url: String): String? {
             return httpClient.newCall(Request.Builder().url(url).build()).execute().body()?.string()
         }
+    }
+
+    private fun openLearnMoreLink() {
+        CustomTabs.openCustomTab(context, learnMoreURL)
     }
 
     private fun updateEventsList(data: List<Event>) {

@@ -13,8 +13,6 @@ class CustomTabs {
             if (context != null) {
                 CustomTabsIntent.Builder()
                         .setToolbarColor(ContextCompat.getColor(context, R.color.white))
-                        // todo: this does't do anything?
-                        .setCloseButtonIcon(BitmapFactory.decodeResource(context.resources, R.drawable.ic_chevron_left))
                         .build()
                         .launchUrl(context, Uri.parse(url))
             }

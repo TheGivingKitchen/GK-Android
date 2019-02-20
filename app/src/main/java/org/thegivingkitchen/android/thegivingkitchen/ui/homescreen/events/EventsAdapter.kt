@@ -8,10 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 import org.thegivingkitchen.android.thegivingkitchen.R
 import org.thegivingkitchen.android.thegivingkitchen.util.setTextIfItExists
 
 class EventsAdapter(var items: MutableList<Any>, val fragment: Fragment) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val learnMoreClicks: PublishSubject<Boolean> = PublishSubject.create()
 
     companion object {
         const val VIEW_TYPE_EVENT = 0
@@ -28,7 +31,7 @@ class EventsAdapter(var items: MutableList<Any>, val fragment: Fragment) : Recyc
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == VIEW_TYPE_HEADER) {
-            HeaderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_events_header, parent, false))
+            HeaderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_events_header, parent, false), learnMoreClicks)
         } else {
             EventViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_event, parent, false))
         }
@@ -43,10 +46,19 @@ class EventsAdapter(var items: MutableList<Any>, val fragment: Fragment) : Recyc
     }
 
     override fun getItemCount() = items.size
+
+    fun learnMoreClicks(): Observable<Boolean> = learnMoreClicks
+}
+
+class HeaderViewHolder(val view: View, private val learnMoreClicks: PublishSubject<Boolean>) : RecyclerView.ViewHolder(view) {
+    fun bind() {
+        view.findViewById<TextView>(R.id.learnMoreButton_eventsTab).setOnClickListener { learnMoreClicks.onNext(false) }
+    }
 }
 
 class EventViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     fun bind(event: Event, fragment: Fragment) {
+        // todo: go to event website on click
         view.findViewById<TextView>(R.id.title_EventsRecycler).setTextIfItExists(event.title)
         view.findViewById<TextView>(R.id.description_EventsRecycler).setTextIfItExists(event.subtitle?.replace("\n", ""))
         setPicture(event.picUrl, R.id.image_EventsRecycler, fragment)
@@ -67,8 +79,4 @@ class EventViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
                 .load(httpsUrl)
                 .into(view.findViewById(id))
     }
-}
-
-class HeaderViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-    fun bind() { }
 }

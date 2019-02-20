@@ -10,10 +10,11 @@ import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import org.thegivingkitchen.android.thegivingkitchen.R
 import org.thegivingkitchen.android.thegivingkitchen.util.Constants.firebaseStorageUrl
+import org.thegivingkitchen.android.thegivingkitchen.util.Constants.givingKitchenUrl
 
 class AssistanceViewModel: ViewModel() {
     companion object {
-        const val learnMoreURL = "https://connect.clickandpledge.com/w/Form/d11bff52-0cd0-44d8-9403-465614e4f342"
+        const val learnMoreURL = "$givingKitchenUrl/grant-program"
         const val selfAssistanceInquiryUrl = "$firebaseStorageUrl/forms/assistanceInquirySelf.json"
         const val referralAssistanceInquiryUrl = "$firebaseStorageUrl/forms/assistanceInquiryReferral.json"
     }

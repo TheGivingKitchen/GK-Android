@@ -30,12 +30,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/header_eventsTab" />
 
+    <TextView
+        android:id="@+id/learnMoreButton_eventsTab"
+        style="@style/ParagraphText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:padding="10dp"
+        android:text="@string/safetynet_tab_learn_more"
+        android:textColor="@color/gk_orange"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/headerDescription_eventsTab" />
+
     <View
         android:id="@+id/headerDivider_eventsTab"
         style="@style/DividerViewLarge"
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/headerDescription_eventsTab" />
+        app:layout_constraintTop_toBottomOf="@id/learnMoreButton_eventsTab" />
 
 </android.support.constraint.ConstraintLayout>
