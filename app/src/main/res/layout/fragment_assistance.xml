@@ -11,13 +11,15 @@
         android:layout_height="@dimen/header_image_height"
         android:layout_marginTop="@dimen/header_image_top_margin"
         android:layout_marginBottom="25dp"
-        android:src="@drawable/assistance_header"
+        android:src="@drawable/ic_tab_assistance"
         tools:ignore="ContentDescription"/>
 
     <TextView
         android:id="@+id/header_description_assistanceTab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/universal_horizontal_spacing"
+        android:layout_marginEnd="@dimen/universal_horizontal_spacing"
         style="@style/LargeHeaderText"/>
 
     <TextView

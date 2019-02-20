@@ -28,7 +28,7 @@ class AssistanceViewModel: ViewModel() {
 
     fun setHeaderText(context: Context): SpannableStringBuilder {
         val builder = SpannableStringBuilder()
-        builder.append(addColoredString(context, R.string.assistance_tab_crisis_grants_title, R.color.gk_orange))
+        builder.append(addColoredString(context, R.string.assistance_tab_crisis_grants_title, R.color.gk_blue))
         builder.append(addColoredString(context, R.string.assistance_tab_crisis_grants_description, R.color.gk_blue))
         builder.append(addColoredString(context, R.string.assistance_tab_crisis_grants_illness, R.color.gk_orange))
         builder.append(addColoredString(context, R.string.assistance_tab_crisis_grants_comma, R.color.gk_blue))
@@ -36,7 +36,7 @@ class AssistanceViewModel: ViewModel() {
         builder.append(addColoredString(context, R.string.assistance_tab_crisis_grants_comma, R.color.gk_blue))
         builder.append(addColoredString(context, R.string.assistance_tab_crisis_grants_death, R.color.gk_orange))
         builder.append(addColoredString(context, R.string.assistance_tab_crisis_grants_comma, R.color.gk_blue))
-        builder.append(addColoredString(context, R.string.assistance_tab_crisis_grants_ampersand, R.color.gk_blue))
+        builder.append(addColoredString(context,  R.string.assistance_tab_crisis_grants_or, R.color.gk_blue))
         builder.append(addColoredString(context, R.string.assistance_tab_crisis_grants_disaster, R.color.gk_orange))
         builder.append(addColoredString(context, R.string.assistance_tab_crisis_grants_period, R.color.gk_blue))
         return builder

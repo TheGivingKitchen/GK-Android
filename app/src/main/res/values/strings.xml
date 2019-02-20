@@ -41,17 +41,17 @@
 
     <!-- Assistance Tab -->
     <string name="assistance_tab_crisis_grants_title">CRISIS GRANTS\n</string>
-    <string name="assistance_tab_crisis_grants_description">Through our Crisis Grants, we cover the cost of living expenses for restaurant workers impacted by </string>
+    <string name="assistance_tab_crisis_grants_description">GK can fund the cost of living expenses for food service workers who miss work due to an </string>
     <string name="assistance_tab_crisis_grants_illness">\u0020illness</string>
     <string name="assistance_tab_crisis_grants_injury">injury</string>
-    <string name="assistance_tab_crisis_grants_death">death</string>
-    <string name="assistance_tab_crisis_grants_disaster">disaster</string>
+    <string name="assistance_tab_crisis_grants_death">house fire or flood</string>
+    <string name="assistance_tab_crisis_grants_disaster">death of an immediate family member</string>
     <string name="assistance_tab_crisis_grants_comma">,\u0020</string>
-    <string name="assistance_tab_crisis_grants_ampersand">&amp;\u0020</string>
+    <string name="assistance_tab_crisis_grants_or">or\u0020</string>
     <string name="assistance_tab_crisis_grants_period">.</string>
     <string name="assistance_tab_cta_for_you">For You</string>
     <string name="assistance_tab_cta_for_someone_else">For Someone Else</string>
-    <string name="assistance_tab_start_inquiry">Start a crisis grant inquiry:</string>
+    <string name="assistance_tab_start_inquiry">Start here to request assistance</string>
     <string name="assistance_tab_start_inquiry_description">You can start an assistance inquiry for yourself, or for someone else.</string>
     <string name="assistance_tab_learn_more">Learn more</string>
 
