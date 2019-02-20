@@ -9,7 +9,7 @@
     <string name="tab_give">Give</string>
 
     <!-- Events Tab -->
-    <string name="events_tab_header_description">The Giving Kitchen is building a restaurant community where crisis is met with compassion and care, and anyone can be a hero. </string>
+    <string name="events_tab_header_description">Giving Kitchen\'s signature and third-party events are rooted in great food, drink, service - and care for those who serve us every day.</string>
     <string name="events_tab_crisis_header">How it works</string>
     <string name="events_tab_crisis_description">Are you or someone you know a restaurant worker in crisis? Learn more about what Giving Kitchen can do to assist.</string>
     <string name="events_tab_self_crisis_button">I\'m in crisis</string>
