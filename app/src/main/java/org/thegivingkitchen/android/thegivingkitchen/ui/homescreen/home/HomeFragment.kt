@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.thegivingkitchen.android.thegivingkitchen.R
+import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.about.AboutFragment
 import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.assistance.AssistanceFragment
 import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.events.EventsFragment
 import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.give.GiveFragment
@@ -27,7 +28,7 @@ class HomeFragment: Fragment()  {
         model.getCurrentFragment().observe(this, Observer<HomeSection> { liveData ->
             loadFragment(liveData!!)
         })
-        model.setCurrentFragment(HomeSection.EVENTS)
+        model.setCurrentFragment(HomeSection.ABOUT)
     }
 
     @Nullable
@@ -43,6 +44,9 @@ class HomeFragment: Fragment()  {
 
     private val navListener = BottomNavigationView.OnNavigationItemSelectedListener {
         val selectedHomeSection: HomeSection = when (it.itemId) {
+            R.id.aboutFragment -> {
+                HomeSection.ABOUT
+            }
             R.id.eventsFragment -> {
                 HomeSection.EVENTS
             }
@@ -57,7 +61,7 @@ class HomeFragment: Fragment()  {
             }
             else -> {
                 // todo: log error here
-                HomeSection.EVENTS
+                HomeSection.ABOUT
             }
         }
 
@@ -71,6 +75,7 @@ class HomeFragment: Fragment()  {
 
         if (fragment == null) {
             fragment = when (homeSection) {
+                HomeSection.ABOUT -> AboutFragment()
                 HomeSection.EVENTS -> EventsFragment()
                 HomeSection.ASSISTANCE -> AssistanceFragment()
                 HomeSection.GIVE -> GiveFragment()
