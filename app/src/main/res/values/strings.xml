@@ -8,6 +8,22 @@
     <string name="tab_resources">Resources</string>
     <string name="tab_give">Give</string>
 
+    <!-- About Tab -->
+    <string name="about_tab_header">HEROES WITH APRONS INSTEAD OF CAPES</string>
+    <string name="about_tab_about_us_header">About Us</string>
+    <string name="about_tab_about_us_description">Giving Kitchen provides emergency assistance to food service workers through financial support and a network of community resources.</string>
+    <string name="about_tab_about_us_button">How It Works</string>
+    <string name="about_tab_newsletter_signup">Sign up for our newsletter here</string>
+    <string name="about_tab_stories_header">Stories</string>
+    <string name="about_tab_story_one_link">The Performer (Read on)</string>
+    <string name="about_tab_story_two_link">When Irma Hit (Read on)</string>
+    <string name="about_tab_story_three_link">Comfort in Athens (Read on)</string>
+    <string name="about_tab_feedback_header">Feedback</string>
+    <string name="about_tab_feedback_description">How do you like using the Giving Kitchen app?</string>
+    <string name="about_tab_feedback_positive">I\'m a fan!</string>
+    <string name="about_tab_feedback_neutral">It could be better.</string>
+    <string name="about_tab_feedback_negative">I\'d like to report a problem.</string>
+
     <!-- Events Tab -->
     <string name="events_tab_header_description">Giving Kitchen\'s signature and third-party events are rooted in great food, drink, service - and care for those who serve us every day.</string>
     <string name="events_tab_crisis_header">How it works</string>
@@ -141,6 +157,9 @@
     <string name="safetynet_collapse_fb_section_button">Collapse or expand the Facebook Groups section</string>
     <string name="give_tab_salad_image_description">A group of people eating salad together</string>
     <string name="give_tab_teamwork_image_description">A meeting where people listen to a team leader</string>
+    <string name="about_tab_performer_story_image_description">Reggie the performer</string>
+    <string name="about_tab_irma_story_image_description">A family affected by hurricane Irma</string>
+    <string name="about_tab_athens_story_image_description">An event being held in Athens, Georgia</string>
 
     <!-- Questions -->
     <string name="shortname_question_firstname_hint">First</string>

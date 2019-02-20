@@ -131,6 +131,8 @@
             </FrameLayout>
         </android.support.constraint.ConstraintLayout>
 
+        <View style="@style/DividerViewLarge" />
+
         <TextView
             android:id="@+id/card_donate_button_giveTab"
             style="@style/GiveTabButton"
