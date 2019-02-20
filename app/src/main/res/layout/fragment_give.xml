@@ -16,7 +16,7 @@
             android:layout_height="@dimen/header_image_height"
             android:layout_marginTop="@dimen/header_image_top_margin"
             android:layout_marginBottom="25dp"
-            android:src="@drawable/give_header"
+            android:src="@drawable/ic_tab_give"
             tools:ignore="ContentDescription"/>
 
         <TextView
@@ -171,20 +171,14 @@
             android:layout_marginEnd="@dimen/universal_horizontal_spacing"
             android:text="@string/give_tab_volunteer_button"/>
 
-        <Button
-            android:id="@+id/joinOurForcesButton_giveTab"
-            style="@style/CTAButton"
-            android:layout_marginTop="@dimen/universal_horizontal_spacing"
-            android:layout_marginStart="@dimen/universal_horizontal_spacing"
-            android:layout_marginEnd="@dimen/universal_horizontal_spacing"
-            android:text="@string/give_tab_join_forces_button"/>
-
         <ImageView
             android:id="@+id/volunteerImage_giveTab"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="250dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
+            android:layout_marginStart="@dimen/universal_horizontal_spacing"
+            android:layout_marginEnd="@dimen/universal_horizontal_spacing"
             android:src="@drawable/pic_eating_salad"
             android:contentDescription="@string/give_tab_salad_image_description"/>
 
@@ -212,13 +206,33 @@
             android:layout_marginEnd="@dimen/universal_horizontal_spacing"
             android:text="@string/give_tab_partner_button"/>
 
+        <View style="@style/DividerViewSmall"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            style="@style/GiveTabParagraph"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/universal_horizontal_spacing"
+            android:text="@string/give_tab_join_forces_description" />
+
+        <Button
+            android:id="@+id/joinOurForcesButton_giveTab"
+            style="@style/CTAButton"
+            android:layout_marginTop="@dimen/universal_horizontal_spacing"
+            android:layout_marginStart="@dimen/universal_horizontal_spacing"
+            android:layout_marginEnd="@dimen/universal_horizontal_spacing"
+            android:text="@string/give_tab_join_forces_button"/>
+
         <ImageView
             android:id="@+id/safetynetImage_giveTab"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="250dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:src="@drawable/pic_eating_salad"
+            android:layout_marginStart="@dimen/universal_horizontal_spacing"
+            android:layout_marginEnd="@dimen/universal_horizontal_spacing"
+            android:src="@drawable/pic_team_leader"
             android:contentDescription="@string/give_tab_teamwork_image_description"/>
 
     </LinearLayout>

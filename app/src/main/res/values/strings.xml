@@ -18,18 +18,17 @@
     <!-- Give Tab -->
     <string name="give_tab_credit_header_description">Donate, Volunteer, or Partner:\nThree Ways to Get Involved &amp;\u0020 Make a Difference.</string>
     <string name="give_tab_learn_more">Learn more</string>
-    <string name="give_tab_credit_card_button">Donate with card</string>
-    <string name="give_tab_recurring_donation_button">Start a recurring donation</string>
+    <string name="give_tab_credit_card_button">Make a One-time Donation</string>
+    <string name="give_tab_recurring_donation_button">Set Up On-going Donations</string>
     <string name="give_tab_volunteer_header">Volunteer</string>
-    <string name="give_tab_volunteer_description">From educating the public about our program services to providing special event support, GK would not exist without the dedication of our champion volunteers. Join the team!</string>
+    <string name="give_tab_volunteer_description">From educating the public about our program services to providing special event support, GK would not exist without the dedication of our volunteers! Join the team:</string>
     <string name="give_tab_volunteer_button">Volunteer!</string>
     <string name="give_tab_join_forces_button">Join our forces</string>
     <string name="give_tab_partner_header">Partner</string>
     <string name="give_tab_partner_description">Would you like to become part of Giving Kitchen\'s social service or community resource referral program? We\'d love to hear from you!</string>
-    <string name="give_tab_partner_button">Become a SafetyNet Partner</string>
+    <string name="give_tab_join_forces_description">Want to host an event to benefit GK? Join our forces!</string>
+    <string name="give_tab_partner_button">Stability Network Partner</string>
     <string name="give_tab_examples_currency_sign">$</string>
-    <string name="give_tab_salad_image_description">A group of people eating salad together</string>
-    <string name="give_tab_teamwork_image_description">A meeting where people listen to a team leader</string>
 
     <!-- Donation amount examples -->
     <string name="give_tab_examples_late_fee">Covers a late fee</string>
@@ -140,6 +139,8 @@
     <string name="facebook_groups_south_ga">Go back the South Georgia Facebook Group</string>
     <string name="facebook_groups_coastal_ga">Go back the Coastal Georgia Facebook Group</string>
     <string name="safetynet_collapse_fb_section_button">Collapse or expand the Facebook Groups section</string>
+    <string name="give_tab_salad_image_description">A group of people eating salad together</string>
+    <string name="give_tab_teamwork_image_description">A meeting where people listen to a team leader</string>
 
     <!-- Questions -->
     <string name="shortname_question_firstname_hint">First</string>
