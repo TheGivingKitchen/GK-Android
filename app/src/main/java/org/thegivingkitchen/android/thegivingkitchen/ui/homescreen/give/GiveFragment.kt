@@ -13,7 +13,7 @@ import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_give.*
 import org.thegivingkitchen.android.thegivingkitchen.R
 import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.give.GiveViewModel.Companion.creditCardDonationURL
-import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.give.GiveViewModel.Companion.learnMoreURL
+import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.give.GiveViewModel.Companion.giveLearnMoreURL
 import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.give.GiveViewModel.Companion.recurringDonationURL
 import org.thegivingkitchen.android.thegivingkitchen.util.Constants
 import org.thegivingkitchen.android.thegivingkitchen.util.CustomTabs
@@ -59,7 +59,7 @@ class GiveFragment : Fragment() {
     }
 
     private val learnMoreButtonClickListener = View.OnClickListener {
-        CustomTabs.openCustomTab(context, learnMoreURL)
+        CustomTabs.openCustomTab(context, giveLearnMoreURL)
     }
 
     private val leftExamplesArrowClickListener = View.OnClickListener {

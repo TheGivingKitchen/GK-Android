@@ -7,7 +7,7 @@ import org.thegivingkitchen.android.thegivingkitchen.util.Constants.givingKitche
 
 class EventsViewModel : ViewModel() {
     companion object {
-        const val learnMoreURL = "$givingKitchenUrl/events"
+        const val eventsLearnMoreURL = "$givingKitchenUrl/events"
     }
 
     private var currentEventsList: MutableLiveData<List<Event>> = MutableLiveData()

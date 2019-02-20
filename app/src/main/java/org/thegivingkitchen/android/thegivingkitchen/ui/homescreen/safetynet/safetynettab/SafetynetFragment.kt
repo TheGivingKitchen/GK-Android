@@ -17,6 +17,7 @@ import com.squareup.moshi.JsonAdapter
 import kotlinx.android.synthetic.main.fragment_safetynet.*
 import org.thegivingkitchen.android.thegivingkitchen.R
 import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.safetynet.safetynettab.SafetynetViewModel.Companion.safetynetDataUrl
+import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.safetynet.safetynettab.SafetynetViewModel.Companion.safetynetLearnMoreURL
 import org.thegivingkitchen.android.thegivingkitchen.util.Constants.givingKitchenUrl
 import org.thegivingkitchen.android.thegivingkitchen.util.CustomTabs
 import org.thegivingkitchen.android.thegivingkitchen.util.Services.firebaseInstance
@@ -29,7 +30,6 @@ class SafetynetFragment : Fragment() {
     private lateinit var adapter: SafetynetAdapter
 
     companion object {
-        private const val learnMoreURL = "$givingKitchenUrl/"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -112,7 +112,7 @@ class SafetynetFragment : Fragment() {
     }
 
     private fun openLearnMoreLink() {
-        CustomTabs.openCustomTab(context, learnMoreURL)
+        CustomTabs.openCustomTab(context, safetynetLearnMoreURL)
     }
 
     private fun goToFacebookGroupsScreen() {

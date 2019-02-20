@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_events.*
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.thegivingkitchen.android.thegivingkitchen.R
-import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.events.EventsViewModel.Companion.learnMoreURL
+import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.events.EventsViewModel.Companion.eventsLearnMoreURL
 import org.thegivingkitchen.android.thegivingkitchen.util.Constants.givingKitchenUrl
 import org.thegivingkitchen.android.thegivingkitchen.util.CustomTabs
 import java.io.ByteArrayInputStream
@@ -79,7 +79,7 @@ class EventsFragment : Fragment() {
     }
 
     private fun openLearnMoreLink() {
-        CustomTabs.openCustomTab(context, learnMoreURL)
+        CustomTabs.openCustomTab(context, eventsLearnMoreURL)
     }
 
     private fun updateEventsList(data: List<Event>) {

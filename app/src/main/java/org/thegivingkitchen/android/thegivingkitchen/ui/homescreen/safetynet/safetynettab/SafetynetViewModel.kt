@@ -3,10 +3,12 @@ package org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.safetynet.sa
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import org.thegivingkitchen.android.thegivingkitchen.util.Constants
 import org.thegivingkitchen.android.thegivingkitchen.util.Constants.firebaseStorageUrl
 
 class SafetynetViewModel : ViewModel() {
     companion object {
+        const val safetynetLearnMoreURL = "${Constants.givingKitchenUrl}/"
         const val safetynetDataUrl =  "$firebaseStorageUrl/safetyNet/safetyNet.json"
     }
 

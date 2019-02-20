@@ -11,7 +11,7 @@ import org.thegivingkitchen.android.thegivingkitchen.R
 import android.widget.TextView
 import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_assistance.*
-import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.assistance.AssistanceViewModel.Companion.learnMoreURL
+import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.assistance.AssistanceViewModel.Companion.assistanceLearnMoreURL
 import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.assistance.AssistanceViewModel.Companion.referralAssistanceInquiryUrl
 import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.assistance.AssistanceViewModel.Companion.selfAssistanceInquiryUrl
 import org.thegivingkitchen.android.thegivingkitchen.util.Constants.formsArg
@@ -52,6 +52,6 @@ class AssistanceFragment : Fragment() {
     }
 
     private val learnMoreButtonClickListener = View.OnClickListener {
-        CustomTabs.openCustomTab(context, learnMoreURL)
+        CustomTabs.openCustomTab(context, assistanceLearnMoreURL)
     }
 }
