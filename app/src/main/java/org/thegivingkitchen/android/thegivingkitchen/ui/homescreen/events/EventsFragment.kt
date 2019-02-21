@@ -41,6 +41,7 @@ class EventsFragment : Fragment() {
             updateProgressBarVisibility(liveData!!)
         })
         adapter.learnMoreClicks().subscribe { openLearnMoreLink() }
+        adapter.eventClicks().subscribe { goToEventDetails(it) }
         GetEventsTask().execute(eventsDataURL)
     }
 
@@ -80,6 +81,10 @@ class EventsFragment : Fragment() {
 
     private fun openLearnMoreLink() {
         CustomTabs.openCustomTab(context, eventsLearnMoreURL)
+    }
+    
+    private fun goToEventDetails(link: String) {
+        CustomTabs.openCustomTab(context, link)
     }
 
     private fun updateEventsList(data: List<Event>) {

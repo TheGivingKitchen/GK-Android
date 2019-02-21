@@ -67,19 +67,21 @@ class XmlParser {
     @Throws(XmlPullParserException::class, IOException::class)
     private fun readItem(parser: XmlPullParser): Event {
         parser.require(XmlPullParser.START_TAG, namespace, "item")
+        var link: String? = null
         var title: String? = null
         var picUrl: String? = null
         var description: String? = null
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.eventType != XmlPullParser.START_TAG) { continue }
             when (parser.name) {
+                "link" -> link = readLink(parser)
                 "title" -> title = readTitle(parser)
-                "media:content" -> picUrl = readLink(parser)
+                "media:content" -> picUrl = readImageUrl(parser)
                 "description" -> description = readDescription(parser)
                 else -> skip(parser)
             }
         }
-        return Event(title, description, picUrl)
+        return Event(title, description, link, picUrl)
     }
 
     @Throws(IOException::class, XmlPullParserException::class)
@@ -92,18 +94,26 @@ class XmlParser {
 
     @Throws(IOException::class, XmlPullParserException::class)
     private fun readLink(parser: XmlPullParser): String {
-        var link = ""
+        parser.require(XmlPullParser.START_TAG, namespace, "link")
+        val link = readText(parser)
+        parser.require(XmlPullParser.END_TAG, namespace, "link")
+        return link
+    }
+
+    @Throws(IOException::class, XmlPullParserException::class)
+    private fun readImageUrl(parser: XmlPullParser): String {
+        var imageUrl = ""
         parser.require(XmlPullParser.START_TAG, namespace, "media:content")
         val tag = parser.name
         val relType = parser.getAttributeValue(null, "type")
         if (tag == "media:content") {
             if (relType == "image/jpeg" || relType == "image/png") {
-                link = parser.getAttributeValue(null, "url")
+                imageUrl = parser.getAttributeValue(null, "url")
                 skip(parser)
             }
         }
         parser.require(XmlPullParser.END_TAG, namespace, "media:content")
-        return link
+        return imageUrl
     }
 
     @Throws(IOException::class, XmlPullParserException::class)

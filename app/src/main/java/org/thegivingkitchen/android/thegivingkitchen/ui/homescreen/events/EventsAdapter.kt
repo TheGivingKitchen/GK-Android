@@ -15,6 +15,7 @@ import org.thegivingkitchen.android.thegivingkitchen.util.setTextIfItExists
 
 class EventsAdapter(var items: MutableList<Any>, val fragment: Fragment) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val learnMoreClicks: PublishSubject<Boolean> = PublishSubject.create()
+    private val eventClicks: PublishSubject<String> = PublishSubject.create()
 
     companion object {
         const val VIEW_TYPE_EVENT = 0
@@ -33,7 +34,7 @@ class EventsAdapter(var items: MutableList<Any>, val fragment: Fragment) : Recyc
         return if (viewType == VIEW_TYPE_HEADER) {
             HeaderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_events_header, parent, false), learnMoreClicks)
         } else {
-            EventViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_event, parent, false))
+            EventViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_event, parent, false), eventClicks)
         }
     }
 
@@ -48,6 +49,7 @@ class EventsAdapter(var items: MutableList<Any>, val fragment: Fragment) : Recyc
     override fun getItemCount() = items.size
 
     fun learnMoreClicks(): Observable<Boolean> = learnMoreClicks
+    fun eventClicks(): Observable<String> = eventClicks
 }
 
 class HeaderViewHolder(val view: View, private val learnMoreClicks: PublishSubject<Boolean>) : RecyclerView.ViewHolder(view) {
@@ -56,11 +58,14 @@ class HeaderViewHolder(val view: View, private val learnMoreClicks: PublishSubje
     }
 }
 
-class EventViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+class EventViewHolder(val view: View, private val clicks: PublishSubject<String>) : RecyclerView.ViewHolder(view) {
     fun bind(event: Event, fragment: Fragment) {
-        // todo: go to event website on click
         view.findViewById<TextView>(R.id.title_EventsRecycler).setTextIfItExists(event.title)
         view.findViewById<TextView>(R.id.description_EventsRecycler).setTextIfItExists(event.subtitle?.replace("\n", ""))
+        val link = event.link
+        if (link != null) {
+            view.setOnClickListener { clicks.onNext(link) }
+        }
         setPicture(event.picUrl, R.id.image_EventsRecycler, fragment)
     }
 

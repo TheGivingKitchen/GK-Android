@@ -38,7 +38,7 @@
         android:layout_marginTop="20dp"
         android:background="?android:attr/selectableItemBackground"
         android:padding="10dp"
-        android:text="@string/safetynet_tab_learn_more"
+        android:text="@string/events_tab_learn_more"
         android:textColor="@color/gk_orange"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

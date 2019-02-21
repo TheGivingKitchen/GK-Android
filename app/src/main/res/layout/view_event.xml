@@ -34,6 +34,18 @@
         android:ellipsize="end"
         android:maxLines="3"/>
 
+    <TextView
+        android:id="@+id/readMore_EventsRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="@dimen/universal_horizontal_spacing"
+        android:layout_marginEnd="@dimen/universal_horizontal_spacing"
+        android:text="@string/events_tab_read_more"
+        style="@style/RegularText"
+        android:textSize="8pt"
+        android:textColor="@color/gk_orange"/>
+
     <View style="@style/DividerViewSmall"
         android:layout_marginTop="20dp"/>
 </LinearLayout>
