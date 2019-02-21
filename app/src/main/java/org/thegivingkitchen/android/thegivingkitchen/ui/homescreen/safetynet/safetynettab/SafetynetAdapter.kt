@@ -1,7 +1,5 @@
 package org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.safetynet.safetynettab
 
-import android.os.Build
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +9,7 @@ import android.widget.TextView
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import org.thegivingkitchen.android.thegivingkitchen.R
+import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.safetynet.SocialServiceProvider
 import org.thegivingkitchen.android.thegivingkitchen.util.setTextIfItExists
 
 class SafetynetAdapter(var items: MutableList<Any>, val facebookSectionExpanded: Boolean) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

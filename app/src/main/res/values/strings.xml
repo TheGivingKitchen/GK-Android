@@ -90,6 +90,9 @@
     <string name="safetynet_tab_resources_filter_button">Filter</string>
     <string name="safetynet_tab_counties_filter_label">Show resources for</string>
     <string name="safetynet_tab_counties_filter_button">All Counties</string>
+    <string name="safetynet_bottomsheet_website_button">Visit Website</string>
+    <string name="safetynet_bottomsheet_directions_button">Get Directions</string>
+    <string name="safetynet_bottomsheet_call_button">Call</string>
 
     <!-- Facebook Groups -->
     <string name="facebook_groups_header">JOIN US ON FACEBOOK</string>

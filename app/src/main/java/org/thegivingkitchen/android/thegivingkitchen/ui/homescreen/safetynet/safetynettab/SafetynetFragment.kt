@@ -16,9 +16,12 @@ import androidx.navigation.Navigation
 import com.squareup.moshi.JsonAdapter
 import kotlinx.android.synthetic.main.fragment_safetynet.*
 import org.thegivingkitchen.android.thegivingkitchen.R
+import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.safetynet.Header
+import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.safetynet.ResourceProviderDetailsFragment
+import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.safetynet.SocialServiceProvider
+import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.safetynet.SocialServiceProvidersList
 import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.safetynet.safetynettab.SafetynetViewModel.Companion.safetynetDataUrl
 import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.safetynet.safetynettab.SafetynetViewModel.Companion.safetynetLearnMoreURL
-import org.thegivingkitchen.android.thegivingkitchen.util.Constants.givingKitchenUrl
 import org.thegivingkitchen.android.thegivingkitchen.util.CustomTabs
 import org.thegivingkitchen.android.thegivingkitchen.util.Services.firebaseInstance
 import org.thegivingkitchen.android.thegivingkitchen.util.Services.moshi
@@ -30,6 +33,7 @@ class SafetynetFragment : Fragment() {
     private lateinit var adapter: SafetynetAdapter
 
     companion object {
+        private const val TAG_RESOURCE_PROVIDER_BOTTOMSHEET = "AudienceOverviewFragment.Tag.AudienceListFragment"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -120,10 +124,9 @@ class SafetynetFragment : Fragment() {
     }
 
     private fun showProviderData(index: Int) {
-        val providerData = model.getCurrentJson().value
-        if (providerData != null) {
-            Toast.makeText(context, providerData[index].toString(), Toast.LENGTH_SHORT).show()
-        }
+        val providerData = model.getCurrentJson().value!![index]
+        val fragment = ResourceProviderDetailsFragment.newInstance(providerData)
+        fragment.show(childFragmentManager, TAG_RESOURCE_PROVIDER_BOTTOMSHEET)
     }
 
     private fun saveFacebookSectionState(expanded: Boolean) {

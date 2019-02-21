@@ -3,6 +3,7 @@ package org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.safetynet.sa
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.safetynet.SocialServiceProvider
 import org.thegivingkitchen.android.thegivingkitchen.util.Constants
 import org.thegivingkitchen.android.thegivingkitchen.util.Constants.firebaseStorageUrl
 
