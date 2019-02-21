@@ -55,7 +55,7 @@
         android:label="QuestionsContainerFragment" />
     <fragment
         android:id="@+id/facebookGroupsFragment"
-        android:name="org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.safetynet.FacebookGroupsFragment"
+        android:name="org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.safetynet.facebookgroups.FacebookGroupsFragment"
         android:label="FacebookGroupsFragment" />
     <fragment
         android:id="@+id/feedbackFragment"

@@ -82,7 +82,7 @@ class EventsFragment : Fragment() {
     private fun openLearnMoreLink() {
         CustomTabs.openCustomTab(context, eventsLearnMoreURL)
     }
-    
+
     private fun goToEventDetails(link: String) {
         CustomTabs.openCustomTab(context, link)
     }

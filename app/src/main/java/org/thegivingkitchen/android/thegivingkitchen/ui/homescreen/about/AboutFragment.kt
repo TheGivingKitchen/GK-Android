@@ -46,7 +46,7 @@ class AboutFragment : Fragment()  {
     }
 
     private val aboutUsButtonClickListener = View.OnClickListener {
-        // todo: show the How it Works pdf here
+
     }
 
     private val newsletterSignupClickListener = View.OnClickListener {
