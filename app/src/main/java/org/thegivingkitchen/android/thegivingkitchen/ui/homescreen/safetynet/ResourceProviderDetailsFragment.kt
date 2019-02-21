@@ -1,5 +1,7 @@
 package org.thegivingkitchen.android.thegivingkitchen.ui.homescreen.safetynet
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.BottomSheetDialogFragment
 import android.view.LayoutInflater
@@ -7,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_resource_provider_details.*
 import org.thegivingkitchen.android.thegivingkitchen.R
+import org.thegivingkitchen.android.thegivingkitchen.util.CustomTabs
 import org.thegivingkitchen.android.thegivingkitchen.util.setTextIfItExists
 
 class ResourceProviderDetailsFragment : BottomSheetDialogFragment() {
@@ -40,6 +43,12 @@ class ResourceProviderDetailsFragment : BottomSheetDialogFragment() {
         name_resourceProviderBottomSheet.setTextIfItExists(provider.name)
         category_resourceProviderBottomSheet.setTextIfItExists(provider.category)
         description_resourceProviderBottomSheet.setTextIfItExists(provider.description)
+        val counties = provider.countiesServed
+        if (!counties.isNullOrBlank()) {
+            counties_resourceProviderBottomSheet.text = getString(R.string.safetynet_bottomsheet_serves_counties, counties)
+        } else {
+            counties_resourceProviderBottomSheet.visibility = View.GONE
+        }
 
         var allButtonsGone = true
         val websiteLink = provider.website
@@ -49,6 +58,7 @@ class ResourceProviderDetailsFragment : BottomSheetDialogFragment() {
             website_resourceProviderBottomSheet.visibility = View.GONE
         } else {
             website_resourceProviderBottomSheet.text = websiteLink
+            websiteButton_resourceProviderBottomSheet.setOnClickListener(websiteButtonClickListener)
             allButtonsGone = false
         }
 
@@ -59,6 +69,7 @@ class ResourceProviderDetailsFragment : BottomSheetDialogFragment() {
             address_resourceProviderBottomSheet.visibility = View.GONE
         } else {
             address_resourceProviderBottomSheet.text = directions
+            directionsButton_resourceProviderBottomSheet.setOnClickListener(directionsButtonClickListener)
             allButtonsGone = false
         }
 
@@ -69,11 +80,24 @@ class ResourceProviderDetailsFragment : BottomSheetDialogFragment() {
             phone_resourceProviderBottomSheet.visibility = View.GONE
         } else {
             phone_resourceProviderBottomSheet.text = phone
+            callButton_resourceProviderBottomSheet.setOnClickListener(phoneButtonClickListener)
             allButtonsGone = false
         }
 
         if (allButtonsGone) {
             callBottomDivider_resourceProviderBottomSheet.visibility = View.GONE
         }
+    }
+
+    private val websiteButtonClickListener = View.OnClickListener {
+        CustomTabs.openCustomTab(context, provider.website!!)
+    }
+
+    private val directionsButtonClickListener = View.OnClickListener {
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + provider.address!!)))
+    }
+
+    private val phoneButtonClickListener = View.OnClickListener {
+        startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + provider.phone!!)))
     }
 }

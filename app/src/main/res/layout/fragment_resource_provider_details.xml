@@ -94,4 +94,12 @@
         android:id="@+id/callBottomDivider_resourceProviderBottomSheet"
         style="@style/DividerViewSmall" />
 
+    <TextView
+        android:id="@+id/counties_resourceProviderBottomSheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textColor="@color/dark_grey"
+        android:textSize="8pt" />
+
 </LinearLayout>
