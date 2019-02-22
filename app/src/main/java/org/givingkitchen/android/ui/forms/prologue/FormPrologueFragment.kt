@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.squareup.moshi.JsonAdapter
 import kotlinx.android.synthetic.main.fragment_form_prologue.*
 import org.givingkitchen.android.R
@@ -36,7 +37,6 @@ class FormPrologueFragment : Fragment() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // todo: set cancel button action
         super.onCreate(savedInstanceState)
         jsonAdapter = Services.moshi.adapter(Form::class.java)
         model = ViewModelProviders.of(this).get(FormPrologueViewModel::class.java)
@@ -132,6 +132,6 @@ class FormPrologueFragment : Fragment() {
     }
 
     private val cancelClickListener = View.OnClickListener {
-        Toast.makeText(context, "cancel button clicked", Toast.LENGTH_SHORT).show()
+        findNavController().navigateUp()
     }
 }
