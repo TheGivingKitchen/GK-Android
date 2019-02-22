@@ -12,6 +12,7 @@ import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_questions_container.*
 import org.givingkitchen.android.R
@@ -106,6 +107,14 @@ class QuestionsContainerFragment: Fragment(), FragmentBackPressedListener {
     private fun moveToPreviousQuestion() {
         viewPager_questionsContainer.setCurrentItem(viewPager_questionsContainer.currentItem - 1, true)
     }
+
+    private fun hideKeyboardIfShowing() {
+        val view = activity?.currentFocus
+        view?.let {
+            val imm = context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+            imm?.let { it.hideSoftInputFromWindow(view.windowToken, 0) }
+        }
+    }
     
     private val backButtonClickListener = View.OnClickListener {
         if (!onBackPressed()) {
@@ -114,6 +123,7 @@ class QuestionsContainerFragment: Fragment(), FragmentBackPressedListener {
     }
 
     private val nextButtonClickListener = View.OnClickListener {
+        hideKeyboardIfShowing()
         val currentItem = viewPager_questionsContainer.currentItem
         for (answer in questionPages[currentItem].getQuestionsAndAnswers()) {
             // todo: store these questions and answers in Room instead of shared prefs
@@ -129,7 +139,7 @@ class QuestionsContainerFragment: Fragment(), FragmentBackPressedListener {
     }
 
     private val submitButtonClickListener = View.OnClickListener {
-        // todo: make the keyboard disappear when submit or next is pressed
+        hideKeyboardIfShowing()
         var firstUnansweredPage: Int? = null
 
         for (i in 0 until questionPages.size) {
