@@ -15,7 +15,7 @@ androidExtensions {
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "org.thegivingkitchen.android.thegivingkitchen"
+        applicationId "org.givingkitchen.android"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
