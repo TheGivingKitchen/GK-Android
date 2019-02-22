@@ -18,6 +18,7 @@ class AboutFragment : Fragment()  {
 
     companion object {
         const val newsletterSignupUrl = "https://thegivingkitchen.us3.list-manage.com/subscribe?u=8ce234d2bdddfb2c1ba574d4f&id=9071a9bab9"
+        const val howItWorksPdfUrl = "https://firebasestorage.googleapis.com/v0/b/thegivingkitchen-cdd28.appspot.com/o/howitworks.pdf?alt=media&token=7bcc47e7-45f5-4b71-b4ad-9071e9d8efd8"
         const val gkContactUrl = "$givingKitchenUrl/contact"
         const val storyOneUrl = "$givingKitchenUrl/reggie-ealy"
         const val storyTwoUrl = "$givingKitchenUrl/when-irma-hit"
@@ -46,7 +47,7 @@ class AboutFragment : Fragment()  {
     }
 
     private val aboutUsButtonClickListener = View.OnClickListener {
-
+        CustomTabs.openCustomTab(context, howItWorksPdfUrl)
     }
 
     private val newsletterSignupClickListener = View.OnClickListener {
