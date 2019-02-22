@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.squareup.moshi.JsonAdapter
 import kotlinx.android.synthetic.main.fragment_form_prologue.*
 import org.givingkitchen.android.R
@@ -36,17 +37,9 @@ class FormPrologueFragment : Fragment() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // todo: set cancel button action
         super.onCreate(savedInstanceState)
         jsonAdapter = Services.moshi.adapter(Form::class.java)
         model = ViewModelProviders.of(this).get(FormPrologueViewModel::class.java)
-        model.getCurrentJson().observe(this, Observer<Form> { liveData ->
-            updateJson(liveData!!)
-        })
-        model.isProgressBarVisible().observe(this, Observer<Boolean> { liveData ->
-            updateProgressBarVisibility(liveData!!)
-        })
-        getData()
     }
 
     @Nullable
@@ -57,6 +50,14 @@ class FormPrologueFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        model.getCurrentJson().observe(this, Observer<Form> { liveData ->
+            updateJson(liveData!!)
+        })
+        model.isProgressBarVisible().observe(this, Observer<Boolean> { liveData ->
+            updateProgressBarVisibility(liveData!!)
+        })
+        getData()
+
         shareButton_formsPrologue.setOnClickListener(shareClickListener)
         cancel_formsPrologue.setOnClickListener(cancelClickListener)
         startButton_formsPrologue.setOnClickListener(startButtonClickListener)
@@ -131,6 +132,6 @@ class FormPrologueFragment : Fragment() {
     }
 
     private val cancelClickListener = View.OnClickListener {
-        Toast.makeText(context, "cancel button clicked", Toast.LENGTH_SHORT).show()
+        findNavController().navigateUp()
     }
 }

@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_feedback.*
 import org.givingkitchen.android.R
 
@@ -22,13 +23,18 @@ class FeedbackFragment: Fragment()  {
         submit_feedbackScreen.setOnClickListener(submitButtonClickListener)
     }
 
+    private fun navigateUp() {
+        findNavController().navigateUp()
+    }
+
     private val upButtonClickListener = View.OnClickListener {
-        // todo: put an onBackPressed() call here
+        navigateUp()
     }
 
     private val submitButtonClickListener = View.OnClickListener {
         // todo: actually submit the feedback
         val a = SubmitFeedbackDialogFragment()
+        a.setOnCompleteListener { navigateUp() }
         a.show(fragmentManager, "Feedback_Submit_Success")
     }
 }

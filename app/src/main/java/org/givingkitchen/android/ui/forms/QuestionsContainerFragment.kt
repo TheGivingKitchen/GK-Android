@@ -12,12 +12,15 @@ import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_questions_container.*
 import org.givingkitchen.android.R
-import org.givingkitchen.android.ui.forms.prologue.FormPrologueFragment
 import org.givingkitchen.android.ui.forms.page.FormPageFragment
+import org.givingkitchen.android.ui.forms.prologue.FormPrologueFragment
+import org.givingkitchen.android.util.FragmentBackPressedListener
 
-class QuestionsContainerFragment: Fragment() {
+class QuestionsContainerFragment: Fragment(), FragmentBackPressedListener {
     private lateinit var questionPages: List<FormPageFragment>
     private lateinit var model: QuestionsContainerViewModel
 
@@ -69,6 +72,16 @@ class QuestionsContainerFragment: Fragment() {
         backButtonIcon_questionsContainer.setOnClickListener(backButtonClickListener)
     }
 
+    override fun onBackPressed(): Boolean {
+        return if (showingFirstQuestion()) {
+            // Already on the first page, fall back to default back press handling
+            false
+        } else {
+            moveToPreviousQuestion()
+            true
+        }
+    }
+
     private fun updateForwardButton(state: QuestionsContainerViewModel.Companion.ForwardButtonState) {
         val forwardButtonClickAction: View.OnClickListener = when (state) {
             QuestionsContainerViewModel.Companion.ForwardButtonState.NEXT -> {
@@ -81,18 +94,36 @@ class QuestionsContainerFragment: Fragment() {
         nextButton_questionsContainer.setOnClickListener(forwardButtonClickAction)
         nextButton_questionsContainer.text = getString(state.text)
     }
+
+    private fun showingFirstQuestion(): Boolean {
+        return viewPager_questionsContainer.currentItem == 0
+    }
+
+    private fun moveToNextQuestion() {
+        val currentItem = viewPager_questionsContainer.currentItem
+        viewPager_questionsContainer.setCurrentItem(currentItem + 1, true)
+    }
+
+    private fun moveToPreviousQuestion() {
+        viewPager_questionsContainer.setCurrentItem(viewPager_questionsContainer.currentItem - 1, true)
+    }
+
+    private fun hideKeyboardIfShowing() {
+        val view = activity?.currentFocus
+        view?.let {
+            val imm = context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+            imm?.let { it.hideSoftInputFromWindow(view.windowToken, 0) }
+        }
+    }
     
     private val backButtonClickListener = View.OnClickListener {
-        // viewPager_questionsContainer.setCurrentItem(viewPager_questionsContainer.currentItem - 1, true)
-
-        val questionPage = questionPages[viewPager_questionsContainer.currentItem]
-
-        if (!questionPage.areAllQuestionsAnswered()) {
-            questionPage.placeQuestionUnansweredWarnings()
+        if (!onBackPressed()) {
+            findNavController().navigateUp()
         }
     }
 
     private val nextButtonClickListener = View.OnClickListener {
+        hideKeyboardIfShowing()
         val currentItem = viewPager_questionsContainer.currentItem
         for (answer in questionPages[currentItem].getQuestionsAndAnswers()) {
             // todo: store these questions and answers in Room instead of shared prefs
@@ -104,12 +135,11 @@ class QuestionsContainerFragment: Fragment() {
                 }
             }
         }
-
-        viewPager_questionsContainer.setCurrentItem(currentItem + 1, true)
+        moveToNextQuestion()
     }
 
     private val submitButtonClickListener = View.OnClickListener {
-        // todo: make the keyboard disappear when submit or next is pressed
+        hideKeyboardIfShowing()
         var firstUnansweredPage: Int? = null
 
         for (i in 0 until questionPages.size) {
