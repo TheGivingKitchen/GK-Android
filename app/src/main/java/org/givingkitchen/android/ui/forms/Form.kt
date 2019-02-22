@@ -21,6 +21,7 @@ data class Question(val Title: String?,
                     val Type: QuestionType?,
                     val SubFields: List<SubField>? = listOf(),
                     val Choices: List<Choice>? = listOf(),
+                    val ID: String,
                     val HasOtherField: Boolean): Parcelable
 
 @Parcelize

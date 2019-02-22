@@ -17,8 +17,10 @@ import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_questions_container.*
 import org.givingkitchen.android.R
 import org.givingkitchen.android.ui.forms.page.FormPageFragment
+import org.givingkitchen.android.ui.forms.page.QuestionResponse
 import org.givingkitchen.android.ui.forms.prologue.FormPrologueFragment
 import org.givingkitchen.android.util.FragmentBackPressedListener
+import org.givingkitchen.android.util.Services.moshi
 
 class QuestionsContainerFragment: Fragment(), FragmentBackPressedListener {
     private lateinit var questionPages: List<FormPageFragment>
@@ -125,12 +127,12 @@ class QuestionsContainerFragment: Fragment(), FragmentBackPressedListener {
     private val nextButtonClickListener = View.OnClickListener {
         hideKeyboardIfShowing()
         val currentItem = viewPager_questionsContainer.currentItem
-        for (answer in questionPages[currentItem].getQuestionsAndAnswers()) {
+        for (answer in questionPages[currentItem].getQuestionResponses()) {
             // todo: store these questions and answers in Room instead of shared prefs
             val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
             if (sharedPref != null) {
                 with (sharedPref.edit()) {
-                    putString(answer.first, answer.second)
+                    putString(answer.question, answer.answer)
                     apply()
                 }
             }
@@ -156,7 +158,15 @@ class QuestionsContainerFragment: Fragment(), FragmentBackPressedListener {
         if (firstUnansweredPage != null) {
             viewPager_questionsContainer.setCurrentItem(firstUnansweredPage, true)
         } else {
-            // todo: submit the form
+            val submissionAnswers = arrayListOf<QuestionResponse>()
+
+            for (i in 0 until questionPages.size) {
+                submissionAnswers.addAll(questionPages[i].getQuestionResponses())
+            }
+
+            val submission = submissionAnswers.map { AnswerDictionaryEntry(it.id, it.answer) }
+            val jsonAdapter = moshi.adapter(AnswerDictionary::class.java)
+            val output = jsonAdapter.toJson(AnswerDictionary(submission))
         }
     }
 
@@ -168,3 +178,6 @@ class QuestionsContainerFragment: Fragment(), FragmentBackPressedListener {
         }
     }
 }
+
+class AnswerDictionaryEntry(val id: String, val answer: String)
+class AnswerDictionary(val entries: List<AnswerDictionaryEntry>)

@@ -71,19 +71,20 @@ class FormPageFragment : Fragment() {
         }
     }
 
-    fun getQuestionsAndAnswers(): List<Pair<String, String>> {
-        val questionsAndAnswers = arrayListOf<Pair<String, String>>()
+    fun getQuestionResponses(): List<QuestionResponse> {
+        val questionResponses = arrayListOf<QuestionResponse>()
 
         for (questionView in questionsWithViews) {
+            val questionId = questionView.question.ID
             val questionTitle = questionView.question.Title
             val questionAnswer = questionView.questionView.getAnswer()
 
             if (questionTitle != null && questionAnswer != null) {
-                questionsAndAnswers.add(Pair(questionTitle, questionAnswer))
+                questionResponses.add(QuestionResponse(questionId, questionTitle, questionAnswer))
             }
         }
 
-        return questionsAndAnswers
+        return questionResponses
     }
 
     fun areAllQuestionsAnswered(): Boolean {
@@ -171,3 +172,5 @@ class FormPageFragment : Fragment() {
         return if (title != null && isRequired != null && isRequired == "1") "$title*" else title
     }
 }
+
+class QuestionResponse(val id: String, val question: String, val answer: String)
