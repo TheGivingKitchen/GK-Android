@@ -19,7 +19,7 @@ class SafetynetViewModel : ViewModel() {
     fun getCurrentJson(): LiveData<List<SocialServiceProvider>> {
         return currentJson
     }
- 
+  
     fun setCurrentJson(data: List<SocialServiceProvider>) {
         currentJson.value = data
     }
