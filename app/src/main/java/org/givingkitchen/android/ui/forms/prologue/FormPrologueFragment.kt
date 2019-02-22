@@ -40,13 +40,6 @@ class FormPrologueFragment : Fragment() {
         super.onCreate(savedInstanceState)
         jsonAdapter = Services.moshi.adapter(Form::class.java)
         model = ViewModelProviders.of(this).get(FormPrologueViewModel::class.java)
-        model.getCurrentJson().observe(this, Observer<Form> { liveData ->
-            updateJson(liveData!!)
-        })
-        model.isProgressBarVisible().observe(this, Observer<Boolean> { liveData ->
-            updateProgressBarVisibility(liveData!!)
-        })
-        getData()
     }
 
     @Nullable
@@ -57,6 +50,14 @@ class FormPrologueFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        model.getCurrentJson().observe(this, Observer<Form> { liveData ->
+            updateJson(liveData!!)
+        })
+        model.isProgressBarVisible().observe(this, Observer<Boolean> { liveData ->
+            updateProgressBarVisibility(liveData!!)
+        })
+        getData()
+
         shareButton_formsPrologue.setOnClickListener(shareClickListener)
         cancel_formsPrologue.setOnClickListener(cancelClickListener)
         startButton_formsPrologue.setOnClickListener(startButtonClickListener)
