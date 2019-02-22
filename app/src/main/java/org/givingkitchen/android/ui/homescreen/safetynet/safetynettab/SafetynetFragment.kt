@@ -8,9 +8,10 @@ import android.support.annotation.Nullable
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.ViewGroup
+import android.support.v7.widget.SearchView
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.Navigation
 import com.squareup.moshi.JsonAdapter
@@ -25,12 +26,17 @@ import org.givingkitchen.android.ui.homescreen.safetynet.safetynettab.SafetynetV
 import org.givingkitchen.android.util.CustomTabs
 import org.givingkitchen.android.util.Services.firebaseInstance
 import org.givingkitchen.android.util.Services.moshi
-import java.io.*
+import java.io.BufferedReader
+import java.io.File
+import java.io.FileReader
+import java.io.IOException
 
 class SafetynetFragment : Fragment() {
     private lateinit var jsonAdapter: JsonAdapter<SocialServiceProvidersList>
     private lateinit var model: SafetynetViewModel
     private lateinit var adapter: SafetynetAdapter
+    private var serverJson: MutableList<Any>? = null
+    private var searchText: String? = null
 
     companion object {
         private const val TAG_RESOURCE_PROVIDER_BOTTOMSHEET = "AudienceOverviewFragment.Tag.AudienceListFragment"
@@ -41,12 +47,13 @@ class SafetynetFragment : Fragment() {
         model = ViewModelProviders.of(this).get(SafetynetViewModel::class.java)
         jsonAdapter = moshi.adapter(SocialServiceProvidersList::class.java)
 
-        val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE) ?: return
+        val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+                ?: return
         val facebookSectionExpanded = sharedPref.getBoolean(getString(R.string.facebook_groups_expanded_key), true)
 
         adapter = SafetynetAdapter(mutableListOf(), facebookSectionExpanded)
         model.getCurrentJson().observe(this, Observer<List<SocialServiceProvider>> { liveData ->
-            updateJson(liveData!!)
+            setServerJson(liveData!!)
         })
         model.isProgressBarVisible().observe(this, Observer<Boolean> { liveData ->
             updateProgressBarVisibility(liveData!!)
@@ -70,6 +77,8 @@ class SafetynetFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         recyclerView_safetynetTab.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         recyclerView_safetynetTab.adapter = adapter
+        searchText = searchView_safetynetTab.query.toString()
+        searchView_safetynetTab.setOnQueryTextListener(SearchTextListener())
     }
 
     private fun getData() {
@@ -107,12 +116,51 @@ class SafetynetFragment : Fragment() {
                 }
     }
 
-    private fun updateJson(data: List<SocialServiceProvider>) {
+    private fun setServerJson(data: List<SocialServiceProvider>) {
         val dataMutableList = data.toMutableList<Any>()
+        serverJson = dataMutableList
+        model.setProgressBarVisibility(false)
+        setDefaultResults()
+    }
+
+    // Filters results based on searchText. Hides header if searchText is present.
+    private fun setAdapterResults() {
+        setDefaultResults()
+        if (!searchText.isNullOrEmpty()) {
+            adapter.items = adapter.items.filter {
+                it is SocialServiceProvider
+                        && (searchFields(it.description)
+                        || searchFields(it.address)
+                        || searchFields(it.category)
+                        || searchFields(it.contactName)
+                        || searchFields(it.countiesServed)
+                        || searchFields(it.name)
+                        || searchFields(it.phone)
+                        || searchFields(it.website))
+            }.toMutableList()
+            adapter.notifyDataSetChanged()
+        }
+    }
+
+    private fun searchFields(responseString: String?): Boolean {
+        val immutableSearchText = searchText
+        return !immutableSearchText.isNullOrBlank()
+                && responseString != null
+                && responseString.toUpperCase().contains(immutableSearchText.toUpperCase())
+    }
+
+    // Show header and serverJson
+    private fun setDefaultResults() {
+        // This can occur upon recreation due to SearchTextListener
+        if (serverJson == null) {
+            return
+        }
+
+        adapter.items.clear()
+        val dataMutableList = serverJson!!.toMutableList()
         dataMutableList.add(0, Header())
         adapter.items = dataMutableList
         adapter.notifyDataSetChanged()
-        model.setProgressBarVisibility(false)
     }
 
     private fun openLearnMoreLink() {
@@ -120,7 +168,7 @@ class SafetynetFragment : Fragment() {
     }
 
     private fun goToFacebookGroupsScreen() {
-        Navigation.findNavController(getView()!!).navigate(R.id.facebookGroupsFragment)
+        Navigation.findNavController(view!!).navigate(R.id.facebookGroupsFragment)
     }
 
     private fun showProviderData(index: Int) {
@@ -131,8 +179,9 @@ class SafetynetFragment : Fragment() {
 
     private fun saveFacebookSectionState(expanded: Boolean) {
         // todo: troubleshoot this
-        val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE) ?: return
-        with (sharedPref.edit()) {
+        val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+                ?: return
+        with(sharedPref.edit()) {
             putBoolean(getString(R.string.facebook_groups_expanded_key), expanded)
             apply()
         }
@@ -150,10 +199,24 @@ class SafetynetFragment : Fragment() {
         when (visibility) {
             true -> {
                 progressBar_safetynetTab.visibility = View.VISIBLE
+                searchView_safetynetTab.visibility = View.GONE
             }
             false -> {
                 progressBar_safetynetTab.visibility = View.GONE
+                searchView_safetynetTab.visibility = View.VISIBLE
             }
+        }
+    }
+
+    private inner class SearchTextListener : SearchView.OnQueryTextListener {
+        override fun onQueryTextChange(text: String?): Boolean {
+            searchText = text
+            setAdapterResults()
+            return true
+        }
+
+        override fun onQueryTextSubmit(text: String?): Boolean {
+            return true
         }
     }
 }

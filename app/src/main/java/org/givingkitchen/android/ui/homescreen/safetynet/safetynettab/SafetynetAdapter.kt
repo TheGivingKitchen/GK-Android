@@ -9,6 +9,7 @@ import android.widget.TextView
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import org.givingkitchen.android.R
+import org.givingkitchen.android.ui.homescreen.safetynet.Header
 import org.givingkitchen.android.ui.homescreen.safetynet.SocialServiceProvider
 import org.givingkitchen.android.util.setTextIfItExists
 
@@ -27,13 +28,10 @@ class SafetynetAdapter(var items: MutableList<Any>, val facebookSectionExpanded:
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when (position) {
-            0 -> {
-                VIEW_TYPE_HEADER
-            }
-            else -> {
-                VIEW_TYPE_SERVICE_PROVIDER
-            }
+        return if (items[position] is Header) {
+            VIEW_TYPE_HEADER
+        } else {
+            VIEW_TYPE_SERVICE_PROVIDER
         }
     }
 
