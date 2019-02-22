@@ -12,12 +12,14 @@ import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_questions_container.*
 import org.givingkitchen.android.R
-import org.givingkitchen.android.ui.forms.prologue.FormPrologueFragment
 import org.givingkitchen.android.ui.forms.page.FormPageFragment
+import org.givingkitchen.android.ui.forms.prologue.FormPrologueFragment
+import org.givingkitchen.android.util.FragmentBackPressedListener
 
-class QuestionsContainerFragment: Fragment() {
+class QuestionsContainerFragment: Fragment(), FragmentBackPressedListener {
     private lateinit var questionPages: List<FormPageFragment>
     private lateinit var model: QuestionsContainerViewModel
 
@@ -69,6 +71,16 @@ class QuestionsContainerFragment: Fragment() {
         backButtonIcon_questionsContainer.setOnClickListener(backButtonClickListener)
     }
 
+    override fun onBackPressed(): Boolean {
+        return if (showingFirstQuestion()) {
+            // Already on the first page, fall back to default back press handling
+            false
+        } else {
+            moveToPreviousQuestion()
+            true
+        }
+    }
+
     private fun updateForwardButton(state: QuestionsContainerViewModel.Companion.ForwardButtonState) {
         val forwardButtonClickAction: View.OnClickListener = when (state) {
             QuestionsContainerViewModel.Companion.ForwardButtonState.NEXT -> {
@@ -81,14 +93,23 @@ class QuestionsContainerFragment: Fragment() {
         nextButton_questionsContainer.setOnClickListener(forwardButtonClickAction)
         nextButton_questionsContainer.text = getString(state.text)
     }
+
+    private fun showingFirstQuestion(): Boolean {
+        return viewPager_questionsContainer.currentItem == 0
+    }
+
+    private fun moveToNextQuestion() {
+        val currentItem = viewPager_questionsContainer.currentItem
+        viewPager_questionsContainer.setCurrentItem(currentItem + 1, true)
+    }
+
+    private fun moveToPreviousQuestion() {
+        viewPager_questionsContainer.setCurrentItem(viewPager_questionsContainer.currentItem - 1, true)
+    }
     
     private val backButtonClickListener = View.OnClickListener {
-        // viewPager_questionsContainer.setCurrentItem(viewPager_questionsContainer.currentItem - 1, true)
-
-        val questionPage = questionPages[viewPager_questionsContainer.currentItem]
-
-        if (!questionPage.areAllQuestionsAnswered()) {
-            questionPage.placeQuestionUnansweredWarnings()
+        if (!onBackPressed()) {
+            findNavController().navigateUp()
         }
     }
 
@@ -104,8 +125,7 @@ class QuestionsContainerFragment: Fragment() {
                 }
             }
         }
-
-        viewPager_questionsContainer.setCurrentItem(currentItem + 1, true)
+        moveToNextQuestion()
     }
 
     private val submitButtonClickListener = View.OnClickListener {
