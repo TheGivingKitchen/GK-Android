@@ -33,8 +33,8 @@ class FeedbackFragment: Fragment()  {
 
     private val submitButtonClickListener = View.OnClickListener {
         // todo: actually submit the feedback
-        val a = SubmitFeedbackDialogFragment()
-        a.setOnCompleteListener { navigateUp() }
-        a.show(fragmentManager, "Feedback_Submit_Success")
+        val dialog = SubmitFeedbackDialogFragment()
+        dialog.setOnCompleteListener { navigateUp() }
+        dialog.show(fragmentManager, "Feedback_Submit_Success")
     }
 }

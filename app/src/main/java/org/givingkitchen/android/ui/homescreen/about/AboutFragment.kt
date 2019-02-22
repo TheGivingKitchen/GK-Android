@@ -89,7 +89,6 @@ class AboutFragment : Fragment()  {
             type = "text/plain"
         }
 
-        // todo: see if the email app opens on a real device
         if (emailIntent.resolveActivity(context!!.packageManager) != null) {
             startActivity(emailIntent)
         } else {
