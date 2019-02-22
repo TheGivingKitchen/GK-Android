@@ -79,8 +79,8 @@
     <string name="assistance_tab_start_inquiry_description">You can start an assistance inquiry for yourself, or for someone else.</string>
     <string name="assistance_tab_learn_more">Learn more</string>
 
-    <!-- Safetynet Tab -->
-    <string name="safetynet_tab_header_description">SafetyNet is a network of local resources providing aid. If the Giving Kitchen is unable to assist, these local heroes are here to help.</string>
+    <!-- Resources Tab -->
+    <string name="safetynet_tab_header_description">Stability Network is a network of local resources providing aid. If the Giving Kitchen is unable to assist, these local heroes are here to help.</string>
     <string name="safetynet_tab_learn_more">Learn more</string>
     <string name="safetynet_tab_facebook_description">Join our Food Service Workers group on Facebook</string>
     <string name="safetynet_tab_groups_description">Our groups are places to share industry events, community resources (including job postings), and best practices.</string>
@@ -122,36 +122,9 @@
     <string name="volunteer_form_subtitle">Join the Almighty\nGiving Team!</string>
     <string name="volunteer_form_description">Thanks for your interest in volunteering!\nPlease fill this out and we\'ll contact you soon about upcoming opportunities!</string>
 
-    <!-- Safetynet Form -->
-    <string name="safetynet_form_title">SAFETYNET PARTNER</string>
-    <string name="safetynet_form_subtitle">Join our forces!</string>
-    <string name="safetynet_form_description">The mission of the Giving Kitchen is to provide emergency assistance to food service workers through financial
-    support and a network of community resources.\n\nWhile much of our energy, time, and resources are focused on GK signature events like Team Hidi, The Pinky, and Multiply Joy, we recognize that the core
-    strength of our organization lies in support from our industry, supplier partners, and community advocates. We also know there are many causes worthy of your
-    support. By focusing our resources in a few areas, we feel our impact to the food service community is much greater.\n\nWe hate to put you "through the hoops" whenyou are eager to partner with us,
-        but this system helps us immensely with our decision-making andrecord-keeping process. We appreciate your commitment and timein supporting our efforts
-        to make effective decisions toward the bettermentof our industry.</string>
-
-    <!-- Assistance Inquiry Form -->
-    <string name="assistance_inquiry_form_title">ASSISTANCE INQUIRY</string>
-    <string name="assistance_inquiry_form_subtitle">Do you need help?</string>
-    <string name="assistance_inquiry_form_description">Our Crisis Grants program currently serve food service workers living in Metro Atlanta, Athens,
-    Columbus, and Rome. Grants are awarded based on the food service worker\'s financial need as well as a set of criteria according to the type of crisis.
-    Most often, our financial assistance covers the cost of rent and utilities, paid directly to the service provider(s). Applications are reviewed by Giving Kitchen
-    staff and a review committee consisting of GK board members. The average time to fully process an application from beginning to end is three weeks.
-        \n\nPlease note: we do not pay medical expenses.</string>
-
     <!-- Events Tab -->
     <string name="crisis_survey_header_you">you</string>
     <string name="crisis_survey_header_they">they</string>
-
-    <!-- Assistance Referral Form -->
-    <string name="assistance_referral_form_title">ASSISTANCE INQUIRY REFERRAL</string>
-    <string name="assistance_referral_form_subtitle">Does someone you know\nneed help?</string>
-    <string name="assistance_referral_form_description">Our Crisis Grants program currently serve food service workers living in Metro Atlanta, Athens,
-    Columbus, and Rome. Grants are awarded based on the food service worker\'s financial need as well as a set of criteria according to the type of crisis.
-    Most often, our financial assistance covers the cost of rent and utilities, paid directly to the service provider(s). Applications are reviewed by Giving Kitchen
-    staff and a review committee consisting of GK board members. The average time to fully process an application from beginning to end is three weeks.\n\nPlease note: we do not pay medical expenses.</string>
 
     <!-- Content Descriptions -->
     <string name="give_tab_examples_left_chevron">Reduce the suggested donation amount</string>
