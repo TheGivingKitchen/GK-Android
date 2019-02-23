@@ -6,7 +6,7 @@ import android.arch.lifecycle.ViewModel
 import android.support.annotation.StringRes
 import org.givingkitchen.android.R
 
-class QuestionsContainerViewModel : ViewModel() {
+class FormContainerViewModel : ViewModel() {
     companion object {
         enum class ForwardButtonState(@StringRes val text: Int) {
             NEXT(R.string.forms_questions_next),
