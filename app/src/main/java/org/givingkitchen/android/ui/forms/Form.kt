@@ -4,12 +4,13 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 import org.givingkitchen.android.ui.forms.page.QuestionType
 
+@Parcelize
 class Form(val ID: String?,
            val FormTitle: String?,
            val FormSubtitle: String?,
            val FormMetadata: String?,
            val FormShareString: String?,
-           val Pages: List<Page>? = listOf())
+           val Pages: List<Page>? = listOf()): Parcelable
 
 @Parcelize
 data class Page(val pageInformation: String?,

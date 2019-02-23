@@ -30,10 +30,10 @@ class FormPrologueFragment : Fragment() {
     private lateinit var model: FormPrologueViewModel
     private lateinit var jsonAdapter: JsonAdapter<Form>
     private var shareString: String? = ""
-    private var questionPages = listOf<Page>()
+    private var form: Form? = null
 
     companion object {
-        const val questionPagesArg = "questionPages"
+        const val formArg = "formPages"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -100,9 +100,7 @@ class FormPrologueFragment : Fragment() {
         subtitle_formsPrologue.setTextIfItExists(data.FormSubtitle)
         description_formsPrologue.setTextIfItExists(data.FormMetadata)
         shareString = data.FormShareString + " " + formShareWufooUrl + data.ID
-        if (data.Pages != null) {
-            questionPages = data.Pages
-        }
+        form = data
         startButton_formsPrologue.visibility = View.VISIBLE
         shareButton_formsPrologue.visibility = View.VISIBLE
         model.setProgressBarVisibility(false)
@@ -120,9 +118,13 @@ class FormPrologueFragment : Fragment() {
     }
 
     private val startButtonClickListener = View.OnClickListener {
-        val args = Bundle()
-        args.putParcelableArrayList(questionPagesArg, ArrayList(questionPages))
-        Navigation.findNavController(view!!).navigate(R.id.questionsContainerFragment, args)
+        if (form != null && form!!.Pages != null) {
+            val args = Bundle()
+            args.putParcelable(formArg, form)
+            Navigation.findNavController(view!!).navigate(R.id.questionsContainerFragment, args)
+        } else {
+            Toast.makeText(context, getString(R.string.base_forms_prologue_error), Toast.LENGTH_SHORT).show()
+        }
     }
 
     private val shareClickListener = View.OnClickListener {

@@ -73,10 +73,10 @@ class EventViewHolder(val view: View, private val clicks: PublishSubject<String>
         // url must be https
         var httpsUrl = ""
         if (url != null) {
-            if (url.startsWith("https")) {
-                httpsUrl = url
+            httpsUrl = if (url.startsWith("https")) {
+                url
             } else {
-                httpsUrl = url.substring(0, 4) + "s" + url.substring(4)
+                url.substring(0, 4) + "s" + url.substring(4)
             }
         }
 

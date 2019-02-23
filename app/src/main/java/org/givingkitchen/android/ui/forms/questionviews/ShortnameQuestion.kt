@@ -17,6 +17,17 @@ class ShortnameQuestion(title: String?, answer: String? = null, context: Context
         layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         this.orientation = VERTICAL
         title_shortnameQuestion.setTextIfItExists(title)
+        if (!answer.isNullOrBlank()) {
+            val name = answer.split(",")
+            if (!name.isNullOrEmpty()) {
+                // an example answer is "[firstName, lastName]", so we need to remove the brackets and the space between names
+                firstName_shortnameQuestion.setText(name[0].substringAfter('['))
+                if (name.size > 1) {
+                    val lastName = name[1]
+                    lastName_shortnameQuestion.setText(lastName.substringAfter(' ').substringBeforeLast(']'))
+                }
+            }
+        }
     }
 
     override fun isAnswered(): Boolean {

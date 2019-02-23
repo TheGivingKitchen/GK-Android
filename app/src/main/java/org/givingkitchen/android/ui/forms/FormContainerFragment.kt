@@ -24,6 +24,7 @@ import org.givingkitchen.android.util.Services.moshi
 
 class FormContainerFragment: Fragment(), FragmentBackPressedListener {
     private lateinit var questionPages: List<FormPageFragment>
+    private lateinit var formId: String
     private lateinit var model: FormContainerViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,8 +32,9 @@ class FormContainerFragment: Fragment(), FragmentBackPressedListener {
         model = ViewModelProviders.of(this).get(FormContainerViewModel::class.java)
 
         if (arguments != null) {
-            val questions = arguments!!.getParcelableArrayList<Page>(FormPrologueFragment.questionPagesArg)!!.toList()
-            questionPages = questions.map { FormPageFragment.newInstance(it) }
+            val form = arguments!!.getParcelable<Form>(FormPrologueFragment.formArg)
+            questionPages = form!!.Pages!!.map { FormPageFragment.newInstance(it) }
+            formId = form.ID!!
         }
 
         model.getForwardButtonState().observe(this, Observer<FormContainerViewModel.Companion.ForwardButtonState> { forwardButtonState ->
@@ -117,7 +119,7 @@ class FormContainerFragment: Fragment(), FragmentBackPressedListener {
             imm?.let { it.hideSoftInputFromWindow(view.windowToken, 0) }
         }
     }
-    
+
     private val backButtonClickListener = View.OnClickListener {
         if (!onBackPressed()) {
             findNavController().navigateUp()

@@ -25,11 +25,11 @@ class GiveFragment : Fragment() {
     private lateinit var model: GiveViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         model = ViewModelProviders.of(this).get(GiveViewModel::class.java)
         model.getCurrentDonationData().observe(this, Observer<GiveViewModel.DonationExampleLiveData> { liveData ->
             updateDonationExamples(liveData!!)
         })
-        super.onCreate(savedInstanceState)
     }
 
     @Nullable
@@ -48,6 +48,9 @@ class GiveFragment : Fragment() {
         volunteer_button_giveTab.setOnClickListener(volunteerButtonClickListener)
         partner_button_giveTab.setOnClickListener(partnerButtonClickListener)
         joinOurForcesButton_giveTab.setOnClickListener(joinForcesButtonClickListener)
+        // todo: this introduces a bug where the field will be blank if the user
+        // is on the last item, and then navigates out and comes back into this screen
+        model.onRightArrowClicked()
     }
 
     private val creditCardDonationClickListener = View.OnClickListener {

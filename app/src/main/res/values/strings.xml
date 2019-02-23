@@ -116,6 +116,7 @@
     <string name="base_forms_prologue_cancel">Cancel</string>
     <string name="base_forms_prologue_start">Start</string>
     <string name="base_forms_prologue_share">SHARE THIS FORM</string>
+    <string name="base_forms_prologue_error">We apologize, we can\'t access this form right now</string>
 
     <!-- Volunteer Form -->
     <string name="volunteer_form_title">VOLUNTEER SIGNUP</string>
