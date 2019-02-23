@@ -51,7 +51,7 @@
     </fragment>
     <fragment
         android:id="@+id/questionsContainerFragment"
-        android:name="org.givingkitchen.android.ui.forms.QuestionsContainerFragment"
+        android:name="org.givingkitchen.android.ui.forms.FormContainerFragment"
         android:label="QuestionsContainerFragment" />
     <fragment
         android:id="@+id/facebookGroupsFragment"

@@ -22,7 +22,7 @@ import org.givingkitchen.android.ui.forms.prologue.FormPrologueFragment
 import org.givingkitchen.android.util.FragmentBackPressedListener
 import org.givingkitchen.android.util.Services.moshi
 
-class QuestionsContainerFragment: Fragment(), FragmentBackPressedListener {
+class FormContainerFragment: Fragment(), FragmentBackPressedListener {
     private lateinit var questionPages: List<FormPageFragment>
     private lateinit var model: FormContainerViewModel
 
