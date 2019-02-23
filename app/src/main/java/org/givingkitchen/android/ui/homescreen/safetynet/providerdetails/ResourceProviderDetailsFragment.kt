@@ -1,4 +1,4 @@
-package org.givingkitchen.android.ui.homescreen.safetynet
+package org.givingkitchen.android.ui.homescreen.safetynet.providerdetails
 
 import android.content.Intent
 import android.net.Uri
@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_resource_provider_details.*
 import org.givingkitchen.android.R
+import org.givingkitchen.android.ui.homescreen.safetynet.SocialServiceProvider
 import org.givingkitchen.android.util.CustomTabs
 import org.givingkitchen.android.util.setTextIfItExists
 

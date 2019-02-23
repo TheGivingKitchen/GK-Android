@@ -18,7 +18,7 @@ import com.squareup.moshi.JsonAdapter
 import kotlinx.android.synthetic.main.fragment_safetynet.*
 import org.givingkitchen.android.R
 import org.givingkitchen.android.ui.homescreen.safetynet.Header
-import org.givingkitchen.android.ui.homescreen.safetynet.ResourceProviderDetailsFragment
+import org.givingkitchen.android.ui.homescreen.safetynet.providerdetails.ResourceProviderDetailsFragment
 import org.givingkitchen.android.ui.homescreen.safetynet.SocialServiceProvider
 import org.givingkitchen.android.ui.homescreen.safetynet.SocialServiceProvidersList
 import org.givingkitchen.android.ui.homescreen.safetynet.safetynettab.SafetynetViewModel.Companion.safetynetDataUrl
@@ -200,10 +200,12 @@ class SafetynetFragment : Fragment() {
             true -> {
                 progressBar_safetynetTab.visibility = View.VISIBLE
                 searchView_safetynetTab.visibility = View.GONE
+                searchViewDivider_safetynetTab.visibility = View.GONE
             }
             false -> {
                 progressBar_safetynetTab.visibility = View.GONE
                 searchView_safetynetTab.visibility = View.VISIBLE
+                searchViewDivider_safetynetTab.visibility = View.VISIBLE
             }
         }
     }
