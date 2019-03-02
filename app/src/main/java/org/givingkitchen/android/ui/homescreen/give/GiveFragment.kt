@@ -20,8 +20,6 @@ import org.givingkitchen.android.util.CustomTabs
 import org.givingkitchen.android.util.getFloatDimension
 
 class GiveFragment : Fragment() {
-    // todo: use url warming service for chrome custom tabs
-
     private lateinit var model: GiveViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {

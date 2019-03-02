@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.crashlytics.android.Crashlytics
 import kotlinx.android.synthetic.main.fragment_form_question.*
 import org.givingkitchen.android.R
 import org.givingkitchen.android.ui.forms.Page
@@ -65,7 +66,7 @@ class FormPageFragment : Fragment() {
                     container_formQuestion.addView(questionView)
                     questionsWithViews.add(QuestionWithView(question, questionView as QuestionView))
                 } else {
-                    // todo: log unexpected question type crash
+                    Crashlytics.log("Encountered unexpected question type: $question")
                 }
             }
         }

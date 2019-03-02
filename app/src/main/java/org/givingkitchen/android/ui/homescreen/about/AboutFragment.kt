@@ -68,7 +68,6 @@ class AboutFragment : Fragment()  {
 
     private val feedbackPositiveClickListener = View.OnClickListener {
         // todo: pop up a dialog before sending the user to the Play Store
-        // todo: make sure this works once app is on the Play Store
         val appPackageName = context!!.packageName
         try {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$appPackageName")))

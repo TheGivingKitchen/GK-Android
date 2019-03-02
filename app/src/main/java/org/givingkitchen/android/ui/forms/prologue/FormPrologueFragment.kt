@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import com.crashlytics.android.Crashlytics
 import com.squareup.moshi.JsonAdapter
 import kotlinx.android.synthetic.main.fragment_form_prologue.*
 import org.givingkitchen.android.R
@@ -69,7 +70,8 @@ class FormPrologueFragment : Fragment() {
 
         // todo: delete this file when done
         if (arguments != null) {
-            Services.firebaseInstance.getReferenceFromUrl(arguments!!.getString(formsArg)!!)
+            val formUrl = arguments!!.getString(formsArg)!!
+            Services.firebaseInstance.getReferenceFromUrl(formUrl)
                     .getFile(localFile)
                     .addOnSuccessListener {
                         val stringBuilder = StringBuilder()
@@ -87,10 +89,10 @@ class FormPrologueFragment : Fragment() {
                             }
                         } catch (e: IOException) {
                             model.setProgressBarVisibility(false)
-                            // todo: log error
+                            Crashlytics.log("Trouble reading data file for form $formUrl")
                         }
                     }.addOnFailureListener {
-                        // todo: log error and show error state
+                        Crashlytics.log("Could not get data file for form $formUrl")
                     }
         }
     }

@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.crashlytics.android.Crashlytics
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.givingkitchen.android.R
 import org.givingkitchen.android.ui.homescreen.about.AboutFragment
@@ -60,7 +61,7 @@ class HomeFragment: Fragment()  {
                 HomeSection.SAFETYNET
             }
             else -> {
-                // todo: log error here
+                Crashlytics.log("User tried to navigate to unexpected home tab: ${it.itemId}")
                 HomeSection.ABOUT
             }
         }

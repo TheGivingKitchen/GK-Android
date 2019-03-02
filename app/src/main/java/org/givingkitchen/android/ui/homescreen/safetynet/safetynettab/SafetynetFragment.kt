@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.Navigation
+import com.crashlytics.android.Crashlytics
 import com.squareup.moshi.JsonAdapter
 import kotlinx.android.synthetic.main.fragment_safetynet.*
 import org.givingkitchen.android.R
@@ -47,8 +48,7 @@ class SafetynetFragment : Fragment() {
         model = ViewModelProviders.of(this).get(SafetynetViewModel::class.java)
         jsonAdapter = moshi.adapter(SocialServiceProvidersList::class.java)
 
-        val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
-                ?: return
+        val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE) ?: return
         val facebookSectionExpanded = sharedPref.getBoolean(getString(R.string.facebook_groups_expanded_key), true)
 
         adapter = SafetynetAdapter(mutableListOf(), facebookSectionExpanded)
@@ -108,11 +108,10 @@ class SafetynetFragment : Fragment() {
                         }
                     } catch (e: IOException) {
                         model.setProgressBarVisibility(false)
-                        // todo: log error
+                        Crashlytics.log("Trouble reading Safetynet json file")
                     }
-
                 }.addOnFailureListener {
-                    // todo: log error and show error state
+                    Crashlytics.log("Could not download Safetynet data from Firebase")
                 }
     }
 
@@ -179,8 +178,7 @@ class SafetynetFragment : Fragment() {
 
     private fun saveFacebookSectionState(expanded: Boolean) {
         // todo: troubleshoot this
-        val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
-                ?: return
+        val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE) ?: return
         with(sharedPref.edit()) {
             putBoolean(getString(R.string.facebook_groups_expanded_key), expanded)
             apply()
