@@ -18,7 +18,6 @@ class TimeQuestion(title: String?, answer: String? = null, context: Context, att
     var timeHour: Int? = null
     var timeMinute: Int? = null
 
-    // todo: use merge tags in views
     init {
         LayoutInflater.from(context).inflate(R.layout.view_question_time, this, true)
         val customLayoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
