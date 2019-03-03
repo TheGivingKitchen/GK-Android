@@ -65,11 +65,10 @@ class FormPrologueFragment : Fragment() {
     }
 
     private fun getData() {
-        val localFile = File.createTempFile("form", "json")
-        model.setProgressBarVisibility(true)
-
-        // todo: delete this file when done
         if (arguments != null) {
+            val localFile = File.createTempFile("form", "json")
+            model.setProgressBarVisibility(true)
+
             val formUrl = arguments!!.getString(formsArg)!!
             Services.firebaseInstance.getReferenceFromUrl(formUrl)
                     .getFile(localFile)
@@ -94,6 +93,10 @@ class FormPrologueFragment : Fragment() {
                     }.addOnFailureListener {
                         Crashlytics.log("Could not get data file for form $formUrl")
                     }
+
+            localFile.deleteOnExit()
+        } else {
+            Crashlytics.log("Arguments passed to form prologue were null")
         }
     }
 

@@ -20,7 +20,6 @@ import org.givingkitchen.android.ui.homescreen.safetynet.safetynettab.SafetynetF
 
 class HomeFragment: Fragment()  {
     // todo: onboarding
-    // todo: splash screen
     private lateinit var model: HomeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
