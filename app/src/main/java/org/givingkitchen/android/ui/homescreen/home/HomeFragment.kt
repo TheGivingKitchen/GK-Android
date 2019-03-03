@@ -20,6 +20,7 @@ import org.givingkitchen.android.ui.homescreen.safetynet.safetynettab.SafetynetF
 
 class HomeFragment: Fragment()  {
     // todo: onboarding
+    // todo: user analytics
     private lateinit var model: HomeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -94,12 +95,6 @@ class HomeFragment: Fragment()  {
                     .attach(fragment)
                     .commit()
         }
-
-        /* activity?.supportFragmentManager!!
-                .beginTransaction()
-                .replace(R.id.fragmentContainer_home, homeSection)
-                .addToBackStack(null)
-                .commit()*/
     }
 
     private fun getCurrentFragment(): Fragment? = childFragmentManager.findFragmentById(R.id.fragmentContainer_home)
