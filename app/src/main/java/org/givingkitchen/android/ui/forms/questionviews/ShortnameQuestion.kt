@@ -16,7 +16,7 @@ class ShortnameQuestion(title: String?, answer: String? = null, context: Context
     init {
         LayoutInflater.from(context).inflate(R.layout.view_question_shortname, this, true)
         val customLayoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        customLayoutParams.setMargins(0,0,0, convertToDp(15, resources))
+        customLayoutParams.setMargins(0,0,0, convertToDp(20, resources))
         layoutParams = customLayoutParams
         this.orientation = VERTICAL
         title_shortnameQuestion.setTextIfItExists(title)
