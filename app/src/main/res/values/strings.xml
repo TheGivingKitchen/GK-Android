@@ -25,6 +25,10 @@
     <string name="about_tab_feedback_negative">I\'d like to report a problem.</string>
     <string name="about_tab_gk_email_address">info@thegivingkitchen.org</string>
     <string name="about_tab_gk_email_subject">I\'d like to report a problem with the GK app</string>
+    <string name="rate_app_dialog_header">Thank You!</string>
+    <string name="rate_app_dialog_description">We\'re a fan of you too! If you wouldn\'t mind leaving a rating for us, it would help us reach more food service workers in need across Georgia.</string>
+    <string name="rate_app_dialog_positive_button">Rate Giving Kitchen</string>
+    <string name="rate_app_dialog_negative_button">Maybe later</string>
 
     <!-- Feedback Screen -->
     <string name="feedback_screen_back">Done</string>

@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_about.*
 import org.givingkitchen.android.R
+import org.givingkitchen.android.ui.homescreen.about.feedback.SubmitFeedbackDialogFragment
 import org.givingkitchen.android.util.Constants.givingKitchenUrl
 import org.givingkitchen.android.util.CustomTabs
 
@@ -67,17 +68,17 @@ class AboutFragment : Fragment()  {
     }
 
     private val feedbackPositiveClickListener = View.OnClickListener {
-        // todo: pop up a dialog before sending the user to the Play Store
-        val appPackageName = context!!.packageName
-        try {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$appPackageName")))
-        } catch (exception: android.content.ActivityNotFoundException) {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")))
+        val rateAppDialog = RateAppDialogFragment()
+        rateAppDialog.setOnCompleteListener {
+            if (!it) {
+                goToPlayStore()
+            }
         }
+        rateAppDialog.show(fragmentManager, "Rate_App_Dialog")
     }
 
     private val feedbackNeutralClickListener = View.OnClickListener {
-        Navigation.findNavController(getView()!!).navigate(R.id.feedbackFragment)
+        Navigation.findNavController(view!!).navigate(R.id.feedbackFragment)
     }
 
     private val feedbackNegativeClickListener = View.OnClickListener {
@@ -92,6 +93,15 @@ class AboutFragment : Fragment()  {
             startActivity(emailIntent)
         } else {
             CustomTabs.openCustomTab(context, gkContactUrl)
+        }
+    }
+
+    private fun goToPlayStore() {
+        val appPackageName = context!!.packageName
+        try {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$appPackageName")))
+        } catch (exception: android.content.ActivityNotFoundException) {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")))
         }
     }
 }
