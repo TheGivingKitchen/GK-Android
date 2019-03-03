@@ -71,7 +71,7 @@ class FormContainerFragment: Fragment(), FragmentBackPressedListener {
             })
         }
 
-        // todo: use a constraintlayout group here
+        // todo: use a textview drawable here
         backButtonText_questionsContainer.setOnClickListener(backButtonClickListener)
         backButtonIcon_questionsContainer.setOnClickListener(backButtonClickListener)
     }
