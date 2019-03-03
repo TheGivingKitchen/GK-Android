@@ -12,7 +12,6 @@ import org.givingkitchen.android.util.convertToDp
 import org.givingkitchen.android.util.setTextIfItExists
 
 class ShortnameQuestion(title: String?, answer: String? = null, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), QuestionView {
-    // todo: use merge tags in views
     init {
         LayoutInflater.from(context).inflate(R.layout.view_question_shortname, this, true)
         val customLayoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -23,7 +22,7 @@ class ShortnameQuestion(title: String?, answer: String? = null, context: Context
         if (!answer.isNullOrBlank()) {
             val name = answer.split(",")
             if (!name.isNullOrEmpty()) {
-                // an example answer is "[firstName, lastName]", so we need to remove the brackets and the space between names
+                // an example answer is "[firstName, lastName]", thus we need to remove the brackets and the space between names
                 firstName_shortnameQuestion.setText(name[0].substringAfter('['))
                 if (name.size > 1) {
                     val lastName = name[1]
