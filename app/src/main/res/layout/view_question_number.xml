@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="20dp"
-    android:orientation="vertical">
-
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
     <TextView
         android:id="@+id/title_numberQuestion"
         style="@style/RegularText"
@@ -23,5 +18,4 @@
         android:hint="@string/number_question_hint"
         android:inputType="number"
         android:padding="10dp" />
-
-</LinearLayout>
+</merge>
