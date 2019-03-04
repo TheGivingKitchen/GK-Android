@@ -40,7 +40,11 @@
         android:id="@+id/homeFragment"
         android:name="org.givingkitchen.android.ui.homescreen.home.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_onboardingContainerFragment"
+            app:destination="@id/onboardingContainerFragment" />
+    </fragment>
     <fragment
         android:id="@+id/formsFragment"
         android:name="org.givingkitchen.android.ui.forms.prologue.FormPrologueFragment"
@@ -69,4 +73,8 @@
             android:id="@+id/action_aboutFragment_to_feedbackFragment"
             app:destination="@id/feedbackFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/onboardingContainerFragment"
+        android:name="org.givingkitchen.android.ui.onboarding.OnboardingContainerFragment"
+        android:label="OnboardingContainerFragment" />
 </navigation>

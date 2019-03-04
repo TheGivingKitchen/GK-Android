@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="10dp"
+        android:paddingEnd="15dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp">
+
+        <ImageView
+            android:id="@+id/backButtonIcon_onboardingContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="0dp"
+            android:src="@drawable/ic_chevron_left"
+            android:layout_gravity="center_vertical"
+            android:tint="@color/gk_blue"
+            android:contentDescription="@string/forms_questions_back_icon"/>
+
+        <TextView
+            android:id="@+id/backButtonText_onboardingContainer"
+            style="@style/ButtonText"
+            android:textColor="@color/gk_blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:gravity="start"
+            android:text="@string/forms_questions_back" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/nextButton_onboardingContainer"
+            style="@style/ButtonText"
+            android:textColor="@color/gk_orange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <org.givingkitchen.android.util.NonSwipeableViewPager
+        android:id="@+id/viewPager_onboardingContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"/>
+
+</LinearLayout>

@@ -19,7 +19,6 @@ import org.givingkitchen.android.ui.homescreen.give.GiveFragment
 import org.givingkitchen.android.ui.homescreen.safetynet.safetynettab.SafetynetFragment
 
 class HomeFragment: Fragment()  {
-    // todo: onboarding
     // todo: user analytics
     private lateinit var model: HomeViewModel
 

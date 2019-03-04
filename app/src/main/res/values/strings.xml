@@ -8,6 +8,11 @@
     <string name="tab_resources">Resources</string>
     <string name="tab_give">Give</string>
 
+    <!-- Onboarding -->
+    <string name="onboarding_container_previous">Previous</string>
+    <string name="onboarding_container_next">Next</string>
+    <string name="onboarding_container_done">Done</string>
+
     <!-- About Tab -->
     <string name="about_tab_header">HEROES WITH APRONS INSTEAD OF CAPES</string>
     <string name="about_tab_about_us_header">About Us</string>
