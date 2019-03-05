@@ -40,6 +40,8 @@ class OnboardingContainerFragment: Fragment(), FragmentBackPressedListener {
         val onboardingPagesAdapter = ScreenSlidePagerAdapter(fragmentManager!!)
         viewPager_onboardingContainer.adapter = onboardingPagesAdapter
         model.setForwardButtonState(OnboardingContainerViewModel.Companion.ForwardButtonState.NEXT)
+        pagerIndicator_onboardingContainer.attachToViewPager(viewPager_onboardingContainer)
+
         viewPager_onboardingContainer.addOnPageChangeListener(object: ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) { }
 

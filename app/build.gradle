@@ -66,4 +66,5 @@ dependencies {
     implementation "com.jakewharton.rxbinding:rxbinding-design:$rxBinding_version"
     implementation "com.jakewharton.rxbinding:rxbinding-recyclerview-v7:$rxBinding_version"
     implementation "com.jakewharton.rxbinding:rxbinding-support-v4:$rxBinding_version"
+    implementation 'com.ryanjeffreybrooks:indefinitepagerindicator:1.0.10'
 }
