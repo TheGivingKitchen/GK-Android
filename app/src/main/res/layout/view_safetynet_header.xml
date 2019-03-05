@@ -125,6 +125,7 @@
         android:layout_marginTop="10dp"
         android:text="@string/safetynet_tab_resources_filter_label"
         android:textColor="@color/dark_grey"
+        android:visibility="gone"
         android:textSize="6pt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/joinUsBottomDivider_safetynetTab" />
@@ -137,6 +138,7 @@
         android:layout_marginEnd="10dp"
         android:text="@string/safetynet_tab_resources_filter_button"
         android:textColor="@color/gk_blue"
+        android:visibility="gone"
         android:textSize="6pt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/joinUsBottomDivider_safetynetTab" />
@@ -146,6 +148,7 @@
         style="@style/DividerViewSmall"
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/resourcesFilterSelection_safetynetTab" />
 
@@ -155,6 +158,7 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/resourcesFilterBottomDivider_safetynetTab"
         app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/joinUsBottomDivider_safetynetTab" />
 
@@ -166,6 +170,7 @@
         android:layout_marginTop="10dp"
         android:text="@string/safetynet_tab_counties_filter_label"
         android:textColor="@color/dark_grey"
+        android:visibility="gone"
         android:textSize="6pt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/resourcesFilterBottomDivider_safetynetTab" />
@@ -178,6 +183,7 @@
         android:layout_marginEnd="10dp"
         android:text="@string/safetynet_tab_counties_filter_button"
         android:textColor="@color/gk_orange"
+        android:visibility="gone"
         android:textSize="6pt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/resourcesFilterBottomDivider_safetynetTab" />
@@ -188,12 +194,14 @@
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/countiesFilterSelection_safetynetTab" />
 
     <View
         android:id="@+id/countiesFilterTouchTarget_safetynetTab"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/countiesFilterBottomDivider_safetynetTab"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
