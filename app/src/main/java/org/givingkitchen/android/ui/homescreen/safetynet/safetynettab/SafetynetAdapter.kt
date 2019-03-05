@@ -13,9 +13,9 @@ import org.givingkitchen.android.ui.homescreen.safetynet.Header
 import org.givingkitchen.android.ui.homescreen.safetynet.SocialServiceProvider
 import org.givingkitchen.android.util.setTextIfItExists
 
-class SafetynetAdapter(var items: MutableList<Any>, val facebookSectionExpanded: Boolean) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class SafetynetAdapter(var items: MutableList<Any>, val facebookSectionExpanded: Boolean, val descriptionSectionClosed: Boolean) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val learnMoreClicks: PublishSubject<Boolean> = PublishSubject.create()
+    private val descriptionExitClicks: PublishSubject<Boolean> = PublishSubject.create()
     private val joinUsClicks: PublishSubject<Boolean> = PublishSubject.create()
     private val resourcesFilterClicks: PublishSubject<Boolean> = PublishSubject.create()
     private val countyFilterClicks: PublishSubject<Boolean> = PublishSubject.create()
@@ -38,7 +38,7 @@ class SafetynetAdapter(var items: MutableList<Any>, val facebookSectionExpanded:
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             VIEW_TYPE_HEADER -> {
-                HeaderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_safetynet_header, parent, false), learnMoreClicks, joinUsClicks, resourcesFilterClicks, countyFilterClicks, expandFacebookSectionClicks)
+                HeaderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_safetynet_header, parent, false), descriptionExitClicks, joinUsClicks, resourcesFilterClicks, countyFilterClicks, expandFacebookSectionClicks)
             }
             else -> {
                 SocialServiceProviderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_social_service_provider, parent, false), serviceProviderClicks)
@@ -50,13 +50,13 @@ class SafetynetAdapter(var items: MutableList<Any>, val facebookSectionExpanded:
         if (holder is SocialServiceProviderViewHolder) {
             holder.bind(items[position] as SocialServiceProvider)
         } else {
-            (holder as HeaderViewHolder).bind(facebookSectionExpanded)
+            (holder as HeaderViewHolder).bind(facebookSectionExpanded, descriptionSectionClosed)
         }
     }
 
     override fun getItemCount() = items.size
 
-    fun learnMoreClicks(): Observable<Boolean> = learnMoreClicks
+    fun descriptionExitClicks(): Observable<Boolean> = descriptionExitClicks
     fun joinUsClicks(): Observable<Boolean> = joinUsClicks
     fun resourcesFilterClicks(): Observable<Boolean> = resourcesFilterClicks
     fun countiesFilterClicks(): Observable<Boolean> = countyFilterClicks
@@ -76,21 +76,43 @@ class SocialServiceProviderViewHolder(val view: View, private val clicks: Publis
     }
 }
 
-class HeaderViewHolder(val view: View, private val learnMoreClicks: PublishSubject<Boolean>, private val joinUsClicks: PublishSubject<Boolean>, private val resourcesFilterClicks: PublishSubject<Boolean>, private val countyFilterClicks: PublishSubject<Boolean>, private val expandSectionClicks: PublishSubject<Boolean>) : RecyclerView.ViewHolder(view) {
+class HeaderViewHolder(val view: View, private val descriptionExitClicks: PublishSubject<Boolean>, private val joinUsClicks: PublishSubject<Boolean>, private val resourcesFilterClicks: PublishSubject<Boolean>, private val countyFilterClicks: PublishSubject<Boolean>, private val expandSectionClicks: PublishSubject<Boolean>) : RecyclerView.ViewHolder(view) {
     private var isExpanded = true
 
-    fun bind(expandFacebookSection: Boolean) {
-        view.findViewById<TextView>(R.id.learnMoreButton_safetynetTab).setOnClickListener { learnMoreClicks.onNext(false) }
+    fun bind(expandFacebookSection: Boolean, descriptionSectionClosed: Boolean) {
         view.findViewById<TextView>(R.id.joinUsButton_safetynetTab).setOnClickListener { joinUsClicks.onNext(false) }
         view.findViewById<View>(R.id.resourcesFilterTouchTarget_safetynetTab).setOnClickListener { resourcesFilterClicks.onNext(false) }
         view.findViewById<View>(R.id.countiesFilterTouchTarget_safetynetTab).setOnClickListener { countyFilterClicks.onNext(false) }
         view.findViewById<View>(R.id.collapseFacebookButton_safetynetTab).setOnClickListener { expandSectionClicks.onNext(toggleFacebookGroupsExpandedState()) }
+        showDescriptionSection(descriptionSectionClosed)
         setFacebookGroupsExpandedState(expandFacebookSection)
     }
 
     private fun toggleFacebookGroupsExpandedState(): Boolean {
         isExpanded = !isExpanded
         return setFacebookGroupsExpandedState(isExpanded)
+    }
+
+    private fun showDescriptionSection(sectionClosed: Boolean) {
+        if (sectionClosed) {
+            closeDescription()
+        } else {
+            view.findViewById<ImageView>(R.id.closeDescription_safetynetTab).visibility = View.VISIBLE
+            view.findViewById<ImageView>(R.id.headerLogo_safetynetTab).visibility = View.VISIBLE
+            view.findViewById<TextView>(R.id.headerDescription_safetynetTab).visibility = View.VISIBLE
+            view.findViewById<View>(R.id.facebookTopDivider_safetynetTab).visibility = View.VISIBLE
+            view.findViewById<ImageView>(R.id.closeDescription_safetynetTab).setOnClickListener {
+                descriptionExitClicks.onNext(false)
+                closeDescription()
+            }
+        }
+    }
+
+    private fun closeDescription() {
+        view.findViewById<ImageView>(R.id.closeDescription_safetynetTab).visibility = View.GONE
+        view.findViewById<ImageView>(R.id.headerLogo_safetynetTab).visibility = View.GONE
+        view.findViewById<TextView>(R.id.headerDescription_safetynetTab).visibility = View.GONE
+        view.findViewById<View>(R.id.facebookTopDivider_safetynetTab).visibility = View.GONE
     }
 
     private fun setFacebookGroupsExpandedState(expanded: Boolean): Boolean {

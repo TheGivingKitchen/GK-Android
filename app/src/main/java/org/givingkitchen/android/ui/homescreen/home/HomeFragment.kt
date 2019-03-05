@@ -45,8 +45,7 @@ class HomeFragment: Fragment()  {
 
         val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE) ?: return
         val onboardingViewed = sharedPref.getBoolean(getString(R.string.onboarding_viewed_key), false)
-        // todo: put a not here
-        if (onboardingViewed) {
+        if (!onboardingViewed) {
             Navigation.findNavController(view).navigate(R.id.onboardingContainerFragment)
         }
     }

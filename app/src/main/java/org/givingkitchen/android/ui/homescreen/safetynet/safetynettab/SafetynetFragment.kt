@@ -50,15 +50,16 @@ class SafetynetFragment : Fragment() {
 
         val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE) ?: return
         val facebookSectionExpanded = sharedPref.getBoolean(getString(R.string.facebook_groups_expanded_key), true)
+        val descriptionSectionClosed = sharedPref.getBoolean(getString(R.string.resources_header_desc_closed_key), false)
 
-        adapter = SafetynetAdapter(mutableListOf(), facebookSectionExpanded)
+        adapter = SafetynetAdapter(mutableListOf(), facebookSectionExpanded, descriptionSectionClosed)
         model.getCurrentJson().observe(this, Observer<List<SocialServiceProvider>> { liveData ->
             setServerJson(liveData!!)
         })
         model.isProgressBarVisible().observe(this, Observer<Boolean> { liveData ->
             updateProgressBarVisibility(liveData!!)
         })
-        adapter.learnMoreClicks().subscribe { openLearnMoreLink() }
+        adapter.descriptionExitClicks().subscribe { saveHeaderDescriptionExit() }
         adapter.joinUsClicks().subscribe { goToFacebookGroupsScreen() }
         adapter.resourcesFilterClicks().subscribe { showResourcesFilter() }
         adapter.countiesFilterClicks().subscribe { showCountiesFilter() }
@@ -162,8 +163,12 @@ class SafetynetFragment : Fragment() {
         adapter.notifyDataSetChanged()
     }
 
-    private fun openLearnMoreLink() {
-        CustomTabs.openCustomTab(context, safetynetLearnMoreURL)
+    private fun saveHeaderDescriptionExit() {
+        val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE) ?: return
+        with(sharedPref.edit()) {
+            putBoolean(getString(R.string.resources_header_desc_closed_key), true)
+            apply()
+        }
     }
 
     private fun goToFacebookGroupsScreen() {
@@ -177,7 +182,6 @@ class SafetynetFragment : Fragment() {
     }
 
     private fun saveFacebookSectionState(expanded: Boolean) {
-        // todo: troubleshoot this
         val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE) ?: return
         with(sharedPref.edit()) {
             putBoolean(getString(R.string.facebook_groups_expanded_key), expanded)

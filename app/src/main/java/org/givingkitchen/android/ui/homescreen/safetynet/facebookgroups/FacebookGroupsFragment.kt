@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_facebook_groups.*
 import android.content.Intent
 import android.net.Uri
+import androidx.navigation.fragment.findNavController
 import org.givingkitchen.android.R
 
 class FacebookGroupsFragment : Fragment() {
@@ -31,6 +32,7 @@ class FacebookGroupsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        upButton_facebookGroups.setOnClickListener { navigateUp() }
         metroAtlTouchTarget_facebookGroups.setOnClickListener { openFacebookLink(metroAtlGroupId) }
         athensTouchTarget_facebookGroups.setOnClickListener { openFacebookLink(athensGroupId) }
         columbusTouchTarget_facebookGroups.setOnClickListener { openFacebookLink(columbusGroupId) }
@@ -44,5 +46,9 @@ class FacebookGroupsFragment : Fragment() {
 
     private fun openFacebookLink(groupId: String) {
         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("$facebookBaseUrl$groupId")))
+    }
+
+    private fun navigateUp() {
+        findNavController().navigateUp()
     }
 }

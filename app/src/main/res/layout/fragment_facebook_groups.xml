@@ -10,6 +10,18 @@
         android:layout_height="match_parent">
 
         <TextView
+            android:id="@+id/upButton_facebookGroups"
+            style="@style/RegularText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:padding="10dp"
+            android:text="@string/feedback_screen_back"
+            android:textColor="@color/gk_blue"
+            android:textSize="8pt" />
+
+        <TextView
             android:id="@+id/headerText_facebookGroups"
             style="@style/LargeHeaderText"
             android:layout_width="0dp"
@@ -19,7 +31,7 @@
             android:textColor="@color/gk_orange"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/upButton_facebookGroups" />
 
         <TextView
             android:id="@+id/headerDescription_facebookGroups"

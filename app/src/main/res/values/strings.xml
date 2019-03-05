@@ -97,7 +97,7 @@
     <string name="assistance_tab_learn_more">Learn more</string>
 
     <!-- Resources Tab -->
-    <string name="safetynet_tab_header_description">Stability Network is a network of local resources providing aid. If the Giving Kitchen is unable to assist, these local heroes are here to help.</string>
+    <string name="safetynet_tab_header_description">Our Stability Network program connects food service workers to various types of resources. Whether you receive a GK grant or not, these local services are standing by to help you.</string>
     <string name="safetynet_tab_learn_more">Learn more</string>
     <string name="safetynet_tab_facebook_description">Join our Food Service Workers group on Facebook</string>
     <string name="safetynet_tab_groups_description">Our groups are places to share industry events, community resources (including job postings), and best practices.</string>
@@ -163,6 +163,7 @@
     <string name="about_tab_performer_story_image_description">Reggie the performer</string>
     <string name="about_tab_irma_story_image_description">A family affected by hurricane Irma</string>
     <string name="about_tab_athens_story_image_description">An event being held in Athens, Georgia</string>
+    <string name="close_resources_description_header_description">Close this section</string>
 
     <!-- Questions -->
     <string name="shortname_question_firstname_hint">First</string>
@@ -198,5 +199,6 @@
     <string name="preference_file_key">org.givingkitchen.android</string>
     <string name="facebook_groups_expanded_key">facebook_groups_expanded_key</string>
     <string name="onboarding_viewed_key">onboarding_viewed_key</string>
+    <string name="resources_header_desc_closed_key">resources_header_desc_closed_key</string>
 
 </resources>
