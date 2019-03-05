@@ -2,6 +2,7 @@ package org.givingkitchen.android.ui.onboarding
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
 import android.os.Bundle
 import android.support.annotation.Nullable
 import android.support.v4.app.Fragment
@@ -11,6 +12,7 @@ import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_onboarding_container.*
 import org.givingkitchen.android.R
 import org.givingkitchen.android.util.FragmentBackPressedListener
@@ -49,6 +51,24 @@ class OnboardingContainerFragment: Fragment(), FragmentBackPressedListener {
                 } else {
                     model.setForwardButtonState(OnboardingContainerViewModel.Companion.ForwardButtonState.NEXT)
                 }
+
+                when (position) {
+                    0 -> {
+                        backButtonIcon_onboardingContainer.visibility = View.GONE
+                        backButtonText_onboardingContainer.visibility = View.GONE
+                        model.setForwardButtonState(OnboardingContainerViewModel.Companion.ForwardButtonState.NEXT)
+                    }
+                    onboardingPagesAdapter.count-1 -> {
+                        model.setForwardButtonState(OnboardingContainerViewModel.Companion.ForwardButtonState.DONE)
+                        backButtonIcon_onboardingContainer.visibility = View.VISIBLE
+                        backButtonText_onboardingContainer.visibility = View.VISIBLE
+                    }
+                    else -> {
+                        model.setForwardButtonState(OnboardingContainerViewModel.Companion.ForwardButtonState.NEXT)
+                        backButtonIcon_onboardingContainer.visibility = View.VISIBLE
+                        backButtonText_onboardingContainer.visibility = View.VISIBLE
+                    }
+                }
             }
         })
         // todo: use a textview drawable here
@@ -83,7 +103,14 @@ class OnboardingContainerFragment: Fragment(), FragmentBackPressedListener {
     }
 
     private val doneButtonClickListener = View.OnClickListener {
-        // todo: save to shared prefs that onboarding has been seen and navigate to home
+        val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+        if (sharedPref != null) {
+            with(sharedPref.edit()) {
+                putBoolean(getString(R.string.onboarding_viewed_key), true)
+                apply()
+            }
+        }
+        Navigation.findNavController(view!!).navigate(R.id.homeFragment)
     }
 
     private inner class ScreenSlidePagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {

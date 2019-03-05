@@ -2,6 +2,7 @@ package org.givingkitchen.android.ui.homescreen.home
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
 import android.os.Bundle
 import android.support.annotation.Nullable
 import android.support.design.widget.BottomNavigationView
@@ -9,6 +10,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import com.crashlytics.android.Crashlytics
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.givingkitchen.android.R
@@ -40,6 +42,13 @@ class HomeFragment: Fragment()  {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bottomNav_home.setOnNavigationItemSelectedListener(navListener)
+
+        val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE) ?: return
+        val onboardingViewed = sharedPref.getBoolean(getString(R.string.onboarding_viewed_key), false)
+        // todo: put a not here
+        if (onboardingViewed) {
+            Navigation.findNavController(view).navigate(R.id.onboardingContainerFragment)
+        }
     }
 
     private val navListener = BottomNavigationView.OnNavigationItemSelectedListener {

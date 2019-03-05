@@ -48,6 +48,7 @@ class AboutFragment : Fragment()  {
     }
 
     private val aboutUsButtonClickListener = View.OnClickListener {
+        // todo: show an image of the pdf here instead
         CustomTabs.openCustomTab(context, howItWorksPdfUrl)
     }
 
