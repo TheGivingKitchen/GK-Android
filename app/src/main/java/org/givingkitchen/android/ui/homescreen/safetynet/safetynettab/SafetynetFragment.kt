@@ -83,7 +83,6 @@ class SafetynetFragment : Fragment() {
     }
 
     private fun getData() {
-        // todo: delete this file when done
         val localFile = File.createTempFile("safetynet", "json")
         model.setProgressBarVisibility(true)
 
@@ -114,6 +113,8 @@ class SafetynetFragment : Fragment() {
                 }.addOnFailureListener {
                     Crashlytics.log("Could not download Safetynet data from Firebase")
                 }
+
+        localFile.deleteOnExit()
     }
 
     private fun setServerJson(data: List<SocialServiceProvider>) {
