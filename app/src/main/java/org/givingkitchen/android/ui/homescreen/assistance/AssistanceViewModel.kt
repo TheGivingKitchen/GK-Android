@@ -1,10 +1,10 @@
 package org.givingkitchen.android.ui.homescreen.assistance
 
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.ViewModel
 import android.content.Context
-import android.support.annotation.ColorRes
-import android.support.annotation.StringRes
-import android.support.v4.content.ContextCompat
+import androidx.annotation.ColorRes
+import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan

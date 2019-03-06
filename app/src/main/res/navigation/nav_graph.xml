@@ -72,6 +72,9 @@
         <action
             android:id="@+id/action_aboutFragment_to_feedbackFragment"
             app:destination="@id/feedbackFragment" />
+        <action
+            android:id="@+id/action_aboutFragment_to_howItWorksFragment"
+            app:destination="@id/howItWorksFragment" />
     </fragment>
     <fragment
         android:id="@+id/onboardingContainerFragment"
@@ -81,4 +84,8 @@
             android:id="@+id/action_onboardingContainerFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/howItWorksFragment"
+        android:name="org.givingkitchen.android.ui.homescreen.about.HowItWorksFragment"
+        android:label="HowItWorksFragment" />
 </navigation>

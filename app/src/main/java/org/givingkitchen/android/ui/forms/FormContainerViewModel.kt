@@ -1,9 +1,9 @@
 package org.givingkitchen.android.ui.forms
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
-import android.support.annotation.StringRes
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.annotation.StringRes
 import org.givingkitchen.android.R
 
 class FormContainerViewModel : ViewModel() {

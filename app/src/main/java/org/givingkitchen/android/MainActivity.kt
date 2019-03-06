@@ -1,7 +1,7 @@
 package org.givingkitchen.android
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import org.givingkitchen.android.util.FragmentBackPressedListener
 

@@ -1,8 +1,8 @@
 package org.givingkitchen.android.ui.forms.prologue
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import org.givingkitchen.android.ui.forms.Form
 
 class FormPrologueViewModel: ViewModel() {

@@ -1,8 +1,8 @@
 package org.givingkitchen.android.ui.homescreen.events
 
-import android.support.annotation.IdRes
-import android.support.v4.app.Fragment
-import android.support.v7.widget.RecyclerView
+import androidx.annotation.IdRes
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +13,7 @@ import io.reactivex.subjects.PublishSubject
 import org.givingkitchen.android.R
 import org.givingkitchen.android.util.setTextIfItExists
 
-class EventsAdapter(var items: MutableList<Any>, val fragment: Fragment) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class EventsAdapter(var items: MutableList<Any>, val fragment: Fragment) : androidx.recyclerview.widget.RecyclerView.Adapter<androidx.recyclerview.widget.RecyclerView.ViewHolder>() {
     private val learnMoreClicks: PublishSubject<Boolean> = PublishSubject.create()
     private val eventClicks: PublishSubject<String> = PublishSubject.create()
 
@@ -30,7 +30,7 @@ class EventsAdapter(var items: MutableList<Any>, val fragment: Fragment) : Recyc
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): androidx.recyclerview.widget.RecyclerView.ViewHolder {
         return if (viewType == VIEW_TYPE_HEADER) {
             HeaderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_events_header, parent, false), learnMoreClicks)
         } else {
@@ -38,7 +38,7 @@ class EventsAdapter(var items: MutableList<Any>, val fragment: Fragment) : Recyc
         }
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
         if (holder is EventViewHolder) {
             holder.bind(items[position] as Event, fragment)
         } else {
@@ -52,13 +52,13 @@ class EventsAdapter(var items: MutableList<Any>, val fragment: Fragment) : Recyc
     fun eventClicks(): Observable<String> = eventClicks
 }
 
-class HeaderViewHolder(val view: View, private val learnMoreClicks: PublishSubject<Boolean>) : RecyclerView.ViewHolder(view) {
+class HeaderViewHolder(val view: View, private val learnMoreClicks: PublishSubject<Boolean>) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
     fun bind() {
         view.findViewById<TextView>(R.id.learnMoreButton_eventsTab).setOnClickListener { learnMoreClicks.onNext(false) }
     }
 }
 
-class EventViewHolder(val view: View, private val clicks: PublishSubject<String>) : RecyclerView.ViewHolder(view) {
+class EventViewHolder(val view: View, private val clicks: PublishSubject<String>) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
     fun bind(event: Event, fragment: Fragment) {
         view.findViewById<TextView>(R.id.title_EventsRecycler).setTextIfItExists(event.title)
         view.findViewById<TextView>(R.id.description_EventsRecycler).setTextIfItExists(event.subtitle?.replace("\n", ""))

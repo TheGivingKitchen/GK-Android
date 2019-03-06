@@ -2,8 +2,8 @@ package org.givingkitchen.android.util
 
 import android.content.Intent
 import android.content.res.Resources
-import android.support.annotation.DimenRes
-import android.support.v4.app.Fragment
+import androidx.annotation.DimenRes
+import androidx.fragment.app.Fragment
 import android.util.TypedValue
 import android.view.View
 import android.widget.TextView

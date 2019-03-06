@@ -1,8 +1,8 @@
 package org.givingkitchen.android.ui.homescreen.safetynet.safetynettab
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import org.givingkitchen.android.ui.homescreen.safetynet.SocialServiceProvider
 import org.givingkitchen.android.util.Constants
 import org.givingkitchen.android.util.Constants.firebaseStorageUrl

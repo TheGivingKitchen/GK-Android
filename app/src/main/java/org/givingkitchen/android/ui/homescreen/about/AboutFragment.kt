@@ -3,8 +3,8 @@ package org.givingkitchen.android.ui.homescreen.about
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.annotation.Nullable
-import android.support.v4.app.Fragment
+import androidx.annotation.Nullable
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,7 +49,8 @@ class AboutFragment : Fragment()  {
 
     private val aboutUsButtonClickListener = View.OnClickListener {
         // todo: show an image of the pdf here instead
-        CustomTabs.openCustomTab(context, howItWorksPdfUrl)
+        // CustomTabs.openCustomTab(context, howItWorksPdfUrl)
+        Navigation.findNavController(view!!).navigate(R.id.howItWorksFragment)
     }
 
     private val newsletterSignupClickListener = View.OnClickListener {

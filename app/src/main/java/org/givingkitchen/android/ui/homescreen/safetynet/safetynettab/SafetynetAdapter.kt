@@ -1,6 +1,6 @@
 package org.givingkitchen.android.ui.homescreen.safetynet.safetynettab
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +13,7 @@ import org.givingkitchen.android.ui.homescreen.safetynet.Header
 import org.givingkitchen.android.ui.homescreen.safetynet.SocialServiceProvider
 import org.givingkitchen.android.util.setTextIfItExists
 
-class SafetynetAdapter(var items: MutableList<Any>, val facebookSectionExpanded: Boolean, val descriptionSectionClosed: Boolean) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class SafetynetAdapter(var items: MutableList<Any>, val facebookSectionExpanded: Boolean, val descriptionSectionClosed: Boolean) : androidx.recyclerview.widget.RecyclerView.Adapter<androidx.recyclerview.widget.RecyclerView.ViewHolder>() {
 
     private val descriptionExitClicks: PublishSubject<Boolean> = PublishSubject.create()
     private val joinUsClicks: PublishSubject<Boolean> = PublishSubject.create()
@@ -35,7 +35,7 @@ class SafetynetAdapter(var items: MutableList<Any>, val facebookSectionExpanded:
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): androidx.recyclerview.widget.RecyclerView.ViewHolder {
         return when (viewType) {
             VIEW_TYPE_HEADER -> {
                 HeaderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_safetynet_header, parent, false), descriptionExitClicks, joinUsClicks, resourcesFilterClicks, countyFilterClicks, expandFacebookSectionClicks)
@@ -46,7 +46,7 @@ class SafetynetAdapter(var items: MutableList<Any>, val facebookSectionExpanded:
         }
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
         if (holder is SocialServiceProviderViewHolder) {
             holder.bind(items[position] as SocialServiceProvider)
         } else {
@@ -64,7 +64,7 @@ class SafetynetAdapter(var items: MutableList<Any>, val facebookSectionExpanded:
     fun serviceProviderClicks(): Observable<Int> = serviceProviderClicks
 }
 
-class SocialServiceProviderViewHolder(val view: View, private val clicks: PublishSubject<Int>) : RecyclerView.ViewHolder(view) {
+class SocialServiceProviderViewHolder(val view: View, private val clicks: PublishSubject<Int>) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
     fun bind(socialServiceProvider: SocialServiceProvider) {
         view.findViewById<TextView>(R.id.title_SafetynetRecycler).setTextIfItExists(socialServiceProvider.name)
         view.findViewById<TextView>(R.id.category_SafetynetRecycler).setTextIfItExists(socialServiceProvider.category)
@@ -76,7 +76,7 @@ class SocialServiceProviderViewHolder(val view: View, private val clicks: Publis
     }
 }
 
-class HeaderViewHolder(val view: View, private val descriptionExitClicks: PublishSubject<Boolean>, private val joinUsClicks: PublishSubject<Boolean>, private val resourcesFilterClicks: PublishSubject<Boolean>, private val countyFilterClicks: PublishSubject<Boolean>, private val expandSectionClicks: PublishSubject<Boolean>) : RecyclerView.ViewHolder(view) {
+class HeaderViewHolder(val view: View, private val descriptionExitClicks: PublishSubject<Boolean>, private val joinUsClicks: PublishSubject<Boolean>, private val resourcesFilterClicks: PublishSubject<Boolean>, private val countyFilterClicks: PublishSubject<Boolean>, private val expandSectionClicks: PublishSubject<Boolean>) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
     private var isExpanded = true
 
     fun bind(expandFacebookSection: Boolean, descriptionSectionClosed: Boolean) {
