@@ -5,47 +5,59 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/header_giveTab"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/header_image_height"
             android:layout_marginTop="@dimen/header_image_top_margin"
             android:layout_marginBottom="25dp"
             android:src="@drawable/ic_tab_give"
-            tools:ignore="ContentDescription"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/header_description_giveTab"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             style="@style/LargeHeaderText"
-            android:text="@string/give_tab_credit_header_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/universal_horizontal_spacing"
             android:layout_marginEnd="@dimen/universal_horizontal_spacing"
-            android:textColor="@color/gk_blue"/>
+            android:text="@string/give_tab_credit_header_description"
+            android:textColor="@color/gk_blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/header_giveTab" />
 
         <TextView
             android:id="@+id/learn_more_button_giveTab"
+            style="@style/ParagraphText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            style="@style/ParagraphText"
-            android:textColor="@color/gk_orange"
+            android:layout_marginTop="@dimen/universal_horizontal_spacing"
+            android:layout_marginBottom="25dp"
             android:background="?android:attr/selectableItemBackground"
             android:padding="5dp"
             android:text="@string/give_tab_learn_more"
-            android:layout_marginTop="@dimen/universal_horizontal_spacing"
-            android:layout_marginBottom="25dp" />
+            android:textColor="@color/gk_orange"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/header_description_giveTab" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+            android:id="@+id/carousel_giveTab"
+            android:layout_width="0dp"
             android:layout_height="150dp"
-            android:background="@color/gk_blue">
+            android:background="@color/gk_blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/learn_more_button_giveTab">
 
             <FrameLayout
                 android:id="@+id/leftChevronClickHolder_giveTab"
@@ -74,13 +86,13 @@
                 app:layout_constraintGuide_percent="0.2" />
 
             <TextView
-                app:layout_constraintEnd_toStartOf="@id/examples_amount_giveTab"
-                app:layout_constraintTop_toTopOf="parent"
                 style="@style/GiveTabDonationExampleAmount"
-                android:textSize="12pt"
                 android:layout_marginTop="13dp"
                 android:text="@string/give_tab_examples_currency_sign"
-                app:layout_constraintHorizontal_chainStyle="packed"/>
+                android:textSize="12pt"
+                app:layout_constraintEnd_toStartOf="@id/examples_amount_giveTab"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/examples_amount_giveTab"
@@ -88,9 +100,9 @@
                 android:fontFamily="@font/kulturista_bold"
                 app:layout_constraintBottom_toTopOf="@id/examples_description_giveTab"
                 app:layout_constraintEnd_toStartOf="@id/donate_right_guideline_giveTab"
+                app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toEndOf="@id/donate_left_guideline_giveTab"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintHorizontal_chainStyle="packed"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/examples_description_giveTab"
@@ -129,113 +141,180 @@
                     android:contentDescription="@string/give_tab_examples_right_chevron"
                     android:src="@drawable/ic_chevron_right" />
             </FrameLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <View style="@style/DividerViewLarge" />
+        <View
+            android:id="@+id/creditCardDonate_giveTab"
+            style="@style/DividerViewLarge"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/carousel_giveTab" />
 
         <TextView
             android:id="@+id/card_donate_button_giveTab"
             style="@style/GiveTabButton"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/give_tab_credit_card_button" />
+            android:text="@string/give_tab_credit_card_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/creditCardDonate_giveTab" />
 
-        <View style="@style/DividerViewSmall" />
+        <View
+            android:id="@+id/donationDivider_giveTab"
+            style="@style/DividerViewSmall"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/card_donate_button_giveTab" />
 
         <TextView
             android:id="@+id/recurring_donate_button_giveTab"
             style="@style/GiveTabButton"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/give_tab_recurring_donation_button" />
+            android:text="@string/give_tab_recurring_donation_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/donationDivider_giveTab" />
 
-        <View style="@style/DividerViewLarge" />
+        <View
+            android:id="@+id/donateSectionDivider_giveTab"
+            style="@style/DividerViewLarge"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recurring_donate_button_giveTab" />
 
         <TextView
+            android:id="@+id/volunteerHeader_giveTab"
             style="@style/GiveTabHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/universal_horizontal_spacing"
-            android:text="@string/give_tab_volunteer_header" />
+            android:text="@string/give_tab_volunteer_header"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/donateSectionDivider_giveTab" />
 
         <TextView
+            android:id="@+id/volunteerDescription_giveTab"
             style="@style/GiveTabParagraph"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/universal_horizontal_spacing"
-            android:text="@string/give_tab_volunteer_description" />
+            android:text="@string/give_tab_volunteer_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/volunteerHeader_giveTab" />
 
         <Button
             android:id="@+id/volunteer_button_giveTab"
             style="@style/CTAButton"
-            android:layout_marginTop="@dimen/universal_horizontal_spacing"
             android:layout_marginStart="@dimen/universal_horizontal_spacing"
+            android:layout_marginTop="@dimen/universal_horizontal_spacing"
             android:layout_marginEnd="@dimen/universal_horizontal_spacing"
-            android:text="@string/give_tab_volunteer_button"/>
+            android:text="@string/give_tab_volunteer_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/volunteerDescription_giveTab" />
 
         <ImageView
             android:id="@+id/volunteerImage_giveTab"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="250dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
             android:layout_marginStart="@dimen/universal_horizontal_spacing"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="@dimen/universal_horizontal_spacing"
+            android:layout_marginBottom="10dp"
+            android:contentDescription="@string/give_tab_salad_image_description"
             android:src="@drawable/pic_eating_salad"
-            android:contentDescription="@string/give_tab_salad_image_description"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/volunteer_button_giveTab" />
 
-        <View style="@style/DividerViewLarge" />
+        <View
+            android:id="@+id/partnerDivider_giveTab"
+            style="@style/DividerViewLarge"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/volunteerImage_giveTab" />
 
         <TextView
+            android:id="@+id/partnerHeader_giveTab"
             style="@style/GiveTabHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/universal_horizontal_spacing"
-            android:text="@string/give_tab_partner_header" />
+            android:text="@string/give_tab_partner_header"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/partnerDivider_giveTab" />
 
         <TextView
+            android:id="@+id/partnerDescription_giveTab"
             style="@style/GiveTabParagraph"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/universal_horizontal_spacing"
-            android:text="@string/give_tab_partner_description" />
+            android:text="@string/give_tab_partner_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/partnerHeader_giveTab" />
 
         <Button
             android:id="@+id/partner_button_giveTab"
             style="@style/CTAButton"
-            android:layout_marginTop="@dimen/universal_horizontal_spacing"
             android:layout_marginStart="@dimen/universal_horizontal_spacing"
+            android:layout_marginTop="@dimen/universal_horizontal_spacing"
             android:layout_marginEnd="@dimen/universal_horizontal_spacing"
-            android:text="@string/give_tab_partner_button"/>
+            android:text="@string/give_tab_partner_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/partnerDescription_giveTab" />
 
-        <View style="@style/DividerViewSmall"
-            android:layout_marginTop="20dp"/>
+        <View
+            android:id="@+id/joinForcesDivider_giveTab"
+            style="@style/DividerViewSmall"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/partner_button_giveTab" />
 
         <TextView
+            android:id="@+id/joinForcesDescription_giveTab"
             style="@style/GiveTabParagraph"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/universal_horizontal_spacing"
-            android:text="@string/give_tab_join_forces_description" />
+            android:text="@string/give_tab_join_forces_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/joinForcesDivider_giveTab" />
 
         <Button
             android:id="@+id/joinOurForcesButton_giveTab"
             style="@style/CTAButton"
-            android:layout_marginTop="@dimen/universal_horizontal_spacing"
             android:layout_marginStart="@dimen/universal_horizontal_spacing"
+            android:layout_marginTop="@dimen/universal_horizontal_spacing"
             android:layout_marginEnd="@dimen/universal_horizontal_spacing"
-            android:text="@string/give_tab_join_forces_button"/>
+            android:text="@string/give_tab_join_forces_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/joinForcesDescription_giveTab" />
 
         <ImageView
             android:id="@+id/safetynetImage_giveTab"
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
             android:layout_marginStart="@dimen/universal_horizontal_spacing"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="@dimen/universal_horizontal_spacing"
+            android:layout_marginBottom="10dp"
+            android:contentDescription="@string/give_tab_teamwork_image_description"
             android:src="@drawable/pic_team_leader"
-            android:contentDescription="@string/give_tab_teamwork_image_description"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/joinOurForcesButton_giveTab" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
