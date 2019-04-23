@@ -1,5 +1,6 @@
 package org.givingkitchen.android.ui.homescreen.give
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,8 +9,8 @@ import org.givingkitchen.android.R
 import org.givingkitchen.android.util.Constants.firebaseStorageUrl
 import org.givingkitchen.android.util.Constants.givingKitchenUrl
 
-class GiveViewModel : ViewModel() {
-    data class DonationExample(val drawable: Int, val amount: Int, @StringRes val description: Int)
+class GiveViewModel: ViewModel() {
+    data class DonationExample(val drawable: Int, val amount: String, @StringRes val description: Int)
 
     companion object {
         const val giveLearnMoreURL = "$givingKitchenUrl/support/"
@@ -23,12 +24,13 @@ class GiveViewModel : ViewModel() {
     private var donationExamplesIndex = 0
     private var currentDonationExample: MutableLiveData<DonationExample> = MutableLiveData()
     private val donationExamples = listOf(
-            DonationExample(R.drawable.ic_donation_joy, 25, R.string.give_tab_examples_late_fee),
-            DonationExample(R.drawable.ic_donation_joy, 50, R.string.give_tab_examples_water_bill),
-            DonationExample(R.drawable.ic_donation_joy, 100, R.string.give_tab_examples_power_bill),
-            DonationExample(R.drawable.ic_donation_joy, 150, R.string.give_tab_examples_gas_bill),
-            DonationExample(R.drawable.ic_donation_joy, 500, R.string.give_tab_examples_housing),
-            DonationExample(R.drawable.ic_donation_joy, 1800, R.string.give_tab_examples_total_grant)
+            DonationExample(R.drawable.ic_donation_joy, "$"+5, R.string.give_tab_examples_five),
+            DonationExample(R.drawable.ic_donation_bird, "$"+25, R.string.give_tab_examples_late_fee),
+            DonationExample(R.drawable.ic_donation_water, "$"+50, R.string.give_tab_examples_water_bill),
+            DonationExample(R.drawable.ic_donation_power, "$"+100, R.string.give_tab_examples_power_bill),
+            DonationExample(R.drawable.ic_donation_gas, "$"+150, R.string.give_tab_examples_gas_bill),
+            DonationExample(R.drawable.ic_donation_housing, "$"+500, R.string.give_tab_examples_housing),
+            DonationExample(R.drawable.ic_donation_sh, "$"+1800, R.string.give_tab_examples_total_grant)
     )
 
     init {

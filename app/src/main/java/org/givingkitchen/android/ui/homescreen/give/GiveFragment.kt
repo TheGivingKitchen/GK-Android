@@ -1,11 +1,9 @@
 package org.givingkitchen.android.ui.homescreen.give
 
-import android.animation.Animator
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.os.Handler
 import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
 import android.view.ViewGroup
@@ -13,8 +11,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.TextView
-import android.widget.Toast
 import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_give.*
 import org.givingkitchen.android.R
@@ -23,10 +19,11 @@ import org.givingkitchen.android.ui.homescreen.give.GiveViewModel.Companion.give
 import org.givingkitchen.android.ui.homescreen.give.GiveViewModel.Companion.recurringDonationURL
 import org.givingkitchen.android.util.Constants
 import org.givingkitchen.android.util.CustomTabs
-import org.givingkitchen.android.util.getFloatDimension
 
 class GiveFragment : Fragment() {
     private lateinit var model: GiveViewModel
+    private lateinit var timerHandler: Handler
+    private lateinit var timerRunnable: Runnable
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +47,19 @@ class GiveFragment : Fragment() {
         volunteer_button_giveTab.setOnClickListener(volunteerButtonClickListener)
         partner_button_giveTab.setOnClickListener(partnerButtonClickListener)
         joinOurForcesButton_giveTab.setOnClickListener(joinForcesButtonClickListener)
+        timerHandler = Handler()
+        timerRunnable = object : Runnable {
+            override fun run() {
+                model.nextDonationExample()
+                timerHandler.postDelayed(this, 4000)
+            }
+        }
+        timerHandler.postDelayed(timerRunnable, 0)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        timerHandler.removeCallbacks(timerRunnable)
     }
 
     private val creditCardDonationClickListener = View.OnClickListener {
@@ -61,8 +71,7 @@ class GiveFragment : Fragment() {
     }
 
     private val learnMoreButtonClickListener = View.OnClickListener {
-        // CustomTabs.openCustomTab(context, giveLearnMoreURL)
-        model.nextDonationExample()
+        CustomTabs.openCustomTab(context, giveLearnMoreURL)
     }
 
     private val volunteerButtonClickListener = View.OnClickListener {
@@ -85,17 +94,20 @@ class GiveFragment : Fragment() {
 
     private fun updateDonationExample(donationExample: GiveViewModel.DonationExample) {
 
-        val amountAnimatorListener = object: Animation.AnimationListener {
+        val amountAnimationListener = object: Animation.AnimationListener {
             override fun onAnimationStart(animation: Animation?) { }
             override fun onAnimationRepeat(animation: Animation?) { }
 
             override fun onAnimationEnd(animation: Animation?) {
-                carouselTextAmount_giveTab.text = donationExample.amount.toString()
+                carouselTextAmount_giveTab.text = donationExample.amount
                 carouselTextAmount_giveTab.startAnimation(AnimationUtils.loadAnimation(context, R.anim.slide_from_right))
             }
         }
+        val amountAnimation = AnimationUtils.loadAnimation(context, R.anim.slide_to_right)
+        amountAnimation.setAnimationListener(amountAnimationListener)
+        carouselTextAmount_giveTab.startAnimation(amountAnimation)
 
-        val descriptionAnimatorListener = object: Animation.AnimationListener {
+        val descriptionAnimationListener = object: Animation.AnimationListener {
             override fun onAnimationStart(animation: Animation?) { }
             override fun onAnimationRepeat(animation: Animation?) { }
 
@@ -104,8 +116,11 @@ class GiveFragment : Fragment() {
                 carouselTextDescription_giveTab.startAnimation(AnimationUtils.loadAnimation(context, R.anim.slide_from_right))
             }
         }
+        val descriptionAnimation = AnimationUtils.loadAnimation(context, R.anim.slide_to_right)
+        descriptionAnimation.setAnimationListener(descriptionAnimationListener)
+        carouselTextDescription_giveTab.startAnimation(descriptionAnimation)
 
-        val iconAnimatorListener = object: Animation.AnimationListener {
+        val iconAnimationListener = object: Animation.AnimationListener {
             override fun onAnimationStart(animation: Animation?) { }
             override fun onAnimationRepeat(animation: Animation?) { }
 
@@ -114,30 +129,8 @@ class GiveFragment : Fragment() {
                 carouselIcon_giveTab.startAnimation(AnimationUtils.loadAnimation(context, R.anim.slide_from_left))
             }
         }
-
-        val amountAnimation = AnimationUtils.loadAnimation(context, R.anim.slide_to_right)
-        amountAnimation.setAnimationListener(amountAnimatorListener)
-        carouselTextAmount_giveTab.startAnimation(amountAnimation)
-
-        val descriptionAnimation = AnimationUtils.loadAnimation(context, R.anim.slide_to_right)
-        descriptionAnimation.setAnimationListener(descriptionAnimatorListener)
-        carouselTextDescription_giveTab.startAnimation(descriptionAnimation)
-
         val iconAnimation = AnimationUtils.loadAnimation(context, R.anim.slide_to_left)
-        iconAnimation.setAnimationListener(iconAnimatorListener)
+        iconAnimation.setAnimationListener(iconAnimationListener)
         carouselIcon_giveTab.startAnimation(iconAnimation)
-/*
-        val amountAnimation = AnimationUtils.loadAnimation(context, R.anim.slide_to_right)
-        carouselTextAmount_giveTab.startAnimation(amountAnimation)
-        carouselTextDescription_giveTab.startAnimation(AnimationUtils.loadAnimation(context, R.anim.slide_to_right))
-        carouselIcon_giveTab.startAnimation(AnimationUtils.loadAnimation(context, R.anim.slide_to_left))
-
-
-        carouselTextAmount_giveTab.text = donationExample.amount.toString()
-        carouselTextDescription_giveTab.text = getString(donationExample.description)
-
-        carouselTextAmount_giveTab.startAnimation(AnimationUtils.loadAnimation(context, R.anim.slide_from_right))
-        carouselTextDescription_giveTab.startAnimation(AnimationUtils.loadAnimation(context, R.anim.slide_from_right))
-        carouselIcon_giveTab.startAnimation(AnimationUtils.loadAnimation(context, R.anim.slide_from_left))*/
     }
 }

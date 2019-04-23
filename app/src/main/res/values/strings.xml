@@ -70,9 +70,10 @@
     <string name="give_tab_partner_description">Would you like to become part of Giving Kitchen\'s social service or community resource referral program? We\'d love to hear from you!</string>
     <string name="give_tab_join_forces_description">Want to host an event to benefit GK? Join our forces!</string>
     <string name="give_tab_partner_button">Stability Network Partner</string>
-    <string name="give_tab_examples_currency_sign">$</string>
+    <string name="give_tab_examples_amount">$%1$d</string>
 
     <!-- Donation amount examples -->
+    <string name="give_tab_examples_five">Every bit helps!</string>
     <string name="give_tab_examples_late_fee">Covers a late fee</string>
     <string name="give_tab_examples_water_bill">Covers a water bill</string>
     <string name="give_tab_examples_power_bill">Covers a power bill</string>
