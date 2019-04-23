@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.Navigation
 import com.crashlytics.android.Crashlytics
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -29,7 +30,11 @@ class HomeFragment: Fragment()  {
         model.getCurrentFragment().observe(this, Observer<HomeSection> { liveData ->
             loadFragment(liveData!!)
         })
-        model.setCurrentFragment(HomeSection.ABOUT)
+        val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+        val savedAnswer = sharedPref?.getString(getString(R.string.home_tab_key), null)
+        if (savedAnswer != null) {
+            model.setCurrentFragment(HomeSection.getFragment(savedAnswer))
+        }
     }
 
     @Nullable
@@ -46,6 +51,17 @@ class HomeFragment: Fragment()  {
         val onboardingViewed = sharedPref.getBoolean(getString(R.string.onboarding_viewed_key), false)
         if (!onboardingViewed) {
             Navigation.findNavController(view).navigate(R.id.onboardingContainerFragment)
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+        if (sharedPref != null) {
+            with (sharedPref.edit()) {
+                putString(getString(R.string.home_tab_key), model.getCurrentFragment().value!!.screenName)
+                apply()
+            }
         }
     }
 
@@ -101,6 +117,8 @@ class HomeFragment: Fragment()  {
                     .attach(fragment)
                     .commit()
         }
+
+        bottomNav_home.menu.getItem(homeSection.index).setChecked(true)
     }
 
     private fun getCurrentFragment(): Fragment? = childFragmentManager.findFragmentById(R.id.fragmentContainer_home)

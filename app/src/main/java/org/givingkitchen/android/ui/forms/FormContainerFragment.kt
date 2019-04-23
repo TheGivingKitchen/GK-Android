@@ -130,7 +130,6 @@ class FormContainerFragment: Fragment(), FragmentBackPressedListener {
         hideKeyboardIfShowing()
         val currentItem = viewPager_questionsContainer.currentItem
         for (answer in questionPages[currentItem].getQuestionResponses()) {
-            // todo: store these questions and answers in Room instead of shared prefs
             val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
             if (sharedPref != null) {
                 with (sharedPref.edit()) {

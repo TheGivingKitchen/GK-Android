@@ -8,6 +8,10 @@ class HomeViewModel : ViewModel() {
 
     private var currentFragment: MutableLiveData<HomeSection> = MutableLiveData()
 
+    init {
+        currentFragment.value = HomeSection.ABOUT
+    }
+
     fun getCurrentFragment(): LiveData<HomeSection> {
         return currentFragment
     }

@@ -203,5 +203,6 @@
     <string name="facebook_groups_expanded_key">facebook_groups_expanded_key</string>
     <string name="onboarding_viewed_key">onboarding_viewed_key</string>
     <string name="resources_header_desc_closed_key">resources_header_desc_closed_key</string>
+    <string name="home_tab_key">home_tab_key</string>
 
 </resources>
