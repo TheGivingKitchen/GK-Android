@@ -2,6 +2,7 @@
 <resources>
     <color name="gk_orange">#d9684d</color>
     <color name="gk_blue">#2c4074</color>
+    <color name="dark_gk_blue">#23345e</color>
 
     <color name="white">#ffffff</color>
     <color name="light_grey">#ebebeb</color>

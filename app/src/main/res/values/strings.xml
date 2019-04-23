@@ -165,6 +165,7 @@
     <string name="about_tab_athens_story_image_description">An event being held in Athens, Georgia</string>
     <string name="close_resources_description_header_description">Close this section</string>
     <string name="close_how_it_works">Close this screen</string>
+    <string name="give_tab_carousel_icon">Giving Kitchen badges showing different levels of giving.</string>
 
     <!-- Questions -->
     <string name="shortname_question_firstname_hint">First</string>

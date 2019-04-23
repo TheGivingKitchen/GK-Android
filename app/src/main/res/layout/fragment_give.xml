@@ -50,106 +50,72 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/header_description_giveTab" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/carousel_giveTab"
+        <FrameLayout
+            android:id="@+id/carouselIconLayout_giveTab"
             android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:background="@color/gk_blue"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/dark_gk_blue"
+            app:layout_constraintEnd_toStartOf="@id/carouselGuideline_giveTab"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/learn_more_button_giveTab">
 
-            <FrameLayout
-                android:id="@+id/leftChevronClickHolder_giveTab"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/donate_left_guideline_giveTab"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+            <ImageView
+                android:id="@+id/carouselIcon_giveTab"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/give_tab_carousel_icon"/>
 
-                <ImageView
-                    android:id="@+id/leftChevron_giveTab"
-                    android:layout_width="wrap_content"
-                    android:layout_height="25dp"
-                    android:layout_gravity="center_vertical|start"
-                    android:layout_marginStart="15dp"
-                    android:contentDescription="@string/give_tab_examples_left_chevron"
-                    android:src="@drawable/ic_chevron_left" />
-            </FrameLayout>
+        </FrameLayout>
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/donate_left_guideline_giveTab"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/carouselGuideline_giveTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="130dp"
+            app:layout_constraintTop_toTopOf="@id/carouselIconLayout_giveTab"
+            app:layout_constraintBottom_toBottomOf="@id/carouselIconLayout_giveTab"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <LinearLayout
+            android:id="@+id/carouselTextLayout_giveTab"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:background="@color/gk_blue"
+            android:orientation="vertical"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/carouselGuideline_giveTab"
+            app:layout_constraintTop_toTopOf="@id/carouselIconLayout_giveTab">
+
+            <TextView
+                android:id="@+id/carouselTextAmount_giveTab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.2" />
+                style="@style/RegularText"
+                android:textSize="25pt"
+                android:textColor="@color/white" />
 
             <TextView
-                style="@style/GiveTabDonationExampleAmount"
-                android:layout_marginTop="13dp"
-                android:text="@string/give_tab_examples_currency_sign"
-                android:textSize="12pt"
-                app:layout_constraintEnd_toStartOf="@id/examples_amount_giveTab"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/examples_amount_giveTab"
-                style="@style/GiveTabDonationExampleAmount"
-                android:fontFamily="@font/kulturista_bold"
-                app:layout_constraintBottom_toTopOf="@id/examples_description_giveTab"
-                app:layout_constraintEnd_toStartOf="@id/donate_right_guideline_giveTab"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toEndOf="@id/donate_left_guideline_giveTab"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/examples_description_giveTab"
-                style="@style/ParagraphText"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:gravity="center"
+                android:id="@+id/carouselTextDescription_giveTab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                style="@style/RegularText"
                 android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/donate_right_guideline_giveTab"
-                app:layout_constraintStart_toEndOf="@id/donate_left_guideline_giveTab"
-                app:layout_constraintTop_toBottomOf="@id/examples_amount_giveTab" />
+                android:textSize="9pt"/>
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/donate_right_guideline_giveTab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.8" />
-
-            <FrameLayout
-                android:id="@+id/rightChevronClickHolder_giveTab"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/donate_right_guideline_giveTab"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/rightChevron_giveTab"
-                    android:layout_width="wrap_content"
-                    android:layout_height="25dp"
-                    android:layout_gravity="center_vertical|end"
-                    android:layout_marginEnd="15dp"
-                    android:contentDescription="@string/give_tab_examples_right_chevron"
-                    android:src="@drawable/ic_chevron_right" />
-            </FrameLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
         <View
-            android:id="@+id/creditCardDonate_giveTab"
+            android:id="@+id/creditCardDonateDivider_giveTab"
             style="@style/DividerViewLarge"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/carousel_giveTab" />
+            app:layout_constraintTop_toBottomOf="@id/carouselTextLayout_giveTab" />
 
         <TextView
             android:id="@+id/card_donate_button_giveTab"
@@ -159,7 +125,7 @@
             android:text="@string/give_tab_credit_card_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/creditCardDonate_giveTab" />
+            app:layout_constraintTop_toBottomOf="@id/creditCardDonateDivider_giveTab" />
 
         <View
             android:id="@+id/donationDivider_giveTab"

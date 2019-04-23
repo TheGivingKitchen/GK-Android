@@ -21,7 +21,6 @@ import org.givingkitchen.android.ui.homescreen.give.GiveFragment
 import org.givingkitchen.android.ui.homescreen.safetynet.safetynettab.SafetynetFragment
 
 class HomeFragment: Fragment()  {
-    // todo: user analytics
     private lateinit var model: HomeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
