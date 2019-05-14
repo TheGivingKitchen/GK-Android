@@ -17,11 +17,10 @@ import kotlinx.android.synthetic.main.fragment_form_prologue.*
 import org.givingkitchen.android.R
 import org.givingkitchen.android.ui.forms.Form
 import org.givingkitchen.android.ui.forms.Page
+import org.givingkitchen.android.util.*
+import org.givingkitchen.android.util.Constants.donePageArg
 import org.givingkitchen.android.util.Constants.formShareWufooUrl
 import org.givingkitchen.android.util.Constants.formsArg
-import org.givingkitchen.android.util.Services
-import org.givingkitchen.android.util.setTextIfItExists
-import org.givingkitchen.android.util.startShareAction
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
@@ -126,6 +125,12 @@ class FormPrologueFragment : Fragment() {
         if (form != null && form!!.Pages != null) {
             val args = Bundle()
             args.putParcelable(formArg, form)
+            val donePage: DonePage = try {
+                arguments!!.getEnum<DonePage>(donePageArg)
+            } catch (e: KotlinNullPointerException) {
+                DonePage.DEFAULT
+            }
+            args.putEnum(donePageArg, donePage)
             Navigation.findNavController(view!!).navigate(R.id.questionsContainerFragment, args)
         } else {
             Toast.makeText(context, getString(R.string.base_forms_prologue_error), Toast.LENGTH_SHORT).show()

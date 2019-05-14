@@ -14,8 +14,11 @@ import org.givingkitchen.android.R
 import org.givingkitchen.android.ui.homescreen.assistance.AssistanceViewModel.Companion.assistanceLearnMoreURL
 import org.givingkitchen.android.ui.homescreen.assistance.AssistanceViewModel.Companion.referralAssistanceInquiryUrl
 import org.givingkitchen.android.ui.homescreen.assistance.AssistanceViewModel.Companion.selfAssistanceInquiryUrl
+import org.givingkitchen.android.util.Constants
 import org.givingkitchen.android.util.Constants.formsArg
 import org.givingkitchen.android.util.CustomTabs
+import org.givingkitchen.android.util.DonePage
+import org.givingkitchen.android.util.putEnum
 
 class AssistanceFragment : Fragment() {
     private lateinit var model: AssistanceViewModel
@@ -42,12 +45,14 @@ class AssistanceFragment : Fragment() {
     private val forYouButtonClickListener = View.OnClickListener {
         val args = Bundle()
         args.putString(formsArg, selfAssistanceInquiryUrl)
+        args.putEnum(Constants.donePageArg, DonePage.ASSISTANCE_INQUIRY)
         Navigation.findNavController(getView()!!).navigate(R.id.formsFragment, args)
     }
 
     private val forSomeoneElseButtonClickListener = View.OnClickListener {
         val args = Bundle()
         args.putString(formsArg, referralAssistanceInquiryUrl)
+        args.putEnum(Constants.donePageArg, DonePage.ASSISTANCE_INQUIRY)
         Navigation.findNavController(getView()!!).navigate(R.id.formsFragment, args)
     }
 

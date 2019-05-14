@@ -19,6 +19,8 @@ import org.givingkitchen.android.ui.homescreen.give.GiveViewModel.Companion.give
 import org.givingkitchen.android.ui.homescreen.give.GiveViewModel.Companion.recurringDonationURL
 import org.givingkitchen.android.util.Constants
 import org.givingkitchen.android.util.CustomTabs
+import org.givingkitchen.android.util.DonePage
+import org.givingkitchen.android.util.putEnum
 
 class GiveFragment : Fragment() {
     private lateinit var model: GiveViewModel
@@ -77,18 +79,21 @@ class GiveFragment : Fragment() {
     private val volunteerButtonClickListener = View.OnClickListener {
         val args = Bundle()
         args.putString(Constants.formsArg, GiveViewModel.volunteerSignupUrl)
+        args.putEnum(Constants.donePageArg, DonePage.VOLUNTEER)
         Navigation.findNavController(view!!).navigate(R.id.formsFragment, args)
     }
 
     private val joinForcesButtonClickListener = View.OnClickListener {
         val args = Bundle()
         args.putString(Constants.formsArg, GiveViewModel.joinOurForcesUrl)
+        args.putEnum(Constants.donePageArg, DonePage.STABILITY_NETWORK)
         Navigation.findNavController(view!!).navigate(R.id.formsFragment, args)
     }
 
     private val partnerButtonClickListener = View.OnClickListener {
         val args = Bundle()
         args.putString(Constants.formsArg, GiveViewModel.stabilityNetworkPartnerUrl)
+        args.putEnum(Constants.donePageArg, DonePage.STABILITY_NETWORK)
         Navigation.findNavController(view!!).navigate(R.id.formsFragment, args)
     }
 

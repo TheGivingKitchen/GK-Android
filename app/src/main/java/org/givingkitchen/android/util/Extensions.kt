@@ -2,6 +2,7 @@ package org.givingkitchen.android.util
 
 import android.content.Intent
 import android.content.res.Resources
+import android.os.Bundle
 import androidx.annotation.DimenRes
 import androidx.fragment.app.Fragment
 import android.util.TypedValue
@@ -30,6 +31,18 @@ fun View.setPaddingDp(leftDp: Int, topDp: Int, rightDp: Int, bottomDp: Int) {
 fun convertToDp(sizeInDp: Int, resources: Resources): Int {
     val scale = resources.displayMetrics.density
     return (sizeInDp * scale + 0.5f).toInt()
+}
+
+fun Bundle.putEnum(key:String, enum: Enum<*>){
+    putString(key, enum.name)
+}
+
+inline fun <reified T: Enum<T>> Bundle.getEnum(key:String): T {
+    return try {
+        enumValueOf(getString(key))
+    } catch (e: IllegalStateException) {
+        throw KotlinNullPointerException()
+    }
 }
 
 /**

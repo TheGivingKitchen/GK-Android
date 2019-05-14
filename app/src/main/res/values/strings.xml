@@ -145,6 +145,17 @@
     <string name="crisis_survey_header_you">you</string>
     <string name="crisis_survey_header_they">they</string>
 
+    <!-- Form Done -->
+    <string name="form_done_header_thanks_fullstop">THANK YOU.</string>
+    <string name="form_done_header_thanks_exclamation">THANK YOU!</string>
+    <string name="form_done_header_welcome">WELCOME TO THE FIGHT!</string>
+    <string name="form_done_description_assistance">Thank you for serving your local community, and thank you for contacting us. \n Our programs team will reach out to follow up and answer any questions you may have about the application process. The average application process takes about three weeks but can vary depending on the situation.</string>
+    <string name="form_done_description_volunteer">Thank you for signing up to be a GK volunteer! You\'ll be added our volunteer newsletter to hear about opportunities each month and on an as-needed basis. From there, you can simply head over to our volunteer calendar and sign up for as many or as few opportunities as your heart desires.</string>
+    <string name="form_done_description_stability_network">Thank you for your service and interest in becoming a Giving Kitchen Stability Network partner. A member of our staff will reach out to you shortly with more details on how we can best work together.</string>
+    <string name="form_done_description_default">Thanks for taking the time to reach out to us. We have received your form and a member of our team will be in touch shortly.</string>
+    <string name="form_done_button_done">Done</string>
+    <string name="form_done_button_share">SPREAD THE WORD</string>
+
     <!-- Content Descriptions -->
     <string name="give_tab_examples_left_chevron">Reduce the suggested donation amount</string>
     <string name="give_tab_examples_right_chevron">Increase the suggested donation amount</string>
