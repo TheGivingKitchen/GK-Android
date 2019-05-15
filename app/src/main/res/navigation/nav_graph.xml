@@ -58,6 +58,10 @@
         android:name="org.givingkitchen.android.ui.forms.FormContainerFragment"
         android:label="QuestionsContainerFragment" />
     <fragment
+        android:id="@+id/formDoneFragment"
+        android:name="org.givingkitchen.android.ui.forms.done.FormDoneFragment"
+        android:label="FormDoneFragment" />
+    <fragment
         android:id="@+id/facebookGroupsFragment"
         android:name="org.givingkitchen.android.ui.homescreen.safetynet.facebookgroups.FacebookGroupsFragment"
         android:label="FacebookGroupsFragment" />

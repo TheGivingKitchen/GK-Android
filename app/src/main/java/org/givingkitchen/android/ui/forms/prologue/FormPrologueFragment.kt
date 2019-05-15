@@ -122,7 +122,7 @@ class FormPrologueFragment : Fragment() {
     }
 
     private val startButtonClickListener = View.OnClickListener {
-        if (form != null && form!!.Pages != null) {
+        if (form != null && form!!.Pages != null && arguments != null) {
             val args = Bundle()
             args.putParcelable(formArg, form)
             val donePage: DonePage = try {
@@ -134,6 +134,7 @@ class FormPrologueFragment : Fragment() {
             Navigation.findNavController(view!!).navigate(R.id.questionsContainerFragment, args)
         } else {
             Toast.makeText(context, getString(R.string.base_forms_prologue_error), Toast.LENGTH_SHORT).show()
+            Crashlytics.log("Could not enter form")
         }
     }
 

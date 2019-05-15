@@ -13,13 +13,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_questions_container.*
 import org.givingkitchen.android.R
 import org.givingkitchen.android.ui.forms.page.FormPageFragment
 import org.givingkitchen.android.ui.forms.page.QuestionResponse
 import org.givingkitchen.android.ui.forms.prologue.FormPrologueFragment
-import org.givingkitchen.android.util.FragmentBackPressedListener
+import org.givingkitchen.android.util.*
 import org.givingkitchen.android.util.Services.moshi
 
 class FormContainerFragment: Fragment(), FragmentBackPressedListener {
@@ -169,6 +170,15 @@ class FormContainerFragment: Fragment(), FragmentBackPressedListener {
             val jsonAdapter = moshi.adapter(AnswerDictionary::class.java)
             val output = jsonAdapter.toJson(AnswerDictionary(submission))
         }
+
+        val donePage: DonePage = try {
+            arguments!!.getEnum<DonePage>(Constants.donePageArg)
+        } catch (e: KotlinNullPointerException) {
+            DonePage.DEFAULT
+        }
+        val args = Bundle()
+        args.putEnum(Constants.donePageArg, donePage)
+        Navigation.findNavController(view!!).navigate(R.id.formDoneFragment, args)
     }
 
     private inner class ScreenSlidePagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
