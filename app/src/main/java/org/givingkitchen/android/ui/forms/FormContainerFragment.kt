@@ -13,8 +13,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import com.android.volley.*
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.fragment_questions_container.*
 import org.givingkitchen.android.R
 import org.givingkitchen.android.ui.forms.page.FormPageFragment
@@ -23,7 +27,7 @@ import org.givingkitchen.android.ui.forms.prologue.FormPrologueFragment
 import org.givingkitchen.android.util.*
 import org.givingkitchen.android.util.Services.moshi
 
-class FormContainerFragment: Fragment(), FragmentBackPressedListener {
+class FormContainerFragment : Fragment(), FragmentBackPressedListener {
     private lateinit var questionPages: List<FormPageFragment>
     private lateinit var formId: String
     private lateinit var model: FormContainerViewModel
@@ -57,13 +61,13 @@ class FormContainerFragment: Fragment(), FragmentBackPressedListener {
             model.setForwardButtonState(FormContainerViewModel.Companion.ForwardButtonState.SUBMIT)
         } else {
             model.setForwardButtonState(FormContainerViewModel.Companion.ForwardButtonState.NEXT)
-            viewPager_questionsContainer.addOnPageChangeListener(object: ViewPager.OnPageChangeListener {
-                override fun onPageScrollStateChanged(state: Int) { }
+            viewPager_questionsContainer.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+                override fun onPageScrollStateChanged(state: Int) {}
 
-                override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) { }
+                override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
 
                 override fun onPageSelected(position: Int) {
-                    if (position == questionPagesAdapter.count-1) {
+                    if (position == questionPagesAdapter.count - 1) {
                         model.setForwardButtonState(FormContainerViewModel.Companion.ForwardButtonState.SUBMIT)
                     } else {
                         model.setForwardButtonState(FormContainerViewModel.Companion.ForwardButtonState.NEXT)
@@ -133,7 +137,7 @@ class FormContainerFragment: Fragment(), FragmentBackPressedListener {
         for (answer in questionPages[currentItem].getQuestionResponses()) {
             val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
             if (sharedPref != null) {
-                with (sharedPref.edit()) {
+                with(sharedPref.edit()) {
                     putString(answer.question, answer.answer)
                     apply()
                 }
@@ -169,8 +173,32 @@ class FormContainerFragment: Fragment(), FragmentBackPressedListener {
             val submission = submissionAnswers.map { AnswerDictionaryEntry(it.id, it.answer) }
             val jsonAdapter = moshi.adapter(AnswerDictionary::class.java)
             val output = jsonAdapter.toJson(AnswerDictionary(submission))
-        }
 
+            // Instantiate the RequestQueue.
+            val queue = Volley.newRequestQueue(context)
+            val url = "http://www.google.com"
+            // Request a string response from the provided URL.
+            val stringRequest = StringRequest(Request.Method.GET, url,
+                    Response.Listener<String> { response ->
+                        Toast.makeText(context, "Response is: ${response.substring(0, 500)}", Toast.LENGTH_SHORT).show()
+                    },
+                    Response.ErrorListener {error ->
+                        // getting a noconnection error here
+                        if (error is NoConnectionError) {
+                            Toast.makeText(context,
+                                    "noconnection error",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    })
+
+            queue.add(stringRequest)
+
+
+            goToDonePage()
+        }
+    }
+
+    private fun goToDonePage() {
         val donePage: DonePage = try {
             arguments!!.getEnum<DonePage>(Constants.donePageArg)
         } catch (e: KotlinNullPointerException) {

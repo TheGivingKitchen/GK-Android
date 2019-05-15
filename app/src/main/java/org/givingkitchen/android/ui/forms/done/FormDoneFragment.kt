@@ -37,6 +37,7 @@ class FormDoneFragment : Fragment(), FragmentBackPressedListener {
         } else {
             View.GONE
         }
+        button_formDone.setOnClickListener(doneButtonClickListener)
     }
 
     override fun onBackPressed(): Boolean {
@@ -46,5 +47,9 @@ class FormDoneFragment : Fragment(), FragmentBackPressedListener {
 
     private fun setShareClickListener(shareUrl: String) {
         shareButton_formDone.setOnClickListener { startShareAction(shareUrl) }
+    }
+
+    private val doneButtonClickListener = View.OnClickListener {
+        Navigation.findNavController(view!!).navigate(R.id.homeFragment)
     }
 }

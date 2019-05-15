@@ -71,4 +71,5 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:2.3.0"
     implementation 'com.ryanjeffreybrooks:indefinitepagerindicator:1.0.10'
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
+    compile 'com.android.volley:volley:1.1.1'
 }
