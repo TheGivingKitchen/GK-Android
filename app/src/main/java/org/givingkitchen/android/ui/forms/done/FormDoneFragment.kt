@@ -6,15 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_form_done.*
 import org.givingkitchen.android.R
-import org.givingkitchen.android.util.Constants
-import org.givingkitchen.android.util.DonePage
-import org.givingkitchen.android.util.getEnum
+import org.givingkitchen.android.util.*
 
-class FormDoneFragment : Fragment() {
+class FormDoneFragment : Fragment(), FragmentBackPressedListener {
 
-    // todo: Android back button should go back to homepage at this screen
     @Nullable
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -33,10 +31,20 @@ class FormDoneFragment : Fragment() {
         title_formDone.text = resources.getString(donePage.title)
         description_formDone.text = resources.getString(donePage.description)
         button_formDone.text = resources.getString(donePage.buttonText)
-        shareButton_formDone.visibility = if (donePage.enableShareButton) {
+        shareButton_formDone.visibility = if (donePage.shareString != null) {
+            setShareClickListener(resources.getString(donePage.shareString))
             View.VISIBLE
         } else {
             View.GONE
         }
+    }
+
+    override fun onBackPressed(): Boolean {
+        Navigation.findNavController(view!!).navigate(R.id.homeFragment)
+        return true
+    }
+
+    private fun setShareClickListener(shareUrl: String) {
+        shareButton_formDone.setOnClickListener { startShareAction(shareUrl) }
     }
 }
