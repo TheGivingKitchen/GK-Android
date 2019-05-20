@@ -13,19 +13,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
-import com.android.volley.*
-import com.android.volley.toolbox.StringRequest
-import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.fragment_questions_container.*
-import org.givingkitchen.android.R
 import org.givingkitchen.android.ui.forms.page.FormPageFragment
 import org.givingkitchen.android.ui.forms.page.QuestionResponse
 import org.givingkitchen.android.ui.forms.prologue.FormPrologueFragment
 import org.givingkitchen.android.util.*
 import org.givingkitchen.android.util.Services.moshi
+import okhttp3.*
+import okhttp3.Request
+import okhttp3.Response
+import org.givingkitchen.android.R
+import java.io.IOException
+
 
 class FormContainerFragment : Fragment(), FragmentBackPressedListener {
     private lateinit var questionPages: List<FormPageFragment>
@@ -174,28 +175,47 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
             val jsonAdapter = moshi.adapter(AnswerDictionary::class.java)
             val output = jsonAdapter.toJson(AnswerDictionary(submission))
 
-            // Instantiate the RequestQueue.
-            val queue = Volley.newRequestQueue(context)
-            val url = "http://www.google.com"
-            // Request a string response from the provided URL.
-            val stringRequest = StringRequest(Request.Method.GET, url,
-                    Response.Listener<String> { response ->
-                        Toast.makeText(context, "Response is: ${response.substring(0, 500)}", Toast.LENGTH_SHORT).show()
-                    },
-                    Response.ErrorListener {error ->
-                        // getting a noconnection error here
-                        if (error is NoConnectionError) {
-                            Toast.makeText(context,
-                                    "noconnection error",
-                                    Toast.LENGTH_LONG).show();
-                        }
-                    })
-
-            queue.add(stringRequest)
+            val str = post()
 
 
-            goToDonePage()
         }
+    }
+
+    private fun post() {
+        val client = OkHttpClient.Builder()
+                .authenticator(object: Authenticator {
+                    override fun authenticate(route: Route?, response: Response): Request? {
+                        if (response.request().header("Authorization") != null) {
+                            return null // Give up, we've already attempted to authenticate.
+                        }
+
+                        val credentials = Credentials.basic("M7Q4-OZTA-MBXK-S2WT", "welcometotgk12345")
+                        return response.request().newBuilder()
+                                .header("Authorization", credentials)
+                                .build()
+                    }
+                }).build()
+
+        val requestbody = FormBody.Builder()
+                .add("username", "test")
+                .add("password", "test")
+                .build()
+
+        val request = Request.Builder()
+                .url("https://thegivingkitchen.wufoo.com/api/v3/forms/r11653kr0915kou/entries.json")
+                .post(requestbody)
+                .build()
+
+        client.newCall(request).enqueue(object: Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                val x = 2
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                val y = 3
+                // goToDonePage()
+            }
+        })
     }
 
     private fun goToDonePage() {
