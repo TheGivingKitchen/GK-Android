@@ -155,7 +155,8 @@
     <string name="form_done_description_default">Thanks for taking the time to reach out to us. We have received your form and a member of our team will be in touch shortly.</string>
     <string name="form_done_button_done">Done</string>
     <string name="form_done_button_share">SPREAD THE WORD</string>
-    <string name="form_done_submit_error">Sorry, we\'re unable to submit this form right now</string>
+    <string name="form_done_submit_error">Sorry, there was an error submitting this form</string>
+    <string name="form_done_submit_url">https://thegivingkitchen.wufoo.com/api/v3/forms/%1$s/entries.json</string>
     <string name="form_done_share_url_volunteer">https://thegivingkitchen.org/volunteer</string>
     <string name="form_done_share_url_stability_network">https://thegivingkitchen.wufoo.com/forms/z176lwo104hfvol/</string>
 

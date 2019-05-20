@@ -10,6 +10,7 @@ object Constants {
     const val formShareWufooUrl = "https://thegivingkitchen.wufoo.com/forms/"
     const val formsArg = "formsUrl"
     const val donePageArg = "formsDonePage"
+    const val httpUnauthorizedError = 401
 }
 
 enum class DonePage(@DrawableRes val drawable: Int, @StringRes val title: Int, @StringRes val description: Int, @StringRes val buttonText: Int, @StringRes val shareString: Int? = null) {

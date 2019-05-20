@@ -13,8 +13,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
+import androidx.annotation.StringRes
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import com.crashlytics.android.Crashlytics
+import com.squareup.moshi.JsonAdapter
 import kotlinx.android.synthetic.main.fragment_questions_container.*
 import org.givingkitchen.android.ui.forms.page.FormPageFragment
 import org.givingkitchen.android.ui.forms.page.QuestionResponse
@@ -32,6 +36,7 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
     private lateinit var questionPages: List<FormPageFragment>
     private lateinit var formId: String
     private lateinit var model: FormContainerViewModel
+    private lateinit var jsonAdapter: JsonAdapter<WufooResponse>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +48,7 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
             formId = form.ID!!
         }
 
+        jsonAdapter = Services.moshi.adapter(WufooResponse::class.java)
         model.getForwardButtonState().observe(this, Observer<FormContainerViewModel.Companion.ForwardButtonState> { forwardButtonState ->
             updateForwardButton(forwardButtonState!!)
         })
@@ -121,8 +127,8 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
     private fun hideKeyboardIfShowing() {
         val view = activity?.currentFocus
         view?.let {
-            val imm = context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-            imm?.let { it.hideSoftInputFromWindow(view.windowToken, 0) }
+            val inputMethodManager = context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+            inputMethodManager?.hideSoftInputFromWindow(view.windowToken, 0)
         }
     }
 
@@ -197,23 +203,39 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
                 }).build()
 
         val requestbody = FormBody.Builder()
-                .add("username", "test")
-                .add("password", "test")
-                .build()
+        val submissionAnswers = arrayListOf<QuestionResponse>()
+
+        for (i in 0 until questionPages.size) {
+            submissionAnswers.addAll(questionPages[i].getQuestionResponses())
+        }
+
+        for (submissionAnswer in submissionAnswers) {
+            requestbody.add(submissionAnswer.id, submissionAnswer.answer)
+        }
 
         val request = Request.Builder()
-                .url("https://thegivingkitchen.wufoo.com/api/v3/forms/r11653kr0915kou/entries.json")
-                .post(requestbody)
+                .url(getString(R.string.form_done_submit_url, formId))
+                .post(requestbody.build())
                 .build()
 
         client.newCall(request).enqueue(object: Callback {
             override fun onFailure(call: Call, e: IOException) {
-                val x = 2
+                handleFormSubmissionError("Error submitting form with id $formId: $e")
             }
 
             override fun onResponse(call: Call, response: Response) {
-                val y = 3
-                // goToDonePage()
+                if (response.code() == Constants.httpUnauthorizedError) {
+                    handleFormSubmissionError("Invalid authorization credentials for form $formId")
+                    return
+                }
+
+                val wufooResponse = jsonAdapter.nullSafe().fromJson(response.body()!!.string())
+
+                if (wufooResponse!!.Success == 1) {
+                    goToDonePage()
+                } else {
+
+                }
             }
         })
     }
@@ -229,6 +251,13 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
         Navigation.findNavController(view!!).navigate(R.id.formDoneFragment, args)
     }
 
+    private fun handleFormSubmissionError(logMessage: String, @StringRes toastMessage: Int = R.string.form_done_submit_error) {
+        Crashlytics.log(logMessage)
+        activity!!.runOnUiThread {
+            Toast.makeText(context, getString(toastMessage), Toast.LENGTH_SHORT).show()
+        }
+    }
+
     private inner class ScreenSlidePagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
         override fun getCount(): Int = questionPages.size
 
@@ -240,3 +269,7 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
 
 class AnswerDictionaryEntry(val id: String, val answer: String)
 class AnswerDictionary(val entries: List<AnswerDictionaryEntry>)
+
+
+
+
