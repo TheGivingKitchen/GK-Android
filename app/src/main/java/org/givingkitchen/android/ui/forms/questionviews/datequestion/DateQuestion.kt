@@ -41,11 +41,11 @@ class DateQuestion(title: String?, answer: String? = null, context: Context, att
         dateDay = dayOfMonth
         dateYear = year
 
-        date_dateQuestion.text = context.getString(R.string.date_question_date, month+1, dayOfMonth, year)
+        date_dateQuestion.text = context.getString(R.string.date_question_date, month, dayOfMonth, year)
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-        setDate(month, dayOfMonth, year)
+        setDate(month+1, dayOfMonth, year)
     }
 
     override fun isAnswered(): Boolean {
