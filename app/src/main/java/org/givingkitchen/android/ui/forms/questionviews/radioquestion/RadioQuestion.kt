@@ -66,7 +66,8 @@ class RadioQuestion(title: String?, answerChoices: List<String?>?, hasOtherField
         return false
     }
 
-    override fun placeUnansweredWarning() {
+    override fun placeUnansweredWarning(warningMessage: String) {
+        warning_radioQuestion.text = warningMessage
         warning_radioQuestion.visibility = View.VISIBLE
     }
 

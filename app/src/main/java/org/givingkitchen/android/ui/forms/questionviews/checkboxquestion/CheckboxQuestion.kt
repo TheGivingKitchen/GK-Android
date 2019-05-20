@@ -57,7 +57,8 @@ class CheckboxQuestion(title: String?, answerChoices: List<String?>?, hasOtherFi
         return false
     }
 
-    override fun placeUnansweredWarning() {
+    override fun placeUnansweredWarning(warningMessage: String) {
+        warning_checkboxQuestion.text = warningMessage
         warning_checkboxQuestion.visibility = View.VISIBLE
     }
 

@@ -71,6 +71,10 @@ class FormPageFragment : Fragment() {
             }
         }
     }
+    
+    fun getQuestionViews(): List<QuestionView> {
+        return
+    }
 
     fun getQuestionResponses(): List<QuestionResponse> {
         val questionResponses = arrayListOf<QuestionResponse>()
@@ -131,7 +135,7 @@ class FormPageFragment : Fragment() {
             QuestionType.date -> {
                 val dateQuestion = DateQuestion(formatTitle(question.Title, question.IsRequired), savedAnswer, context!!)
                 dateQuestion.setOnClickListener {
-                    DatePickerFragment().newInstance(dateQuestion, dateQuestion.dateYear, dateQuestion.dateMonth, dateQuestion.dateDay).show(fragmentManager, "Date")
+                    DatePickerFragment().newInstance(dateQuestion, dateQuestion.dateYear, dateQuestion.dateMonth-1, dateQuestion.dateDay).show(fragmentManager, "Date")
                 }
                 dateQuestion
             }

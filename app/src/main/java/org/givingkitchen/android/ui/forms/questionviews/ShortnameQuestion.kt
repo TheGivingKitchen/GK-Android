@@ -36,7 +36,8 @@ class ShortnameQuestion(title: String?, answer: String? = null, context: Context
         return (firstName_shortnameQuestion.text.isNotBlank() && lastName_shortnameQuestion.text.isNotBlank())
     }
 
-    override fun placeUnansweredWarning() {
+    override fun placeUnansweredWarning(warningMessage: String) {
+        warning_shortnameQuestion.text = warningMessage
         warning_shortnameQuestion.visibility = View.VISIBLE
     }
 

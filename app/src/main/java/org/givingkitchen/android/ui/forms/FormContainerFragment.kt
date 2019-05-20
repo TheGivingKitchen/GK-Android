@@ -155,41 +155,25 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
 
     private val submitButtonClickListener = View.OnClickListener {
         hideKeyboardIfShowing()
-        var firstUnansweredPage: Int? = null
+
+        val submissionAnswers = arrayListOf<QuestionResponse>()
 
         for (i in 0 until questionPages.size) {
-            val questionPage = questionPages[i]
-
-            if (!questionPage.areAllQuestionsAnswered()) {
-                questionPage.placeQuestionUnansweredWarnings()
-                if (firstUnansweredPage == null) {
-                    firstUnansweredPage = i
-                }
-            }
+            submissionAnswers.addAll(questionPages[i].getQuestionResponses())
         }
 
-        if (firstUnansweredPage != null) {
-            viewPager_questionsContainer.setCurrentItem(firstUnansweredPage, true)
-        } else {
-            val submissionAnswers = arrayListOf<QuestionResponse>()
+        val submission = submissionAnswers.map { AnswerDictionaryEntry(it.id, it.answer) }
+        val jsonAdapter = moshi.adapter(AnswerDictionary::class.java)
+        val output = jsonAdapter.toJson(AnswerDictionary(submission))
 
-            for (i in 0 until questionPages.size) {
-                submissionAnswers.addAll(questionPages[i].getQuestionResponses())
-            }
-
-            val submission = submissionAnswers.map { AnswerDictionaryEntry(it.id, it.answer) }
-            val jsonAdapter = moshi.adapter(AnswerDictionary::class.java)
-            val output = jsonAdapter.toJson(AnswerDictionary(submission))
-
-            val str = post()
+        val str = post()
 
 
-        }
     }
 
     private fun post() {
         val client = OkHttpClient.Builder()
-                .authenticator(object: Authenticator {
+                .authenticator(object : Authenticator {
                     override fun authenticate(route: Route?, response: Response): Request? {
                         if (response.request().header("Authorization") != null) {
                             return null // Give up, we've already attempted to authenticate.
@@ -218,7 +202,7 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
                 .post(requestbody.build())
                 .build()
 
-        client.newCall(request).enqueue(object: Callback {
+        client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 handleFormSubmissionError("Error submitting form with id $formId: $e")
             }
@@ -234,7 +218,7 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
                 if (wufooResponse!!.Success == 1) {
                     goToDonePage()
                 } else {
-
+                    goToErrorPage(wufooResponse)
                 }
             }
         })
@@ -249,6 +233,27 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
         val args = Bundle()
         args.putEnum(Constants.donePageArg, donePage)
         Navigation.findNavController(view!!).navigate(R.id.formDoneFragment, args)
+    }
+
+    private fun goToErrorPage(wufooResponse: WufooResponse) {
+        if (wufooResponse.FieldErrors == null) {
+            handleFormSubmissionError("Wufoo returned Success = 0, but FieldErrors were null")
+            return
+        }
+
+        val erroredQuestions = HashMap<String, String>()
+
+        for (fieldError in wufooResponse.FieldErrors) {
+            erroredQuestions.put(fieldError.ID, fieldError.ErrorText)
+        }
+
+        for (i in 0 until questionPages.size) {
+            val questionPage = questionPages[i]
+
+            for (question in questionPage.)
+        }
+
+        viewPager_questionsContainer.setCurrentItem(firstUnansweredPage, true)
     }
 
     private fun handleFormSubmissionError(logMessage: String, @StringRes toastMessage: Int = R.string.form_done_submit_error) {

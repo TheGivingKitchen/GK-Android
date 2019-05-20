@@ -72,7 +72,8 @@ class TimeQuestion(title: String?, answer: String? = null, context: Context, att
         return true
     }
 
-    override fun placeUnansweredWarning() {
+    override fun placeUnansweredWarning(warningMessage: String) {
+        warning_timeQuestion.text = warningMessage
         warning_timeQuestion.visibility = View.VISIBLE
     }
 

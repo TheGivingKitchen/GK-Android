@@ -28,7 +28,8 @@ class UrlQuestion(title: String?, answer: String? = null, context: Context, attr
         return url_urlQuestion.text.isNotBlank()
     }
 
-    override fun placeUnansweredWarning() {
+    override fun placeUnansweredWarning(warningMessage: String) {
+        warning_urlQuestion.text = warningMessage
         warning_urlQuestion.visibility = View.VISIBLE
     }
 

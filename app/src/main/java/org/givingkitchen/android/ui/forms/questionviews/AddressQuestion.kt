@@ -33,7 +33,8 @@ class AddressQuestion(title: String?, answer: String? = null, context: Context, 
                 zipcodeField_addressQuestion.text.isNotBlank())
     }
 
-    override fun placeUnansweredWarning() {
+    override fun placeUnansweredWarning(warningMessage: String) {
+        warning_addressQuestion.text = warningMessage
         warning_addressQuestion.visibility = View.VISIBLE
     }
 

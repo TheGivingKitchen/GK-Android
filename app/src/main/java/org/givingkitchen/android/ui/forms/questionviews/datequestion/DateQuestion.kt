@@ -13,6 +13,7 @@ import org.givingkitchen.android.R
 import org.givingkitchen.android.ui.forms.questionviews.QuestionView
 import org.givingkitchen.android.util.convertToDp
 import org.givingkitchen.android.util.setTextIfItExists
+import java.text.DecimalFormat
 import java.util.*
 
 class DateQuestion(title: String?, answer: String? = null, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), DatePickerDialog.OnDateSetListener, QuestionView {
@@ -41,7 +42,9 @@ class DateQuestion(title: String?, answer: String? = null, context: Context, att
         dateDay = dayOfMonth
         dateYear = year
 
-        date_dateQuestion.text = context.getString(R.string.date_question_date, month, dayOfMonth, year)
+        val dec = DecimalFormat("00")
+
+        date_dateQuestion.text = context.getString(R.string.date_question_date, dec.format(month), dec.format(dayOfMonth), dec.format(year))
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
@@ -52,7 +55,8 @@ class DateQuestion(title: String?, answer: String? = null, context: Context, att
         return true
     }
 
-    override fun placeUnansweredWarning() {
+    override fun placeUnansweredWarning(warningMessage: String) {
+        warning_dateQuestion.text = warningMessage
         warning_dateQuestion.visibility = View.VISIBLE
     }
 

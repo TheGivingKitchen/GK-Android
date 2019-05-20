@@ -47,7 +47,8 @@ class MoneyQuestion(title: String?, answer: String? = null, context: Context, at
         return amount_moneyQuestion.text.isNotBlank()
     }
 
-    override fun placeUnansweredWarning() {
+    override fun placeUnansweredWarning(warningMessage: String) {
+        warning_moneyQuestion.text = warningMessage
         warning_moneyQuestion.visibility = View.VISIBLE
     }
 

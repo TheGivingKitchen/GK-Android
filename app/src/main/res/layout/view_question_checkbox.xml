@@ -10,6 +10,5 @@
 
     <TextView
         android:id="@+id/warning_checkboxQuestion"
-        style="@style/UnansweredQuestionWarning"
-        android:text="@string/selection_question_unanswered_warning"/>
+        style="@style/UnansweredQuestionWarning"/>
 </merge>

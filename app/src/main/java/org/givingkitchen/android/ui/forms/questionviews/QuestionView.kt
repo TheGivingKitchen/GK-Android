@@ -4,7 +4,7 @@ interface QuestionView {
 
     fun isAnswered(): Boolean
 
-    fun placeUnansweredWarning()
+    fun placeUnansweredWarning(warningMessage: String)
 
     fun getAnswer(): String? /* returns null if the question hasn't been answered */
 }

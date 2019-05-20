@@ -28,7 +28,8 @@ class EmailQuestion(title: String?, answer: String? = null, context: Context, at
         return email_emailQuestion.text.isNotBlank()
     }
 
-    override fun placeUnansweredWarning() {
+    override fun placeUnansweredWarning(warningMessage: String) {
+        warning_emailQuestion.text = warningMessage
         warning_emailQuestion.visibility = View.VISIBLE
     }
 

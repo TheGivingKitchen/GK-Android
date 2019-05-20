@@ -194,7 +194,7 @@
     <string name="money_question_hint">$0.00</string>
     <string name="checkbox_other_hint">Please Specify</string>
     <string name="radio_other_hint">Please Specify</string>
-    <string name="date_question_date">%1$d/%2$d/%3$d</string>
+    <string name="date_question_date">%1$s/%2$s/%3$s</string>
     <string name="time_question_time">%1$d:%2$s %3$s</string>
     <string name="time_question_am">am</string>
     <string name="time_question_pm">pm</string>
@@ -208,10 +208,7 @@
     <string name="address_question_state_hint">State</string>
     <string name="address_question_zipcode_label">Postal / Zip Code</string>
     <string name="address_question_zipcode_hint">Zip</string>
-
     <string name="answer_choice_other">Other</string>
-    <string name="question_unanswered_warning">This field is required. Please enter a value.</string>
-    <string name="selection_question_unanswered_warning">This field is required. Please make a selection.</string>
 
     <!-- Shared Prefs -->
     <string name="preference_file_key">org.givingkitchen.android</string>

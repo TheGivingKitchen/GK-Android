@@ -28,7 +28,8 @@ class TextareaQuestion(title: String?, answer: String? = null, context: Context,
         return text_textareaQuestion.text.isNotBlank()
     }
 
-    override fun placeUnansweredWarning() {
+    override fun placeUnansweredWarning(warningMessage: String) {
+        warning_textareaQuestion.text = warningMessage
         warning_textareaQuestion.visibility = View.VISIBLE
     }
 

@@ -28,7 +28,8 @@ class TextQuestion(title: String?, answer: String? = null, context: Context, att
         return text_textQuestion.text.isNotBlank()
     }
 
-    override fun placeUnansweredWarning() {
+    override fun placeUnansweredWarning(warningMessage: String) {
+        warning_textQuestion.text = warningMessage
         warning_textQuestion.visibility = View.VISIBLE
     }
 

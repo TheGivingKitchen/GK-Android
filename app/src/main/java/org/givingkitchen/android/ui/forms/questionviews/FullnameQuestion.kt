@@ -28,7 +28,8 @@ class FullnameQuestion(title: String?, answer: String? = null, context: Context,
         return name_fullnameQuestion.text.isNotBlank()
     }
 
-    override fun placeUnansweredWarning() {
+    override fun placeUnansweredWarning(warningMessage: String) {
+        warning_fullnameQuestion.text = warningMessage
         warning_fullnameQuestion.visibility = View.VISIBLE
     }
 
