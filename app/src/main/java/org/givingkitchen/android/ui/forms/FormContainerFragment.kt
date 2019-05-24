@@ -37,6 +37,7 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
     private lateinit var formId: String
     private lateinit var model: FormContainerViewModel
     private lateinit var jsonAdapter: JsonAdapter<WufooResponse>
+    private val erroredQuestions = HashMap<String, String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,8 +90,7 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
     }
 
     override fun onBackPressed(): Boolean {
-        return if (showingFirstQuestion()) {
-            // Already on the first page, fall back to default back press handling
+        return if (viewPager_questionsContainer.currentItem == 0) {
             false
         } else {
             moveToPreviousQuestion()
@@ -109,10 +109,6 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
         }
         nextButton_questionsContainer.setOnClickListener(forwardButtonClickAction)
         nextButton_questionsContainer.text = getString(state.text)
-    }
-
-    private fun showingFirstQuestion(): Boolean {
-        return viewPager_questionsContainer.currentItem == 0
     }
 
     private fun moveToNextQuestion() {
@@ -167,8 +163,6 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
         val output = jsonAdapter.toJson(AnswerDictionary(submission))
 
         val str = post()
-
-
     }
 
     private fun post() {
@@ -241,7 +235,7 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
             return
         }
 
-        val erroredQuestions = HashMap<String, String>()
+
 
         for (fieldError in wufooResponse.FieldErrors) {
             erroredQuestions.put(fieldError.ID, fieldError.ErrorText)
@@ -250,10 +244,14 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
         for (i in 0 until questionPages.size) {
             val questionPage = questionPages[i]
 
-            for (question in questionPage.)
+            for (questionView in questionPage.getQuestionsWithViews()) {
+                if (questionView.question.ID in erroredQuestions) {
+                    questionView.questionView.placeUnansweredWarning(erroredQuestions[questionView.question.ID]!!)
+                }
+            }
         }
 
-        viewPager_questionsContainer.setCurrentItem(firstUnansweredPage, true)
+        // viewPager_questionsContainer.setCurrentItem(firstUnansweredPage, true)
     }
 
     private fun handleFormSubmissionError(logMessage: String, @StringRes toastMessage: Int = R.string.form_done_submit_error) {

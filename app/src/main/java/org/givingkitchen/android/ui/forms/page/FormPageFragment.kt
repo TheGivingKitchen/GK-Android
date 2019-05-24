@@ -36,7 +36,7 @@ class FormPageFragment : Fragment() {
         }
     }
 
-    private data class QuestionWithView(val question: Question, val questionView: QuestionView)
+    data class QuestionWithView(val question: Question, val questionView: QuestionView)
 
     private lateinit var page: Page
     private val questionsWithViews: ArrayList<QuestionWithView> = arrayListOf()
@@ -71,9 +71,9 @@ class FormPageFragment : Fragment() {
             }
         }
     }
-    
-    fun getQuestionViews(): List<QuestionView> {
-        return
+
+    fun getQuestionsWithViews(): List<QuestionWithView> {
+        return questionsWithViews
     }
 
     fun getQuestionResponses(): List<QuestionResponse> {
@@ -99,14 +99,6 @@ class FormPageFragment : Fragment() {
             }
         }
         return true
-    }
-
-    fun placeQuestionUnansweredWarnings() {
-        for (questionView in questionsWithViews) {
-            if (questionView.question.IsRequired == "1" && !questionView.questionView.isAnswered()) {
-                questionView.questionView.placeUnansweredWarning()
-            }
-        }
     }
 
     private fun getQuestionView(question: Question): View? {
