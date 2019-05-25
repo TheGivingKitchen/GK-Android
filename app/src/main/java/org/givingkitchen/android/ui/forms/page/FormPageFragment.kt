@@ -92,15 +92,6 @@ class FormPageFragment : Fragment() {
         return questionResponses
     }
 
-    fun areAllQuestionsAnswered(): Boolean {
-        for (questionView in questionsWithViews) {
-            if (questionView.question.IsRequired == "1" && !questionView.questionView.isAnswered()) {
-                return false
-            }
-        }
-        return true
-    }
-
     private fun getQuestionView(question: Question): View? {
         val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
         val savedAnswer = sharedPref?.getString(question.Title, null)

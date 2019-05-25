@@ -10,7 +10,7 @@ class Form(val ID: String?,
            val FormSubtitle: String?,
            val FormMetadata: String?,
            val FormShareString: String?,
-           val Pages: List<Page>? = listOf()): Parcelable
+           val Pages: List<Page> = listOf()): Parcelable
 
 @Parcelize
 data class Page(val pageInformation: String?,
@@ -23,7 +23,9 @@ data class Question(val Title: String?,
                     val SubFields: List<SubField>? = listOf(),
                     val Choices: List<Choice>? = listOf(),
                     val ID: String,
-                    val HasOtherField: Boolean): Parcelable
+                    val HasOtherField: Boolean,
+                    var answer: String?,
+                    var warning: String?): Parcelable
 
 @Parcelize
 data class SubField(val Label: String?): Parcelable

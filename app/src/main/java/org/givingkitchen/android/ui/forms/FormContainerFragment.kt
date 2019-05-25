@@ -31,10 +31,8 @@ import okhttp3.Response
 import org.givingkitchen.android.R
 import java.io.IOException
 
-
 class FormContainerFragment : Fragment(), FragmentBackPressedListener {
-    private lateinit var questionPages: List<FormPageFragment>
-    private lateinit var formId: String
+    private lateinit var form: Form
     private lateinit var model: FormContainerViewModel
     private lateinit var jsonAdapter: JsonAdapter<WufooResponse>
     private val erroredQuestions = HashMap<String, String>()
@@ -44,9 +42,7 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
         model = ViewModelProviders.of(this).get(FormContainerViewModel::class.java)
 
         if (arguments != null) {
-            val form = arguments!!.getParcelable<Form>(FormPrologueFragment.formArg)
-            questionPages = form!!.Pages!!.map { FormPageFragment.newInstance(it) }
-            formId = form.ID!!
+            form = arguments!!.getParcelable(FormPrologueFragment.formArg)!!
         }
 
         jsonAdapter = Services.moshi.adapter(WufooResponse::class.java)
@@ -63,7 +59,7 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val questionPagesAdapter = ScreenSlidePagerAdapter(fragmentManager!!)
+        val questionPagesAdapter = FormPagerAdapter(fragmentManager!!)
         viewPager_questionsContainer.adapter = questionPagesAdapter
         if (questionPagesAdapter.count < 2) {
             model.setForwardButtonState(FormContainerViewModel.Companion.ForwardButtonState.SUBMIT)
@@ -93,7 +89,7 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
         return if (viewPager_questionsContainer.currentItem == 0) {
             false
         } else {
-            moveToPreviousQuestion()
+            viewPager_questionsContainer.setCurrentItem(viewPager_questionsContainer.currentItem - 1, true)
             true
         }
     }
@@ -109,15 +105,6 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
         }
         nextButton_questionsContainer.setOnClickListener(forwardButtonClickAction)
         nextButton_questionsContainer.text = getString(state.text)
-    }
-
-    private fun moveToNextQuestion() {
-        val currentItem = viewPager_questionsContainer.currentItem
-        viewPager_questionsContainer.setCurrentItem(currentItem + 1, true)
-    }
-
-    private fun moveToPreviousQuestion() {
-        viewPager_questionsContainer.setCurrentItem(viewPager_questionsContainer.currentItem - 1, true)
     }
 
     private fun hideKeyboardIfShowing() {
@@ -137,7 +124,8 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
     private val nextButtonClickListener = View.OnClickListener {
         hideKeyboardIfShowing()
         val currentItem = viewPager_questionsContainer.currentItem
-        for (answer in questionPages[currentItem].getQuestionResponses()) {
+        /* for (answer in questionPages[currentItem].getQuestionResponses()) {
+
             val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
             if (sharedPref != null) {
                 with(sharedPref.edit()) {
@@ -145,16 +133,17 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
                     apply()
                 }
             }
-        }
-        moveToNextQuestion()
+        }*/
+
+        viewPager_questionsContainer.setCurrentItem(currentItem + 1, true)
     }
 
     private val submitButtonClickListener = View.OnClickListener {
+        // todo: save final page's answers to sharedprefs
         hideKeyboardIfShowing()
-
         val submissionAnswers = arrayListOf<QuestionResponse>()
 
-        for (i in 0 until questionPages.size) {
+        /* for (i in 0 until questionPages.size) {
             submissionAnswers.addAll(questionPages[i].getQuestionResponses())
         }
 
@@ -162,7 +151,7 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
         val jsonAdapter = moshi.adapter(AnswerDictionary::class.java)
         val output = jsonAdapter.toJson(AnswerDictionary(submission))
 
-        val str = post()
+        val str = post()*/
     }
 
     private fun post() {
@@ -183,27 +172,27 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
         val requestbody = FormBody.Builder()
         val submissionAnswers = arrayListOf<QuestionResponse>()
 
-        for (i in 0 until questionPages.size) {
+        /* for (i in 0 until questionPages.size) {
             submissionAnswers.addAll(questionPages[i].getQuestionResponses())
-        }
+        }*/
 
         for (submissionAnswer in submissionAnswers) {
             requestbody.add(submissionAnswer.id, submissionAnswer.answer)
         }
 
         val request = Request.Builder()
-                .url(getString(R.string.form_done_submit_url, formId))
+                .url(getString(R.string.form_done_submit_url, form.ID))
                 .post(requestbody.build())
                 .build()
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                handleFormSubmissionError("Error submitting form with id $formId: $e")
+                handleFormSubmissionError("Error submitting form with id ${form.ID}: $e")
             }
 
             override fun onResponse(call: Call, response: Response) {
                 if (response.code() == Constants.httpUnauthorizedError) {
-                    handleFormSubmissionError("Invalid authorization credentials for form $formId")
+                    handleFormSubmissionError("Invalid authorization credentials for form ${form.ID}")
                     return
                 }
 
@@ -235,13 +224,11 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
             return
         }
 
-
-
         for (fieldError in wufooResponse.FieldErrors) {
             erroredQuestions.put(fieldError.ID, fieldError.ErrorText)
         }
 
-        for (i in 0 until questionPages.size) {
+        /* for (i in 0 until questionPages.size) {
             val questionPage = questionPages[i]
 
             for (questionView in questionPage.getQuestionsWithViews()) {
@@ -249,7 +236,7 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
                     questionView.questionView.placeUnansweredWarning(erroredQuestions[questionView.question.ID]!!)
                 }
             }
-        }
+        }*/
 
         // viewPager_questionsContainer.setCurrentItem(firstUnansweredPage, true)
     }
@@ -261,11 +248,11 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
         }
     }
 
-    private inner class ScreenSlidePagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
-        override fun getCount(): Int = questionPages.size
+    private inner class FormPagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
+        override fun getCount(): Int = form.Pages.size
 
         override fun getItem(position: Int): Fragment {
-            return questionPages[position]
+            return FormPageFragment.newInstance(form.Pages[position])
         }
     }
 }
