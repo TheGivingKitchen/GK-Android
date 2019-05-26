@@ -74,22 +74,6 @@ class FormPageFragment : Fragment() {
         }
     }
 
-    /* fun getQuestionResponses(): List<QuestionResponse> {
-        val questionResponses = arrayListOf<QuestionResponse>()
-
-        for (questionView in questionsWithViews) {
-            val questionId = questionView.question.ID
-            val questionTitle = questionView.question.Title
-            val questionAnswer = questionView.questionView.getAnswer()
-
-            if (questionTitle != null && questionAnswer != null) {
-                questionResponses.add(QuestionResponse(questionId, questionTitle, questionAnswer))
-            }
-        }
-
-        return questionResponses
-    }*/
-
     private fun getQuestionView(question: Question): View? {
         val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
         val savedAnswer = sharedPref?.getString(formId + question.ID, null)
@@ -158,5 +142,3 @@ class FormPageFragment : Fragment() {
         return if (title != null && isRequired != null && isRequired == "1") "$title*" else title
     }
 }
-
-class QuestionResponse(val id: String, val question: String, val answer: String)
