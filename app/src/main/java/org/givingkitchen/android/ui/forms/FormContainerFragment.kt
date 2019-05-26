@@ -29,6 +29,7 @@ import okhttp3.*
 import okhttp3.Request
 import okhttp3.Response
 import org.givingkitchen.android.R
+import org.givingkitchen.android.util.Services.moshi
 import java.io.IOException
 
 class FormContainerFragment : Fragment(), FragmentBackPressedListener {
@@ -135,20 +136,28 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
         hideKeyboardIfShowing()
         saveAnswers()
 
-        val submissionAnswers = arrayListOf<QuestionResponse>()
+        val requestBody = FormBody.Builder()
 
-        /* for (i in 0 until questionPages.size) {
-            submissionAnswers.addAll(questionPages[i].getQuestionResponses())
+        for (i in 0 until form.Pages.size) {
+            val currentFormPage = form.Pages[i]
+            currentFormPage.questions?.let { questions ->
+                for (question in questions) {
+                    question.answer?.let { answer ->
+                        requestBody.add(question.ID, answer)
+                    }
+                }
+            }
         }
 
-        val submission = submissionAnswers.map { AnswerDictionaryEntry(it.id, it.answer) }
-        val jsonAdapter = moshi.adapter(AnswerDictionary::class.java)
-        val output = jsonAdapter.toJson(AnswerDictionary(submission))
+        val request = Request.Builder()
+                .url(getString(R.string.form_done_submit_url, form.ID))
+                .post(requestBody.build())
+                .build()
 
-        val str = post()*/
+        val str = post(request)
     }
 
-    private fun post() {
+    private fun post(request: Request) {
         val client = OkHttpClient.Builder()
                 .authenticator(object : Authenticator {
                     override fun authenticate(route: Route?, response: Response): Request? {
@@ -162,22 +171,6 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
                                 .build()
                     }
                 }).build()
-
-        val requestbody = FormBody.Builder()
-        val submissionAnswers = arrayListOf<QuestionResponse>()
-
-        /* for (i in 0 until questionPages.size) {
-            submissionAnswers.addAll(questionPages[i].getQuestionResponses())
-        }*/
-
-        for (submissionAnswer in submissionAnswers) {
-            requestbody.add(submissionAnswer.id, submissionAnswer.answer)
-        }
-
-        val request = Request.Builder()
-                .url(getString(R.string.form_done_submit_url, form.ID))
-                .post(requestbody.build())
-                .build()
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
@@ -291,10 +284,3 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
         }
     }
 }
-
-class AnswerDictionaryEntry(val id: String, val answer: String)
-class AnswerDictionary(val entries: List<AnswerDictionaryEntry>)
-
-
-
-
