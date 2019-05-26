@@ -8,10 +8,11 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import kotlinx.android.synthetic.main.view_question_number.view.*
 import org.givingkitchen.android.R
+import org.givingkitchen.android.ui.forms.Question
 import org.givingkitchen.android.util.convertToDp
 import org.givingkitchen.android.util.setTextIfItExists
 
-class NumberQuestion(title: String?, answer: String? = null, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), QuestionView {
+class NumberQuestion(val q: Question, title: String?, answer: String? = null, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), QuestionView {
     init {
         LayoutInflater.from(context).inflate(R.layout.view_question_number, this, true)
         val customLayoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -26,6 +27,10 @@ class NumberQuestion(title: String?, answer: String? = null, context: Context, a
 
     override fun isAnswered(): Boolean {
         return number_numberQuestion.text.isNotBlank()
+    }
+
+    override fun getQuestion(): Question {
+        return q
     }
 
     override fun placeUnansweredWarning(warningMessage: String) {

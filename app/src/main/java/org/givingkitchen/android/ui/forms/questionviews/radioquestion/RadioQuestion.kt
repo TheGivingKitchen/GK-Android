@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import kotlinx.android.synthetic.main.view_question_radio.view.*
 import org.givingkitchen.android.R
+import org.givingkitchen.android.ui.forms.Question
 import org.givingkitchen.android.ui.forms.questionviews.QuestionView
 import org.givingkitchen.android.util.convertToDp
 import org.givingkitchen.android.util.setPaddingDp
@@ -15,7 +16,7 @@ import org.givingkitchen.android.util.setTextIfItExists
 
 // This is currently being used as a select question view
 // todo: make a select question view docs.google.com/presentation/d/1EO0VWQaoIrQXHB8EucHnPXx1IBLR0AEHc5hVTl7hiLg/edit#slide=id.g4bfbc276d8_0_94
-class RadioQuestion(title: String?, answerChoices: List<String?>?, hasOtherField: Boolean?, answer: String? = null, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), QuestionView {
+class RadioQuestion(val q: Question, title: String?, answerChoices: List<String?>?, hasOtherField: Boolean?, answer: String? = null, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), QuestionView {
     private var answerChoiceViews: List<RadioAnswerChoice>?
 
     init {
@@ -64,6 +65,10 @@ class RadioQuestion(title: String?, answerChoices: List<String?>?, hasOtherField
             }
         }
         return false
+    }
+
+    override fun getQuestion(): Question {
+        return q
     }
 
     override fun placeUnansweredWarning(warningMessage: String) {

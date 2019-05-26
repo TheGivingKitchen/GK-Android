@@ -10,13 +10,14 @@ import android.widget.DatePicker
 import android.widget.LinearLayout
 import kotlinx.android.synthetic.main.view_question_date.view.*
 import org.givingkitchen.android.R
+import org.givingkitchen.android.ui.forms.Question
 import org.givingkitchen.android.ui.forms.questionviews.QuestionView
 import org.givingkitchen.android.util.convertToDp
 import org.givingkitchen.android.util.setTextIfItExists
 import java.text.DecimalFormat
 import java.util.*
 
-class DateQuestion(title: String?, answer: String? = null, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), DatePickerDialog.OnDateSetListener, QuestionView {
+class DateQuestion(val q: Question, title: String?, answer: String? = null, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), DatePickerDialog.OnDateSetListener, QuestionView {
     var dateYear: Int = 0
     var dateMonth: Int = 0
     var dateDay: Int = 0
@@ -53,6 +54,10 @@ class DateQuestion(title: String?, answer: String? = null, context: Context, att
 
     override fun isAnswered(): Boolean {
         return true
+    }
+
+    override fun getQuestion(): Question {
+        return q
     }
 
     override fun placeUnansweredWarning(warningMessage: String) {

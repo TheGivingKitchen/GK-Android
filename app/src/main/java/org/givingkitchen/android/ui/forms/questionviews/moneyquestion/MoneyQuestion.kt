@@ -8,11 +8,12 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import kotlinx.android.synthetic.main.view_question_money.view.*
 import org.givingkitchen.android.R
+import org.givingkitchen.android.ui.forms.Question
 import org.givingkitchen.android.ui.forms.questionviews.QuestionView
 import org.givingkitchen.android.util.convertToDp
 import org.givingkitchen.android.util.setTextIfItExists
 
-class MoneyQuestion(title: String?, answer: String? = null, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : LinearLayout(context, attrs, defStyle), QuestionView {
+class MoneyQuestion(val q: Question, title: String?, answer: String? = null, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : LinearLayout(context, attrs, defStyle), QuestionView {
     init {
         LayoutInflater.from(context).inflate(R.layout.view_question_money, this, true)
         val customLayoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -45,6 +46,10 @@ class MoneyQuestion(title: String?, answer: String? = null, context: Context, at
 
     override fun isAnswered(): Boolean {
         return amount_moneyQuestion.text.isNotBlank()
+    }
+
+    override fun getQuestion(): Question {
+        return q
     }
 
     override fun placeUnansweredWarning(warningMessage: String) {

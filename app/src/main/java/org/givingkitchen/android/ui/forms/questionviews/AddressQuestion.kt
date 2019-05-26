@@ -8,10 +8,11 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import kotlinx.android.synthetic.main.view_question_address.view.*
 import org.givingkitchen.android.R
+import org.givingkitchen.android.ui.forms.Question
 import org.givingkitchen.android.util.convertToDp
 import org.givingkitchen.android.util.setTextIfItExists
 
-class AddressQuestion(title: String?, answer: String? = null, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), QuestionView {
+class AddressQuestion(val q: Question, title: String?, answer: String? = null, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), QuestionView {
     // todo: prefill this question from shared prefs
     init {
         LayoutInflater.from(context).inflate(R.layout.view_question_address, this, true)
@@ -31,6 +32,10 @@ class AddressQuestion(title: String?, answer: String? = null, context: Context, 
                 cityField_addressQuestion.text.isNotBlank() &&
                 stateField_addressQuestion.text.isNotBlank() &&
                 zipcodeField_addressQuestion.text.isNotBlank())
+    }
+
+    override fun getQuestion(): Question {
+        return q
     }
 
     override fun placeUnansweredWarning(warningMessage: String) {

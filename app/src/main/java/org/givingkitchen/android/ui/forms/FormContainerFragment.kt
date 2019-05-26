@@ -4,6 +4,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
+import android.util.SparseArray
 import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -24,7 +25,6 @@ import org.givingkitchen.android.ui.forms.page.FormPageFragment
 import org.givingkitchen.android.ui.forms.page.QuestionResponse
 import org.givingkitchen.android.ui.forms.prologue.FormPrologueFragment
 import org.givingkitchen.android.util.*
-import org.givingkitchen.android.util.Services.moshi
 import okhttp3.*
 import okhttp3.Request
 import okhttp3.Response
@@ -35,6 +35,7 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
     private lateinit var form: Form
     private lateinit var model: FormContainerViewModel
     private lateinit var jsonAdapter: JsonAdapter<WufooResponse>
+    private lateinit var formPagerAdapter: FormPagerAdapter
     private val erroredQuestions = HashMap<String, String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,25 +60,13 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val questionPagesAdapter = FormPagerAdapter(fragmentManager!!)
-        viewPager_questionsContainer.adapter = questionPagesAdapter
-        if (questionPagesAdapter.count < 2) {
+        formPagerAdapter = FormPagerAdapter(fragmentManager!!)
+        viewPager_questionsContainer.adapter = formPagerAdapter
+        if (formPagerAdapter.count < 2) {
             model.setForwardButtonState(FormContainerViewModel.Companion.ForwardButtonState.SUBMIT)
         } else {
             model.setForwardButtonState(FormContainerViewModel.Companion.ForwardButtonState.NEXT)
-            viewPager_questionsContainer.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-                override fun onPageScrollStateChanged(state: Int) {}
-
-                override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
-
-                override fun onPageSelected(position: Int) {
-                    if (position == questionPagesAdapter.count - 1) {
-                        model.setForwardButtonState(FormContainerViewModel.Companion.ForwardButtonState.SUBMIT)
-                    } else {
-                        model.setForwardButtonState(FormContainerViewModel.Companion.ForwardButtonState.NEXT)
-                    }
-                }
-            })
+            viewPager_questionsContainer.addOnPageChangeListener(formPageChangeListener)
         }
 
         // todo: use a textview drawable here
@@ -123,24 +112,29 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
 
     private val nextButtonClickListener = View.OnClickListener {
         hideKeyboardIfShowing()
-        val currentItem = viewPager_questionsContainer.currentItem
-        /* for (answer in questionPages[currentItem].getQuestionResponses()) {
+        saveAnswers()
 
-            val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
-            if (sharedPref != null) {
-                with(sharedPref.edit()) {
-                    putString(answer.question, answer.answer)
-                    apply()
-                }
+        viewPager_questionsContainer.setCurrentItem(viewPager_questionsContainer.currentItem + 1, true)
+    }
+
+    private val formPageChangeListener = object: ViewPager.OnPageChangeListener {
+        override fun onPageScrollStateChanged(state: Int) {}
+
+        override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+
+        override fun onPageSelected(position: Int) {
+            if (position == formPagerAdapter.count - 1) {
+                model.setForwardButtonState(FormContainerViewModel.Companion.ForwardButtonState.SUBMIT)
+            } else {
+                model.setForwardButtonState(FormContainerViewModel.Companion.ForwardButtonState.NEXT)
             }
-        }*/
-
-        viewPager_questionsContainer.setCurrentItem(currentItem + 1, true)
+        }
     }
 
     private val submitButtonClickListener = View.OnClickListener {
-        // todo: save final page's answers to sharedprefs
         hideKeyboardIfShowing()
+        saveAnswers()
+
         val submissionAnswers = arrayListOf<QuestionResponse>()
 
         /* for (i in 0 until questionPages.size) {
@@ -207,6 +201,30 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
         })
     }
 
+    private fun saveAnswers() {
+        val currentPosition = viewPager_questionsContainer.currentItem
+        val currentFragment = formPagerAdapter.getRegisteredFragment(currentPosition)
+
+        for (questionView in currentFragment.questionViews) {
+
+            val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+            if (sharedPref != null) {
+                with(sharedPref.edit()) {
+                    putString(form.ID + questionView.getQuestion().ID, questionView.getAnswer())
+                    apply()
+                }
+            }
+
+            form.Pages[currentPosition].questions?.let {
+                for (question in it) {
+                    if (question.ID == questionView.getQuestion().ID) {
+                        question.answer = questionView.getAnswer()
+                    }
+                }
+            }
+        }
+    }
+
     private fun goToDonePage() {
         val donePage: DonePage = try {
             arguments!!.getEnum<DonePage>(Constants.donePageArg)
@@ -225,7 +243,7 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
         }
 
         for (fieldError in wufooResponse.FieldErrors) {
-            erroredQuestions.put(fieldError.ID, fieldError.ErrorText)
+            erroredQuestions[fieldError.ID] = fieldError.ErrorText
         }
 
         /* for (i in 0 until questionPages.size) {
@@ -249,10 +267,27 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
     }
 
     private inner class FormPagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
+        val registeredFragments = SparseArray<Fragment>()
+
+        override fun instantiateItem(container: ViewGroup, position: Int): Any {
+            val fragment = super.instantiateItem(container, position) as Fragment
+            registeredFragments.put(position, fragment)
+            return super.instantiateItem(container, position)
+        }
+
+        override fun destroyItem(container: ViewGroup, position: Int, item: Any) {
+            registeredFragments.remove(position)
+            super.destroyItem(container, position, item)
+        }
+
+        fun getRegisteredFragment(position: Int): FormPageFragment {
+            return registeredFragments.get(position) as FormPageFragment
+        }
+
         override fun getCount(): Int = form.Pages.size
 
         override fun getItem(position: Int): Fragment {
-            return FormPageFragment.newInstance(form.Pages[position])
+            return FormPageFragment.newInstance(form.Pages[position], form.ID)
         }
     }
 }

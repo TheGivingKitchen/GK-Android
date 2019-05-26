@@ -10,11 +10,12 @@ import android.widget.LinearLayout
 import android.widget.TimePicker
 import kotlinx.android.synthetic.main.view_question_time.view.*
 import org.givingkitchen.android.R
+import org.givingkitchen.android.ui.forms.Question
 import org.givingkitchen.android.ui.forms.questionviews.QuestionView
 import org.givingkitchen.android.util.convertToDp
 import org.givingkitchen.android.util.setTextIfItExists
 
-class TimeQuestion(title: String?, answer: String? = null, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), TimePickerDialog.OnTimeSetListener, QuestionView {
+class TimeQuestion(val q: Question, title: String?, answer: String? = null, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), TimePickerDialog.OnTimeSetListener, QuestionView {
     var timeHour: Int? = null
     var timeMinute: Int? = null
 
@@ -70,6 +71,10 @@ class TimeQuestion(title: String?, answer: String? = null, context: Context, att
 
     override fun isAnswered(): Boolean {
         return true
+    }
+
+    override fun getQuestion(): Question {
+        return q
     }
 
     override fun placeUnansweredWarning(warningMessage: String) {
