@@ -60,10 +60,6 @@ class RadioQuestion(val q: Question, title: String?, answerChoices: List<String?
         radioAnswerChoice.clickAction()
     }
 
-    override fun getQuestion(): Question {
-        return q
-    }
-
     override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) {
         var answer: String? = null
         if (answerChoiceViews != null && answerChoiceViews!!.isNotEmpty()) {

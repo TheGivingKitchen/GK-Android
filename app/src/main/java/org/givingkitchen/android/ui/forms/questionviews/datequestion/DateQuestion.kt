@@ -53,10 +53,6 @@ class DateQuestion(val q: Question, title: String?, answer: String? = null, cont
         setDate(month+1, dayOfMonth, year)
     }
 
-    override fun getQuestion(): Question {
-        return q
-    }
-
     override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) { /* Answer format is YYYYMMDD */
         val answer = date_dateQuestion.text.toString()
 

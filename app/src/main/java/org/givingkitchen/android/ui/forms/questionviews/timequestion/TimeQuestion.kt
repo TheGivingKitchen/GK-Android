@@ -63,10 +63,6 @@ class TimeQuestion(val q: Question, title: String?, answer: String? = null, cont
         setTime(hourOfDay, minute)
     }
 
-    override fun getQuestion(): Question {
-        return q
-    }
-
     override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) { /* answer format is HH:MM:00 */
         val answer = time_timeQuestion.text.toString()
 

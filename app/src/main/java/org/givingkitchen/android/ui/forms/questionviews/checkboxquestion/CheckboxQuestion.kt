@@ -52,10 +52,6 @@ class CheckboxQuestion(val q: Question, title: String?, answerChoices: List<Stri
         this.setPaddingDp(0, 0, 0, 20)
     }
 
-    override fun getQuestion(): Question {
-        return q
-    }
-
     override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) {
         val selectedCheckboxes = arrayListOf<String>()
         if (answerChoiceViews != null && answerChoiceViews!!.isNotEmpty()) {

@@ -9,8 +9,6 @@ interface QuestionView {
 
     fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?)
 
-    fun getQuestion(): Question
-
     fun getNextFieldId(currentFieldId: String, context: Context): String {
         val fieldIdNumber = currentFieldId.split("Field")[1].toInt()
         return context.getString(R.string.forms_questions_field_id_format, fieldIdNumber+1)

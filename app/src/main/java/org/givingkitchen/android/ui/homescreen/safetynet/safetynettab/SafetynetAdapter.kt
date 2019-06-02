@@ -64,7 +64,7 @@ class SafetynetAdapter(var items: MutableList<Any>, val facebookSectionExpanded:
     fun serviceProviderClicks(): Observable<Int> = serviceProviderClicks
 }
 
-class SocialServiceProviderViewHolder(val view: View, private val clicks: PublishSubject<Int>) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
+class SocialServiceProviderViewHolder(val view: View, private val clicks: PublishSubject<Int>) : RecyclerView.ViewHolder(view) {
     fun bind(socialServiceProvider: SocialServiceProvider) {
         view.findViewById<TextView>(R.id.title_SafetynetRecycler).setTextIfItExists(socialServiceProvider.name)
         view.findViewById<TextView>(R.id.category_SafetynetRecycler).setTextIfItExists(socialServiceProvider.category)

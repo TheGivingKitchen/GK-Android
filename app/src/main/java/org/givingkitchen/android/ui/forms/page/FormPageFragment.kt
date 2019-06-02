@@ -80,7 +80,7 @@ class FormPageFragment : Fragment() {
 
         return when (question.Type) {
             QuestionType.shortname -> {
-                ShortnameQuestion(question, formId, context!!)
+                ShortnameQuestion(question, context!!)
             }
             QuestionType.fullname -> {
                 FullnameQuestion(question, formatTitle(question.Title, question.IsRequired), savedAnswer, context!!)

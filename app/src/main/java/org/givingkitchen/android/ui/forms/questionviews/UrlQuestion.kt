@@ -31,10 +31,6 @@ class UrlQuestion(val q: Question, title: String?, answer: String? = null, conte
         }
     }
 
-    override fun getQuestion(): Question {
-        return q
-    }
-
     override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) {
         val answer = url_urlQuestion.text.toString()
 

@@ -50,10 +50,6 @@ class MoneyQuestion(val q: Question, title: String?, answer: String? = null, con
         // amount_moneyQuestion.addTextChangedListener(CurrencyInputFormatter(amount_moneyQuestion, "#,###"))
     }
 
-    override fun getQuestion(): Question {
-        return q
-    }
-
     override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) {
         val answer = amount_moneyQuestion.text.toString()
 

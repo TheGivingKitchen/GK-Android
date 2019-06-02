@@ -33,10 +33,6 @@ class AddressQuestion(val q: Question, title: String?, answer: String? = null, c
         }
     }
 
-    override fun getQuestion(): Question {
-        return q
-    }
-
     override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) {
         val streetAddressFieldId = q.ID
         saveTextFieldAnswer(streetAddressField_addressQuestion.text.toString(), sharedPreferences, formId + streetAddressFieldId)

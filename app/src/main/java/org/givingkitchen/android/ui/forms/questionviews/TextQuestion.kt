@@ -31,10 +31,6 @@ class TextQuestion(val q: Question, title: String?, answer: String? = null, cont
         }
     }
 
-    override fun getQuestion(): Question {
-        return q
-    }
-
     override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) {
         val answer = text_textQuestion.text.toString()
 
