@@ -13,7 +13,7 @@ import org.givingkitchen.android.ui.forms.Question
 import org.givingkitchen.android.util.convertToDp
 import org.givingkitchen.android.util.setTextIfItExists
 
-class AddressQuestion(val q: Question, title: String?, answer: String? = null, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), QuestionView {
+class AddressQuestion(val q: Question, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), QuestionView {
     // todo: prefill this question from shared prefs
     init {
         LayoutInflater.from(context).inflate(R.layout.view_question_address, this, true)
@@ -21,11 +21,8 @@ class AddressQuestion(val q: Question, title: String?, answer: String? = null, c
         customLayoutParams.setMargins(0,0,0, convertToDp(20, resources))
         layoutParams = customLayoutParams
         this.orientation = VERTICAL
-        title_addressQuestion.setTextIfItExists(title)
-        if (!answer.isNullOrBlank()) {
-            // amount_moneyQuestion.setText(answer)
+        title_addressQuestion.setTextIfItExists(formatTitle(q.Title, q.IsRequired))
 
-        }
 
         q.warning?.let {
             warning_addressQuestion.text = it
@@ -48,6 +45,9 @@ class AddressQuestion(val q: Question, title: String?, answer: String? = null, c
 
         val zipcodeFieldId = getNextFieldId(stateFieldId, context)
         saveTextFieldAnswer(stateField_addressQuestion.text.toString(), sharedPreferences, formId + zipcodeFieldId)
+
+        val countryFieldId = getNextFieldId(zipcodeFieldId, context)
+        saveTextFieldAnswer(context.getString(R.string.address_question_country_default), sharedPreferences, formId + countryFieldId)
     }
 
     private fun saveTextFieldAnswer(answer: String, sharedPreferences: SharedPreferences?, uniqueFieldId: String) {

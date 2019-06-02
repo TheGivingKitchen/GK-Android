@@ -13,11 +13,11 @@ import org.givingkitchen.android.ui.forms.Question
 import org.givingkitchen.android.util.convertToDp
 import org.givingkitchen.android.util.setTextIfItExists
 
-class TextareaQuestion(val q: Question, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), QuestionView {
+class TextareaQuestion(val q: Question, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : LinearLayout(context, attrs, defStyle), QuestionView {
     init {
         LayoutInflater.from(context).inflate(R.layout.view_question_textarea, this, true)
         val customLayoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        customLayoutParams.setMargins(0,0,0, convertToDp(20, resources))
+        customLayoutParams.setMargins(0, 0, 0, convertToDp(20, resources))
         layoutParams = customLayoutParams
         this.orientation = VERTICAL
         title_textareaQuestion.setTextIfItExists(formatTitle(q.Title, q.IsRequired))
@@ -35,7 +35,9 @@ class TextareaQuestion(val q: Question, context: Context, attrs: AttributeSet? =
     override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) {
         val answer = text_textareaQuestion.text.toString()
 
-        if (answer.isNotBlank()) {
+        if (answer.isBlank()) {
+            q.answers = null
+        } else {
             if (q.answers == null) {
                 q.answers = arrayListOf()
             }

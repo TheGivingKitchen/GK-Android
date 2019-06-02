@@ -25,7 +25,8 @@ class Question(val Title: String?,
                val Choices: List<Choice>? = listOf(),
                val HasOtherField: Boolean?,
                val ID: String,
-               @Transient var answers: ArrayList<String>? = null,
+               /* @Transient means moshi will ignore these fields */
+               @Transient var answers: HashMap<String, String>? = null, // HashMap<FieldId, Answer>
                @Transient var warning: String? = null): Parcelable
 
 @Parcelize

@@ -210,6 +210,7 @@
     <string name="address_question_state_hint">State</string>
     <string name="address_question_zipcode_label">Postal / Zip Code</string>
     <string name="address_question_zipcode_hint">Zip</string>
+    <string name="address_question_country_default">United States</string>
     <string name="answer_choice_other">Other</string>
 
     <!-- Shared Prefs -->

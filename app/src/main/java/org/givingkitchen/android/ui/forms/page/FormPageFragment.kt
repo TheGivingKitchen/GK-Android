@@ -95,7 +95,7 @@ class FormPageFragment : Fragment() {
                 EmailQuestion(question, context!!)
             }
             QuestionType.address -> {
-                AddressQuestion(question, formatTitle(question.Title, question.IsRequired), savedAnswer, context!!)
+                AddressQuestion(question, context!!)
             }
             QuestionType.date -> {
                 val dateQuestion = DateQuestion(question, context!!)
@@ -123,7 +123,7 @@ class FormPageFragment : Fragment() {
                 MoneyQuestion(question, context!!)
             }
             QuestionType.checkbox -> {
-                CheckboxQuestion(question, savedAnswer, context!!)
+                CheckboxQuestion(question, context!!)
             }
             QuestionType.textarea -> {
                 TextareaQuestion(question, context!!)
@@ -141,9 +141,5 @@ class FormPageFragment : Fragment() {
                 null
             }
         }
-    }
-
-    private fun formatTitle(title: String?, isRequired: String?): String? {
-        return if (title != null && isRequired != null && isRequired == "1") "$title*" else title
     }
 }

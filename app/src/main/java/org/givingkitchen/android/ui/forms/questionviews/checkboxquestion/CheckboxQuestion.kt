@@ -15,7 +15,7 @@ import org.givingkitchen.android.util.convertToDp
 import org.givingkitchen.android.util.setPaddingDp
 import org.givingkitchen.android.util.setTextIfItExists
 
-class CheckboxQuestion(val q: Question, answer: String? = null, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), QuestionView {
+class CheckboxQuestion(val q: Question, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), QuestionView {
     private var answerChoiceViews: List<CheckboxAnswerChoice>? = null
 
     init {
