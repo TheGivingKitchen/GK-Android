@@ -24,8 +24,8 @@ data class Question(val Title: String?,
                     val Choices: List<Choice>? = listOf(),
                     val ID: String,
                     val HasOtherField: Boolean,
-                    var answer: String?,
-                    var warning: String?): Parcelable
+                    var answer: String? = null,
+                    var warning: String? = null): Parcelable
 
 @Parcelize
 data class SubField(val Label: String?): Parcelable

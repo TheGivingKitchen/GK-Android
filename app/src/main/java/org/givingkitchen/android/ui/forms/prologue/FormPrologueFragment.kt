@@ -122,7 +122,7 @@ class FormPrologueFragment : Fragment() {
     }
 
     private val startButtonClickListener = View.OnClickListener {
-        if (form != null && form!!.Pages != null && arguments != null) {
+        if (form != null && arguments != null) {
             val args = Bundle()
             args.putParcelable(formArg, form)
             val donePage: DonePage = try {

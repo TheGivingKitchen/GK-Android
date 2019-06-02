@@ -18,9 +18,9 @@ import java.text.DecimalFormat
 import java.util.*
 
 class DateQuestion(val q: Question, title: String?, answer: String? = null, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), DatePickerDialog.OnDateSetListener, QuestionView {
-    var dateYear: Int = 0
-    var dateMonth: Int = 0
-    var dateDay: Int = 0
+    var dateYear: Int? = null
+    var dateMonth: Int? = null
+    var dateDay: Int? = null
 
     init {
         LayoutInflater.from(context).inflate(R.layout.view_question_date, this, true)
@@ -29,12 +29,14 @@ class DateQuestion(val q: Question, title: String?, answer: String? = null, cont
         layoutParams = customLayoutParams
         this.orientation = VERTICAL
         title_dateQuestion.setTextIfItExists(title)
-        val calendar = Calendar.getInstance()
-        if (answer.isNullOrBlank()) {
-            setDate(calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.YEAR))
-        } else {
-            val dateComponents = answer.split("/")
-            setDate(dateComponents[0].toInt(), dateComponents[1].toInt(), dateComponents[2].toInt())
+
+        answer?.let {
+            setDate(answer.substring(4, 6).toInt(), answer.substring(6).toInt(), answer.substring(0, 4).toInt())
+        }
+
+        q.warning.let {
+            warning_dateQuestion.text = it
+            warning_dateQuestion.visibility = View.VISIBLE
         }
     }
 
@@ -44,7 +46,6 @@ class DateQuestion(val q: Question, title: String?, answer: String? = null, cont
         dateYear = year
 
         val dec = DecimalFormat("00")
-
         date_dateQuestion.text = context.getString(R.string.date_question_date, dec.format(month), dec.format(dayOfMonth), dec.format(year))
     }
 
@@ -52,26 +53,18 @@ class DateQuestion(val q: Question, title: String?, answer: String? = null, cont
         setDate(month+1, dayOfMonth, year)
     }
 
-    override fun isAnswered(): Boolean {
-        return true
-    }
-
     override fun getQuestion(): Question {
         return q
     }
 
-    override fun placeUnansweredWarning(warningMessage: String) {
-        warning_dateQuestion.text = warningMessage
-        warning_dateQuestion.visibility = View.VISIBLE
-    }
-
-    override fun getAnswer(): String? {
+    override fun getAnswer(): String? { /* Answer format is YYYYMMDD */
         val answer = date_dateQuestion.text.toString()
 
-        return if (answer.isBlank()) {
-            null
+        return if (answer.isNotBlank()) {
+            val dateComponents = answer.split("/")
+            dateComponents[2] + dateComponents[0] + dateComponents[1]
         } else {
-            answer
+            null
         }
     }
 }

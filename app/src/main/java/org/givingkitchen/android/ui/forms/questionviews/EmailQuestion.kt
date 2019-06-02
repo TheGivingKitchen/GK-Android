@@ -23,19 +23,15 @@ class EmailQuestion(val q: Question, title: String?, answer: String? = null, con
         if (!answer.isNullOrBlank()) {
             email_emailQuestion.setText(answer)
         }
-    }
 
-    override fun isAnswered(): Boolean {
-        return email_emailQuestion.text.isNotBlank()
+        q.warning.let {
+            warning_emailQuestion.text = it
+            warning_emailQuestion.visibility = View.VISIBLE
+        }
     }
 
     override fun getQuestion(): Question {
         return q
-    }
-
-    override fun placeUnansweredWarning(warningMessage: String) {
-        warning_emailQuestion.text = warningMessage
-        warning_emailQuestion.visibility = View.VISIBLE
     }
 
     override fun getAnswer(): String? {

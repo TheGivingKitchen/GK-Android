@@ -23,19 +23,15 @@ class FullnameQuestion(val q: Question, title: String?, answer: String? = null, 
         if (!answer.isNullOrBlank()) {
             name_fullnameQuestion.setText(answer)
         }
-    }
 
-    override fun isAnswered(): Boolean {
-        return name_fullnameQuestion.text.isNotBlank()
+        q.warning.let {
+            warning_fullnameQuestion.text = it
+            warning_fullnameQuestion.visibility = View.VISIBLE
+        }
     }
 
     override fun getQuestion(): Question {
         return q
-    }
-
-    override fun placeUnansweredWarning(warningMessage: String) {
-        warning_fullnameQuestion.text = warningMessage
-        warning_fullnameQuestion.visibility = View.VISIBLE
     }
 
     override fun getAnswer(): String? {

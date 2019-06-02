@@ -31,6 +31,11 @@ class RadioQuestion(val q: Question, title: String?, answerChoices: List<String?
             mutableAnswerChoicesList?.add(resources.getString(R.string.answer_choice_other))
         }
 
+        q.warning.let {
+            warning_radioQuestion.text = it
+            warning_radioQuestion.visibility = View.VISIBLE
+        }
+
         answerChoiceViews = mutableAnswerChoicesList?.map { RadioAnswerChoice(it, it == answer, context) }
 
         if (answerChoiceViews != null) {
@@ -54,26 +59,8 @@ class RadioQuestion(val q: Question, title: String?, answerChoices: List<String?
         radioAnswerChoice.clickAction()
     }
 
-    override fun isAnswered(): Boolean {
-        if (answerChoiceViews.isNullOrEmpty()) {
-            return true
-        } else {
-            for (radioAnswerChoiceView in answerChoiceViews!!) {
-                if (radioAnswerChoiceView.isChecked()) {
-                    return true
-                }
-            }
-        }
-        return false
-    }
-
     override fun getQuestion(): Question {
         return q
-    }
-
-    override fun placeUnansweredWarning(warningMessage: String) {
-        warning_radioQuestion.text = warningMessage
-        warning_radioQuestion.visibility = View.VISIBLE
     }
 
     override fun getAnswer(): String? {

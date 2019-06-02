@@ -14,28 +14,28 @@ import org.givingkitchen.android.ui.forms.Question
 import org.givingkitchen.android.ui.forms.questionviews.QuestionView
 import org.givingkitchen.android.util.convertToDp
 import org.givingkitchen.android.util.setTextIfItExists
+import java.text.DecimalFormat
 
-class TimeQuestion(val q: Question, title: String?, answer: String? = null, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), TimePickerDialog.OnTimeSetListener, QuestionView {
+class TimeQuestion(val q: Question, title: String?, answer: String? = null, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : LinearLayout(context, attrs, defStyle), TimePickerDialog.OnTimeSetListener, QuestionView {
     var timeHour: Int? = null
     var timeMinute: Int? = null
 
     init {
         LayoutInflater.from(context).inflate(R.layout.view_question_time, this, true)
         val customLayoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        customLayoutParams.setMargins(0,0,0, convertToDp(20, resources))
+        customLayoutParams.setMargins(0, 0, 0, convertToDp(20, resources))
         layoutParams = customLayoutParams
         this.orientation = VERTICAL
         title_timeQuestion.setTextIfItExists(title)
 
-        if (answer.isNullOrBlank()) {
-            setTime(11,0)
-        } else {
-            // an example answer is "5:30 pm"
-            val firstSection = answer.split(":")
-            val secondSection = firstSection[1].split(" ")
+        q.warning.let {
+            warning_timeQuestion.text = it
+            warning_timeQuestion.visibility = View.VISIBLE
+        }
 
-            val unformattedTime = getUnformattedTime(firstSection[0].toInt(), secondSection[0].toInt(), secondSection[1])
-            setTime(unformattedTime.first, unformattedTime.second)
+        answer?.let {
+            val timeSections = answer.split(":")
+            setTime(timeSections[0].toInt(), timeSections[1].toInt())
         }
     }
 
@@ -47,7 +47,7 @@ class TimeQuestion(val q: Question, title: String?, answer: String? = null, cont
         var formattedHour = timeHour!!
         if (timeHour!! >= 12) {
             timePeriod = context.getString(R.string.time_question_pm)
-            formattedHour-=12
+            formattedHour -= 12
         }
         if (formattedHour == 0) {
             formattedHour = 12
@@ -62,36 +62,25 @@ class TimeQuestion(val q: Question, title: String?, answer: String? = null, cont
         val unformattedHour = if (timePeriod == context.getString(R.string.time_question_am) && hour == 12) 0 else hour
         val additionalHours = if (timePeriod == context.getString(R.string.time_question_pm) && hour != 12) 12 else 0
 
-        return Pair(unformattedHour+additionalHours, minute)
+        return Pair(unformattedHour + additionalHours, minute)
     }
 
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
         setTime(hourOfDay, minute)
     }
 
-    override fun isAnswered(): Boolean {
-        return true
-    }
-
     override fun getQuestion(): Question {
         return q
     }
 
-    override fun placeUnansweredWarning(warningMessage: String) {
-        warning_timeQuestion.text = warningMessage
-        warning_timeQuestion.visibility = View.VISIBLE
-    }
-
-    override fun getAnswer(): String? {
+    override fun getAnswer(): String? { /* answer format is HH:MM:00 */
         val answer = time_timeQuestion.text.toString()
 
-        return if (answer.isBlank()) {
+        return if (answer.isBlank() || timeHour == null || timeMinute == null) {
             null
         } else {
-            answer
+            val dec = DecimalFormat("00")
+            context.getString(R.string.time_question_answer_format, dec.format(timeHour), dec.format(timeMinute))
         }
     }
 }
-
-
-

@@ -25,6 +25,11 @@ class MoneyQuestion(val q: Question, title: String?, answer: String? = null, con
             amount_moneyQuestion.setText(answer)
         }
 
+        q.warning.let {
+            warning_moneyQuestion.text = it
+            warning_moneyQuestion.visibility = View.VISIBLE
+        }
+
         // todo: when focus is lost, add a dollar sign to the beginning of the amount
         /* amount_moneyQuestion.setOnFocusChangeListener { v, hasFocus ->
             when (hasFocus) {
@@ -44,17 +49,8 @@ class MoneyQuestion(val q: Question, title: String?, answer: String? = null, con
         // amount_moneyQuestion.addTextChangedListener(CurrencyInputFormatter(amount_moneyQuestion, "#,###"))
     }
 
-    override fun isAnswered(): Boolean {
-        return amount_moneyQuestion.text.isNotBlank()
-    }
-
     override fun getQuestion(): Question {
         return q
-    }
-
-    override fun placeUnansweredWarning(warningMessage: String) {
-        warning_moneyQuestion.text = warningMessage
-        warning_moneyQuestion.visibility = View.VISIBLE
     }
 
     override fun getAnswer(): String? {

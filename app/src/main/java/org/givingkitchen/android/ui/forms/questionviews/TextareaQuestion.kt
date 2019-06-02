@@ -23,15 +23,11 @@ class TextareaQuestion(val q: Question, title: String?, answer: String? = null, 
         if (!answer.isNullOrBlank()) {
             text_textareaQuestion.setText(answer)
         }
-    }
 
-    override fun isAnswered(): Boolean {
-        return text_textareaQuestion.text.isNotBlank()
-    }
-
-    override fun placeUnansweredWarning(warningMessage: String) {
-        warning_textareaQuestion.text = warningMessage
-        warning_textareaQuestion.visibility = View.VISIBLE
+        q.warning.let {
+            warning_textareaQuestion.text = it
+            warning_textareaQuestion.visibility = View.VISIBLE
+        }
     }
 
     override fun getQuestion(): Question {

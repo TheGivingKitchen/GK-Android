@@ -23,15 +23,11 @@ class UrlQuestion(val q: Question, title: String?, answer: String? = null, conte
         if (!answer.isNullOrBlank()) {
             url_urlQuestion.setText(answer)
         }
-    }
 
-    override fun isAnswered(): Boolean {
-        return url_urlQuestion.text.isNotBlank()
-    }
-
-    override fun placeUnansweredWarning(warningMessage: String) {
-        warning_urlQuestion.text = warningMessage
-        warning_urlQuestion.visibility = View.VISIBLE
+        q.warning.let {
+            warning_urlQuestion.text = it
+            warning_urlQuestion.visibility = View.VISIBLE
+        }
     }
 
     override fun getQuestion(): Question {

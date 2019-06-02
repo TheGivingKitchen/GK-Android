@@ -31,19 +31,15 @@ class ShortnameQuestion(val q: Question, title: String?, answer: String? = null,
                 }
             }
         }
+
+        q.warning.let {
+            warning_shortnameQuestion.text = it
+            warning_shortnameQuestion.visibility = View.VISIBLE
+        }
     }
 
     override fun getQuestion(): Question {
         return q
-    }
-
-    override fun isAnswered(): Boolean {
-        return (firstName_shortnameQuestion.text.isNotBlank() && lastName_shortnameQuestion.text.isNotBlank())
-    }
-
-    override fun placeUnansweredWarning(warningMessage: String) {
-        warning_shortnameQuestion.text = warningMessage
-        warning_shortnameQuestion.visibility = View.VISIBLE
     }
 
     override fun getAnswer(): String? {

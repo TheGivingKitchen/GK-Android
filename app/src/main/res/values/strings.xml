@@ -198,6 +198,7 @@
     <string name="time_question_time">%1$d:%2$s %3$s</string>
     <string name="time_question_am">am</string>
     <string name="time_question_pm">pm</string>
+    <string name="time_question_answer_format">%1$s:%2$s:00</string>
     <string name="address_question_street_label">Street Address</string>
     <string name="address_question_street_hint">123 Main Street</string>
     <string name="address_question_linetwo_label">Address Line 2</string>

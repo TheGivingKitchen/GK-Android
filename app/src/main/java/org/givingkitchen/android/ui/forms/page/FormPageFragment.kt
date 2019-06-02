@@ -100,7 +100,12 @@ class FormPageFragment : Fragment() {
             QuestionType.date -> {
                 val dateQuestion = DateQuestion(question, formatTitle(question.Title, question.IsRequired), savedAnswer, context!!)
                 dateQuestion.setOnClickListener {
-                    DatePickerFragment().newInstance(dateQuestion, dateQuestion.dateYear, dateQuestion.dateMonth-1, dateQuestion.dateDay).show(fragmentManager, "Date")
+                    val month = if (dateQuestion.dateMonth != null) {
+                        dateQuestion.dateMonth!!-1
+                    } else {
+                        null
+                    }
+                    DatePickerFragment().newInstance(dateQuestion, dateQuestion.dateYear, month, dateQuestion.dateDay).show(fragmentManager, "Date")
                 }
                 dateQuestion
             }

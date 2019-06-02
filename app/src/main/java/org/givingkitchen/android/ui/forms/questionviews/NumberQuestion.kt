@@ -23,19 +23,15 @@ class NumberQuestion(val q: Question, title: String?, answer: String? = null, co
         if (!answer.isNullOrBlank()) {
             number_numberQuestion.setText(answer)
         }
-    }
 
-    override fun isAnswered(): Boolean {
-        return number_numberQuestion.text.isNotBlank()
+        q.warning.let {
+            warning_numberQuestion.text = it
+            warning_numberQuestion.visibility = View.VISIBLE
+        }
     }
 
     override fun getQuestion(): Question {
         return q
-    }
-
-    override fun placeUnansweredWarning(warningMessage: String) {
-        warning_numberQuestion.text = warningMessage
-        warning_numberQuestion.visibility = View.VISIBLE
     }
 
     override fun getAnswer(): String? {

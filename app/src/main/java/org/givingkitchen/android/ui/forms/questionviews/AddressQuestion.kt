@@ -25,22 +25,15 @@ class AddressQuestion(val q: Question, title: String?, answer: String? = null, c
             // amount_moneyQuestion.setText(answer)
 
         }
-    }
 
-    override fun isAnswered(): Boolean {
-        return (streetAddressField_addressQuestion.text.isNotBlank() &&
-                cityField_addressQuestion.text.isNotBlank() &&
-                stateField_addressQuestion.text.isNotBlank() &&
-                zipcodeField_addressQuestion.text.isNotBlank())
+        q.warning.let {
+            warning_addressQuestion.text = it
+            warning_addressQuestion.visibility = View.VISIBLE
+        }
     }
 
     override fun getQuestion(): Question {
         return q
-    }
-
-    override fun placeUnansweredWarning(warningMessage: String) {
-        warning_addressQuestion.text = warningMessage
-        warning_addressQuestion.visibility = View.VISIBLE
     }
 
     override fun getAnswer(): String? {

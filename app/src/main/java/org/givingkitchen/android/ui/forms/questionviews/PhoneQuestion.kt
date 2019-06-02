@@ -13,6 +13,7 @@ import org.givingkitchen.android.util.convertToDp
 import org.givingkitchen.android.util.setTextIfItExists
 
 class PhoneQuestion(val q: Question, title: String?, answer: String? = null, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), QuestionView {
+    // todo: format displayed phone number properly; watch out for non-US phone number formats
     init {
         LayoutInflater.from(context).inflate(R.layout.view_question_phone, this, true)
         val customLayoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -23,19 +24,15 @@ class PhoneQuestion(val q: Question, title: String?, answer: String? = null, con
         if (!answer.isNullOrBlank()) {
             phoneNumber_phoneQuestion.setText(answer)
         }
-    }
 
-    override fun isAnswered(): Boolean {
-        return phoneNumber_phoneQuestion.text.isNotBlank()
+        q.warning.let {
+            warning_phoneQuestion.text = it
+            warning_phoneQuestion.visibility = View.VISIBLE
+        }
     }
 
     override fun getQuestion(): Question {
         return q
-    }
-
-    override fun placeUnansweredWarning(warningMessage: String) {
-        warning_phoneQuestion.text = warningMessage
-        warning_phoneQuestion.visibility = View.VISIBLE
     }
 
     override fun getAnswer(): String? {

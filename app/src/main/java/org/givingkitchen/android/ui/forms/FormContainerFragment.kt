@@ -22,14 +22,12 @@ import com.crashlytics.android.Crashlytics
 import com.squareup.moshi.JsonAdapter
 import kotlinx.android.synthetic.main.fragment_questions_container.*
 import org.givingkitchen.android.ui.forms.page.FormPageFragment
-import org.givingkitchen.android.ui.forms.page.QuestionResponse
 import org.givingkitchen.android.ui.forms.prologue.FormPrologueFragment
 import org.givingkitchen.android.util.*
 import okhttp3.*
 import okhttp3.Request
 import okhttp3.Response
 import org.givingkitchen.android.R
-import org.givingkitchen.android.util.Services.moshi
 import java.io.IOException
 
 class FormContainerFragment : Fragment(), FragmentBackPressedListener {
@@ -37,7 +35,6 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
     private lateinit var model: FormContainerViewModel
     private lateinit var jsonAdapter: JsonAdapter<WufooResponse>
     private lateinit var formPagerAdapter: FormPagerAdapter
-    private val erroredQuestions = HashMap<String, String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -118,7 +115,7 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
         viewPager_questionsContainer.setCurrentItem(viewPager_questionsContainer.currentItem + 1, true)
     }
 
-    private val formPageChangeListener = object: ViewPager.OnPageChangeListener {
+    private val formPageChangeListener = object : ViewPager.OnPageChangeListener {
         override fun onPageScrollStateChanged(state: Int) {}
 
         override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
@@ -135,6 +132,8 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
     private val submitButtonClickListener = View.OnClickListener {
         hideKeyboardIfShowing()
         saveAnswers()
+        nextButton_questionsContainer.visibility = View.GONE
+        progressBar_questionsContainer.visibility = View.VISIBLE
 
         val requestBody = FormBody.Builder()
 
@@ -185,10 +184,15 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
 
                 val wufooResponse = jsonAdapter.nullSafe().fromJson(response.body()!!.string())
 
-                if (wufooResponse!!.Success == 1) {
-                    goToDonePage()
-                } else {
-                    goToErrorPage(wufooResponse)
+                activity!!.runOnUiThread {
+                    nextButton_questionsContainer.visibility = View.VISIBLE
+                    progressBar_questionsContainer.visibility = View.GONE
+
+                    if (wufooResponse!!.Success == 1) {
+                        goToDonePage()
+                    } else {
+                        goToErrorPage(wufooResponse)
+                    }
                 }
             }
         })
@@ -199,19 +203,19 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
         val currentFragment = formPagerAdapter.getRegisteredFragment(currentPosition)
 
         for (questionView in currentFragment.questionViews) {
-
-            val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
-            if (sharedPref != null) {
-                with(sharedPref.edit()) {
-                    putString(form.ID + questionView.getQuestion().ID, questionView.getAnswer())
-                    apply()
+            questionView.getAnswer()?.let { answer ->
+                activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)?.let { sharedPref ->
+                    with(sharedPref.edit()) {
+                            putString(form.ID + questionView.getQuestion().ID, answer)
+                            apply()
+                    }
                 }
-            }
 
-            form.Pages[currentPosition].questions?.let {
-                for (question in it) {
-                    if (question.ID == questionView.getQuestion().ID) {
-                        question.answer = questionView.getAnswer()
+                form.Pages[currentPosition].questions?.let {
+                    for (question in it) {
+                        if (question.ID == questionView.getQuestion().ID) {
+                            question.answer = answer
+                        }
                     }
                 }
             }
@@ -235,21 +239,33 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
             return
         }
 
-        for (fieldError in wufooResponse.FieldErrors) {
-            erroredQuestions[fieldError.ID] = fieldError.ErrorText
-        }
+        val fieldErrorIds = hashMapOf<String, String>()
+        fieldErrorIds.putAll(wufooResponse.FieldErrors.map { Pair(it.ID, it.ErrorText) })
 
-        /* for (i in 0 until questionPages.size) {
-            val questionPage = questionPages[i]
+        /* add all warning messages to Form object */
+        var firstErroredPage: Int? = null
 
-            for (questionView in questionPage.getQuestionsWithViews()) {
-                if (questionView.question.ID in erroredQuestions) {
-                    questionView.questionView.placeUnansweredWarning(erroredQuestions[questionView.question.ID]!!)
+        for (i in 0 until form.Pages.size) {
+            val page = form.Pages[i]
+
+            page.questions?.let { questions ->
+                for (question in questions) {
+                    if (question.ID in fieldErrorIds) {
+                        question.warning = fieldErrorIds[question.ID]
+                        if (firstErroredPage == null) {
+                            firstErroredPage = i
+                        }
+                    }
                 }
             }
-        }*/
+        }
 
-        // viewPager_questionsContainer.setCurrentItem(firstUnansweredPage, true)
+        /* navigate to the first page that has an error */
+        if (firstErroredPage != null) {
+            viewPager_questionsContainer.setCurrentItem(firstErroredPage!!, true)
+        } else {
+            handleFormSubmissionError("Wufoo returned Success = 0, but could not find a page with errors")
+        }
     }
 
     private fun handleFormSubmissionError(logMessage: String, @StringRes toastMessage: Int = R.string.form_done_submit_error) {

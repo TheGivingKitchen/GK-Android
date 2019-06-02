@@ -25,6 +25,12 @@ class CheckboxQuestion(val q: Question, title: String?, answerChoices: List<Stri
         this.orientation = VERTICAL
         title_checkboxQuestion.setTextIfItExists(title)
         val mutableAnswerChoicesList = answerChoices?.toMutableList()
+
+        q.warning?.let {
+            warning_checkboxQuestion.text = it
+            warning_checkboxQuestion.visibility = View.VISIBLE
+        }
+
         if (hasOtherField != null && hasOtherField) {
             mutableAnswerChoicesList?.add(resources.getString(R.string.answer_choice_other))
         }
@@ -43,24 +49,6 @@ class CheckboxQuestion(val q: Question, title: String?, answerChoices: List<Stri
         }
 
         this.setPaddingDp(0, 0, 0, 20)
-    }
-
-    override fun isAnswered(): Boolean {
-        if (answerChoiceViews.isNullOrEmpty()) {
-            return true
-        } else {
-            for (checkboxAnswerChoiceView in answerChoiceViews!!) {
-                if (checkboxAnswerChoiceView.isChecked()) {
-                    return true
-                }
-            }
-        }
-        return false
-    }
-
-    override fun placeUnansweredWarning(warningMessage: String) {
-        warning_checkboxQuestion.text = warningMessage
-        warning_checkboxQuestion.visibility = View.VISIBLE
     }
 
     override fun getQuestion(): Question {
