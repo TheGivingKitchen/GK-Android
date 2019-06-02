@@ -1,10 +1,11 @@
 package org.givingkitchen.android.ui.forms.questionviews
 
+import android.content.SharedPreferences
 import org.givingkitchen.android.ui.forms.Question
 
 interface QuestionView {
 
-    fun getAnswer(): String? /* returns null if the question hasn't been answered */
+    fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?)
 
     fun getQuestion(): Question
 }

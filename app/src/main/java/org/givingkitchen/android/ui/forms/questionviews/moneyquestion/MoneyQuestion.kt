@@ -1,6 +1,7 @@
 package org.givingkitchen.android.ui.forms.questionviews.moneyquestion
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -53,7 +54,7 @@ class MoneyQuestion(val q: Question, title: String?, answer: String? = null, con
         return q
     }
 
-    override fun getAnswer(): String? {
+    override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) {
         val answer = amount_moneyQuestion.text.toString()
 
         return if (answer.isBlank()) {

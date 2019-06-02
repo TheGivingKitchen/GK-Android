@@ -2,6 +2,7 @@ package org.givingkitchen.android.ui.forms.questionviews.datequestion
 
 import android.app.DatePickerDialog
 import android.content.Context
+import android.content.SharedPreferences
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +16,6 @@ import org.givingkitchen.android.ui.forms.questionviews.QuestionView
 import org.givingkitchen.android.util.convertToDp
 import org.givingkitchen.android.util.setTextIfItExists
 import java.text.DecimalFormat
-import java.util.*
 
 class DateQuestion(val q: Question, title: String?, answer: String? = null, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), DatePickerDialog.OnDateSetListener, QuestionView {
     var dateYear: Int? = null
@@ -57,7 +57,7 @@ class DateQuestion(val q: Question, title: String?, answer: String? = null, cont
         return q
     }
 
-    override fun getAnswer(): String? { /* Answer format is YYYYMMDD */
+    override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) { /* Answer format is YYYYMMDD */
         val answer = date_dateQuestion.text.toString()
 
         return if (answer.isNotBlank()) {

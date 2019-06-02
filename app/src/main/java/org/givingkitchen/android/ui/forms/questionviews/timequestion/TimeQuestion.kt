@@ -2,6 +2,7 @@ package org.givingkitchen.android.ui.forms.questionviews.timequestion
 
 import android.app.TimePickerDialog
 import android.content.Context
+import android.content.SharedPreferences
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -73,7 +74,7 @@ class TimeQuestion(val q: Question, title: String?, answer: String? = null, cont
         return q
     }
 
-    override fun getAnswer(): String? { /* answer format is HH:MM:00 */
+    override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) { /* answer format is HH:MM:00 */
         val answer = time_timeQuestion.text.toString()
 
         return if (answer.isBlank() || timeHour == null || timeMinute == null) {

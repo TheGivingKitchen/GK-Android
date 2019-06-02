@@ -1,6 +1,7 @@
 package org.givingkitchen.android.ui.forms.questionviews
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -36,7 +37,7 @@ class AddressQuestion(val q: Question, title: String?, answer: String? = null, c
         return q
     }
 
-    override fun getAnswer(): String? {
+    override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) {
         val address = arrayListOf<String>()
 
         val streetAddressFieldValue = getTextFieldValue(streetAddressField_addressQuestion.text)

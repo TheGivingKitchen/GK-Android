@@ -1,6 +1,7 @@
 package org.givingkitchen.android.ui.forms.questionviews.radioquestion
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -63,7 +64,7 @@ class RadioQuestion(val q: Question, title: String?, answerChoices: List<String?
         return q
     }
 
-    override fun getAnswer(): String? {
+    override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) {
         if (answerChoiceViews.isNullOrEmpty()) {
             return null
         } else {

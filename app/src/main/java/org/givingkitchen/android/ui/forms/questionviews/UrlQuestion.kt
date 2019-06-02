@@ -1,6 +1,7 @@
 package org.givingkitchen.android.ui.forms.questionviews
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -34,7 +35,7 @@ class UrlQuestion(val q: Question, title: String?, answer: String? = null, conte
         return q
     }
 
-    override fun getAnswer(): String? {
+    override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) {
         val answer = url_urlQuestion.text.toString()
 
         return if (answer.isBlank()) {

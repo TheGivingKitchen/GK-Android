@@ -1,6 +1,7 @@
 package org.givingkitchen.android.ui.forms.questionviews
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -42,7 +43,7 @@ class ShortnameQuestion(val q: Question, title: String?, answer: String? = null,
         return q
     }
 
-    override fun getAnswer(): String? {
+    override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) {
         val address = arrayListOf<String>()
 
         val firstNameFieldValue = getTextFieldValue(firstName_shortnameQuestion.text)

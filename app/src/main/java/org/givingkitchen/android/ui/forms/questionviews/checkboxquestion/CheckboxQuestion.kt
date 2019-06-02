@@ -1,6 +1,7 @@
 package org.givingkitchen.android.ui.forms.questionviews.checkboxquestion
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -55,7 +56,7 @@ class CheckboxQuestion(val q: Question, title: String?, answerChoices: List<Stri
         return q
     }
 
-    override fun getAnswer(): String? {
+    override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) {
         val selectedCheckboxes = arrayListOf<String>()
 
         if (answerChoiceViews.isNullOrEmpty()) {

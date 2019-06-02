@@ -110,7 +110,7 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
 
     private val nextButtonClickListener = View.OnClickListener {
         hideKeyboardIfShowing()
-        saveAnswers()
+        savePageAnswers()
 
         viewPager_questionsContainer.setCurrentItem(viewPager_questionsContainer.currentItem + 1, true)
     }
@@ -131,7 +131,7 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
 
     private val submitButtonClickListener = View.OnClickListener {
         hideKeyboardIfShowing()
-        saveAnswers()
+        savePageAnswers()
         nextButton_questionsContainer.visibility = View.GONE
         progressBar_questionsContainer.visibility = View.VISIBLE
 
@@ -198,12 +198,12 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
         })
     }
 
-    private fun saveAnswers() {
+    private fun savePageAnswers() {
         val currentPosition = viewPager_questionsContainer.currentItem
         val currentFragment = formPagerAdapter.getRegisteredFragment(currentPosition)
 
         for (questionView in currentFragment.questionViews) {
-            questionView.getAnswer()?.let { answer ->
+            questionView.saveAnswer(, )?.let { answer ->
                 activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)?.let { sharedPref ->
                     with(sharedPref.edit()) {
                             putString(form.ID + questionView.getQuestion().ID, answer)
