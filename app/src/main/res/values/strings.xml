@@ -129,6 +129,7 @@
     <string name="forms_questions_back">Back</string>
     <string name="forms_questions_next">Next</string>
     <string name="forms_questions_submit">Submit</string>
+    <string name="forms_questions_field_id_format">Field%1$d</string>
 
     <!-- Form Prologue Strings -->
     <string name="base_forms_prologue_cancel">Cancel</string>

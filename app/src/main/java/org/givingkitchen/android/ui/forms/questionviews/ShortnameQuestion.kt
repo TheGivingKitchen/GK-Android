@@ -13,24 +13,25 @@ import org.givingkitchen.android.ui.forms.Question
 import org.givingkitchen.android.util.convertToDp
 import org.givingkitchen.android.util.setTextIfItExists
 
-class ShortnameQuestion(val q: Question, title: String?, answer: String? = null, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), QuestionView {
+class ShortnameQuestion(val q: Question, formId: String, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), QuestionView {
     init {
         LayoutInflater.from(context).inflate(R.layout.view_question_shortname, this, true)
         val customLayoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         customLayoutParams.setMargins(0,0,0, convertToDp(20, resources))
         layoutParams = customLayoutParams
         this.orientation = VERTICAL
-        title_shortnameQuestion.setTextIfItExists(title)
-        if (!answer.isNullOrBlank()) {
-            val name = answer.split(",")
-            if (!name.isNullOrEmpty()) {
-                // an example answer is "[firstName, lastName]", thus we need to remove the brackets and the space between names
-                firstName_shortnameQuestion.setText(name[0].substringAfter('['))
-                if (name.size > 1) {
-                    val lastName = name[1]
-                    lastName_shortnameQuestion.setText(lastName.substringAfter(' ').substringBeforeLast(']'))
-                }
-            }
+        title_shortnameQuestion.setTextIfItExists(formatTitle(q.Title, q.IsRequired))
+
+        val sharedPrefs = context.getSharedPreferences(context.getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+        val savedFirstname = sharedPrefs?.getString(formId + q.ID, null)
+        savedFirstname?.let {
+            firstName_shortnameQuestion.setText(savedFirstname)
+        }
+
+        val nextFieldId = getNextFieldId(q.ID, context)
+        val savedLastname = sharedPrefs?.getString(formId + nextFieldId, null)
+        savedLastname?.let {
+            lastName_shortnameQuestion.setText(savedLastname)
         }
 
         q.warning.let {
@@ -44,35 +45,37 @@ class ShortnameQuestion(val q: Question, title: String?, answer: String? = null,
     }
 
     override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) {
-        val address = arrayListOf<String>()
+        val firstNameAnswer = firstName_shortnameQuestion.text.toString()
+        firstNameAnswer.isNotBlank().let {
+            if (q.answers == null) {
+                q.answers = arrayListOf()
+            }
+            q.answers!!.add(firstNameAnswer)
 
-        val firstNameFieldValue = getTextFieldValue(firstName_shortnameQuestion.text)
-        if (firstNameFieldValue != null) {
-            address.add(firstNameFieldValue)
-        } else {
-            return null
+            sharedPreferences?.let {
+                with(it.edit()) {
+                    putString(formId + q.ID, firstNameAnswer)
+                    apply()
+                }
+            }
         }
 
-        val lastNameFieldValue = getTextFieldValue(lastName_shortnameQuestion.text)
-        if (lastNameFieldValue != null) {
-            address.add(lastNameFieldValue)
-        } else {
-            return null
-        }
+        val lastNameAnswer = lastName_shortnameQuestion.text.toString()
+        lastNameAnswer.isNotBlank().let {
+            if (q.answers == null) {
+                q.answers = arrayListOf()
+            }
+            q.answers!!.add(lastNameAnswer)
 
-        val fullName = address.toString()
-        return if (fullName.isNotBlank()) {
-            fullName
-        } else {
-            null
-        }
-    }
+            sharedPreferences?.let {
+                val fieldIdNumber = q.ID.split("Field")[1].toInt()
+                val newFieldId = context.getString(R.string.forms_questions_field_id_format, fieldIdNumber+1)
 
-    private fun getTextFieldValue(answer: CharSequence): String? {
-        return if (answer.isNotBlank()) {
-            answer.toString()
-        } else {
-            null
+                with(it.edit()) {
+                    putString(formId + newFieldId, lastNameAnswer)
+                    apply()
+                }
+            }
         }
     }
 }

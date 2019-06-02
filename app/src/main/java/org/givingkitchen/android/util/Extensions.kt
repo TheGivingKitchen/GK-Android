@@ -49,12 +49,12 @@ inline fun <reified T: Enum<T>> Bundle.getEnum(key:String): T {
  * @return true if the text was set or false if the TextView is now Gone
  */
 fun TextView.setTextIfItExists(text: String?): Boolean {
-    if (text.isNullOrBlank()) {
+    return if (text.isNullOrBlank()) {
         this.visibility = View.GONE
-        return false
+        false
     } else {
         this.visibility = View.VISIBLE
         this.text = text
-        return true
+        true
     }
 }

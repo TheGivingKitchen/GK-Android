@@ -38,10 +38,18 @@ class UrlQuestion(val q: Question, title: String?, answer: String? = null, conte
     override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) {
         val answer = url_urlQuestion.text.toString()
 
-        return if (answer.isBlank()) {
-            null
-        } else {
-            answer
+        answer.isNotBlank().let {
+            if (q.answers == null) {
+                q.answers = arrayListOf()
+            }
+            q.answers!!.add(answer)
+
+            sharedPreferences?.let {
+                with(it.edit()) {
+                    putString(formId + q.ID, answer)
+                    apply()
+                }
+            }
         }
     }
 }

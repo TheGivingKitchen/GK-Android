@@ -28,6 +28,7 @@ import okhttp3.*
 import okhttp3.Request
 import okhttp3.Response
 import org.givingkitchen.android.R
+import org.givingkitchen.android.ui.forms.questionviews.QuestionView
 import java.io.IOException
 
 class FormContainerFragment : Fragment(), FragmentBackPressedListener {
@@ -137,12 +138,15 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
 
         val requestBody = FormBody.Builder()
 
-        for (i in 0 until form.Pages.size) {
-            val currentFormPage = form.Pages[i]
+        for (currentFormPage in form.Pages) {
             currentFormPage.questions?.let { questions ->
                 for (question in questions) {
-                    question.answer?.let { answer ->
-                        requestBody.add(question.ID, answer)
+                    question.answers?.let {
+                        for (i in 0 until question.answers!!.size) {
+                            val currentFieldId = question.ID.split("Field")[1].toInt()
+                            val submissionFieldId = context!!.getString(R.string.forms_questions_field_id_format, currentFieldId + i)
+                            requestBody.add(submissionFieldId, question.answers!![i])
+                        }
                     }
                 }
             }
@@ -203,22 +207,7 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
         val currentFragment = formPagerAdapter.getRegisteredFragment(currentPosition)
 
         for (questionView in currentFragment.questionViews) {
-            questionView.saveAnswer(, )?.let { answer ->
-                activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)?.let { sharedPref ->
-                    with(sharedPref.edit()) {
-                            putString(form.ID + questionView.getQuestion().ID, answer)
-                            apply()
-                    }
-                }
-
-                form.Pages[currentPosition].questions?.let {
-                    for (question in it) {
-                        if (question.ID == questionView.getQuestion().ID) {
-                            question.answer = answer
-                        }
-                    }
-                }
-            }
+            questionView.saveAnswer(form.ID, activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE))
         }
     }
 

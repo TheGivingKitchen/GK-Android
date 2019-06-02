@@ -59,13 +59,6 @@ class TimeQuestion(val q: Question, title: String?, answer: String? = null, cont
         time_timeQuestion.text = context.getString(R.string.time_question_time, formattedHour, formattedMinute, timePeriod)
     }
 
-    private fun getUnformattedTime(hour: Int, minute: Int, timePeriod: String): Pair<Int, Int> {
-        val unformattedHour = if (timePeriod == context.getString(R.string.time_question_am) && hour == 12) 0 else hour
-        val additionalHours = if (timePeriod == context.getString(R.string.time_question_pm) && hour != 12) 12 else 0
-
-        return Pair(unformattedHour + additionalHours, minute)
-    }
-
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
         setTime(hourOfDay, minute)
     }
@@ -77,11 +70,21 @@ class TimeQuestion(val q: Question, title: String?, answer: String? = null, cont
     override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) { /* answer format is HH:MM:00 */
         val answer = time_timeQuestion.text.toString()
 
-        return if (answer.isBlank() || timeHour == null || timeMinute == null) {
-            null
-        } else {
+        if (answer.isNotBlank() && timeHour != null && timeMinute != null) {
             val dec = DecimalFormat("00")
-            context.getString(R.string.time_question_answer_format, dec.format(timeHour), dec.format(timeMinute))
+            val formattedAnswer = context.getString(R.string.time_question_answer_format, dec.format(timeHour), dec.format(timeMinute))
+
+            if (q.answers == null) {
+                q.answers = arrayListOf()
+            }
+            q.answers!!.add(formattedAnswer)
+
+            sharedPreferences?.let {
+                with(it.edit()) {
+                    putString(formId + q.ID, formattedAnswer)
+                    apply()
+                }
+            }
         }
     }
 }

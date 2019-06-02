@@ -44,7 +44,7 @@ class AddressQuestion(val q: Question, title: String?, answer: String? = null, c
         if (streetAddressFieldValue != null) {
             address.add(streetAddressFieldValue)
         } else {
-            return null
+            // return null
         }
 
         // Address Line Two does not need to be filled out
@@ -57,29 +57,25 @@ class AddressQuestion(val q: Question, title: String?, answer: String? = null, c
         if (cityFieldValue != null) {
             address.add(cityFieldValue)
         } else {
-            return null
+            // return null
         }
 
         val stateFieldValue = getTextFieldValue(stateField_addressQuestion.text)
         if (stateFieldValue != null) {
             address.add(stateFieldValue)
         } else {
-            return null
+            // return null
         }
 
         val zipcodeFieldValue = getTextFieldValue(zipcodeField_addressQuestion.text)
         if (zipcodeFieldValue != null) {
             address.add(zipcodeFieldValue)
         } else {
-            return null
+            // return null
         }
 
         val fullAddress = address.joinToString()
-        return if (fullAddress.isNotBlank()) {
-            fullAddress
-        } else {
-            null
-        }
+
     }
 
     private fun getTextFieldValue(answer: CharSequence): String? {

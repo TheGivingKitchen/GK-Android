@@ -58,10 +58,7 @@ class CheckboxQuestion(val q: Question, title: String?, answerChoices: List<Stri
 
     override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) {
         val selectedCheckboxes = arrayListOf<String>()
-
-        if (answerChoiceViews.isNullOrEmpty()) {
-            return null
-        } else {
+        if (answerChoiceViews != null && answerChoiceViews!!.isNotEmpty()) {
             for (checkboxAnswerChoiceView in answerChoiceViews!!) {
                 if (checkboxAnswerChoiceView.isChecked()) {
                     selectedCheckboxes.add(checkboxAnswerChoiceView.title!!)
@@ -69,10 +66,20 @@ class CheckboxQuestion(val q: Question, title: String?, answerChoices: List<Stri
             }
         }
 
-        return if (selectedCheckboxes.isNotEmpty()) {
-            selectedCheckboxes.joinToString()
-        } else {
-            null
+        selectedCheckboxes.isNotEmpty().let {
+            val answer = selectedCheckboxes.joinToString()
+
+            if (q.answers == null) {
+                q.answers = arrayListOf()
+            }
+            q.answers!!.add(answer)
+
+            sharedPreferences?.let {
+                with(it.edit()) {
+                    putString(formId + q.ID, answer)
+                    apply()
+                }
+            }
         }
     }
 }

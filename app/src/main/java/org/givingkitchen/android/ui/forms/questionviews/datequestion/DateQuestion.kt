@@ -60,14 +60,22 @@ class DateQuestion(val q: Question, title: String?, answer: String? = null, cont
     override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) { /* Answer format is YYYYMMDD */
         val answer = date_dateQuestion.text.toString()
 
-        return if (answer.isNotBlank()) {
+        answer.isNotBlank().let {
             val dateComponents = answer.split("/")
-            dateComponents[2] + dateComponents[0] + dateComponents[1]
-        } else {
-            null
+            val formattedAnswer = dateComponents[2] + dateComponents[0] + dateComponents[1]
+
+            if (q.answers == null) {
+                q.answers = arrayListOf()
+            }
+            q.answers!!.add(formattedAnswer)
+
+            sharedPreferences?.let {
+                with(it.edit()) {
+                    putString(formId + q.ID, formattedAnswer)
+                    apply()
+                }
+            }
         }
     }
 }
-
-
 

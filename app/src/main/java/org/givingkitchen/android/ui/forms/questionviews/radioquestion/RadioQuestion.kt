@@ -65,16 +65,27 @@ class RadioQuestion(val q: Question, title: String?, answerChoices: List<String?
     }
 
     override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) {
-        if (answerChoiceViews.isNullOrEmpty()) {
-            return null
-        } else {
+        var answer: String? = null
+        if (answerChoiceViews != null && answerChoiceViews!!.isNotEmpty()) {
             for (radioAnswerChoiceView in answerChoiceViews!!) {
                 if (radioAnswerChoiceView.isChecked()) {
-                    return radioAnswerChoiceView.title
+                    answer = radioAnswerChoiceView.title
                 }
             }
         }
 
-        return null
+        answer?.let {
+            if (q.answers == null) {
+                q.answers = arrayListOf()
+            }
+            q.answers!!.add(answer)
+
+            sharedPreferences?.let {
+                with(it.edit()) {
+                    putString(formId + q.ID, answer)
+                    apply()
+                }
+            }
+        }
     }
 }
