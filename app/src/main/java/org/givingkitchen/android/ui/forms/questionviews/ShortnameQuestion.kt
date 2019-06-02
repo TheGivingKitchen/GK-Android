@@ -35,11 +35,11 @@ class ShortnameQuestion(val q: Question, context: Context, attrs: AttributeSet? 
         saveTextFieldAnswer(lastName_shortnameQuestion.text.toString(), sharedPreferences, formId + getNextFieldId(q.ID, context))
     }
 
-    private fun placeSavedAnswersInTextFields(textviews: List<EditText>) {
+    private fun placeSavedAnswersInTextFields(views: List<EditText>) {
         q.answers?.let {
             for (i in 0 until q.answers!!.size) {
-                if (i < textviews.size) {
-                    textviews[i].setText(q.answers!![i])
+                if (i < views.size) {
+                    views[i].setText(q.answers!![i])
                 }
             }
         }

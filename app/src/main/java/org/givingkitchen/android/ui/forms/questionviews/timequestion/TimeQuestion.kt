@@ -17,7 +17,7 @@ import org.givingkitchen.android.util.convertToDp
 import org.givingkitchen.android.util.setTextIfItExists
 import java.text.DecimalFormat
 
-class TimeQuestion(val q: Question, title: String?, answer: String? = null, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : LinearLayout(context, attrs, defStyle), TimePickerDialog.OnTimeSetListener, QuestionView {
+class TimeQuestion(val q: Question, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : LinearLayout(context, attrs, defStyle), TimePickerDialog.OnTimeSetListener, QuestionView {
     var timeHour: Int? = null
     var timeMinute: Int? = null
 
@@ -27,16 +27,16 @@ class TimeQuestion(val q: Question, title: String?, answer: String? = null, cont
         customLayoutParams.setMargins(0, 0, 0, convertToDp(20, resources))
         layoutParams = customLayoutParams
         this.orientation = VERTICAL
-        title_timeQuestion.setTextIfItExists(title)
+        title_timeQuestion.setTextIfItExists(formatTitle(q.Title, q.IsRequired))
+
+        if (!q.answers.isNullOrEmpty()) {
+            val savedTimeSections = q.answers!![0].split(":")
+            setTime(savedTimeSections[0].toInt(), savedTimeSections[1].toInt())
+        }
 
         q.warning?.let {
             warning_timeQuestion.text = it
             warning_timeQuestion.visibility = View.VISIBLE
-        }
-
-        answer?.let {
-            val timeSections = answer.split(":")
-            setTime(timeSections[0].toInt(), timeSections[1].toInt())
         }
     }
 

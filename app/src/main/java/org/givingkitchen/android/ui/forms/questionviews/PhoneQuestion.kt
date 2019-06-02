@@ -13,7 +13,7 @@ import org.givingkitchen.android.ui.forms.Question
 import org.givingkitchen.android.util.convertToDp
 import org.givingkitchen.android.util.setTextIfItExists
 
-class PhoneQuestion(val q: Question, title: String?, answer: String? = null, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), QuestionView {
+class PhoneQuestion(val q: Question, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), QuestionView {
     // todo: format displayed phone number properly; watch out for non-US phone number formats
     init {
         LayoutInflater.from(context).inflate(R.layout.view_question_phone, this, true)
@@ -21,9 +21,10 @@ class PhoneQuestion(val q: Question, title: String?, answer: String? = null, con
         customLayoutParams.setMargins(0,0,0, convertToDp(20, resources))
         layoutParams = customLayoutParams
         this.orientation = VERTICAL
-        title_phoneQuestion.setTextIfItExists(title)
-        if (!answer.isNullOrBlank()) {
-            phoneNumber_phoneQuestion.setText(answer)
+        title_phoneQuestion.setTextIfItExists(formatTitle(q.Title, q.IsRequired))
+
+        if (!q.answers.isNullOrEmpty()) {
+            phoneNumber_phoneQuestion.setText(q.answers!![0])
         }
 
         q.warning?.let {

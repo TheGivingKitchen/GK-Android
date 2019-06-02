@@ -83,22 +83,22 @@ class FormPageFragment : Fragment() {
                 ShortnameQuestion(question, context!!)
             }
             QuestionType.fullname -> {
-                FullnameQuestion(question, formatTitle(question.Title, question.IsRequired), savedAnswer, context!!)
+                FullnameQuestion(question, context!!)
             }
             QuestionType.text -> {
-                TextQuestion(question, formatTitle(question.Title, question.IsRequired), savedAnswer, context!!)
+                TextQuestion(question, context!!)
             }
             QuestionType.phone -> {
-                PhoneQuestion(question, formatTitle(question.Title, question.IsRequired), savedAnswer, context!!)
+                PhoneQuestion(question, context!!)
             }
             QuestionType.email -> {
-                EmailQuestion(question, formatTitle(question.Title, question.IsRequired), savedAnswer, context!!)
+                EmailQuestion(question, context!!)
             }
             QuestionType.address -> {
                 AddressQuestion(question, formatTitle(question.Title, question.IsRequired), savedAnswer, context!!)
             }
             QuestionType.date -> {
-                val dateQuestion = DateQuestion(question, formatTitle(question.Title, question.IsRequired), savedAnswer, context!!)
+                val dateQuestion = DateQuestion(question, context!!)
                 dateQuestion.setOnClickListener {
                     val month = if (dateQuestion.dateMonth != null) {
                         dateQuestion.dateMonth!!-1
@@ -110,32 +110,32 @@ class FormPageFragment : Fragment() {
                 dateQuestion
             }
             QuestionType.time -> {
-                val timeQuestion = TimeQuestion(question, formatTitle(question.Title, question.IsRequired), savedAnswer, context!!)
+                val timeQuestion = TimeQuestion(question, context!!)
                 timeQuestion.setOnClickListener {
                     TimePickerFragment().newInstance(timeQuestion, timeQuestion.timeHour, timeQuestion.timeMinute).show(fragmentManager, "Time")
                 }
                 timeQuestion
             }
             QuestionType.number -> {
-                NumberQuestion(question, formatTitle(question.Title, question.IsRequired), savedAnswer, context!!)
+                NumberQuestion(question, context!!)
             }
             QuestionType.money -> {
-                MoneyQuestion(question, formatTitle(question.Title, question.IsRequired), savedAnswer, context!!)
+                MoneyQuestion(question, context!!)
             }
             QuestionType.checkbox -> {
-                CheckboxQuestion(question, formatTitle(question.Title, question.IsRequired), question.SubFields?.map { it.Label }, question.HasOtherField, savedAnswer, context!!)
+                CheckboxQuestion(question, savedAnswer, context!!)
             }
             QuestionType.textarea -> {
-                TextareaQuestion(question, formatTitle(question.Title, question.IsRequired), savedAnswer, context!!)
+                TextareaQuestion(question, context!!)
             }
             QuestionType.url -> {
-                UrlQuestion(question, formatTitle(question.Title, question.IsRequired), savedAnswer, context!!)
+                UrlQuestion(question, context!!)
             }
             QuestionType.radio -> {
-                RadioQuestion(question, formatTitle(question.Title, question.IsRequired), question.Choices?.map { it.Label }, question.HasOtherField, savedAnswer, context!!)
+                RadioQuestion(question, context!!)
             }
             QuestionType.select -> {
-                RadioQuestion(question, formatTitle(question.Title, question.IsRequired), question.Choices?.map { it.Label }, question.HasOtherField, savedAnswer, context!!)
+                RadioQuestion(question, context!!)
             }
             else -> {
                 null

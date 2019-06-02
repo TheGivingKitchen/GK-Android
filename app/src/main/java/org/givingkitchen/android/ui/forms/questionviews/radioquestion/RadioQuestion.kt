@@ -16,9 +16,9 @@ import org.givingkitchen.android.util.setPaddingDp
 import org.givingkitchen.android.util.setTextIfItExists
 
 // This is currently being used as a select question view
-// todo: make a select question view docs.google.com/presentation/d/1EO0VWQaoIrQXHB8EucHnPXx1IBLR0AEHc5hVTl7hiLg/edit#slide=id.g4bfbc276d8_0_94
-class RadioQuestion(val q: Question, title: String?, answerChoices: List<String?>?, hasOtherField: Boolean?, answer: String? = null, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), QuestionView {
-    private var answerChoiceViews: List<RadioAnswerChoice>?
+// todo: make a select question view https://docs.google.com/presentation/d/1EO0VWQaoIrQXHB8EucHnPXx1IBLR0AEHc5hVTl7hiLg/edit?usp=sharing
+class RadioQuestion(val q: Question, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), QuestionView {
+    private var answerChoiceViews: List<RadioAnswerChoice>? = null
 
     init {
         LayoutInflater.from(context).inflate(R.layout.view_question_radio, this, true)
@@ -26,26 +26,39 @@ class RadioQuestion(val q: Question, title: String?, answerChoices: List<String?
         customLayoutParams.setMargins(0,0,0, convertToDp(20, resources))
         layoutParams = customLayoutParams
         this.orientation = VERTICAL
-        title_radioQuestion.setTextIfItExists(title)
-        val mutableAnswerChoicesList = answerChoices?.toMutableList()
-        if (hasOtherField != null && hasOtherField) {
-            mutableAnswerChoicesList?.add(resources.getString(R.string.answer_choice_other))
+        title_radioQuestion.setTextIfItExists(formatTitle(q.Title, q.IsRequired))
+
+
+        q.Choices?.let { choices ->
+            val mutableAnswerChoicesList = choices.map { it.Label }.toMutableList()
+
+            if (q.HasOtherField != null && q.HasOtherField) {
+                mutableAnswerChoicesList.add(resources.getString(R.string.answer_choice_other))
+            }
+
+            answerChoiceViews = mutableAnswerChoicesList.map { title ->
+                val matchesSavedChoice = if (!q.answers.isNullOrEmpty()) {
+                    title == q.answers!![0]
+                } else {
+                    false
+                }
+
+                RadioAnswerChoice(title, matchesSavedChoice, context)
+            }
+
+            if (answerChoiceViews != null) {
+                for (answerChoiceView in answerChoiceViews!!) {
+                    answerChoiceView.setOnClickListener {
+                        onSelection(it as RadioAnswerChoice)
+                    }
+                    this.addView(answerChoiceView)
+                }
+            }
         }
 
         q.warning?.let {
             warning_radioQuestion.text = it
             warning_radioQuestion.visibility = View.VISIBLE
-        }
-
-        answerChoiceViews = mutableAnswerChoicesList?.map { RadioAnswerChoice(it, it == answer, context) }
-
-        if (answerChoiceViews != null) {
-            for (answerChoiceView in answerChoiceViews!!) {
-                answerChoiceView.setOnClickListener {
-                    onSelection(it as RadioAnswerChoice)
-                }
-                this.addView(answerChoiceView)
-            }
         }
 
         this.setPaddingDp(0, 0, 0, 20)

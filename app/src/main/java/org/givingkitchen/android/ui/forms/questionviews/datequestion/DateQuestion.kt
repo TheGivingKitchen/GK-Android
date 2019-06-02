@@ -17,7 +17,7 @@ import org.givingkitchen.android.util.convertToDp
 import org.givingkitchen.android.util.setTextIfItExists
 import java.text.DecimalFormat
 
-class DateQuestion(val q: Question, title: String?, answer: String? = null, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), DatePickerDialog.OnDateSetListener, QuestionView {
+class DateQuestion(val q: Question, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), DatePickerDialog.OnDateSetListener, QuestionView {
     var dateYear: Int? = null
     var dateMonth: Int? = null
     var dateDay: Int? = null
@@ -28,10 +28,11 @@ class DateQuestion(val q: Question, title: String?, answer: String? = null, cont
         customLayoutParams.setMargins(0,0,0, convertToDp(20, resources))
         layoutParams = customLayoutParams
         this.orientation = VERTICAL
-        title_dateQuestion.setTextIfItExists(title)
+        title_dateQuestion.setTextIfItExists(formatTitle(q.Title, q.IsRequired))
 
-        answer?.let {
-            setDate(answer.substring(4, 6).toInt(), answer.substring(6).toInt(), answer.substring(0, 4).toInt())
+        if (!q.answers.isNullOrEmpty()) {
+            val savedDate = q.answers!![0]
+            setDate(savedDate.substring(4, 6).toInt(), savedDate.substring(6).toInt(), savedDate.substring(0, 4).toInt())
         }
 
         q.warning?.let {

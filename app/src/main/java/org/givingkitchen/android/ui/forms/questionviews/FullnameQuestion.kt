@@ -13,16 +13,17 @@ import org.givingkitchen.android.ui.forms.Question
 import org.givingkitchen.android.util.convertToDp
 import org.givingkitchen.android.util.setTextIfItExists
 
-class FullnameQuestion(val q: Question, title: String?, answer: String? = null, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), QuestionView {
+class FullnameQuestion(val q: Question, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), QuestionView {
     init {
         LayoutInflater.from(context).inflate(R.layout.view_question_fullname, this, true)
         val customLayoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         customLayoutParams.setMargins(0,0,0, convertToDp(20, resources))
         layoutParams = customLayoutParams
         this.orientation = VERTICAL
-        title_fullnameQuestion.setTextIfItExists(title)
-        if (!answer.isNullOrBlank()) {
-            name_fullnameQuestion.setText(answer)
+        title_fullnameQuestion.setTextIfItExists(formatTitle(q.Title, q.IsRequired))
+
+        if (!q.answers.isNullOrEmpty()) {
+            name_fullnameQuestion.setText(q.answers!![0])
         }
 
         q.warning?.let {

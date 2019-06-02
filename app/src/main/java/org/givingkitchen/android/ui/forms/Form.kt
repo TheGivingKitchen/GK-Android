@@ -23,7 +23,7 @@ class Question(val Title: String?,
                val Type: QuestionType?,
                val SubFields: List<SubField>? = listOf(),
                val Choices: List<Choice>? = listOf(),
-               val HasOtherField: Boolean,
+               val HasOtherField: Boolean?,
                val ID: String,
                @Transient var answers: ArrayList<String>? = null,
                @Transient var warning: String? = null): Parcelable
