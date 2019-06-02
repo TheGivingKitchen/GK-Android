@@ -25,7 +25,7 @@ class UrlQuestion(val q: Question, title: String?, answer: String? = null, conte
             url_urlQuestion.setText(answer)
         }
 
-        q.warning.let {
+        q.warning?.let {
             warning_urlQuestion.text = it
             warning_urlQuestion.visibility = View.VISIBLE
         }
@@ -38,7 +38,7 @@ class UrlQuestion(val q: Question, title: String?, answer: String? = null, conte
     override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) {
         val answer = url_urlQuestion.text.toString()
 
-        answer.isNotBlank().let {
+        if (answer.isNotBlank()) {
             if (q.answers == null) {
                 q.answers = arrayListOf()
             }

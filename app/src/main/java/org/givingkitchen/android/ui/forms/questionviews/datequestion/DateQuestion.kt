@@ -34,7 +34,7 @@ class DateQuestion(val q: Question, title: String?, answer: String? = null, cont
             setDate(answer.substring(4, 6).toInt(), answer.substring(6).toInt(), answer.substring(0, 4).toInt())
         }
 
-        q.warning.let {
+        q.warning?.let {
             warning_dateQuestion.text = it
             warning_dateQuestion.visibility = View.VISIBLE
         }
@@ -60,7 +60,7 @@ class DateQuestion(val q: Question, title: String?, answer: String? = null, cont
     override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) { /* Answer format is YYYYMMDD */
         val answer = date_dateQuestion.text.toString()
 
-        answer.isNotBlank().let {
+        if (answer.isNotBlank()) {
             val dateComponents = answer.split("/")
             val formattedAnswer = dateComponents[2] + dateComponents[0] + dateComponents[1]
 

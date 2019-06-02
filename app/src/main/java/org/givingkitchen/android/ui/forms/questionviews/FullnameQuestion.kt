@@ -25,7 +25,7 @@ class FullnameQuestion(val q: Question, title: String?, answer: String? = null, 
             name_fullnameQuestion.setText(answer)
         }
 
-        q.warning.let {
+        q.warning?.let {
             warning_fullnameQuestion.text = it
             warning_fullnameQuestion.visibility = View.VISIBLE
         }
@@ -38,7 +38,7 @@ class FullnameQuestion(val q: Question, title: String?, answer: String? = null, 
     override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) {
         val answer = name_fullnameQuestion.text.toString()
 
-        answer.isNotBlank().let {
+        if (answer.isNotBlank()) {
             if (q.answers == null) {
                 q.answers = arrayListOf()
             }

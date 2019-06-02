@@ -27,7 +27,7 @@ class AddressQuestion(val q: Question, title: String?, answer: String? = null, c
 
         }
 
-        q.warning.let {
+        q.warning?.let {
             warning_addressQuestion.text = it
             warning_addressQuestion.visibility = View.VISIBLE
         }
@@ -38,51 +38,35 @@ class AddressQuestion(val q: Question, title: String?, answer: String? = null, c
     }
 
     override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) {
-        val address = arrayListOf<String>()
+        val streetAddressFieldId = q.ID
+        saveTextFieldAnswer(streetAddressField_addressQuestion.text.toString(), sharedPreferences, formId + streetAddressFieldId)
 
-        val streetAddressFieldValue = getTextFieldValue(streetAddressField_addressQuestion.text)
-        if (streetAddressFieldValue != null) {
-            address.add(streetAddressFieldValue)
-        } else {
-            // return null
-        }
+        val addressLineTwoFieldId = getNextFieldId(streetAddressFieldId, context)
+        saveTextFieldAnswer(addressLineTwoField_addressQuestion.text.toString(), sharedPreferences, formId + addressLineTwoFieldId)
 
-        // Address Line Two does not need to be filled out
-        val addressLineTwoAnswer = addressLineTwoField_addressQuestion.text
-        if (addressLineTwoAnswer.isNotBlank()) {
-            address.add(addressLineTwoAnswer.toString())
-        }
+        val cityFieldId = getNextFieldId(addressLineTwoFieldId, context)
+        saveTextFieldAnswer(cityField_addressQuestion.text.toString(), sharedPreferences, formId + cityFieldId)
 
-        val cityFieldValue = getTextFieldValue(cityField_addressQuestion.text)
-        if (cityFieldValue != null) {
-            address.add(cityFieldValue)
-        } else {
-            // return null
-        }
+        val stateFieldId = getNextFieldId(cityFieldId, context)
+        saveTextFieldAnswer(stateField_addressQuestion.text.toString(), sharedPreferences, formId + stateFieldId)
 
-        val stateFieldValue = getTextFieldValue(stateField_addressQuestion.text)
-        if (stateFieldValue != null) {
-            address.add(stateFieldValue)
-        } else {
-            // return null
-        }
-
-        val zipcodeFieldValue = getTextFieldValue(zipcodeField_addressQuestion.text)
-        if (zipcodeFieldValue != null) {
-            address.add(zipcodeFieldValue)
-        } else {
-            // return null
-        }
-
-        val fullAddress = address.joinToString()
-
+        val zipcodeFieldId = getNextFieldId(stateFieldId, context)
+        saveTextFieldAnswer(stateField_addressQuestion.text.toString(), sharedPreferences, formId + zipcodeFieldId)
     }
 
-    private fun getTextFieldValue(answer: CharSequence): String? {
-        return if (answer.isNotBlank()) {
-            answer.toString()
-        } else {
-            null
+    private fun saveTextFieldAnswer(answer: String, sharedPreferences: SharedPreferences?, uniqueFieldId: String) {
+        if (answer.isNotBlank()) {
+            if (q.answers == null) {
+                q.answers = arrayListOf()
+            }
+            q.answers!!.add(answer)
+
+            sharedPreferences?.let {
+                with(it.edit()) {
+                    putString(uniqueFieldId, answer)
+                    apply()
+                }
+            }
         }
     }
 }

@@ -66,7 +66,7 @@ class CheckboxQuestion(val q: Question, title: String?, answerChoices: List<Stri
             }
         }
 
-        selectedCheckboxes.isNotEmpty().let {
+        if (selectedCheckboxes.isNotEmpty()) {
             val answer = selectedCheckboxes.joinToString()
 
             if (q.answers == null) {

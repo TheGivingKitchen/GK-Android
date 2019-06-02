@@ -25,7 +25,7 @@ class TextareaQuestion(val q: Question, title: String?, answer: String? = null, 
             text_textareaQuestion.setText(answer)
         }
 
-        q.warning.let {
+        q.warning?.let {
             warning_textareaQuestion.text = it
             warning_textareaQuestion.visibility = View.VISIBLE
         }
@@ -38,7 +38,7 @@ class TextareaQuestion(val q: Question, title: String?, answer: String? = null, 
     override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) {
         val answer = text_textareaQuestion.text.toString()
 
-        answer.isNotBlank().let {
+        if (answer.isNotBlank()) {
             if (q.answers == null) {
                 q.answers = arrayListOf()
             }

@@ -152,15 +152,13 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
             }
         }
 
-        val request = Request.Builder()
+        submitForm(Request.Builder()
                 .url(getString(R.string.form_done_submit_url, form.ID))
                 .post(requestBody.build())
-                .build()
-
-        val str = post(request)
+                .build())
     }
 
-    private fun post(request: Request) {
+    private fun submitForm(request: Request) {
         val client = OkHttpClient.Builder()
                 .authenticator(object : Authenticator {
                     override fun authenticate(route: Route?, response: Response): Request? {

@@ -26,7 +26,7 @@ class MoneyQuestion(val q: Question, title: String?, answer: String? = null, con
             amount_moneyQuestion.setText(answer)
         }
 
-        q.warning.let {
+        q.warning?.let {
             warning_moneyQuestion.text = it
             warning_moneyQuestion.visibility = View.VISIBLE
         }
@@ -57,7 +57,7 @@ class MoneyQuestion(val q: Question, title: String?, answer: String? = null, con
     override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) {
         val answer = amount_moneyQuestion.text.toString()
 
-        answer.isNotBlank().let {
+        if (answer.isNotBlank()) {
             if (q.answers == null) {
                 q.answers = arrayListOf()
             }

@@ -29,7 +29,7 @@ class TimeQuestion(val q: Question, title: String?, answer: String? = null, cont
         this.orientation = VERTICAL
         title_timeQuestion.setTextIfItExists(title)
 
-        q.warning.let {
+        q.warning?.let {
             warning_timeQuestion.text = it
             warning_timeQuestion.visibility = View.VISIBLE
         }

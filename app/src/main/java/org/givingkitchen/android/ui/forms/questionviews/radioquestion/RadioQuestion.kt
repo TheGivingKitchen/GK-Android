@@ -32,7 +32,7 @@ class RadioQuestion(val q: Question, title: String?, answerChoices: List<String?
             mutableAnswerChoicesList?.add(resources.getString(R.string.answer_choice_other))
         }
 
-        q.warning.let {
+        q.warning?.let {
             warning_radioQuestion.text = it
             warning_radioQuestion.visibility = View.VISIBLE
         }

@@ -25,7 +25,7 @@ class NumberQuestion(val q: Question, title: String?, answer: String? = null, co
             number_numberQuestion.setText(answer)
         }
 
-        q.warning.let {
+        q.warning?.let {
             warning_numberQuestion.text = it
             warning_numberQuestion.visibility = View.VISIBLE
         }
@@ -38,7 +38,7 @@ class NumberQuestion(val q: Question, title: String?, answer: String? = null, co
     override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) {
         val answer = number_numberQuestion.text.toString()
 
-        answer.isNotBlank().let {
+        if (answer.isNotBlank()) {
             if (q.answers == null) {
                 q.answers = arrayListOf()
             }

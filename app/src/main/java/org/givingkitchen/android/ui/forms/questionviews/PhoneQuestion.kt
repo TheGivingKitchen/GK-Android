@@ -26,7 +26,7 @@ class PhoneQuestion(val q: Question, title: String?, answer: String? = null, con
             phoneNumber_phoneQuestion.setText(answer)
         }
 
-        q.warning.let {
+        q.warning?.let {
             warning_phoneQuestion.text = it
             warning_phoneQuestion.visibility = View.VISIBLE
         }
@@ -39,7 +39,7 @@ class PhoneQuestion(val q: Question, title: String?, answer: String? = null, con
     override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) {
         val answer = phoneNumber_phoneQuestion.text.toString()
 
-        answer.isNotBlank().let {
+        if (answer.isNotBlank()) {
             if (q.answers == null) {
                 q.answers = arrayListOf()
             }

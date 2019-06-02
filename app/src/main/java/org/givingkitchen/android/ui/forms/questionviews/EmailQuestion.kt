@@ -25,7 +25,7 @@ class EmailQuestion(val q: Question, title: String?, answer: String? = null, con
             email_emailQuestion.setText(answer)
         }
 
-        q.warning.let {
+        q.warning?.let {
             warning_emailQuestion.text = it
             warning_emailQuestion.visibility = View.VISIBLE
         }
@@ -38,7 +38,7 @@ class EmailQuestion(val q: Question, title: String?, answer: String? = null, con
     override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) {
         val answer = email_emailQuestion.text.toString()
 
-        answer.isNotBlank().let {
+        if (answer.isNotBlank()) {
             if (q.answers == null) {
                 q.answers = arrayListOf()
             }

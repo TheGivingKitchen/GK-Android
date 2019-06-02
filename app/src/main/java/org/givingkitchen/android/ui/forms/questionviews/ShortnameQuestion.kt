@@ -34,7 +34,7 @@ class ShortnameQuestion(val q: Question, formId: String, context: Context, attrs
             lastName_shortnameQuestion.setText(savedLastname)
         }
 
-        q.warning.let {
+        q.warning?.let {
             warning_shortnameQuestion.text = it
             warning_shortnameQuestion.visibility = View.VISIBLE
         }
@@ -45,34 +45,20 @@ class ShortnameQuestion(val q: Question, formId: String, context: Context, attrs
     }
 
     override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) {
-        val firstNameAnswer = firstName_shortnameQuestion.text.toString()
-        firstNameAnswer.isNotBlank().let {
+        saveTextFieldAnswer(firstName_shortnameQuestion.text.toString(), sharedPreferences, formId + q.ID)
+        saveTextFieldAnswer(lastName_shortnameQuestion.text.toString(), sharedPreferences, formId + getNextFieldId(q.ID, context))
+    }
+
+    private fun saveTextFieldAnswer(answer: String, sharedPreferences: SharedPreferences?, uniqueFieldId: String) {
+        if (answer.isNotBlank()) {
             if (q.answers == null) {
                 q.answers = arrayListOf()
             }
-            q.answers!!.add(firstNameAnswer)
+            q.answers!!.add(answer)
 
             sharedPreferences?.let {
                 with(it.edit()) {
-                    putString(formId + q.ID, firstNameAnswer)
-                    apply()
-                }
-            }
-        }
-
-        val lastNameAnswer = lastName_shortnameQuestion.text.toString()
-        lastNameAnswer.isNotBlank().let {
-            if (q.answers == null) {
-                q.answers = arrayListOf()
-            }
-            q.answers!!.add(lastNameAnswer)
-
-            sharedPreferences?.let {
-                val fieldIdNumber = q.ID.split("Field")[1].toInt()
-                val newFieldId = context.getString(R.string.forms_questions_field_id_format, fieldIdNumber+1)
-
-                with(it.edit()) {
-                    putString(formId + newFieldId, lastNameAnswer)
+                    putString(uniqueFieldId, answer)
                     apply()
                 }
             }
