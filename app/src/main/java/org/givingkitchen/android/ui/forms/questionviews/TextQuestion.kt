@@ -23,7 +23,7 @@ class TextQuestion(val q: Question, context: Context, attrs: AttributeSet? = nul
         title_textQuestion.setTextIfItExists(formatTitle(q.Title, q.IsRequired))
 
         if (!q.answers.isNullOrEmpty()) {
-            text_textQuestion.setText(q.answers!![0])
+            text_textQuestion.setText(q.answers!![q.ID])
         }
 
         q.warning?.let {
@@ -35,19 +35,15 @@ class TextQuestion(val q: Question, context: Context, attrs: AttributeSet? = nul
     override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) {
         val answer = text_textQuestion.text.toString()
 
-        if (answer.isBlank()) {
-            q.answers = null
-        } else {
-            if (q.answers == null) {
-                q.answers = arrayListOf()
-            }
-            q.answers!!.add(answer)
+        if (q.answers == null) {
+            q.answers = HashMap()
+        }
+        q.answers!![q.ID] = answer
 
-            sharedPreferences?.let {
-                with(it.edit()) {
-                    putString(formId + q.ID, answer)
-                    apply()
-                }
+        sharedPreferences?.let {
+            with(it.edit()) {
+                putString(formId + q.ID, answer)
+                apply()
             }
         }
     }

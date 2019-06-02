@@ -141,11 +141,11 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
         for (currentFormPage in form.Pages) {
             currentFormPage.questions?.let { questions ->
                 for (question in questions) {
-                    question.answers?.let {
-                        for (i in 0 until question.answers!!.size) {
-                            val currentFieldId = question.ID.split("Field")[1].toInt()
-                            val submissionFieldId = context!!.getString(R.string.forms_questions_field_id_format, currentFieldId + i)
-                            requestBody.add(submissionFieldId, question.answers!![i])
+                    question.answers?.let { answers ->
+                        for ((fieldId, answer) in answers) {
+                            if (answer.isNotBlank()) {
+                                requestBody.add(fieldId, answer)
+                            }
                         }
                     }
                 }
@@ -210,11 +210,7 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
     }
 
     private fun goToDonePage() {
-        val donePage: DonePage = try {
-            arguments!!.getEnum<DonePage>(Constants.donePageArg)
-        } catch (e: KotlinNullPointerException) {
-            DonePage.DEFAULT
-        }
+        val donePage: DonePage = arguments!!.getEnum<DonePage>(Constants.donePageArg, DonePage.DEFAULT)
         val args = Bundle()
         args.putEnum(Constants.donePageArg, donePage)
         Navigation.findNavController(view!!).navigate(R.id.formDoneFragment, args)

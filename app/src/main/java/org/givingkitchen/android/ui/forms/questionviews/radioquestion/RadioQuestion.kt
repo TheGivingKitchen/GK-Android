@@ -17,13 +17,13 @@ import org.givingkitchen.android.util.setTextIfItExists
 
 // This is currently being used as a select question view
 // todo: make a select question view https://docs.google.com/presentation/d/1EO0VWQaoIrQXHB8EucHnPXx1IBLR0AEHc5hVTl7hiLg/edit?usp=sharing
-class RadioQuestion(val q: Question, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), QuestionView {
+class RadioQuestion(val q: Question, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : LinearLayout(context, attrs, defStyle), QuestionView {
     private var answerChoiceViews: List<RadioAnswerChoice>? = null
 
     init {
         LayoutInflater.from(context).inflate(R.layout.view_question_radio, this, true)
         val customLayoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        customLayoutParams.setMargins(0,0,0, convertToDp(20, resources))
+        customLayoutParams.setMargins(0, 0, 0, convertToDp(20, resources))
         layoutParams = customLayoutParams
         this.orientation = VERTICAL
         title_radioQuestion.setTextIfItExists(formatTitle(q.Title, q.IsRequired))
@@ -38,7 +38,7 @@ class RadioQuestion(val q: Question, context: Context, attrs: AttributeSet? = nu
 
             answerChoiceViews = mutableAnswerChoicesList.map { title ->
                 val matchesSavedChoice = if (!q.answers.isNullOrEmpty()) {
-                    title == q.answers!![0]
+                    title == q.answers!![q.ID]
                 } else {
                     false
                 }
@@ -74,26 +74,24 @@ class RadioQuestion(val q: Question, context: Context, attrs: AttributeSet? = nu
     }
 
     override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) {
-        var answer: String? = null
+        var answer = ""
         if (answerChoiceViews != null && answerChoiceViews!!.isNotEmpty()) {
             for (radioAnswerChoiceView in answerChoiceViews!!) {
                 if (radioAnswerChoiceView.isChecked()) {
-                    answer = radioAnswerChoiceView.title
+                    answer = radioAnswerChoiceView.title ?: ""
                 }
             }
         }
 
-        answer?.let {
-            if (q.answers == null) {
-                q.answers = arrayListOf()
-            }
-            q.answers!!.add(answer)
+        if (q.answers == null) {
+            q.answers = HashMap()
+        }
+        q.answers!![q.ID] = answer
 
-            sharedPreferences?.let {
-                with(it.edit()) {
-                    putString(formId + q.ID, answer)
-                    apply()
-                }
+        sharedPreferences?.let {
+            with(it.edit()) {
+                putString(formId + q.ID, answer)
+                apply()
             }
         }
     }

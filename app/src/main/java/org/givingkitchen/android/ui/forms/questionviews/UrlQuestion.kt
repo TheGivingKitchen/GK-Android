@@ -35,19 +35,15 @@ class UrlQuestion(val q: Question, context: Context, attrs: AttributeSet? = null
     override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) {
         val answer = url_urlQuestion.text.toString()
 
-        if (answer.isBlank()) {
-            q.answers = null
-        } else {
-            if (q.answers == null) {
-                q.answers = HashMap()
-            }
-            q.answers!![q.ID] = answer
+        if (q.answers == null) {
+            q.answers = HashMap()
+        }
+        q.answers!![q.ID] = answer
 
-            sharedPreferences?.let {
-                with(it.edit()) {
-                    putString(formId + q.ID, answer)
-                    apply()
-                }
+        sharedPreferences?.let {
+            with(it.edit()) {
+                putString(formId + q.ID, answer)
+                apply()
             }
         }
     }

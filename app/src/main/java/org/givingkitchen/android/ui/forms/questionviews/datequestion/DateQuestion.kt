@@ -31,8 +31,10 @@ class DateQuestion(val q: Question, context: Context, attrs: AttributeSet? = nul
         title_dateQuestion.setTextIfItExists(formatTitle(q.Title, q.IsRequired))
 
         if (!q.answers.isNullOrEmpty()) {
-            val savedDate = q.answers!![0]
-            setDate(savedDate.substring(4, 6).toInt(), savedDate.substring(6).toInt(), savedDate.substring(0, 4).toInt())
+            val savedDate = q.answers!![q.ID]
+            if (savedDate != null) {
+                setDate(savedDate.substring(4, 6).toInt(), savedDate.substring(6).toInt(), savedDate.substring(0, 4).toInt())
+            }
         }
 
         q.warning?.let {
@@ -62,9 +64,9 @@ class DateQuestion(val q: Question, context: Context, attrs: AttributeSet? = nul
             val formattedAnswer = dateComponents[2] + dateComponents[0] + dateComponents[1]
 
             if (q.answers == null) {
-                q.answers = arrayListOf()
+                q.answers = HashMap()
             }
-            q.answers!!.add(formattedAnswer)
+            q.answers!![q.ID] = formattedAnswer
 
             sharedPreferences?.let {
                 with(it.edit()) {

@@ -13,12 +13,12 @@ import org.givingkitchen.android.ui.forms.Question
 import org.givingkitchen.android.util.convertToDp
 import org.givingkitchen.android.util.setTextIfItExists
 
-class AddressQuestion(val q: Question, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), QuestionView {
+class AddressQuestion(val q: Question, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : LinearLayout(context, attrs, defStyle), QuestionView {
     // todo: prefill this question from shared prefs
     init {
         LayoutInflater.from(context).inflate(R.layout.view_question_address, this, true)
         val customLayoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        customLayoutParams.setMargins(0,0,0, convertToDp(20, resources))
+        customLayoutParams.setMargins(0, 0, 0, convertToDp(20, resources))
         layoutParams = customLayoutParams
         this.orientation = VERTICAL
         title_addressQuestion.setTextIfItExists(formatTitle(q.Title, q.IsRequired))
@@ -32,36 +32,34 @@ class AddressQuestion(val q: Question, context: Context, attrs: AttributeSet? = 
 
     override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) {
         val streetAddressFieldId = q.ID
-        saveTextFieldAnswer(streetAddressField_addressQuestion.text.toString(), sharedPreferences, formId + streetAddressFieldId)
+        saveTextFieldAnswer(streetAddressField_addressQuestion.text.toString(), sharedPreferences, formId, streetAddressFieldId)
 
         val addressLineTwoFieldId = getNextFieldId(streetAddressFieldId, context)
-        saveTextFieldAnswer(addressLineTwoField_addressQuestion.text.toString(), sharedPreferences, formId + addressLineTwoFieldId)
+        saveTextFieldAnswer(addressLineTwoField_addressQuestion.text.toString(), sharedPreferences, formId, addressLineTwoFieldId)
 
         val cityFieldId = getNextFieldId(addressLineTwoFieldId, context)
-        saveTextFieldAnswer(cityField_addressQuestion.text.toString(), sharedPreferences, formId + cityFieldId)
+        saveTextFieldAnswer(cityField_addressQuestion.text.toString(), sharedPreferences, formId, cityFieldId)
 
         val stateFieldId = getNextFieldId(cityFieldId, context)
-        saveTextFieldAnswer(stateField_addressQuestion.text.toString(), sharedPreferences, formId + stateFieldId)
+        saveTextFieldAnswer(stateField_addressQuestion.text.toString(), sharedPreferences, formId, stateFieldId)
 
         val zipcodeFieldId = getNextFieldId(stateFieldId, context)
-        saveTextFieldAnswer(stateField_addressQuestion.text.toString(), sharedPreferences, formId + zipcodeFieldId)
+        saveTextFieldAnswer(stateField_addressQuestion.text.toString(), sharedPreferences, formId, zipcodeFieldId)
 
         val countryFieldId = getNextFieldId(zipcodeFieldId, context)
-        saveTextFieldAnswer(context.getString(R.string.address_question_country_default), sharedPreferences, formId + countryFieldId)
+        saveTextFieldAnswer(context.getString(R.string.address_question_country_default), sharedPreferences, formId, countryFieldId)
     }
 
-    private fun saveTextFieldAnswer(answer: String, sharedPreferences: SharedPreferences?, uniqueFieldId: String) {
-        if (answer.isNotBlank()) {
-            if (q.answers == null) {
-                q.answers = arrayListOf()
-            }
-            q.answers!!.add(answer)
+    private fun saveTextFieldAnswer(answer: String, sharedPreferences: SharedPreferences?, formId: String, uniqueFieldId: String) {
+        if (q.answers == null) {
+            q.answers = HashMap()
+        }
+        q.answers!![uniqueFieldId] = answer
 
-            sharedPreferences?.let {
-                with(it.edit()) {
-                    putString(uniqueFieldId, answer)
-                    apply()
-                }
+        sharedPreferences?.let {
+            with(it.edit()) {
+                putString(formId + uniqueFieldId, answer)
+                apply()
             }
         }
     }

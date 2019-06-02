@@ -13,17 +13,17 @@ import org.givingkitchen.android.ui.forms.Question
 import org.givingkitchen.android.util.convertToDp
 import org.givingkitchen.android.util.setTextIfItExists
 
-class NumberQuestion(val q: Question, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), QuestionView {
+class NumberQuestion(val q: Question, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : LinearLayout(context, attrs, defStyle), QuestionView {
     init {
         LayoutInflater.from(context).inflate(R.layout.view_question_number, this, true)
         val customLayoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        customLayoutParams.setMargins(0,0,0, convertToDp(20, resources))
+        customLayoutParams.setMargins(0, 0, 0, convertToDp(20, resources))
         layoutParams = customLayoutParams
         this.orientation = VERTICAL
         title_numberQuestion.setTextIfItExists(formatTitle(q.Title, q.IsRequired))
 
         if (!q.answers.isNullOrEmpty()) {
-            number_numberQuestion.setText(q.answers!![0])
+            number_numberQuestion.setText(q.answers!![q.ID])
         }
 
         q.warning?.let {
@@ -35,17 +35,15 @@ class NumberQuestion(val q: Question, context: Context, attrs: AttributeSet? = n
     override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) {
         val answer = number_numberQuestion.text.toString()
 
-        if (answer.isNotBlank()) {
-            if (q.answers == null) {
-                q.answers = arrayListOf()
-            }
-            q.answers!!.add(answer)
+        if (q.answers == null) {
+            q.answers = HashMap()
+        }
+        q.answers!![q.ID] = answer
 
-            sharedPreferences?.let {
-                with(it.edit()) {
-                    putString(formId + q.ID, answer)
-                    apply()
-                }
+        sharedPreferences?.let {
+            with(it.edit()) {
+                putString(formId + q.ID, answer)
+                apply()
             }
         }
     }

@@ -37,11 +37,11 @@ fun Bundle.putEnum(key:String, enum: Enum<*>){
     putString(key, enum.name)
 }
 
-inline fun <reified T: Enum<T>> Bundle.getEnum(key:String): T {
+inline fun <reified T: Enum<T>> Bundle.getEnum(key:String, default:T): T {
     return try {
         enumValueOf(getString(key))
     } catch (e: IllegalStateException) {
-        throw KotlinNullPointerException()
+        default
     }
 }
 

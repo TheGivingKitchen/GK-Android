@@ -23,7 +23,7 @@ class EmailQuestion(val q: Question, context: Context, attrs: AttributeSet? = nu
         title_emailQuestion.setTextIfItExists(formatTitle(q.Title, q.IsRequired))
 
         if (!q.answers.isNullOrEmpty()) {
-            email_emailQuestion.setText(q.answers!![0])
+            email_emailQuestion.setText(q.answers!![q.ID])
         }
 
         q.warning?.let {
@@ -37,9 +37,9 @@ class EmailQuestion(val q: Question, context: Context, attrs: AttributeSet? = nu
 
         if (answer.isNotBlank()) {
             if (q.answers == null) {
-                q.answers = arrayListOf()
+                q.answers = HashMap()
             }
-            q.answers!!.add(answer)
+            q.answers!![q.ID] = answer
 
             sharedPreferences?.let {
                 with(it.edit()) {

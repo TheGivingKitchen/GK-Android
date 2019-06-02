@@ -15,13 +15,13 @@ import org.givingkitchen.android.util.convertToDp
 import org.givingkitchen.android.util.setPaddingDp
 import org.givingkitchen.android.util.setTextIfItExists
 
-class CheckboxQuestion(val q: Question, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0): LinearLayout(context, attrs, defStyle), QuestionView {
+class CheckboxQuestion(val q: Question, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : LinearLayout(context, attrs, defStyle), QuestionView {
     private var answerChoiceViews: List<CheckboxAnswerChoice>? = null
 
     init {
         LayoutInflater.from(context).inflate(R.layout.view_question_checkbox, this, true)
         val customLayoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        customLayoutParams.setMargins(0,0,0, convertToDp(20, resources))
+        customLayoutParams.setMargins(0, 0, 0, convertToDp(20, resources))
         layoutParams = customLayoutParams
         this.orientation = VERTICAL
         title_checkboxQuestion.setTextIfItExists(formatTitle(q.Title, q.IsRequired))
@@ -35,7 +35,10 @@ class CheckboxQuestion(val q: Question, context: Context, attrs: AttributeSet? =
 
             val savedChoicesSet = HashSet<String>()
             if (!q.answers.isNullOrEmpty()) {
-                savedChoicesSet.addAll(q.answers!![0].split(","))
+                val savedChoices = q.answers!![q.ID]
+                if (savedChoices != null) {
+                    savedChoicesSet.addAll(savedChoices.split(","))
+                }
             }
 
             answerChoiceViews = mutableAnswerChoicesList.map { title ->
@@ -70,19 +73,17 @@ class CheckboxQuestion(val q: Question, context: Context, attrs: AttributeSet? =
             }
         }
 
-        if (selectedCheckboxes.isNotEmpty()) {
-            val answer = selectedCheckboxes.joinToString()
+        val answer = selectedCheckboxes.joinToString()
 
-            if (q.answers == null) {
-                q.answers = arrayListOf()
-            }
-            q.answers!!.add(answer)
+        if (q.answers == null) {
+            q.answers = HashMap()
+        }
+        q.answers!![q.ID] = answer
 
-            sharedPreferences?.let {
-                with(it.edit()) {
-                    putString(formId + q.ID, answer)
-                    apply()
-                }
+        sharedPreferences?.let {
+            with(it.edit()) {
+                putString(formId + q.ID, answer)
+                apply()
             }
         }
     }

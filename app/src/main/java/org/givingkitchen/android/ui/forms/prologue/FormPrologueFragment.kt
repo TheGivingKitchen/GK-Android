@@ -125,11 +125,8 @@ class FormPrologueFragment : Fragment() {
         if (form != null && arguments != null) {
             val args = Bundle()
             args.putParcelable(formArg, form)
-            val donePage: DonePage = try {
-                arguments!!.getEnum<DonePage>(donePageArg)
-            } catch (e: KotlinNullPointerException) {
-                DonePage.DEFAULT
-            }
+            val donePage: DonePage = arguments!!.getEnum<DonePage>(donePageArg, DonePage.DEFAULT)
+
             args.putEnum(donePageArg, donePage)
             Navigation.findNavController(view!!).navigate(R.id.questionsContainerFragment, args)
         } else {

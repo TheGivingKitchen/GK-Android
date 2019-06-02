@@ -30,8 +30,10 @@ class TimeQuestion(val q: Question, context: Context, attrs: AttributeSet? = nul
         title_timeQuestion.setTextIfItExists(formatTitle(q.Title, q.IsRequired))
 
         if (!q.answers.isNullOrEmpty()) {
-            val savedTimeSections = q.answers!![0].split(":")
-            setTime(savedTimeSections[0].toInt(), savedTimeSections[1].toInt())
+            val savedTimeSections = q.answers!![q.ID]?.split(":")
+            if (savedTimeSections != null) {
+                setTime(savedTimeSections[0].toInt(), savedTimeSections[1].toInt())
+            }
         }
 
         q.warning?.let {
@@ -71,9 +73,9 @@ class TimeQuestion(val q: Question, context: Context, attrs: AttributeSet? = nul
             val formattedAnswer = context.getString(R.string.time_question_answer_format, dec.format(timeHour), dec.format(timeMinute))
 
             if (q.answers == null) {
-                q.answers = arrayListOf()
+                q.answers = HashMap()
             }
-            q.answers!!.add(formattedAnswer)
+            q.answers!![q.ID] = answer
 
             sharedPreferences?.let {
                 with(it.edit()) {

@@ -21,11 +21,7 @@ class FormDoneFragment : Fragment(), FragmentBackPressedListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val donePage: DonePage = try {
-            arguments!!.getEnum<DonePage>(Constants.donePageArg)
-        } catch (e: KotlinNullPointerException) {
-            DonePage.DEFAULT
-        }
+        val donePage: DonePage = arguments!!.getEnum<DonePage>(Constants.donePageArg, DonePage.DEFAULT)
 
         header_formDone.setImageDrawable(resources.getDrawable(donePage.drawable, context!!.theme))
         title_formDone.text = resources.getString(donePage.title)

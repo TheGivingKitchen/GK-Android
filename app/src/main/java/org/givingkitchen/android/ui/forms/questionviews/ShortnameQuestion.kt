@@ -31,34 +31,31 @@ class ShortnameQuestion(val q: Question, context: Context, attrs: AttributeSet? 
     }
 
     override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) {
-        saveTextFieldAnswer(firstName_shortnameQuestion.text.toString(), sharedPreferences, formId + q.ID)
-        saveTextFieldAnswer(lastName_shortnameQuestion.text.toString(), sharedPreferences, formId + getNextFieldId(q.ID, context))
+        saveTextFieldAnswer(firstName_shortnameQuestion.text.toString(), sharedPreferences, formId, q.ID)
+        saveTextFieldAnswer(lastName_shortnameQuestion.text.toString(), sharedPreferences, formId, getNextFieldId(q.ID, context))
     }
 
     private fun placeSavedAnswersInTextFields(views: List<EditText>) {
         q.answers?.let {
             for (i in 0 until q.answers!!.size) {
                 if (i < views.size) {
-                    views[i].setText(q.answers!![i])
+                    // todo: create fields based on SubFields
+                    // views[i].setText(q.answers!![i])
                 }
             }
         }
     }
 
-    private fun saveTextFieldAnswer(answer: String, sharedPreferences: SharedPreferences?, uniqueFieldId: String) {
-        if (answer.isBlank()) {
-            q.answers = null
-        } else {
-            if (q.answers == null) {
-                q.answers = arrayListOf()
-            }
-            q.answers!!.add(answer)
+    private fun saveTextFieldAnswer(answer: String, sharedPreferences: SharedPreferences?, formId: String, uniqueFieldId: String) {
+        if (q.answers == null) {
+            q.answers = HashMap()
+        }
+        q.answers!![uniqueFieldId] = answer
 
-            sharedPreferences?.let {
-                with(it.edit()) {
-                    putString(uniqueFieldId, answer)
-                    apply()
-                }
+        sharedPreferences?.let {
+            with(it.edit()) {
+                putString(formId + uniqueFieldId, answer)
+                apply()
             }
         }
     }

@@ -18,13 +18,13 @@ class MoneyQuestion(val q: Question, context: Context, attrs: AttributeSet? = nu
     init {
         LayoutInflater.from(context).inflate(R.layout.view_question_money, this, true)
         val customLayoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        customLayoutParams.setMargins(0,0,0, convertToDp(20, resources))
+        customLayoutParams.setMargins(0, 0, 0, convertToDp(20, resources))
         layoutParams = customLayoutParams
         this.orientation = VERTICAL
         title_moneyQuestion.setTextIfItExists(formatTitle(q.Title, q.IsRequired))
 
         if (!q.answers.isNullOrEmpty()) {
-            amount_moneyQuestion.setText(q.answers!![0])
+            amount_moneyQuestion.setText(q.answers!![q.ID])
         }
 
         q.warning?.let {
@@ -54,17 +54,15 @@ class MoneyQuestion(val q: Question, context: Context, attrs: AttributeSet? = nu
     override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) {
         val answer = amount_moneyQuestion.text.toString()
 
-        if (answer.isNotBlank()) {
-            if (q.answers == null) {
-                q.answers = arrayListOf()
-            }
-            q.answers!!.add(answer)
+        if (q.answers == null) {
+            q.answers = HashMap()
+        }
+        q.answers!![q.ID] = answer
 
-            sharedPreferences?.let {
-                with(it.edit()) {
-                    putString(formId + q.ID, answer)
-                    apply()
-                }
+        sharedPreferences?.let {
+            with(it.edit()) {
+                putString(formId + q.ID, answer)
+                apply()
             }
         }
     }
