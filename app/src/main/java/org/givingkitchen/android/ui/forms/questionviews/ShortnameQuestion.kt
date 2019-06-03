@@ -22,7 +22,11 @@ class ShortnameQuestion(val q: Question, context: Context, attrs: AttributeSet? 
         layoutParams = customLayoutParams
         this.orientation = VERTICAL
         title_shortnameQuestion.setTextIfItExists(formatTitle(q.Title, q.IsRequired))
-        placeSavedAnswersInTextFields(listOf(firstName_shortnameQuestion, lastName_shortnameQuestion))
+
+        if (!q.answers.isNullOrEmpty()) {
+            firstName_shortnameQuestion.setText(q.answers!![q.ID])
+            lastName_shortnameQuestion.setText(q.answers!![getNextFieldId(q.ID, context)])
+        }
 
         q.warning?.let {
             warning_shortnameQuestion.text = it
@@ -33,17 +37,6 @@ class ShortnameQuestion(val q: Question, context: Context, attrs: AttributeSet? 
     override fun saveAnswer(formId: String, sharedPreferences: SharedPreferences?) {
         saveTextFieldAnswer(firstName_shortnameQuestion.text.toString(), sharedPreferences, formId, q.ID)
         saveTextFieldAnswer(lastName_shortnameQuestion.text.toString(), sharedPreferences, formId, getNextFieldId(q.ID, context))
-    }
-
-    private fun placeSavedAnswersInTextFields(views: List<EditText>) {
-        q.answers?.let {
-            for (i in 0 until q.answers!!.size) {
-                if (i < views.size) {
-                    // todo: create fields based on SubFields
-                    // views[i].setText(q.answers!![i])
-                }
-            }
-        }
     }
 
     private fun saveTextFieldAnswer(answer: String, sharedPreferences: SharedPreferences?, formId: String, uniqueFieldId: String) {

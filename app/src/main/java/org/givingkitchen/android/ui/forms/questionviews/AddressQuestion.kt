@@ -14,7 +14,6 @@ import org.givingkitchen.android.util.convertToDp
 import org.givingkitchen.android.util.setTextIfItExists
 
 class AddressQuestion(val q: Question, context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : LinearLayout(context, attrs, defStyle), QuestionView {
-    // todo: prefill this question from shared prefs
     init {
         LayoutInflater.from(context).inflate(R.layout.view_question_address, this, true)
         val customLayoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -23,6 +22,22 @@ class AddressQuestion(val q: Question, context: Context, attrs: AttributeSet? = 
         this.orientation = VERTICAL
         title_addressQuestion.setTextIfItExists(formatTitle(q.Title, q.IsRequired))
 
+        if (!q.answers.isNullOrEmpty()) {
+            val streetAddressFieldId = q.ID
+            streetAddressField_addressQuestion.setText(q.answers!![streetAddressFieldId])
+
+            val addressLineTwoFieldId = getNextFieldId(streetAddressFieldId, context)
+            addressLineTwoField_addressQuestion.setText(q.answers!![addressLineTwoFieldId])
+
+            val cityFieldId = getNextFieldId(addressLineTwoFieldId, context)
+            cityField_addressQuestion.setText(q.answers!![cityFieldId])
+
+            val stateFieldId = getNextFieldId(cityFieldId, context)
+            stateField_addressQuestion.setText(q.answers!![stateFieldId])
+
+            val zipcodeFieldId = getNextFieldId(stateFieldId, context)
+            zipcodeField_addressQuestion.setText(q.answers!![zipcodeFieldId])
+        }
 
         q.warning?.let {
             warning_addressQuestion.text = it
@@ -44,7 +59,7 @@ class AddressQuestion(val q: Question, context: Context, attrs: AttributeSet? = 
         saveTextFieldAnswer(stateField_addressQuestion.text.toString(), sharedPreferences, formId, stateFieldId)
 
         val zipcodeFieldId = getNextFieldId(stateFieldId, context)
-        saveTextFieldAnswer(stateField_addressQuestion.text.toString(), sharedPreferences, formId, zipcodeFieldId)
+        saveTextFieldAnswer(zipcodeField_addressQuestion.text.toString(), sharedPreferences, formId, zipcodeFieldId)
 
         val countryFieldId = getNextFieldId(zipcodeFieldId, context)
         saveTextFieldAnswer(context.getString(R.string.address_question_country_default), sharedPreferences, formId, countryFieldId)

@@ -3,6 +3,7 @@ package org.givingkitchen.android.ui.forms
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.SparseArray
 import androidx.annotation.Nullable
@@ -28,6 +29,7 @@ import okhttp3.*
 import okhttp3.Request
 import okhttp3.Response
 import org.givingkitchen.android.R
+import org.givingkitchen.android.ui.forms.page.QuestionType
 import org.givingkitchen.android.ui.forms.questionviews.QuestionView
 import java.io.IOException
 
@@ -59,6 +61,18 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+        sharedPref?.let {
+            for (currentFormPage in form.Pages) {
+                currentFormPage.questions?.let { questions ->
+                    for (question in questions) {
+                        placeSavedAnswersInForm(question, sharedPref)
+                    }
+                }
+            }
+        }
+
         formPagerAdapter = FormPagerAdapter(fragmentManager!!)
         viewPager_questionsContainer.adapter = formPagerAdapter
         if (formPagerAdapter.count < 2) {
@@ -206,6 +220,42 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
 
         for (questionView in currentFragment.questionViews) {
             questionView.saveAnswer(form.ID, activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE))
+        }
+    }
+
+    private fun placeSavedAnswersInForm(question: Question, sharedPref: SharedPreferences) {
+        if (question.answers == null) {
+            question.answers = HashMap()
+        }
+
+        question.Type?.let { type ->
+            when (type) {
+                QuestionType.shortname -> {
+                    placeMultipleSavedAnswersInForm(question, 2, sharedPref)
+                }
+                QuestionType.address -> {
+                    placeMultipleSavedAnswersInForm(question, 5, sharedPref)
+                }
+                else -> {
+                    val savedAnswer = sharedPref.getString(form.ID + question.ID, null)
+                    if (savedAnswer != null) {
+                        question.answers!![question.ID] = savedAnswer
+                    }
+                }
+            }
+        }
+    }
+
+    private fun placeMultipleSavedAnswersInForm(question: Question, formFieldsCount: Int, sharedPref: SharedPreferences) {
+        for (count in 0 until formFieldsCount) {
+            val startingFieldIdNumber = question.ID.split("Field")[1].toInt()
+            val fieldId = context!!.getString(R.string.forms_questions_field_id_format, startingFieldIdNumber+count)
+
+            val savedAnswer = sharedPref.getString(form.ID + fieldId, null)
+
+            if (savedAnswer != null) {
+                question.answers!![fieldId] = savedAnswer
+            }
         }
     }
 
