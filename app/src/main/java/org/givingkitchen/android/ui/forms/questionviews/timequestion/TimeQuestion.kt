@@ -70,12 +70,12 @@ class TimeQuestion(val q: Question, context: Context, attrs: AttributeSet? = nul
 
         if (answer.isNotBlank() && timeHour != null && timeMinute != null) {
             val dec = DecimalFormat("00")
-            val formattedAnswer = context.getString(R.string.time_question_answer_format, dec.format(timeHour), dec.format(timeMinute))
+            val formattedAnswer = context.getString(R.string.time_question_answer_format, dec.format(timeHour!!+5), dec.format(timeMinute))
 
             if (q.answers == null) {
                 q.answers = HashMap()
             }
-            q.answers!![q.ID] = answer
+            q.answers!![q.ID] = formattedAnswer
 
             sharedPreferences?.let {
                 with(it.edit()) {

@@ -75,9 +75,14 @@ class FormPageFragment : Fragment() {
     }
 
     private fun getQuestionView(question: Question): View? {
-        val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
-        val savedAnswer = sharedPref?.getString(formId + question.ID, null)
-
+        /*  todo: !! Major todo bug !! If a screen has more than one question
+            of the same type e.g. email, the EditTexts of those questions will all be set to the
+            last saved value to be loaded.
+            To reproduce: go to the Volunteer signup form and enter different values for
+            personal and business emails on the first page. Move next by a few pages so the first form page
+            is cleaned from memory, then tab back to the first page. The two emails will have the same value
+            They will both show the business email since that comes second.
+        */
         return when (question.Type) {
             QuestionType.shortname -> {
                 ShortnameQuestion(question, context!!)

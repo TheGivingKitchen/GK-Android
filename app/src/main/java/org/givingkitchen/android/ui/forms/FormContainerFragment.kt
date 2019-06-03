@@ -30,7 +30,6 @@ import okhttp3.Request
 import okhttp3.Response
 import org.givingkitchen.android.R
 import org.givingkitchen.android.ui.forms.page.QuestionType
-import org.givingkitchen.android.ui.forms.questionviews.QuestionView
 import java.io.IOException
 
 class FormContainerFragment : Fragment(), FragmentBackPressedListener {
