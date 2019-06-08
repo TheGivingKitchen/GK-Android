@@ -1,13 +1,12 @@
 package org.givingkitchen.android.ui.homescreen.events
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import android.os.AsyncTask
 import android.os.Bundle
 import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +14,9 @@ import kotlinx.android.synthetic.main.fragment_events.*
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.givingkitchen.android.R
+import org.givingkitchen.android.analytics.Events.*
+import org.givingkitchen.android.analytics.Analytics
+import org.givingkitchen.android.analytics.Parameter.*
 import org.givingkitchen.android.ui.homescreen.events.EventsViewModel.Companion.eventsLearnMoreURL
 import org.givingkitchen.android.util.Constants.givingKitchenUrl
 import org.givingkitchen.android.util.CustomTabs
@@ -31,6 +33,7 @@ class EventsFragment : Fragment() {
     private lateinit var model: EventsViewModel
 
     // todo: don't crash the app if a response is not received within 30 seconds
+    @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         model = ViewModelProviders.of(this).get(EventsViewModel::class.java)
@@ -83,8 +86,11 @@ class EventsFragment : Fragment() {
         CustomTabs.openCustomTab(context, eventsLearnMoreURL)
     }
 
-    private fun goToEventDetails(link: String) {
-        CustomTabs.openCustomTab(context, link)
+    private fun goToEventDetails(event: Event) {
+        val params = mapOf(EVENT_VIEW_DETAILS_EVENT_NAME to (event.title ?: ""))
+        Analytics.logEvent(EVENT_VIEW_DETAILS, params)
+
+        CustomTabs.openCustomTab(context, event.link!!)
     }
 
     private fun updateEventsList(data: List<Event>) {

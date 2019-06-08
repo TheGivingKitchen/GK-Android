@@ -14,7 +14,7 @@ import org.givingkitchen.android.util.setTextIfItExists
 
 class EventsAdapter(var items: MutableList<Any>, val fragment: Fragment) : androidx.recyclerview.widget.RecyclerView.Adapter<androidx.recyclerview.widget.RecyclerView.ViewHolder>() {
     private val learnMoreClicks: PublishSubject<Boolean> = PublishSubject.create()
-    private val eventClicks: PublishSubject<String> = PublishSubject.create()
+    private val eventClicks: PublishSubject<Event> = PublishSubject.create()
 
     companion object {
         const val VIEW_TYPE_EVENT = 0
@@ -48,7 +48,7 @@ class EventsAdapter(var items: MutableList<Any>, val fragment: Fragment) : andro
     override fun getItemCount() = items.size
 
     fun learnMoreClicks(): Observable<Boolean> = learnMoreClicks
-    fun eventClicks(): Observable<String> = eventClicks
+    fun eventClicks(): Observable<Event> = eventClicks
 }
 
 class HeaderViewHolder(val view: View, private val learnMoreClicks: PublishSubject<Boolean>) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
@@ -57,13 +57,13 @@ class HeaderViewHolder(val view: View, private val learnMoreClicks: PublishSubje
     }
 }
 
-class EventViewHolder(val view: View, private val clicks: PublishSubject<String>) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
+class EventViewHolder(val view: View, private val clicks: PublishSubject<Event>) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
     fun bind(event: Event, fragment: Fragment) {
         view.findViewById<TextView>(R.id.title_EventsRecycler).setTextIfItExists(event.title)
         view.findViewById<TextView>(R.id.description_EventsRecycler).setTextIfItExists(event.subtitle?.replace("\n", ""))
         val link = event.link
         if (link != null) {
-            view.setOnClickListener { clicks.onNext(link) }
+            view.setOnClickListener { clicks.onNext(event) }
         }
         setPicture(event.picUrl, R.id.image_EventsRecycler, fragment)
     }
