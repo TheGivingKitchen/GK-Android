@@ -12,6 +12,7 @@ enum class Parameter(name: String) {
     EVENT_VIEW_DETAILS_EVENT_NAME("event_name"),
     EVENT_VIEW_DETAILS_EVENT_URL("event_url")
 }
+
     /*
         case eventViewDetails = "event_home_view_event"
         case eventVolunteerBannerClose = "event_volunteer_banner_close"
