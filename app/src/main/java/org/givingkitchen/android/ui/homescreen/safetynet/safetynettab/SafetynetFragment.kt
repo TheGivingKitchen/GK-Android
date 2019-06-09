@@ -18,6 +18,9 @@ import com.crashlytics.android.Crashlytics
 import com.squareup.moshi.JsonAdapter
 import kotlinx.android.synthetic.main.fragment_safetynet.*
 import org.givingkitchen.android.R
+import org.givingkitchen.android.analytics.Analytics
+import org.givingkitchen.android.analytics.Events
+import org.givingkitchen.android.analytics.Parameter
 import org.givingkitchen.android.ui.homescreen.safetynet.Header
 import org.givingkitchen.android.ui.homescreen.safetynet.providerdetails.ResourceProviderDetailsFragment
 import org.givingkitchen.android.ui.homescreen.safetynet.SocialServiceProvider
@@ -216,6 +219,7 @@ class SafetynetFragment : Fragment() {
     private inner class SearchTextListener : SearchView.OnQueryTextListener {
         override fun onQueryTextChange(text: String?): Boolean {
             searchText = text
+            logSearchForAnalytics(searchText)
             setAdapterResults()
             return true
         }
@@ -223,5 +227,19 @@ class SafetynetFragment : Fragment() {
         override fun onQueryTextSubmit(text: String?): Boolean {
             return true
         }
+    }
+
+    private fun logSearchForAnalytics(searchText: String?) {
+        if (searchText == null) {
+            return
+        }
+        val lowerCaseTrimmedSearch = searchText.toLowerCase().trim()
+
+        val parameters = mapOf(
+                Parameter.SAFETY_NET_SEARCH_TERM to lowerCaseTrimmedSearch,
+                Parameter.SAFETY_NET_SEARCH_LOCATION_BASED to "false"
+        )
+
+        Analytics.logEvent(Events.SAFETY_NET_SEARCH, parameters)
     }
 }

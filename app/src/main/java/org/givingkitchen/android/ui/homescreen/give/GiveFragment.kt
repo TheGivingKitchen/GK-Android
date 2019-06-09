@@ -14,6 +14,8 @@ import android.view.animation.AnimationUtils
 import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_give.*
 import org.givingkitchen.android.R
+import org.givingkitchen.android.analytics.Analytics
+import org.givingkitchen.android.analytics.Events
 import org.givingkitchen.android.ui.homescreen.give.GiveViewModel.Companion.oneTimeDonationURL
 import org.givingkitchen.android.ui.homescreen.give.GiveViewModel.Companion.giveLearnMoreURL
 import org.givingkitchen.android.ui.homescreen.give.GiveViewModel.Companion.recurringDonationURL
@@ -65,14 +67,17 @@ class GiveFragment : Fragment() {
     }
 
     private val oneTimeDontationClickListener = View.OnClickListener {
+        Analytics.logEvent(Events.DONATE_ONE_TIME_DONATION_STARTED)
         CustomTabs.openCustomTab(context, oneTimeDonationURL)
     }
 
     private val recurringDonationClickListener = View.OnClickListener {
+        Analytics.logEvent(Events.DONATE_RECURRING_DONATION_STARTED)
         CustomTabs.openCustomTab(context, recurringDonationURL)
     }
 
     private val learnMoreButtonClickListener = View.OnClickListener {
+        Analytics.logLearnedMore("donate_home")
         CustomTabs.openCustomTab(context, giveLearnMoreURL)
     }
 

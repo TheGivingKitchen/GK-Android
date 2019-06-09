@@ -11,7 +11,8 @@ import android.view.ViewGroup
 import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_about.*
 import org.givingkitchen.android.R
-import org.givingkitchen.android.ui.homescreen.about.feedback.SubmitFeedbackDialogFragment
+import org.givingkitchen.android.analytics.Analytics
+import org.givingkitchen.android.analytics.Events
 import org.givingkitchen.android.util.Constants.givingKitchenUrl
 import org.givingkitchen.android.util.CustomTabs
 
@@ -50,26 +51,33 @@ class AboutFragment : Fragment()  {
     private val aboutUsButtonClickListener = View.OnClickListener {
         // todo: show an image of the pdf here instead
         // CustomTabs.openCustomTab(context, howItWorksPdfUrl)
+        Analytics.logLearnedMore("crisis_grant_info_graphic")
         Navigation.findNavController(view!!).navigate(R.id.howItWorksFragment)
     }
 
     private val newsletterSignupClickListener = View.OnClickListener {
+        Analytics.logEvent(Events.NEWSLETTER_SIGNUP_STARTED)
+
         CustomTabs.openCustomTab(context, newsletterSignupUrl)
     }
 
     private val storyOneClickListener = View.OnClickListener {
+        Analytics.logLearnedMore("story_the_performer")
         CustomTabs.openCustomTab(context, storyOneUrl)
     }
 
     private val storyTwoClickListener = View.OnClickListener {
+        Analytics.logLearnedMore("when_irma_hit")
         CustomTabs.openCustomTab(context, storyTwoUrl)
     }
 
     private val storyThreeClickListener = View.OnClickListener {
+        Analytics.logLearnedMore("comfort_in_athens")
         CustomTabs.openCustomTab(context, storyThreeUrl)
     }
 
     private val feedbackPositiveClickListener = View.OnClickListener {
+        Analytics.logEvent(Events.FEEDBACK_POSITIVE)
         val rateAppDialog = RateAppDialogFragment()
         rateAppDialog.setOnCompleteListener {
             if (!it) {
@@ -80,10 +88,14 @@ class AboutFragment : Fragment()  {
     }
 
     private val feedbackNeutralClickListener = View.OnClickListener {
+        Analytics.logEvent(Events.FEEDBACK_COMMENT)
+
         Navigation.findNavController(view!!).navigate(R.id.feedbackFragment)
     }
 
     private val feedbackNegativeClickListener = View.OnClickListener {
+        Analytics.logEvent(Events.FEEDBACK_REPORT_PROBLEM)
+
         val emailIntent: Intent = Intent().apply {
             action = Intent.ACTION_SENDTO
             putExtra(Intent.EXTRA_EMAIL, getString(R.string.about_tab_gk_email_address))

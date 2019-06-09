@@ -10,6 +10,9 @@ import android.content.Intent
 import android.net.Uri
 import androidx.navigation.fragment.findNavController
 import org.givingkitchen.android.R
+import org.givingkitchen.android.analytics.Analytics
+import org.givingkitchen.android.analytics.Events
+import org.givingkitchen.android.analytics.Parameter
 
 class FacebookGroupsFragment : Fragment() {
 
@@ -33,18 +36,19 @@ class FacebookGroupsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         upButton_facebookGroups.setOnClickListener { navigateUp() }
-        metroAtlTouchTarget_facebookGroups.setOnClickListener { openFacebookLink(metroAtlGroupId) }
-        athensTouchTarget_facebookGroups.setOnClickListener { openFacebookLink(athensGroupId) }
-        columbusTouchTarget_facebookGroups.setOnClickListener { openFacebookLink(columbusGroupId) }
-        romeTouchTarget_facebookGroups.setOnClickListener { openFacebookLink(romeGroupId) }
-        maconTouchTarget_facebookGroups.setOnClickListener { openFacebookLink(maconGroupId) }
-        gainesvilleTouchTarget_facebookGroups.setOnClickListener { openFacebookLink(gainesvilleGroupId) }
-        northGaTouchTarget_facebookGroups.setOnClickListener { openFacebookLink(northGaGroupId) }
-        southGaTouchTarget_facebookGroups.setOnClickListener { openFacebookLink(southGaGroupId) }
-        coastalGaTouchTarget_facebookGroups.setOnClickListener { openFacebookLink(coastalGaGroupId) }
+        metroAtlTouchTarget_facebookGroups.setOnClickListener { openFacebookLink(metroAtlGroupId, "metro_atlanta") }
+        athensTouchTarget_facebookGroups.setOnClickListener { openFacebookLink(athensGroupId, "athens_ga") }
+        columbusTouchTarget_facebookGroups.setOnClickListener { openFacebookLink(columbusGroupId, "columbus_ga") }
+        romeTouchTarget_facebookGroups.setOnClickListener { openFacebookLink(romeGroupId, "rome_ga") }
+        maconTouchTarget_facebookGroups.setOnClickListener { openFacebookLink(maconGroupId, "macon_ga") }
+        gainesvilleTouchTarget_facebookGroups.setOnClickListener { openFacebookLink(gainesvilleGroupId, "gainesville_ga") }
+        northGaTouchTarget_facebookGroups.setOnClickListener { openFacebookLink(northGaGroupId, "north_ga") }
+        southGaTouchTarget_facebookGroups.setOnClickListener { openFacebookLink(southGaGroupId, "south_ga") }
+        coastalGaTouchTarget_facebookGroups.setOnClickListener { openFacebookLink(coastalGaGroupId, "coastal_ga") }
     }
 
-    private fun openFacebookLink(groupId: String) {
+    private fun openFacebookLink(groupId: String, analyticsName: String) {
+        Analytics.logEvent(Events.SAFETY_NET_FACEBOOK_GROUP_VISIT, mapOf(Parameter.SAFETY_NET_FACEBOOK_GROUP_NAME to analyticsName))
         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("$facebookBaseUrl$groupId")))
     }
 

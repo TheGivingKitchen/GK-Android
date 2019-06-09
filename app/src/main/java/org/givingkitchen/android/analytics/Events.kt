@@ -2,8 +2,8 @@ package org.givingkitchen.android.analytics
 
 enum class Events(name: String){
     EVENT_VIEW_DETAILS("event_home_view_event"),
-    EVENT_VOLUNTEER_BANNER_CLOSE("event_volunteer_banner_close"),
-    EVENT_VOLUNTEER_BANNER_OPEN("event_volunteer_banner_open"),
+    EVENT_VOLUNTEER_BANNER_CLOSE("event_volunteer_banner_close"), //add when exist
+    EVENT_VOLUNTEER_BANNER_OPEN("event_volunteer_banner_open"), //add when exist
 
     DONATE_ONE_TIME_DONATION_STARTED("donation_one_time_started"),
     DONATE_RECURRING_DONATION_STARTED("donation_recurring_started"),
@@ -12,8 +12,8 @@ enum class Events(name: String){
     FORM_STARTED("form_started"),
     FORM_COMPLETED("form_completed"),
 
-    SAFETY_NET_LOCATION_SEARCH("safetynet_change_to_location_search"),
-    SAFETY_NET_GLOBAL_SEARCH("safetynet_change_to_global_search"),
+    SAFETY_NET_LOCATION_SEARCH("safetynet_change_to_location_search"), //add when exist
+    SAFETY_NET_GLOBAL_SEARCH("safetynet_change_to_global_search"), //add when exist
     SAFETY_NET_VISIT_WEBSITE("safetynet_visit_website"),
     SAFETY_NET_VISIT_ADDRESS("safetynet_visit_address"),
     SAFETY_NET_CALL_PHONE("safetynet_call_phone"),

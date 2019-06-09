@@ -29,6 +29,9 @@ import okhttp3.*
 import okhttp3.Request
 import okhttp3.Response
 import org.givingkitchen.android.R
+import org.givingkitchen.android.analytics.Analytics
+import org.givingkitchen.android.analytics.Events
+import org.givingkitchen.android.analytics.Parameter
 import org.givingkitchen.android.ui.forms.page.QuestionType
 import java.io.IOException
 
@@ -44,6 +47,9 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
 
         if (arguments != null) {
             form = arguments!!.getParcelable(FormPrologueFragment.formArg)!!
+
+            val params = mapOf(Parameter.FORM_NAME to form.FormTitle, Parameter.FORM_ID to form.ID)
+            Analytics.logEvent(Events.FORM_VIEW_DETAILS, params)
         }
 
         jsonAdapter = Services.moshi.adapter(WufooResponse::class.java)

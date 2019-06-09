@@ -7,7 +7,7 @@ import org.givingkitchen.android.ui.forms.page.QuestionType
 
 @Parcelize
 class Form(val ID: String,
-           val FormTitle: String?,
+           val FormTitle: String,
            val FormSubtitle: String?,
            val FormMetadata: String?,
            val FormShareString: String?,

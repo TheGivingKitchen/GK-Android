@@ -51,6 +51,7 @@ class EventsFragment : Fragment() {
     }
 
     private fun openLearnMoreLink() {
+        Analytics.logLearnedMore("events_home")
         CustomTabs.openCustomTab(context, eventsLearnMoreURL)
     }
 

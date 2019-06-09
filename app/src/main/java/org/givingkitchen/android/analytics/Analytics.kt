@@ -23,4 +23,8 @@ object Analytics {
         }
         instance.logEvent(analyticEvent.name, bundle)
     }
+
+    fun logLearnedMore(type: String) {
+        logEvent(Events.LEARN_MORE_PRESSED, mapOf(Parameter.LEARN_MORE_TYPE to type))
+    }
 }

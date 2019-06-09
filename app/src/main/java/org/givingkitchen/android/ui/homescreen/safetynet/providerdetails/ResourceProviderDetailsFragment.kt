@@ -9,6 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_resource_provider_details.*
 import org.givingkitchen.android.R
+import org.givingkitchen.android.analytics.Analytics
+import org.givingkitchen.android.analytics.Events
+import org.givingkitchen.android.analytics.Parameter
 import org.givingkitchen.android.ui.homescreen.safetynet.SocialServiceProvider
 import org.givingkitchen.android.util.CustomTabs
 import org.givingkitchen.android.util.setTextIfItExists
@@ -91,14 +94,23 @@ class ResourceProviderDetailsFragment : BottomSheetDialogFragment() {
     }
 
     private val websiteButtonClickListener = View.OnClickListener {
+        Analytics.logEvent(Events.SAFETY_NET_VISIT_WEBSITE, providerAnalytics(provider))
+
         CustomTabs.openCustomTab(context, provider.website!!)
     }
 
     private val directionsButtonClickListener = View.OnClickListener {
+        Analytics.logEvent(Events.SAFETY_NET_VISIT_ADDRESS, providerAnalytics(provider))
+
         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + provider.address!!)))
     }
 
     private val phoneButtonClickListener = View.OnClickListener {
+        Analytics.logEvent(Events.SAFETY_NET_CALL_PHONE, providerAnalytics(provider))
         startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + provider.phone!!)))
+    }
+
+    private fun providerAnalytics(provider: SocialServiceProvider): Map<Parameter, String> {
+        return mapOf(Parameter.SAFETY_NET_NAME to provider.name)
     }
 }

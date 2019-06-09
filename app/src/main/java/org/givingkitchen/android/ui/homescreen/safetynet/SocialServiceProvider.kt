@@ -12,7 +12,7 @@ data class SocialServiceProvidersList(
 @Parcelize
 data class SocialServiceProvider(
         var index: Int?,
-        val name: String?,
+        val name: String,
         val address: String?,
         val website: String?,
         val phone: String?,
