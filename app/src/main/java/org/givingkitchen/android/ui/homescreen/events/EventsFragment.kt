@@ -11,28 +11,18 @@ import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
 import kotlinx.android.synthetic.main.fragment_events.*
-import okhttp3.OkHttpClient
-import okhttp3.Request
 import org.givingkitchen.android.R
 import org.givingkitchen.android.analytics.Events.*
 import org.givingkitchen.android.analytics.Analytics
 import org.givingkitchen.android.analytics.Parameter.*
 import org.givingkitchen.android.ui.homescreen.events.EventsViewModel.Companion.eventsLearnMoreURL
-import org.givingkitchen.android.util.Constants.givingKitchenUrl
 import org.givingkitchen.android.util.CustomTabs
-import java.io.ByteArrayInputStream
-import java.io.IOException
 
 class EventsFragment : Fragment() {
-
-    companion object {
-        private const val eventsDataURL = "$givingKitchenUrl/events-calendar?format=rss"
-    }
 
     private var adapter = EventsAdapter(mutableListOf(), this)
     private lateinit var model: EventsViewModel
 
-    // todo: don't crash the app if a response is not received within 30 seconds
     @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +35,7 @@ class EventsFragment : Fragment() {
         })
         adapter.learnMoreClicks().subscribe { openLearnMoreLink() }
         adapter.eventClicks().subscribe { goToEventDetails(it) }
-        GetEventsTask().execute(eventsDataURL)
+        model.loadEvents()
     }
 
     @Nullable
@@ -58,28 +48,6 @@ class EventsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         recyclerView_eventsTab.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context, androidx.recyclerview.widget.RecyclerView.VERTICAL, false)
         recyclerView_eventsTab.adapter = adapter
-    }
-
-    inner class GetEventsTask : AsyncTask<String, Void, String>() {
-        private val httpClient = OkHttpClient()
-
-        override fun doInBackground(vararg params: String): String? {
-            publishProgress()
-            return getData(params[0])
-        }
-
-        override fun onProgressUpdate(vararg values: Void?) {
-            model.setProgressBarVisibility(true)
-        }
-
-        override fun onPostExecute(result: String?) {
-            model.setCurrentEventsList(XmlParser().parse(ByteArrayInputStream(result?.toByteArray(Charsets.UTF_8))))
-        }
-
-        @Throws(IOException::class)
-        fun getData(url: String): String? {
-            return httpClient.newCall(Request.Builder().url(url).build()).execute().body()?.string()
-        }
     }
 
     private fun openLearnMoreLink() {

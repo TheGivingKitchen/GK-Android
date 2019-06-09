@@ -1,13 +1,21 @@
 package org.givingkitchen.android.ui.homescreen.events
 
+import android.os.Handler
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import okhttp3.*
 import org.givingkitchen.android.util.Constants.givingKitchenUrl
+import java.io.ByteArrayInputStream
+import java.io.IOException
+import android.os.Looper
+
+
 
 class EventsViewModel : ViewModel() {
     companion object {
         const val eventsLearnMoreURL = "$givingKitchenUrl/events"
+        private const val eventsDataURL = "$givingKitchenUrl/events-calendar?format=rss"
     }
 
     private var currentEventsList: MutableLiveData<List<Event>> = MutableLiveData()
@@ -27,5 +35,31 @@ class EventsViewModel : ViewModel() {
 
     fun setProgressBarVisibility(visibility: Boolean) {
         progressBarVisible.value = visibility
+    }
+
+    fun loadEvents() {
+        setProgressBarVisibility(true)
+        val httpClient = OkHttpClient()
+
+        val uiHandler = Handler(Looper.getMainLooper())
+        httpClient.newCall(Request.Builder().url(eventsDataURL).build()).enqueue(object: Callback{
+            override fun onFailure(call: Call, e: IOException) {
+                uiHandler.post {
+                    setProgressBarVisibility(false)
+                }
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                uiHandler.post {
+                    setProgressBarVisibility(false)
+
+                    if (response.isSuccessful) {
+                        val xml = response.body()?.string()
+                        val data = XmlParser().parse(ByteArrayInputStream(xml?.toByteArray(Charsets.UTF_8)))
+                        setCurrentEventsList(data)
+                    }
+                }
+            }
+        })
     }
 }
