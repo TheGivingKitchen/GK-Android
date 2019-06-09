@@ -13,8 +13,8 @@ class GiveViewModel: ViewModel() {
 
     companion object {
         const val giveLearnMoreURL = "$givingKitchenUrl/support/"
-        const val creditCardDonationURL = "https://connect.clickandpledge.com/w/Form/d11bff52-0cd0-44d8-9403-465614e4f342"
-        const val recurringDonationURL = "https://connect.clickandpledge.com/w/Form/40b3de1f-fa46-4735-874f-c152e272620e"
+        const val oneTimeDonationURL = "https://connect.clickandpledge.com/w/Form/d00e52d7-f298-4d35-8be9-05fd93d3194a"
+        const val recurringDonationURL = "https://connect.clickandpledge.com/w/Form/a4eb8d47-b792-4285-8ef9-24c353715cd7"
         const val volunteerSignupUrl = "$firebaseStorageUrl/forms/volunteerSignup.json"
         const val joinOurForcesUrl = "$firebaseStorageUrl/forms/joinourforces.json"
         const val stabilityNetworkPartnerUrl = "$firebaseStorageUrl/forms/stabilitynetworkpartner.json"

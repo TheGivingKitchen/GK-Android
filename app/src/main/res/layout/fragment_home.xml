@@ -20,7 +20,8 @@
         android:background="?android:attr/windowBackground"
         app:itemIconTint="@drawable/nav_item_color"
         app:itemTextColor="@drawable/nav_item_color"
-        app:menu="@menu/home_bottom_nav" />
+        app:menu="@menu/home_bottom_nav"
+        app:labelVisibilityMode="labeled"/>
 
 </RelativeLayout>
 

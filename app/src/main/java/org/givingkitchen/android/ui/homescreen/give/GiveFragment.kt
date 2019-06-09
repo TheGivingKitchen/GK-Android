@@ -14,7 +14,7 @@ import android.view.animation.AnimationUtils
 import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_give.*
 import org.givingkitchen.android.R
-import org.givingkitchen.android.ui.homescreen.give.GiveViewModel.Companion.creditCardDonationURL
+import org.givingkitchen.android.ui.homescreen.give.GiveViewModel.Companion.oneTimeDonationURL
 import org.givingkitchen.android.ui.homescreen.give.GiveViewModel.Companion.giveLearnMoreURL
 import org.givingkitchen.android.ui.homescreen.give.GiveViewModel.Companion.recurringDonationURL
 import org.givingkitchen.android.util.Constants
@@ -44,7 +44,7 @@ class GiveFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         learn_more_button_giveTab.setOnClickListener(learnMoreButtonClickListener)
-        card_donate_button_giveTab.setOnClickListener(creditCardDonationClickListener)
+        card_donate_button_giveTab.setOnClickListener(oneTimeDontationClickListener)
         recurring_donate_button_giveTab.setOnClickListener(recurringDonationClickListener)
         volunteer_button_giveTab.setOnClickListener(volunteerButtonClickListener)
         partner_button_giveTab.setOnClickListener(partnerButtonClickListener)
@@ -64,8 +64,8 @@ class GiveFragment : Fragment() {
         timerHandler.removeCallbacks(timerRunnable)
     }
 
-    private val creditCardDonationClickListener = View.OnClickListener {
-        CustomTabs.openCustomTab(context, creditCardDonationURL)
+    private val oneTimeDontationClickListener = View.OnClickListener {
+        CustomTabs.openCustomTab(context, oneTimeDonationURL)
     }
 
     private val recurringDonationClickListener = View.OnClickListener {
