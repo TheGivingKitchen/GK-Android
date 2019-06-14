@@ -67,6 +67,10 @@ app/release/output.json
 
 # Play Store Auth Key/JSON file
 play_store_auth.json
+keystore
+private_key.pek
+keystore.jks
+upload_certificate.pem
 
 # apks/ directory
 apks/
