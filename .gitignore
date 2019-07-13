@@ -69,6 +69,7 @@ app/release/output.json
 play_store_auth.json
 keystore
 private_key.pek
+private_key.pepk
 keystore.jks
 upload_certificate.pem
 

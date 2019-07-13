@@ -19,6 +19,12 @@
             app:destination="@id/facebookGroupsFragment" />
     </fragment>
     <fragment
+        android:id="@+id/resourcesFragment"
+        android:name="org.givingkitchen.android.ui.homescreen.safetynet.safetynettab.ResourcesFragment"
+        android:label="ResourcesFragment"
+        tools:layout="@layout/fragment_resources" >
+    </fragment>
+    <fragment
         android:id="@+id/assistanceFragment"
         android:name="org.givingkitchen.android.ui.homescreen.assistance.AssistanceFragment"
         android:label="AssistanceFragment"

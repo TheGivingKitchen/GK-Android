@@ -19,7 +19,9 @@ import org.givingkitchen.android.ui.homescreen.about.AboutFragment
 import org.givingkitchen.android.ui.homescreen.assistance.AssistanceFragment
 import org.givingkitchen.android.ui.homescreen.events.EventsFragment
 import org.givingkitchen.android.ui.homescreen.give.GiveFragment
+import org.givingkitchen.android.ui.homescreen.safetynet.safetynettab.ResourcesFragment
 import org.givingkitchen.android.ui.homescreen.safetynet.safetynettab.SafetynetFragment
+import org.givingkitchen.android.util.FeatureFlags
 
 class HomeFragment: Fragment()  {
     private lateinit var model: HomeViewModel
@@ -80,7 +82,11 @@ class HomeFragment: Fragment()  {
                 HomeSection.GIVE
             }
             R.id.safetynetFragment -> {
-                HomeSection.SAFETYNET
+                if (FeatureFlags.newResourcesTab) {
+                    HomeSection.RESOURCES
+                } else {
+                    HomeSection.SAFETYNET
+                }
             }
             else -> {
                 Crashlytics.log("User tried to navigate to unexpected home tab: ${it.itemId}")
@@ -103,6 +109,7 @@ class HomeFragment: Fragment()  {
                 HomeSection.ASSISTANCE -> AssistanceFragment()
                 HomeSection.GIVE -> GiveFragment()
                 HomeSection.SAFETYNET -> SafetynetFragment()
+                HomeSection.RESOURCES -> ResourcesFragment()
             }
 
             detachCurrentFragment()

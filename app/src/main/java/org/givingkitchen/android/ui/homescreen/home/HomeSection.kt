@@ -5,6 +5,7 @@ import org.givingkitchen.android.ui.homescreen.about.AboutFragment
 import org.givingkitchen.android.ui.homescreen.assistance.AssistanceFragment
 import org.givingkitchen.android.ui.homescreen.events.EventsFragment
 import org.givingkitchen.android.ui.homescreen.give.GiveFragment
+import org.givingkitchen.android.ui.homescreen.safetynet.safetynettab.ResourcesFragment
 import org.givingkitchen.android.ui.homescreen.safetynet.safetynettab.SafetynetFragment
 
 enum class HomeSection(val id: Int, val screenName: String, val bottomNavId: Int, val index: Int) {
@@ -12,6 +13,7 @@ enum class HomeSection(val id: Int, val screenName: String, val bottomNavId: Int
     EVENTS(R.id.eventsFragment, EventsFragment::class.java.simpleName, R.id.eventsFragment, 1),
     ASSISTANCE(R.id.assistanceFragment, AssistanceFragment::class.java.simpleName, R.id.assistanceFragment, 2),
     SAFETYNET(R.id.safetynetFragment, SafetynetFragment::class.java.simpleName, R.id.safetynetFragment, 3),
+    RESOURCES(R.id.resourcesFragment, ResourcesFragment::class.java.simpleName, R.id.resourcesFragment, 3),
     GIVE(R.id.giveFragment, GiveFragment::class.java.simpleName, R.id.giveFragment, 4);
 
     companion object {
@@ -22,6 +24,7 @@ enum class HomeSection(val id: Int, val screenName: String, val bottomNavId: Int
                 "AssistanceFragment" -> ASSISTANCE
                 "GiveFragment" -> GIVE
                 "SafetynetFragment" -> SAFETYNET
+                "ResourcesFragment" -> RESOURCES
                 else -> ABOUT
             }
         }
