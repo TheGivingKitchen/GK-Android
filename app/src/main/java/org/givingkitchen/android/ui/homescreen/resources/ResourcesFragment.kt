@@ -33,9 +33,10 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.google_map_fragment) as SupportMapFragment
         mapFragment.getMapAsync(this)
-        val fragment = ResourcesIndexFragment.newInstance()
-        fragment.isCancelable = false
-        fragment.show(childFragmentManager, TAG_RESOURCE_PROVIDER_BOTTOMSHEET)
+
+        // val fragment = ResourcesIndexFragment.newInstance()
+        // fragment.isCancelable = false
+        // fragment.show(childFragmentManager, TAG_RESOURCE_PROVIDER_BOTTOMSHEET)
     }
 
     override fun onMapReady(map: GoogleMap?) {
