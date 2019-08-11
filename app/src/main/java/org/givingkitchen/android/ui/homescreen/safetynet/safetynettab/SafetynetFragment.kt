@@ -15,6 +15,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.Navigation
 import com.crashlytics.android.Crashlytics
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
 import com.squareup.moshi.JsonAdapter
 import kotlinx.android.synthetic.main.fragment_safetynet.*
 import org.givingkitchen.android.R
@@ -35,10 +40,12 @@ import java.io.File
 import java.io.FileReader
 import java.io.IOException
 
-class SafetynetFragment : Fragment() {
+class SafetynetFragment : Fragment(), OnMapReadyCallback {
     private lateinit var jsonAdapter: JsonAdapter<SocialServiceProvidersList>
     private lateinit var model: SafetynetViewModel
     private lateinit var adapter: SafetynetAdapter
+    private lateinit var googleMap: GoogleMap
+
     private var serverJson: MutableList<Any>? = null
     private var searchText: String? = null
 
@@ -74,11 +81,15 @@ class SafetynetFragment : Fragment() {
     @Nullable
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_safetynet, container, false)
+        return inflater.inflate(R.layout.fragment_resources, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val mapFragment = childFragmentManager.findFragmentById(R.id.google_map_fragment) as SupportMapFragment
+        mapFragment.getMapAsync(this)
+
         recyclerView_safetynetTab.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context, androidx.recyclerview.widget.RecyclerView.VERTICAL, false)
         recyclerView_safetynetTab.adapter = adapter
         searchText = searchView_safetynetTab.query.toString()
@@ -118,6 +129,13 @@ class SafetynetFragment : Fragment() {
                 }
 
         localFile.deleteOnExit()
+    }
+
+    override fun onMapReady(map: GoogleMap?) {
+        googleMap = map!!
+
+        val atlantaLatLang = LatLng(33.774381, -84.372775)
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(atlantaLatLang, 10f))
     }
 
     private fun setServerJson(data: List<SocialServiceProvider>) {
