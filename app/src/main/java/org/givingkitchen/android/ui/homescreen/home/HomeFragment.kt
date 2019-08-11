@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.Navigation
 import com.crashlytics.android.Crashlytics
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -19,7 +18,7 @@ import org.givingkitchen.android.ui.homescreen.about.AboutFragment
 import org.givingkitchen.android.ui.homescreen.assistance.AssistanceFragment
 import org.givingkitchen.android.ui.homescreen.events.EventsFragment
 import org.givingkitchen.android.ui.homescreen.give.GiveFragment
-import org.givingkitchen.android.ui.homescreen.safetynet.safetynettab.ResourcesFragment
+import org.givingkitchen.android.ui.homescreen.resources.ResourcesFragment
 import org.givingkitchen.android.ui.homescreen.safetynet.safetynettab.SafetynetFragment
 import org.givingkitchen.android.util.FeatureFlags
 

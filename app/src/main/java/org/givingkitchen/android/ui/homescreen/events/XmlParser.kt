@@ -13,7 +13,7 @@ class XmlParser {
 
     @Throws(XmlPullParserException::class, IOException::class)
     fun parse(inputStream: InputStream): List<Event> {
-        inputStream.use { inputStream ->
+        inputStream.use {
             val parser: XmlPullParser = Xml.newPullParser()
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false)
             parser.setInput(inputStream, null)

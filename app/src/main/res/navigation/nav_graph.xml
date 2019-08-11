@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/resourcesFragment"
-        android:name="org.givingkitchen.android.ui.homescreen.safetynet.safetynettab.ResourcesFragment"
+        android:name="org.givingkitchen.android.ui.homescreen.resources.ResourcesFragment"
         android:label="ResourcesFragment"
         tools:layout="@layout/fragment_resources" >
     </fragment>

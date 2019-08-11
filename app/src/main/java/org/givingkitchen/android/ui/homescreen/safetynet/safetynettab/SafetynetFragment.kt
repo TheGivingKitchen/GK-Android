@@ -43,7 +43,7 @@ class SafetynetFragment : Fragment() {
     private var searchText: String? = null
 
     companion object {
-        private const val TAG_RESOURCE_PROVIDER_BOTTOMSHEET = "AudienceOverviewFragment.Tag.AudienceListFragment"
+        private const val TAG_RESOURCE_PROVIDER_BOTTOMSHEET = "SafetynetFragment.Tag.ResourceProviderDetailsFragment"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
