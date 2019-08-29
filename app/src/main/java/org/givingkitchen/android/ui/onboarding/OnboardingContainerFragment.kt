@@ -37,7 +37,7 @@ class OnboardingContainerFragment: Fragment(), FragmentBackPressedListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val onboardingPagesAdapter = ScreenSlidePagerAdapter(fragmentManager!!)
+        val onboardingPagesAdapter = OnboardingPagerAdapter(fragmentManager!!)
         viewPager_onboardingContainer.adapter = onboardingPagesAdapter
         model.setForwardButtonState(OnboardingContainerViewModel.Companion.ForwardButtonState.NEXT)
         pagerIndicator_onboardingContainer.attachToViewPager(viewPager_onboardingContainer)
@@ -115,7 +115,7 @@ class OnboardingContainerFragment: Fragment(), FragmentBackPressedListener {
         Navigation.findNavController(view!!).navigate(R.id.homeFragment)
     }
 
-    private inner class ScreenSlidePagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
+    private inner class OnboardingPagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
         override fun getCount(): Int = onboardingPages.size
 
         override fun getItem(position: Int): Fragment {

@@ -31,11 +31,11 @@ class NonSwipeableViewPager(context: Context, attrs: AttributeSet? = null) : Vie
             e.printStackTrace()
         }
     }
-}
 
-class MyScroller(context: Context) : Scroller(context, DecelerateInterpolator()) {
+    private class MyScroller(context: Context) : Scroller(context, DecelerateInterpolator()) {
 
-    override fun startScroll(startX: Int, startY: Int, dx: Int, dy: Int, duration: Int) {
-        super.startScroll(startX, startY, dx, dy, 350 /*1 second */)
+        override fun startScroll(startX: Int, startY: Int, dx: Int, dy: Int, duration: Int) {
+            super.startScroll(startX, startY, dx, dy, 350 /*1 second */)
+        }
     }
 }
