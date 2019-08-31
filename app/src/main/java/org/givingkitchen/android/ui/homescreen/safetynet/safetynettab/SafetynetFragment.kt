@@ -81,15 +81,11 @@ class SafetynetFragment : Fragment(), OnMapReadyCallback {
     @Nullable
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_resources, container, false)
+        return inflater.inflate(R.layout.fragment_safetynet, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val mapFragment = childFragmentManager.findFragmentById(R.id.google_map_fragment) as SupportMapFragment
-        mapFragment.getMapAsync(this)
-
         recyclerView_safetynetTab.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context, androidx.recyclerview.widget.RecyclerView.VERTICAL, false)
         recyclerView_safetynetTab.adapter = adapter
         searchText = searchView_safetynetTab.query.toString()
