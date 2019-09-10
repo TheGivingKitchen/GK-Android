@@ -20,8 +20,6 @@ import org.givingkitchen.android.ui.homescreen.safetynet.providerdetails.Resourc
 import org.givingkitchen.android.ui.homescreen.safetynet.safetynettab.SafetynetFragment
 
 class ResourcesFragment : Fragment(), OnMapReadyCallback {
-    private lateinit var googleMap: GoogleMap
-
     @Nullable
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -36,11 +34,9 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         viewPager_resourcesBottomsheet.adapter = bottomsheetPagerAdapter
     }
 
-    override fun onMapReady(map: GoogleMap?) {
-        googleMap = map!!
-
+    override fun onMapReady(map: GoogleMap) {
         val atlantaLatLang = LatLng(33.774381, -84.372775)
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(atlantaLatLang, 10f))
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(atlantaLatLang, 10f))
     }
 
     private class ResourceIndexAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
