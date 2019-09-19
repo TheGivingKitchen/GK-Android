@@ -1,4 +1,4 @@
-package org.givingkitchen.android.ui.homescreen.safetynet.facebookgroups
+package org.givingkitchen.android.ui.homescreen.about
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

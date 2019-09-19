@@ -69,7 +69,7 @@
         android:label="FormDoneFragment" />
     <fragment
         android:id="@+id/facebookGroupsFragment"
-        android:name="org.givingkitchen.android.ui.homescreen.safetynet.facebookgroups.FacebookGroupsFragment"
+        android:name="org.givingkitchen.android.ui.homescreen.about.FacebookGroupsFragment"
         android:label="FacebookGroupsFragment" />
     <fragment
         android:id="@+id/feedbackFragment"
