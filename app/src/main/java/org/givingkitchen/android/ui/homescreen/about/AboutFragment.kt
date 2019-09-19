@@ -1,5 +1,6 @@
 package org.givingkitchen.android.ui.homescreen.about
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -46,11 +47,15 @@ class AboutFragment : Fragment()  {
         feedbackPositive_aboutTab.setOnClickListener(feedbackPositiveClickListener)
         feedbackNeutral_aboutTab.setOnClickListener(feedbackNeutralClickListener)
         feedbackNegative_aboutTab.setOnClickListener(feedbackNegativeClickListener)
+
+        val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+        val facebookSectionExpanded = sharedPref?.getBoolean(getString(R.string.facebook_groups_expanded_key), true) ?: true
+        setFacebookGroupsExpandedState(facebookSectionExpanded)
+        collapseFacebookButton_aboutTab.setOnClickListener(collapseFacebookSectionClickListener)
+        joinUsButton_aboutTab.setOnClickListener(joinFacebookGroupsClickListener)
     }
 
     private val aboutUsButtonClickListener = View.OnClickListener {
-        // todo: show an image of the pdf here instead
-        // CustomTabs.openCustomTab(context, howItWorksPdfUrl)
         Analytics.logLearnedMore("crisis_grant_info_graphic")
         Navigation.findNavController(view!!).navigate(R.id.howItWorksFragment)
     }
@@ -107,6 +112,44 @@ class AboutFragment : Fragment()  {
             startActivity(emailIntent)
         } else {
             CustomTabs.openCustomTab(context, gkContactUrl)
+        }
+    }
+
+    private val collapseFacebookSectionClickListener = View.OnClickListener {
+        val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+        val facebookSectionExpanded = sharedPref?.let {
+            val currentValue = it.getBoolean(getString(R.string.facebook_groups_expanded_key), true)
+            !currentValue
+        } ?: run {
+            true
+        }
+        setFacebookGroupsExpandedState(facebookSectionExpanded)
+    }
+
+    private val joinFacebookGroupsClickListener = View.OnClickListener {
+        Navigation.findNavController(view!!).navigate(R.id.facebookGroupsFragment)
+    }
+
+    private fun setFacebookGroupsExpandedState(expanded: Boolean): Boolean {
+        activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)?.let {
+            with(it.edit()) {
+                putBoolean(getString(R.string.facebook_groups_expanded_key), expanded)
+                apply()
+            }
+        }
+
+        return if (expanded) {
+            collapseFacebookButton_aboutTab.setImageDrawable(collapseFacebookButton_aboutTab.resources.getDrawable(R.drawable.ic_expand_less, collapseFacebookButton_aboutTab.context.theme))
+            facebookGroupsDescription_aboutTab.visibility = View.VISIBLE
+            facebookBottomDivider_aboutTab.visibility = View.VISIBLE
+            joinUsButton_aboutTab.visibility = View.VISIBLE
+            true
+        } else {
+            collapseFacebookButton_aboutTab.setImageDrawable(collapseFacebookButton_aboutTab.resources.getDrawable(R.drawable.ic_expand_more, collapseFacebookButton_aboutTab.context.theme))
+            facebookGroupsDescription_aboutTab.visibility = View.GONE
+            facebookBottomDivider_aboutTab.visibility = View.GONE
+            joinUsButton_aboutTab.visibility = View.GONE
+            false
         }
     }
 

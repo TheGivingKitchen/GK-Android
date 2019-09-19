@@ -2,7 +2,8 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -68,6 +69,77 @@
             android:text="@string/about_tab_newsletter_signup" />
 
         <View style="@style/DividerViewLarge" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/facebookGroupsTitle_aboutTab"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/universal_horizontal_spacing"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:text="@string/safetynet_tab_facebook_description"
+                android:textColor="@color/dark_grey"
+                android:textSize="8pt"
+                app:layout_constraintEnd_toStartOf="@id/collapseFacebookButton_aboutTab"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/collapseFacebookButton_aboutTab"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:contentDescription="@string/safetynet_collapse_fb_section_button"
+                android:src="@drawable/ic_expand_less"
+                android:tint="@color/dark_grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/facebookGroupsTitle_aboutTab" />
+
+            <TextView
+                android:id="@+id/facebookGroupsDescription_aboutTab"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/universal_horizontal_spacing"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="@dimen/universal_horizontal_spacing"
+                android:text="@string/safetynet_tab_groups_description"
+                android:textSize="8pt"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/facebookGroupsTitle_aboutTab" />
+
+            <View
+                android:id="@+id/facebookBottomDivider_aboutTab"
+                style="@style/DividerViewSmall"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/facebookGroupsDescription_aboutTab" />
+
+            <TextView
+                android:id="@+id/joinUsButton_aboutTab"
+                style="@style/ParagraphText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:paddingTop="20dp"
+                android:text="@string/safetynet_tab_join_us"
+                android:textColor="@color/gk_orange"
+                android:textSize="8pt"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/facebookBottomDivider_aboutTab" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:layout_marginTop="@dimen/universal_horizontal_spacing"
+            style="@style/DividerViewLarge" />
 
         <TextView
             style="@style/GiveTabHeader"

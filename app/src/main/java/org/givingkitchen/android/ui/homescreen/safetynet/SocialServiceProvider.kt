@@ -19,7 +19,9 @@ data class SocialServiceProvider(
         val contactName: String?,
         val category: String?,
         val description: String?,
-        val countiesServed: String?
+        val countiesServed: String?,
+        val latitude: Double?,
+        val longitude: Double?
 ): Parcelable
 
 class Header
