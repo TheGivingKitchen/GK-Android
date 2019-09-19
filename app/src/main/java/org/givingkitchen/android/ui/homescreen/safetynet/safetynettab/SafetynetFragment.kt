@@ -70,7 +70,6 @@ class SafetynetFragment : Fragment(), OnMapReadyCallback {
             updateProgressBarVisibility(liveData!!)
         })
         adapter.descriptionExitClicks().subscribe { saveHeaderDescriptionExit() }
-        adapter.joinUsClicks().subscribe { goToFacebookGroupsScreen() }
         adapter.resourcesFilterClicks().subscribe { showResourcesFilter() }
         adapter.countiesFilterClicks().subscribe { showCountiesFilter() }
         adapter.expandFacebookSectionClicks().subscribe { saveFacebookSectionState(it) }
@@ -187,10 +186,6 @@ class SafetynetFragment : Fragment(), OnMapReadyCallback {
             putBoolean(getString(R.string.resources_header_desc_closed_key), true)
             apply()
         }
-    }
-
-    private fun goToFacebookGroupsScreen() {
-        Navigation.findNavController(view!!).navigate(R.id.facebookGroupsFragment)
     }
 
     private fun showProviderData(index: Int) {

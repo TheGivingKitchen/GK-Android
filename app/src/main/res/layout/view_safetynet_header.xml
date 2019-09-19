@@ -40,81 +40,11 @@
         android:layout_marginTop="@dimen/universal_horizontal_spacing"/>
 
     <View
-        android:id="@+id/facebookTopDivider_safetynetTab"
-        style="@style/DividerViewLarge"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/headerDescription_safetynetTab" />
-
-    <TextView
-        android:id="@+id/facebookGroupsTitle_safetynetTab"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/universal_horizontal_spacing"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:text="@string/safetynet_tab_facebook_description"
-        android:textColor="@color/dark_grey"
-        android:textSize="8pt"
-        app:layout_constraintEnd_toStartOf="@id/collapseFacebookButton_safetynetTab"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/facebookTopDivider_safetynetTab" />
-
-    <ImageView
-        android:id="@+id/collapseFacebookButton_safetynetTab"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
-        android:contentDescription="@string/facebook_groups_coastal_ga"
-        android:src="@drawable/ic_expand_less"
-        android:tint="@color/dark_grey"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/facebookGroupsTitle_safetynetTab" />
-
-    <TextView
-        android:id="@+id/facebookGroupsDescription_safetynetTab"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/universal_horizontal_spacing"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="@dimen/universal_horizontal_spacing"
-        android:text="@string/safetynet_tab_groups_description"
-        android:textSize="8pt"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/facebookGroupsTitle_safetynetTab" />
-
-    <View
-        android:id="@+id/facebookBottomDivider_safetynetTab"
-        style="@style/DividerViewSmall"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/facebookGroupsDescription_safetynetTab" />
-
-    <TextView
-        android:id="@+id/joinUsButton_safetynetTab"
-        style="@style/ParagraphText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
-        android:text="@string/safetynet_tab_join_us"
-        android:textColor="@color/gk_orange"
-        android:textSize="8pt"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/facebookBottomDivider_safetynetTab" />
-
-    <View
         android:id="@+id/joinUsBottomDivider_safetynetTab"
         style="@style/DividerViewLarge"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/joinUsButton_safetynetTab"
+        app:layout_constraintTop_toBottomOf="@id/headerDescription_safetynetTab"
         app:layout_goneMarginTop="20dp" />
 
     <TextView
