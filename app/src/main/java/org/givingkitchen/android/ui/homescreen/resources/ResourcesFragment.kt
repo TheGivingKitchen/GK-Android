@@ -14,7 +14,6 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.squareup.moshi.JsonAdapter
 import kotlinx.android.synthetic.main.fragment_resources.*
 import org.givingkitchen.android.R
 import org.givingkitchen.android.ui.homescreen.safetynet.Header
@@ -36,7 +35,7 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         model = ViewModelProviders.of(this).get(ResourcesViewModel::class.java)
-        bottomsheetPagerAdapter = ResourcesBottomsheetPagerAdapter()
+        bottomsheetPagerAdapter = ResourcesBottomsheetPagerAdapter(mutableListOf())
 
         model.getCurrentJson().observe(this, Observer<List<SocialServiceProvider>> { liveData ->
             setServerJson(liveData!!)
