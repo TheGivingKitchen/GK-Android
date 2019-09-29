@@ -4,9 +4,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager.widget.PagerAdapter
 
-class ResourcesBottomsheetPagerAdapter: PagerAdapter() {
+class ResourcesBottomsheetPagerAdapter(var items: MutableList<Any>): PagerAdapter() {
+    val numberOfPages = 2
+
     override fun getCount(): Int {
-        return 2
+        return numberOfPages
     }
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean {
