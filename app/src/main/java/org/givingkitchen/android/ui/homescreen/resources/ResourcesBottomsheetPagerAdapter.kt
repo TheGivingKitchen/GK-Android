@@ -18,13 +18,13 @@ class ResourcesBottomsheetPagerAdapter(var items: MutableList<Any>): PagerAdapte
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val page = when (position) {
             0 -> {
-                ResourceProviderIndexView(container.context)
+                ResourceProviderIndexView(items, container.context)
             }
             1 -> {
-                ResourceProviderIndexView(container.context)
+                ResourceProviderIndexView(items, container.context)
             }
             else -> {
-                ResourceProviderIndexView(container.context)
+                ResourceProviderIndexView(items, container.context)
             }
         }
 
