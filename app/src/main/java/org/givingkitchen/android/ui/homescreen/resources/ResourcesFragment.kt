@@ -30,7 +30,7 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.google_map_fragment) as SupportMapFragment
         mapFragment.getMapAsync(this)
-        val bottomsheetPagerAdapter = ResourcesBottomsheetPagerAdapter()
+        val bottomsheetPagerAdapter = ResourceIndexAdapter(fragmentManager!!)
         viewPager_resourcesBottomsheet.adapter = bottomsheetPagerAdapter
     }
 
@@ -39,7 +39,6 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(atlantaLatLang, 10f))
     }
 
-/*
     private class ResourceIndexAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
         private val resourcesIndexFragment = SafetynetFragment()
 
@@ -55,5 +54,5 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
                 ResourceProviderDetailsFragment.newInstance(providerData)
             }
         }
-    }*/
+    }
 }
