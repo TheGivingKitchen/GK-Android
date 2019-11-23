@@ -6,45 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-import com.crashlytics.android.Crashlytics
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentStatePagerAdapter
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.squareup.moshi.JsonAdapter
 import kotlinx.android.synthetic.main.fragment_resources.*
 import org.givingkitchen.android.R
-import org.givingkitchen.android.ui.homescreen.safetynet.Header
 import org.givingkitchen.android.ui.homescreen.safetynet.SocialServiceProvider
-import org.givingkitchen.android.ui.homescreen.safetynet.SocialServiceProvidersList
-import org.givingkitchen.android.util.Services
-import java.io.BufferedReader
-import java.io.File
-import java.io.FileReader
-import java.io.IOException
+import org.givingkitchen.android.ui.homescreen.safetynet.providerdetails.ResourceProviderDetailsFragment
+import org.givingkitchen.android.ui.homescreen.safetynet.safetynettab.SafetynetFragment
 
 class ResourcesFragment : Fragment(), OnMapReadyCallback {
-    private lateinit var model: ResourcesViewModel
-    private lateinit var bottomsheetPagerAdapter: ResourcesBottomsheetPagerAdapter
-
-    private var serverJson: MutableList<Any>? = null
-    private var searchText: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        model = ViewModelProviders.of(this).get(ResourcesViewModel::class.java)
-        bottomsheetPagerAdapter = ResourcesBottomsheetPagerAdapter()
-
-        model.getCurrentJson().observe(this, Observer<List<SocialServiceProvider>> { liveData ->
-            setServerJson(liveData!!)
-        })
-
-        getData()
-    }
-
     @Nullable
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -55,8 +30,8 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.google_map_fragment) as SupportMapFragment
         mapFragment.getMapAsync(this)
+        val bottomsheetPagerAdapter = ResourcesBottomsheetPagerAdapter()
         viewPager_resourcesBottomsheet.adapter = bottomsheetPagerAdapter
-        viewPager_resourcesBottomsheet.offscreenPageLimit = bottomsheetPagerAdapter.numberOfPages
     }
 
     override fun onMapReady(map: GoogleMap) {
@@ -64,60 +39,21 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(atlantaLatLang, 10f))
     }
 
-    private fun setServerJson(data: List<SocialServiceProvider>) {
-        val dataMutableList = data.toMutableList<Any>()
-        serverJson = dataMutableList
-        model.setProgressBarVisibility(false)
-        setDefaultResults()
-    }
+/*
+    private class ResourceIndexAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
+        private val resourcesIndexFragment = SafetynetFragment()
 
-    // Show header and serverJson
-    private fun setDefaultResults() {
-        // This can occur upon recreation due to SearchTextListener
-        if (serverJson == null) {
-            return
+        override fun getCount(): Int {
+            return 2
         }
 
-        bottomsheetPagerAdapter.items.clear()
-        val dataMutableList = serverJson!!.toMutableList()
-        dataMutableList.add(0, Header())
-        bottomsheetPagerAdapter.items = dataMutableList
-        bottomsheetPagerAdapter.notifyDataSetChanged()
-    }
-
-    private fun getData() {
-        val localFile = File.createTempFile("safetynet", "json")
-        model.setProgressBarVisibility(true)
-        val jsonAdapter = Services.moshi.adapter(SocialServiceProvidersList::class.java)
-
-        Services.firebaseInstance.getReferenceFromUrl(ResourcesViewModel.resourcesDataUrl)
-                .getFile(localFile)
-                .addOnSuccessListener {
-                    val stringBuilder = StringBuilder()
-                    try {
-                        val bufferedReader = BufferedReader(FileReader(localFile))
-                        var line = bufferedReader.readLine()
-                        while (line != null) {
-                            stringBuilder.append(line)
-                            line = bufferedReader.readLine()
-                        }
-                        bufferedReader.close()
-                        val jsonString = stringBuilder.toString()
-                        val safetynetData = jsonAdapter.nullSafe().fromJson(jsonString)?.safetyNet
-                        if (safetynetData != null) {
-                            for (i in 0 until safetynetData.size) {
-                                safetynetData[i].index = i
-                            }
-                            model.setCurrentJson(safetynetData)
-                        }
-                    } catch (e: IOException) {
-                        model.setProgressBarVisibility(false)
-                        Crashlytics.log("Trouble reading Safetynet json file")
-                    }
-                }.addOnFailureListener {
-                    Crashlytics.log("Could not download Safetynet data from Firebase")
-                }
-
-        localFile.deleteOnExit()
-    }
+        override fun getItem(position: Int): Fragment {
+            return if (position == 0) {
+                resourcesIndexFragment
+            } else {
+                val providerData = SocialServiceProvider(index=3, name="Ben Massell Dental Clinic", address="700 14th Street NW, Atlanta, GA 30308", website="https://www.benmasselldentalclinic.org", phone="404-881-1858", contactName="Keith Kirshner", category="Dental", description="Needs-based dental services.", countiesServed="Butts, Cherokee, Clayton, Cobb, Coweta, DeKalb, Douglas, Fayette, Fulton, Gwinnett, Henry, Paulding, Rockdale", latitude = 0.0, longitude = 0.0)
+                ResourceProviderDetailsFragment.newInstance(providerData)
+            }
+        }
+    }*/
 }
