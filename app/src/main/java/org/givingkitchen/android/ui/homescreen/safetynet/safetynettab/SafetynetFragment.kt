@@ -59,9 +59,9 @@ class SafetynetFragment : Fragment(), OnMapReadyCallback {
         model = ViewModelProviders.of(this).get(SafetynetViewModel::class.java)
         jsonAdapter = moshi.adapter(SocialServiceProvidersList::class.java)
 
-        val sharedPref = activity.getGivingKitchenSharedPreferences() ?: return
-        val facebookSectionExpanded = sharedPref.getBoolean(getString(R.string.facebook_groups_expanded_key), true)
-        val descriptionSectionClosed = sharedPref.getBoolean(getString(R.string.resources_header_desc_closed_key), false)
+        val sharedPref = activity.getGivingKitchenSharedPreferences()
+        val facebookSectionExpanded = sharedPref?.getBoolean(getString(R.string.facebook_groups_expanded_key), true) ?: true
+        val descriptionSectionClosed = sharedPref?.getBoolean(getString(R.string.resources_header_desc_closed_key), false) ?: false
 
         adapter = SafetynetAdapter(mutableListOf(), facebookSectionExpanded, descriptionSectionClosed)
         model.getCurrentJson().observe(this, Observer<List<SocialServiceProvider>> { liveData ->
