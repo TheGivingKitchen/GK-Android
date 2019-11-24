@@ -27,7 +27,7 @@
     <string name="about_tab_about_us_header">About Us</string>
     <string name="about_tab_about_us_description">Giving Kitchen provides emergency assistance to food service workers through financial support and a network of community resources.</string>
     <string name="about_tab_about_us_button">How It Works</string>
-    <string name="about_tab_newsletter_signup">Sign up for our newsletter here</string>
+    <string name="about_tab_newsletter_signup">Sign up for our newsletter</string>
     <string name="about_tab_stories_header">Stories</string>
     <string name="about_tab_story_one_link">The Performer (Read on)</string>
     <string name="about_tab_story_two_link">When Irma Hit (Read on)</string>
@@ -57,6 +57,7 @@
     <string name="events_tab_header_description">Giving Kitchen\'s signature and third-party events are rooted in great food, drink, service - and care for those who serve us every day.</string>
     <string name="events_tab_read_more">Read more \u2192</string>
     <string name="events_tab_learn_more">Learn more</string>
+    <string name="events_tab_volunteer_banner">Give back! Volunteer at an event!</string>
 
     <!-- Give Tab -->
     <string name="give_tab_credit_header_description">Donate, Volunteer, or Partner:\nThree Ways to Get Involved &amp;\u0020 Make a Difference.</string>
@@ -183,6 +184,7 @@
     <string name="about_tab_athens_story_image_description">An event being held in Athens, Georgia</string>
     <string name="close_resources_description_header_description">Close this section</string>
     <string name="close_how_it_works">Close this screen</string>
+    <string name="close_banner">Close this banner</string>
     <string name="give_tab_carousel_icon">Giving Kitchen badges showing different levels of giving.</string>
 
     <!-- Questions -->
@@ -217,6 +219,7 @@
     <!-- Shared Prefs -->
     <string name="preference_file_key">org.givingkitchen.android</string>
     <string name="facebook_groups_expanded_key">facebook_groups_expanded_key</string>
+    <string name="show_events_volunteer_banner_key">show_events_volunteer_banner_key</string>
     <string name="onboarding_viewed_key">onboarding_viewed_key</string>
     <string name="resources_header_desc_closed_key">resources_header_desc_closed_key</string>
     <string name="home_tab_key">home_tab_key</string>

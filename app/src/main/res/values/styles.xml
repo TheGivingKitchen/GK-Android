@@ -57,7 +57,7 @@
     <style name="DividerViewLarge" parent="DividerView">
         <item name="android:layout_height">4dp</item>
     </style>
-    
+
     <style name="CTAButton" parent="ButtonText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>

@@ -32,9 +32,9 @@ class HomeFragment: Fragment()  {
             loadFragment(liveData!!)
         })
         val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
-        val savedAnswer = sharedPref?.getString(getString(R.string.home_tab_key), null)
-        if (savedAnswer != null) {
-            model.setCurrentFragment(HomeSection.getFragment(savedAnswer))
+        val savedHomeTab = sharedPref?.getString(getString(R.string.home_tab_key), null)
+        if (savedHomeTab != null) {
+            model.setCurrentFragment(HomeSection.getFragment(savedHomeTab))
         }
     }
 

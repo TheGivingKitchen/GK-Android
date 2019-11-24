@@ -4,4 +4,9 @@
     <declare-styleable name="HeaderView">
         <attr name="drawable_HeaderView" format="reference"/>
     </declare-styleable>
+
+    <!-- BannerView -->
+    <declare-styleable name="BannerView">
+        <attr name="text_BannerView" format="string"/>
+    </declare-styleable>
 </resources>
