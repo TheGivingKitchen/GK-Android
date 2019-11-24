@@ -184,8 +184,8 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="@dimen/universal_horizontal_spacing"
                 android:layout_marginBottom="10dp"
-                android:contentDescription="@string/about_tab_irma_story_image_description"
-                android:src="@drawable/pic_story_irma" />
+                android:contentDescription="@string/about_tab_mental_health_story_image_description"
+                android:src="@drawable/pic_story_wine_glasses" />
 
             <TextView
                 android:id="@+id/storyTwoLink_aboutTab"
@@ -204,8 +204,8 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="@dimen/universal_horizontal_spacing"
                 android:layout_marginBottom="10dp"
-                android:contentDescription="@string/about_tab_athens_story_image_description"
-                android:src="@drawable/pic_story_athens" />
+                android:contentDescription="@string/about_tab_qpr_story_image_description"
+                android:src="@drawable/pic_story_staplehouse" />
 
             <TextView
                 android:id="@+id/storyThreeLink_aboutTab"
@@ -255,7 +255,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/about_tab_feedback_negative" />
 
-            <View style="@style/DividerViewLarge" />
+            <View style="@style/DividerViewLarge"
+                android:layout_marginBottom="40dp"/>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

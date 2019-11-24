@@ -30,8 +30,8 @@
     <string name="about_tab_newsletter_signup">Sign up for our newsletter</string>
     <string name="about_tab_stories_header">Stories</string>
     <string name="about_tab_story_one_link">The Performer (Read on)</string>
-    <string name="about_tab_story_two_link">When Irma Hit (Read on)</string>
-    <string name="about_tab_story_three_link">Comfort in Athens (Read on)</string>
+    <string name="about_tab_story_two_link">Let\'s Talk About It (Read on)</string>
+    <string name="about_tab_story_three_link">Why QPR? (Read on)</string>
     <string name="about_tab_feedback_header">Feedback</string>
     <string name="about_tab_feedback_description">How do you like using the Giving Kitchen app?</string>
     <string name="about_tab_feedback_positive">I\'m a fan!</string>
@@ -43,7 +43,7 @@
     <string name="rate_app_dialog_description">We\'re a fan of you too! If you wouldn\'t mind leaving a rating for us, it would help us reach more food service workers in need across Georgia.</string>
     <string name="rate_app_dialog_positive_button">Rate Giving Kitchen</string>
     <string name="rate_app_dialog_negative_button">Maybe later</string>
-    <string name="about_tab_qpr_banner">Signup for free Suicide Prevention Training</string>
+    <string name="about_tab_qpr_banner">Signup for free suicide prevention training</string>
 
     <!-- Feedback Screen -->
     <string name="feedback_screen_back">Done</string>
@@ -182,7 +182,9 @@
     <string name="give_tab_teamwork_image_description">A meeting where people listen to a team leader</string>
     <string name="about_tab_performer_story_image_description">Reggie the performer</string>
     <string name="about_tab_irma_story_image_description">A family affected by hurricane Irma</string>
+    <string name="about_tab_mental_health_story_image_description">Illustrated wine glasses in a row. Contents go from wine to flowers.</string>
     <string name="about_tab_athens_story_image_description">An event being held in Athens, Georgia</string>
+    <string name="about_tab_qpr_story_image_description">The Staplehouse restaurant in Atlanta, Georgia</string>
     <string name="close_resources_description_header_description">Close this section</string>
     <string name="close_how_it_works">Close this screen</string>
     <string name="close_banner">Close this banner</string>

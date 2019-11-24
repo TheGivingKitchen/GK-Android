@@ -25,8 +25,8 @@ class AboutFragment : Fragment()  {
         const val howItWorksPdfUrl = "https://firebasestorage.googleapis.com/v0/b/thegivingkitchen-cdd28.appspot.com/o/howitworks.pdf?alt=media&token=7bcc47e7-45f5-4b71-b4ad-9071e9d8efd8"
         const val gkContactUrl = "$givingKitchenUrl/contact"
         const val storyOneUrl = "$givingKitchenUrl/reggie-ealy"
-        const val storyTwoUrl = "$givingKitchenUrl/when-irma-hit"
-        const val storyThreeUrl = "$givingKitchenUrl/shannon-brown-shares-her-story-in-athens"
+        const val storyTwoUrl = "$givingKitchenUrl/lets-talk-about-it"
+        const val storyThreeUrl = "$givingKitchenUrl/why-qpr"
     }
 
     @Nullable
