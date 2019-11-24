@@ -39,10 +39,9 @@ class EventsViewModel : ViewModel() {
 
     fun loadEvents() {
         setProgressBarVisibility(true)
-        val httpClient = OkHttpClient()
 
         val uiHandler = Handler(Looper.getMainLooper())
-        httpClient.newCall(Request.Builder().url(eventsDataURL).build()).enqueue(object: Callback{
+        OkHttpClient().newCall(Request.Builder().url(eventsDataURL).build()).enqueue(object: Callback{
             override fun onFailure(call: Call, e: IOException) {
                 uiHandler.post {
                     setProgressBarVisibility(false)
