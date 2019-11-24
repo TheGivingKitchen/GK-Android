@@ -35,6 +35,7 @@ import org.givingkitchen.android.ui.homescreen.safetynet.safetynettab.SafetynetV
 import org.givingkitchen.android.util.CustomTabs
 import org.givingkitchen.android.util.Services.firebaseInstance
 import org.givingkitchen.android.util.Services.moshi
+import org.givingkitchen.android.util.getGivingKitchenSharedPreferences
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
@@ -58,7 +59,7 @@ class SafetynetFragment : Fragment(), OnMapReadyCallback {
         model = ViewModelProviders.of(this).get(SafetynetViewModel::class.java)
         jsonAdapter = moshi.adapter(SocialServiceProvidersList::class.java)
 
-        val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE) ?: return
+        val sharedPref = activity.getGivingKitchenSharedPreferences() ?: return
         val facebookSectionExpanded = sharedPref.getBoolean(getString(R.string.facebook_groups_expanded_key), true)
         val descriptionSectionClosed = sharedPref.getBoolean(getString(R.string.resources_header_desc_closed_key), false)
 
@@ -181,10 +182,11 @@ class SafetynetFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun saveHeaderDescriptionExit() {
-        val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE) ?: return
-        with(sharedPref.edit()) {
-            putBoolean(getString(R.string.resources_header_desc_closed_key), true)
-            apply()
+        activity.getGivingKitchenSharedPreferences()?.let {
+            with(it.edit()) {
+                putBoolean(getString(R.string.resources_header_desc_closed_key), true)
+                apply()
+            }
         }
     }
 
@@ -195,10 +197,11 @@ class SafetynetFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun saveFacebookSectionState(expanded: Boolean) {
-        val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE) ?: return
-        with(sharedPref.edit()) {
-            putBoolean(getString(R.string.facebook_groups_expanded_key), expanded)
-            apply()
+        activity.getGivingKitchenSharedPreferences()?.let {
+            with(it.edit()) {
+                putBoolean(getString(R.string.facebook_groups_expanded_key), expanded)
+                apply()
+            }
         }
     }
 

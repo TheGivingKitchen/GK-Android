@@ -16,6 +16,7 @@ import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_onboarding_container.*
 import org.givingkitchen.android.R
 import org.givingkitchen.android.util.FragmentBackPressedListener
+import org.givingkitchen.android.util.getGivingKitchenSharedPreferences
 
 class OnboardingContainerFragment: Fragment(), FragmentBackPressedListener {
     private val onboardingPages = listOf(OnboardingPageOneFragment(), OnboardingPageTwoFragment(), OnboardingPageThreeFragment(), OnboardingPageFourFragment())
@@ -105,9 +106,8 @@ class OnboardingContainerFragment: Fragment(), FragmentBackPressedListener {
     }
 
     private val doneButtonClickListener = View.OnClickListener {
-        val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
-        if (sharedPref != null) {
-            with(sharedPref.edit()) {
+        activity.getGivingKitchenSharedPreferences()?.let {
+            with(it.edit()) {
                 putBoolean(getString(R.string.onboarding_viewed_key), true)
                 apply()
             }

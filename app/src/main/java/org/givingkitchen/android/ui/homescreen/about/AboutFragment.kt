@@ -14,13 +14,14 @@ import kotlinx.android.synthetic.main.fragment_about.*
 import org.givingkitchen.android.R
 import org.givingkitchen.android.analytics.Analytics
 import org.givingkitchen.android.analytics.Events
+import org.givingkitchen.android.util.*
 import org.givingkitchen.android.util.Constants.givingKitchenUrl
-import org.givingkitchen.android.util.CustomTabs
 
 class AboutFragment : Fragment()  {
 
     companion object {
         const val newsletterSignupUrl = "https://thegivingkitchen.us3.list-manage.com/subscribe?u=8ce234d2bdddfb2c1ba574d4f&id=9071a9bab9"
+        const val QprTrainingSignupUrl = "${Constants.firebaseStorageUrl}/forms/qprSignupForm.json"
         const val howItWorksPdfUrl = "https://firebasestorage.googleapis.com/v0/b/thegivingkitchen-cdd28.appspot.com/o/howitworks.pdf?alt=media&token=7bcc47e7-45f5-4b71-b4ad-9071e9d8efd8"
         const val gkContactUrl = "$givingKitchenUrl/contact"
         const val storyOneUrl = "$givingKitchenUrl/reggie-ealy"
@@ -48,11 +49,11 @@ class AboutFragment : Fragment()  {
         feedbackNeutral_aboutTab.setOnClickListener(feedbackNeutralClickListener)
         feedbackNegative_aboutTab.setOnClickListener(feedbackNegativeClickListener)
 
-        val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
-        val facebookSectionExpanded = sharedPref?.getBoolean(getString(R.string.facebook_groups_expanded_key), true) ?: true
+        val facebookSectionExpanded = activity.getGivingKitchenSharedPreferences()?.getBoolean(getString(R.string.facebook_groups_expanded_key), true) ?: true
         setFacebookGroupsExpandedState(facebookSectionExpanded)
         collapseFacebookButton_aboutTab.setOnClickListener(collapseFacebookSectionClickListener)
         joinUsButton_aboutTab.setOnClickListener(joinFacebookGroupsClickListener)
+        setupQprBanner()
     }
 
     private val aboutUsButtonClickListener = View.OnClickListener {
@@ -116,8 +117,7 @@ class AboutFragment : Fragment()  {
     }
 
     private val collapseFacebookSectionClickListener = View.OnClickListener {
-        val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
-        val facebookSectionExpanded = sharedPref?.let {
+        val facebookSectionExpanded = activity.getGivingKitchenSharedPreferences()?.let {
             val currentValue = it.getBoolean(getString(R.string.facebook_groups_expanded_key), true)
             !currentValue
         } ?: run {
@@ -130,8 +130,35 @@ class AboutFragment : Fragment()  {
         Navigation.findNavController(view!!).navigate(R.id.facebookGroupsFragment)
     }
 
+    private fun setupQprBanner() {
+        val showBanner = activity.getGivingKitchenSharedPreferences()?.getBoolean(getString(R.string.show_about_qpr_banner_key), true) ?: true
+        if (showBanner) {
+            qprBanner_aboutTab.visibility = View.VISIBLE
+            qprBanner_aboutTab.onTitleClick().subscribe { goToQprForm() }
+            qprBanner_aboutTab.onCloseClick().subscribe { closeQprBanner() }
+        }
+    }
+
+    private fun goToQprForm() {
+        val args = Bundle()
+        args.putString(Constants.formsArg, QprTrainingSignupUrl)
+        args.putEnum(Constants.donePageArg, DonePage.DEFAULT)
+        Navigation.findNavController(view!!).navigate(R.id.formsFragment, args)
+    }
+
+    private fun closeQprBanner() {
+        qprBanner_aboutTab.visibility = View.GONE
+
+        activity.getGivingKitchenSharedPreferences()?.let {
+            with(it.edit()) {
+                putBoolean(getString(R.string.show_about_qpr_banner_key), false)
+                apply()
+            }
+        }
+    }
+
     private fun setFacebookGroupsExpandedState(expanded: Boolean): Boolean {
-        activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)?.let {
+        activity.getGivingKitchenSharedPreferences()?.let {
             with(it.edit()) {
                 putBoolean(getString(R.string.facebook_groups_expanded_key), expanded)
                 apply()

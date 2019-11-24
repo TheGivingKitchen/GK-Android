@@ -1,253 +1,274 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        <ImageView
-            android:id="@+id/header_aboutTab"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/header_image_height"
-            android:layout_marginTop="@dimen/header_image_top_margin"
-            android:layout_marginBottom="20dp"
-            android:src="@drawable/ic_tab_about"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:id="@+id/header_description_aboutTab"
-            style="@style/EgyptianText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/universal_horizontal_spacing"
-            android:layout_marginEnd="@dimen/universal_horizontal_spacing"
-            android:gravity="center_horizontal"
-            android:text="@string/about_tab_header"
-            android:textColor="@color/gk_orange"
-            android:textSize="12pt" />
-
-        <View
-            style="@style/DividerViewLarge"
-            android:layout_marginTop="20dp" />
-
-        <TextView
-            style="@style/GiveTabHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/universal_horizontal_spacing"
-            android:text="@string/about_tab_about_us_header" />
-
-        <TextView
-            style="@style/GiveTabParagraph"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/universal_horizontal_spacing"
-            android:text="@string/about_tab_about_us_description" />
-
-        <Button
-            android:id="@+id/aboutUsButton_aboutTab"
-            style="@style/CTAButton"
-            android:layout_marginStart="@dimen/universal_horizontal_spacing"
-            android:layout_marginTop="@dimen/universal_horizontal_spacing"
-            android:layout_marginEnd="@dimen/universal_horizontal_spacing"
-            android:text="@string/about_tab_about_us_button" />
-
-        <View
-            style="@style/DividerViewLarge"
-            android:layout_marginTop="20dp" />
-
-        <TextView
-            android:id="@+id/newsletterSignup_aboutTab"
-            style="@style/GiveTabButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/about_tab_newsletter_signup" />
-
-        <View style="@style/DividerViewLarge" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/facebookGroupsTitle_aboutTab"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/universal_horizontal_spacing"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
-                android:text="@string/safetynet_tab_facebook_description"
-                android:textColor="@color/dark_grey"
-                android:textSize="8pt"
-                app:layout_constraintEnd_toStartOf="@id/collapseFacebookButton_aboutTab"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/collapseFacebookButton_aboutTab"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp"
-                android:contentDescription="@string/safetynet_collapse_fb_section_button"
-                android:src="@drawable/ic_expand_less"
-                android:tint="@color/dark_grey"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/facebookGroupsTitle_aboutTab" />
+                android:id="@+id/header_aboutTab"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/header_image_height"
+                android:layout_marginTop="@dimen/header_image_top_margin"
+                android:layout_marginBottom="20dp"
+                android:src="@drawable/ic_tab_about"
+                tools:ignore="ContentDescription" />
 
             <TextView
-                android:id="@+id/facebookGroupsDescription_aboutTab"
-                android:layout_width="0dp"
+                android:id="@+id/header_description_aboutTab"
+                style="@style/EgyptianText"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/universal_horizontal_spacing"
-                android:layout_marginTop="20dp"
                 android:layout_marginEnd="@dimen/universal_horizontal_spacing"
-                android:text="@string/safetynet_tab_groups_description"
-                android:textSize="8pt"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/facebookGroupsTitle_aboutTab" />
+                android:gravity="center_horizontal"
+                android:text="@string/about_tab_header"
+                android:textColor="@color/gk_orange"
+                android:textSize="12pt" />
 
             <View
-                android:id="@+id/facebookBottomDivider_aboutTab"
-                style="@style/DividerViewSmall"
-                android:layout_marginTop="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/facebookGroupsDescription_aboutTab" />
+                style="@style/DividerViewLarge"
+                android:layout_marginTop="20dp" />
 
             <TextView
-                android:id="@+id/joinUsButton_aboutTab"
-                style="@style/ParagraphText"
-                android:layout_width="0dp"
+                style="@style/GiveTabHeader"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:paddingTop="20dp"
-                android:text="@string/safetynet_tab_join_us"
-                android:textColor="@color/gk_orange"
-                android:textSize="8pt"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/facebookBottomDivider_aboutTab" />
+                android:paddingTop="@dimen/universal_horizontal_spacing"
+                android:text="@string/about_tab_about_us_header" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                style="@style/GiveTabParagraph"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/universal_horizontal_spacing"
+                android:text="@string/about_tab_about_us_description" />
 
-        <View
-            android:layout_marginTop="@dimen/universal_horizontal_spacing"
-            style="@style/DividerViewLarge" />
+            <Button
+                android:id="@+id/aboutUsButton_aboutTab"
+                style="@style/CTAButton"
+                android:layout_marginStart="@dimen/universal_horizontal_spacing"
+                android:layout_marginTop="@dimen/universal_horizontal_spacing"
+                android:layout_marginEnd="@dimen/universal_horizontal_spacing"
+                android:text="@string/about_tab_about_us_button" />
 
-        <TextView
-            style="@style/GiveTabHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/universal_horizontal_spacing"
-            android:text="@string/about_tab_stories_header" />
+            <View
+                style="@style/DividerViewLarge"
+                android:layout_marginTop="20dp" />
 
-        <ImageView
-            android:id="@+id/storyOneImage_aboutTab"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:layout_marginStart="@dimen/universal_horizontal_spacing"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="@dimen/universal_horizontal_spacing"
-            android:layout_marginBottom="10dp"
-            android:contentDescription="@string/about_tab_performer_story_image_description"
-            android:src="@drawable/pic_story_performer" />
+            <TextView
+                android:id="@+id/newsletterSignup_aboutTab"
+                style="@style/GiveTabButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/about_tab_newsletter_signup" />
 
-        <TextView
-            android:id="@+id/storyOneLink_aboutTab"
-            style="@style/GiveTabButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/about_tab_story_one_link" />
+            <View style="@style/DividerViewLarge" />
 
-        <View style="@style/DividerViewSmall" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/storyTwoImage_aboutTab"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:layout_marginStart="@dimen/universal_horizontal_spacing"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="@dimen/universal_horizontal_spacing"
-            android:layout_marginBottom="10dp"
-            android:contentDescription="@string/about_tab_irma_story_image_description"
-            android:src="@drawable/pic_story_irma" />
+                <TextView
+                    android:id="@+id/facebookGroupsTitle_aboutTab"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/universal_horizontal_spacing"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/safetynet_tab_facebook_description"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="8pt"
+                    app:layout_constraintEnd_toStartOf="@id/collapseFacebookButton_aboutTab"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/storyTwoLink_aboutTab"
-            style="@style/GiveTabButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/about_tab_story_two_link" />
+                <ImageView
+                    android:id="@+id/collapseFacebookButton_aboutTab"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:contentDescription="@string/safetynet_collapse_fb_section_button"
+                    android:src="@drawable/ic_expand_less"
+                    android:tint="@color/dark_grey"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/facebookGroupsTitle_aboutTab" />
 
-        <View style="@style/DividerViewSmall" />
+                <TextView
+                    android:id="@+id/facebookGroupsDescription_aboutTab"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/universal_horizontal_spacing"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="@dimen/universal_horizontal_spacing"
+                    android:text="@string/safetynet_tab_groups_description"
+                    android:textSize="8pt"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/facebookGroupsTitle_aboutTab" />
 
-        <ImageView
-            android:id="@+id/storyThreeImage_aboutTab"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:layout_marginStart="@dimen/universal_horizontal_spacing"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="@dimen/universal_horizontal_spacing"
-            android:layout_marginBottom="10dp"
-            android:contentDescription="@string/about_tab_athens_story_image_description"
-            android:src="@drawable/pic_story_athens" />
+                <View
+                    android:id="@+id/facebookBottomDivider_aboutTab"
+                    style="@style/DividerViewSmall"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/facebookGroupsDescription_aboutTab" />
 
-        <TextView
-            android:id="@+id/storyThreeLink_aboutTab"
-            style="@style/GiveTabButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/about_tab_story_three_link" />
+                <TextView
+                    android:id="@+id/joinUsButton_aboutTab"
+                    style="@style/ParagraphText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:paddingTop="20dp"
+                    android:text="@string/safetynet_tab_join_us"
+                    android:textColor="@color/gk_orange"
+                    android:textSize="8pt"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/facebookBottomDivider_aboutTab" />
 
-        <View style="@style/DividerViewLarge" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            style="@style/GiveTabHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/universal_horizontal_spacing"
-            android:text="@string/about_tab_stories_header" />
+            <View
+                style="@style/DividerViewLarge"
+                android:layout_marginTop="@dimen/universal_horizontal_spacing" />
 
-        <TextView
-            style="@style/GiveTabParagraph"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/universal_horizontal_spacing"
-            android:text="@string/about_tab_feedback_description" />
+            <TextView
+                style="@style/GiveTabHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/universal_horizontal_spacing"
+                android:text="@string/about_tab_stories_header" />
 
-        <TextView
-            android:id="@+id/feedbackPositive_aboutTab"
-            style="@style/GiveTabButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/about_tab_feedback_positive" />
+            <ImageView
+                android:id="@+id/storyOneImage_aboutTab"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginStart="@dimen/universal_horizontal_spacing"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="@dimen/universal_horizontal_spacing"
+                android:layout_marginBottom="10dp"
+                android:contentDescription="@string/about_tab_performer_story_image_description"
+                android:src="@drawable/pic_story_performer" />
 
-        <View style="@style/DividerViewSmall" />
+            <TextView
+                android:id="@+id/storyOneLink_aboutTab"
+                style="@style/GiveTabButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/about_tab_story_one_link" />
 
-        <TextView
-            android:id="@+id/feedbackNeutral_aboutTab"
-            style="@style/GiveTabButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/about_tab_feedback_neutral" />
+            <View style="@style/DividerViewSmall" />
 
-        <View style="@style/DividerViewSmall" />
+            <ImageView
+                android:id="@+id/storyTwoImage_aboutTab"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginStart="@dimen/universal_horizontal_spacing"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="@dimen/universal_horizontal_spacing"
+                android:layout_marginBottom="10dp"
+                android:contentDescription="@string/about_tab_irma_story_image_description"
+                android:src="@drawable/pic_story_irma" />
 
-        <TextView
-            android:id="@+id/feedbackNegative_aboutTab"
-            style="@style/GiveTabButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/about_tab_feedback_negative" />
+            <TextView
+                android:id="@+id/storyTwoLink_aboutTab"
+                style="@style/GiveTabButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/about_tab_story_two_link" />
 
-        <View style="@style/DividerViewLarge" />
+            <View style="@style/DividerViewSmall" />
 
-    </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+            <ImageView
+                android:id="@+id/storyThreeImage_aboutTab"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginStart="@dimen/universal_horizontal_spacing"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="@dimen/universal_horizontal_spacing"
+                android:layout_marginBottom="10dp"
+                android:contentDescription="@string/about_tab_athens_story_image_description"
+                android:src="@drawable/pic_story_athens" />
+
+            <TextView
+                android:id="@+id/storyThreeLink_aboutTab"
+                style="@style/GiveTabButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/about_tab_story_three_link" />
+
+            <View style="@style/DividerViewLarge" />
+
+            <TextView
+                style="@style/GiveTabHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/universal_horizontal_spacing"
+                android:text="@string/about_tab_stories_header" />
+
+            <TextView
+                style="@style/GiveTabParagraph"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/universal_horizontal_spacing"
+                android:text="@string/about_tab_feedback_description" />
+
+            <TextView
+                android:id="@+id/feedbackPositive_aboutTab"
+                style="@style/GiveTabButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/about_tab_feedback_positive" />
+
+            <View style="@style/DividerViewSmall" />
+
+            <TextView
+                android:id="@+id/feedbackNeutral_aboutTab"
+                style="@style/GiveTabButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/about_tab_feedback_neutral" />
+
+            <View style="@style/DividerViewSmall" />
+
+            <TextView
+                android:id="@+id/feedbackNegative_aboutTab"
+                style="@style/GiveTabButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/about_tab_feedback_negative" />
+
+            <View style="@style/DividerViewLarge" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <org.givingkitchen.android.util.BannerView
+        android:id="@+id/qprBanner_aboutTab"
+        android:visibility="gone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:text_BannerView="@string/about_tab_qpr_banner"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -67,12 +67,11 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
-        sharedPref?.let {
+        activity.getGivingKitchenSharedPreferences()?.let {
             for (currentFormPage in form.Pages) {
                 currentFormPage.questions?.let { questions ->
                     for (question in questions) {
-                        placeSavedAnswersInForm(question, sharedPref)
+                        placeSavedAnswersInForm(question, it)
                     }
                 }
             }
@@ -228,7 +227,7 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
         val currentFragment = formPagerAdapter.getRegisteredFragment(currentPosition)
 
         for (questionView in currentFragment.questionViews) {
-            questionView.saveAnswer(form.ID, activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE))
+            questionView.saveAnswer(form.ID, activity.getGivingKitchenSharedPreferences())
         }
     }
 

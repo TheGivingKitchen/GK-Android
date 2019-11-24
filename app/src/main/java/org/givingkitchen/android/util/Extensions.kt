@@ -1,6 +1,9 @@
 package org.givingkitchen.android.util
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.res.Resources
 import android.os.Bundle
 import androidx.annotation.DimenRes
@@ -8,6 +11,7 @@ import androidx.fragment.app.Fragment
 import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
+import org.givingkitchen.android.R
 
 fun Resources.getFloatDimension(@DimenRes dimension: Int): Float {
     val outValue = TypedValue()
@@ -43,6 +47,10 @@ inline fun <reified T: Enum<T>> Bundle.getEnum(key:String, default:T): T {
     } catch (e: IllegalStateException) {
         default
     }
+}
+
+fun Activity?.getGivingKitchenSharedPreferences(): SharedPreferences? {
+    return this?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
 }
 
 /**

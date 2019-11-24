@@ -19,10 +19,7 @@ import org.givingkitchen.android.analytics.Analytics
 import org.givingkitchen.android.analytics.Parameter.*
 import org.givingkitchen.android.ui.homescreen.events.EventsViewModel.Companion.eventsLearnMoreURL
 import org.givingkitchen.android.ui.homescreen.give.GiveViewModel
-import org.givingkitchen.android.util.Constants
-import org.givingkitchen.android.util.CustomTabs
-import org.givingkitchen.android.util.DonePage
-import org.givingkitchen.android.util.putEnum
+import org.givingkitchen.android.util.*
 
 class EventsFragment : Fragment() {
 
@@ -70,8 +67,7 @@ class EventsFragment : Fragment() {
     }
 
     private fun setupVolunteerBanner() {
-        val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
-        val showBanner = sharedPref?.getBoolean(getString(R.string.show_events_volunteer_banner_key), true) ?: true
+        val showBanner = activity.getGivingKitchenSharedPreferences()?.getBoolean(getString(R.string.show_events_volunteer_banner_key), true) ?: true
         if (showBanner) {
             volunteerBanner_eventsTab.visibility = View.VISIBLE
             volunteerBanner_eventsTab.onTitleClick().subscribe { goToVolunteerForm() }
@@ -89,7 +85,7 @@ class EventsFragment : Fragment() {
     private fun closeVolunteerBanner() {
         volunteerBanner_eventsTab.visibility = View.GONE
 
-        activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)?.let {
+        activity.getGivingKitchenSharedPreferences()?.let {
             with(it.edit()) {
                 putBoolean(getString(R.string.show_events_volunteer_banner_key), false)
                 apply()

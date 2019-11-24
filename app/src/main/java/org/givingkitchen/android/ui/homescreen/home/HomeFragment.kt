@@ -21,6 +21,7 @@ import org.givingkitchen.android.ui.homescreen.give.GiveFragment
 import org.givingkitchen.android.ui.homescreen.resources.ResourcesFragment
 import org.givingkitchen.android.ui.homescreen.safetynet.safetynettab.SafetynetFragment
 import org.givingkitchen.android.util.FeatureFlags
+import org.givingkitchen.android.util.getGivingKitchenSharedPreferences
 
 class HomeFragment: Fragment()  {
     private lateinit var model: HomeViewModel
@@ -31,8 +32,7 @@ class HomeFragment: Fragment()  {
         model.getCurrentFragment().observe(this, Observer<HomeSection> { liveData ->
             loadFragment(liveData!!)
         })
-        val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
-        val savedHomeTab = sharedPref?.getString(getString(R.string.home_tab_key), null)
+        val savedHomeTab = activity.getGivingKitchenSharedPreferences()?.getString(getString(R.string.home_tab_key), null)
         if (savedHomeTab != null) {
             model.setCurrentFragment(HomeSection.getFragment(savedHomeTab))
         }
@@ -48,8 +48,7 @@ class HomeFragment: Fragment()  {
         super.onViewCreated(view, savedInstanceState)
         bottomNav_home.setOnNavigationItemSelectedListener(navListener)
 
-        val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE) ?: return
-        val onboardingViewed = sharedPref.getBoolean(getString(R.string.onboarding_viewed_key), false)
+        val onboardingViewed = activity.getGivingKitchenSharedPreferences()?.getBoolean(getString(R.string.onboarding_viewed_key), false) ?: return
         if (!onboardingViewed) {
             Navigation.findNavController(view).navigate(R.id.onboardingContainerFragment)
         }
@@ -57,9 +56,8 @@ class HomeFragment: Fragment()  {
 
     override fun onDestroy() {
         super.onDestroy()
-        val sharedPref = activity?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
-        if (sharedPref != null) {
-            with (sharedPref.edit()) {
+        activity.getGivingKitchenSharedPreferences()?.let {
+            with (it.edit()) {
                 putString(getString(R.string.home_tab_key), model.getCurrentFragment().value!!.screenName)
                 apply()
             }
