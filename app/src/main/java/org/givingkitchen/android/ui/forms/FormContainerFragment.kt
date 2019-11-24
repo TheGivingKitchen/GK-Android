@@ -156,8 +156,10 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
 
         val requestBody = FormBody.Builder()
 
-        for (defaultAnswer in form.DefaultAnswers) {
-            requestBody.add(defaultAnswer.ID, defaultAnswer.Answer)
+        form.DefaultAnswers?.let {
+            for (defaultAnswer in it) {
+                requestBody.add(defaultAnswer.ID, defaultAnswer.Answer)
+            }
         }
 
         for (currentFormPage in form.Pages) {

@@ -11,7 +11,7 @@ class Form(val ID: String,
            val FormSubtitle: String?,
            val FormMetadata: String?,
            val FormShareString: String?,
-           val DefaultAnswers: List<DefaultAnswer> = listOf(),
+           val DefaultAnswers: List<DefaultAnswer>? = listOf(),
            val Pages: List<Page> = listOf()): Parcelable
 
 @Parcelize
