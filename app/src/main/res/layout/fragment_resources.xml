@@ -24,6 +24,10 @@
             android:id="@+id/searchView_resourcesTab"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:iconifiedByDefault="false"
+            android:imeOptions="actionSearch"
+            android:inputType="text|textAutoCorrect"
+            app:queryHint="@string/resources_tab_searchview_hint"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

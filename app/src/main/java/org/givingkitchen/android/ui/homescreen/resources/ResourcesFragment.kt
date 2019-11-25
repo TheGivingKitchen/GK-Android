@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.Nullable
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -21,11 +19,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.fragment_resources.*
 import org.givingkitchen.android.R
 import org.givingkitchen.android.util.setNewState
-
-
-/**
- *  val providerData = SocialServiceProvider(index=3, name="Ben Massell Dental Clinic", address="700 14th Street NW, Atlanta, GA 30308", website="https://www.benmasselldentalclinic.org", phone="404-881-1858", contactName="Keith Kirshner", category="Dental", description="Needs-based dental services.", countiesServed="Butts, Cherokee, Clayton, Cobb, Coweta, DeKalb, Douglas, Fayette, Fulton, Gwinnett, Henry, Paulding, Rockdale", latitude = 0.0, longitude = 0.0)
- */
 
 class ResourcesFragment : Fragment(), OnMapReadyCallback {
     companion object {
@@ -69,24 +62,36 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         recyclerView_resourcesTab.adapter = adapter
 
         sheetBehavior = BottomSheetBehavior.from(bottomSheet_resourcesTab);
+        searchView_resourcesTab.setOnSearchClickListener {
+            showExpandedSearchState(false)
+        }
     }
 
     override fun onMapReady(map: GoogleMap) =
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(atlantaLatitude, atlantaLongitude), defaultMapZoomLevel))
 
     private fun showResourceProviderDetails(providerData: ResourceProvider) {
-        val fragment = ResourceProviderDetailsFragment.newInstance(providerData)
-        fragment.show(childFragmentManager, TAG_RESOURCE_PROVIDER_BOTTOMSHEET)
+        ResourceProviderDetailsFragment
+                .newInstance(providerData)
+                .show(childFragmentManager, TAG_RESOURCE_PROVIDER_BOTTOMSHEET)
         sheetBehavior.setNewState(BottomSheetBehavior.STATE_COLLAPSED)
+    }
+
+    private fun showExpandedSearchState(showCategoryMenuItems: Boolean) {
+        sheetBehavior.setNewState(BottomSheetBehavior.STATE_EXPANDED)
     }
 
     private fun updateProgressBarVisibility(visibility: Boolean) {
         when (visibility) {
             true -> {
                 progressBar_resourcesTab.visibility = View.VISIBLE
+                searchView_resourcesTab.visibility = View.GONE
+                searchViewDivider_resourcesTab.visibility = View.GONE
             }
             false -> {
                 progressBar_resourcesTab.visibility = View.GONE
+                searchView_resourcesTab.visibility = View.VISIBLE
+                searchViewDivider_resourcesTab.visibility = View.VISIBLE
             }
         }
     }

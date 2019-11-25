@@ -12,7 +12,6 @@ import org.givingkitchen.android.R
 import org.givingkitchen.android.analytics.Analytics
 import org.givingkitchen.android.analytics.Events
 import org.givingkitchen.android.analytics.Parameter
-import org.givingkitchen.android.ui.homescreen.safetynet.SocialServiceProvider
 import org.givingkitchen.android.util.CustomTabs
 import org.givingkitchen.android.util.setTextIfItExists
 
