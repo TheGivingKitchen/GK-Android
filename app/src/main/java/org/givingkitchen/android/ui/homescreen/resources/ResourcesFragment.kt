@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.Nullable
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -19,7 +20,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.fragment_resources.*
 import org.givingkitchen.android.R
-import org.givingkitchen.android.ui.homescreen.safetynet.providerdetails.ResourceProviderDetailsFragment
+import org.givingkitchen.android.util.setNewState
 
 
 /**
@@ -76,9 +77,7 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
     private fun showResourceProviderDetails(providerData: ResourceProvider) {
         val fragment = ResourceProviderDetailsFragment.newInstance(providerData)
         fragment.show(childFragmentManager, TAG_RESOURCE_PROVIDER_BOTTOMSHEET)
-        if (sheetBehavior.state != BottomSheetBehavior.STATE_COLLAPSED) {
-            sheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-        }
+        sheetBehavior.setNewState(BottomSheetBehavior.STATE_COLLAPSED)
     }
 
     private fun updateProgressBarVisibility(visibility: Boolean) {

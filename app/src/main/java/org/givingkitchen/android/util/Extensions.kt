@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import org.givingkitchen.android.R
 
 fun Resources.getFloatDimension(@DimenRes dimension: Int): Float {
@@ -51,6 +52,21 @@ inline fun <reified T: Enum<T>> Bundle.getEnum(key:String, default:T): T {
 
 fun Activity?.getGivingKitchenSharedPreferences(): SharedPreferences? {
     return this?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+}
+
+/**
+ * @param newState should be one of the BottomSheet states i.e.
+ * STATE_DRAGGING = 1
+ * STATE_SETTLING = 2
+ * STATE_EXPANDED = 3
+ * STATE_COLLAPSED = 4
+ * STATE_HIDDEN = 5
+ * STATE_HALF_EXPANDED = 6
+ */
+fun BottomSheetBehavior<View>.setNewState(newState: Int) {
+    if (this.state != newState) {
+        this.state = newState
+    }
 }
 
 /**
