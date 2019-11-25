@@ -9,6 +9,8 @@ import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -29,17 +31,20 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
     }
 
     private lateinit var model: ResourcesViewModel
+    private lateinit var adapter: ResourcesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         model = ViewModelProviders.of(this).get(ResourcesViewModel::class.java)
-        model.getResourceProviders().observe(this, Observer<List<ResourceProvider>> { liveData ->
+        model.getResourceProviders().observe(this, Observer<MutableList<ResourceProvider>> { liveData ->
             updateResourcesList(liveData)
         })
         model.isProgressBarVisible().observe(this, Observer<Boolean> { liveData ->
             updateProgressBarVisibility(liveData)
         })
         model.loadResourceProviders()
+
+        adapter = ResourcesAdapter(mutableListOf<Any>())
     }
 
     @Nullable
@@ -50,15 +55,19 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val mapFragment = childFragmentManager.findFragmentById(R.id.google_map_fragment) as SupportMapFragment
+        val mapFragment = childFragmentManager.findFragmentById(R.id.map_resourcesTab) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        recyclerView_resourcesTab.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        recyclerView_resourcesTab.adapter = adapter
     }
 
     override fun onMapReady(map: GoogleMap) =
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(atlantaLatitude, atlantaLongitude), defaultMapZoomLevel))
 
-    private fun updateResourcesList(data: List<ResourceProvider>) {
-        Toast.makeText(context, data.toString(), Toast.LENGTH_SHORT).show()
+    private fun updateResourcesList(data: MutableList<ResourceProvider>) {
+        adapter.items = data
+
     }
 
     private fun updateProgressBarVisibility(visibility: Boolean) {

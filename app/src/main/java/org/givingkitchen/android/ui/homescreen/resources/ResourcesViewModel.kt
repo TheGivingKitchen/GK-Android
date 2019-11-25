@@ -14,14 +14,14 @@ import java.io.IOException
 
 class ResourcesViewModel: ViewModel() {
 
-    private var resourceProviders: MutableLiveData<List<ResourceProvider>> = MutableLiveData()
+    private var resourceProviders: MutableLiveData<MutableList<ResourceProvider>> = MutableLiveData()
     private var progressBarVisible: MutableLiveData<Boolean> = MutableLiveData()
 
-    fun getResourceProviders(): LiveData<List<ResourceProvider>> {
+    fun getResourceProviders(): LiveData<MutableList<ResourceProvider>> {
         return resourceProviders
     }
 
-    private fun setResourceProviders(data: List<ResourceProvider>) {
+    private fun setResourceProviders(data: MutableList<ResourceProvider>) {
         resourceProviders.value = data
     }
 
@@ -57,7 +57,7 @@ class ResourcesViewModel: ViewModel() {
                             for (i in 0 until safetynetData.size) {
                                 safetynetData[i].index = i
                             }
-                            setResourceProviders(safetynetData)
+                            setResourceProviders(safetynetData.toMutableList())
                         }
                         setProgressBarVisibility(false)
                     } catch (e: IOException) {
