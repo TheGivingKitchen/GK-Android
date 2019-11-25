@@ -11,11 +11,13 @@
         android:layout_height="match_parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottomSheet_resourcesTab"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:behavior_hideable="false"
         app:behavior_peekHeight="200dp"
         android:background="@color/white"
+        android:accessibilityPaneTitle="@string/resources_tab_bottomsheet"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <androidx.appcompat.widget.SearchView

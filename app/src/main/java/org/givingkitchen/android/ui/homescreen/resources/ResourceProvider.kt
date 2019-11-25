@@ -11,7 +11,6 @@ data class ResourceProvidersList(
 
 @Parcelize
 data class ResourceProvider(
-        var index: Int?,
         val name: String,
         val address: String?,
         val website: String?,

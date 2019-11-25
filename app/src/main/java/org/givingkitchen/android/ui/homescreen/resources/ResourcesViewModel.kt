@@ -12,7 +12,7 @@ import java.io.File
 import java.io.FileReader
 import java.io.IOException
 
-class ResourcesViewModel: ViewModel() {
+class ResourcesViewModel : ViewModel() {
 
     private var resourceProviders: MutableLiveData<MutableList<ResourceProvider>> = MutableLiveData()
     private var progressBarVisible: MutableLiveData<Boolean> = MutableLiveData()
@@ -34,8 +34,6 @@ class ResourcesViewModel: ViewModel() {
     }
 
     fun loadResourceProviders() {
-        val jsonAdapter = moshi.adapter(ResourceProvidersList::class.java)
-
         val localFile = File.createTempFile("safetynet", "json")
         setProgressBarVisibility(true)
 
@@ -51,13 +49,10 @@ class ResourcesViewModel: ViewModel() {
                             line = bufferedReader.readLine()
                         }
                         bufferedReader.close()
-                        val jsonString = stringBuilder.toString()
-                        val safetynetData = jsonAdapter.nullSafe().fromJson(jsonString)?.safetyNet
-                        if (safetynetData != null) {
-                            for (i in 0 until safetynetData.size) {
-                                safetynetData[i].index = i
-                            }
-                            setResourceProviders(safetynetData.toMutableList())
+                        moshi.adapter(ResourceProvidersList::class.java)
+                                .nullSafe()
+                                .fromJson(stringBuilder.toString())?.safetyNet?.let {
+                            setResourceProviders(it.toMutableList())
                         }
                         setProgressBarVisibility(false)
                     } catch (e: IOException) {

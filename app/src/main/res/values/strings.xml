@@ -189,6 +189,7 @@
     <string name="close_how_it_works">Close this screen</string>
     <string name="close_banner">Close this banner</string>
     <string name="give_tab_carousel_icon">Giving Kitchen badges showing different levels of giving.</string>
+    <string name="resources_tab_bottomsheet">A list of local resources and nonprofits that can help with healthcare, legal assistance, and many other things.</string>
 
     <!-- Questions -->
     <string name="shortname_question_firstname_hint">First</string>

@@ -16,8 +16,11 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.fragment_resources.*
 import org.givingkitchen.android.R
+import org.givingkitchen.android.ui.homescreen.safetynet.providerdetails.ResourceProviderDetailsFragment
+
 
 /**
  *  val providerData = SocialServiceProvider(index=3, name="Ben Massell Dental Clinic", address="700 14th Street NW, Atlanta, GA 30308", website="https://www.benmasselldentalclinic.org", phone="404-881-1858", contactName="Keith Kirshner", category="Dental", description="Needs-based dental services.", countiesServed="Butts, Cherokee, Clayton, Cobb, Coweta, DeKalb, Douglas, Fayette, Fulton, Gwinnett, Henry, Paulding, Rockdale", latitude = 0.0, longitude = 0.0)
@@ -28,23 +31,26 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         const val atlantaLatitude = 33.774381
         const val atlantaLongitude = -84.372775
         const val defaultMapZoomLevel = 10f
+        private const val TAG_RESOURCE_PROVIDER_BOTTOMSHEET = "SafetynetFragment.Tag.ResourceProviderDetailsFragment"
     }
 
     private lateinit var model: ResourcesViewModel
     private lateinit var adapter: ResourcesAdapter
+    private lateinit var sheetBehavior: BottomSheetBehavior<View>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        adapter = ResourcesAdapter(mutableListOf<Any>())
+        adapter.resourceProviderClicks().subscribe { showResourceProviderDetails(it) }
+
         model = ViewModelProviders.of(this).get(ResourcesViewModel::class.java)
         model.getResourceProviders().observe(this, Observer<MutableList<ResourceProvider>> { liveData ->
-            updateResourcesList(liveData)
+            adapter.items = liveData
         })
         model.isProgressBarVisible().observe(this, Observer<Boolean> { liveData ->
             updateProgressBarVisibility(liveData)
         })
         model.loadResourceProviders()
-
-        adapter = ResourcesAdapter(mutableListOf<Any>())
     }
 
     @Nullable
@@ -60,14 +66,19 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
 
         recyclerView_resourcesTab.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         recyclerView_resourcesTab.adapter = adapter
+
+        sheetBehavior = BottomSheetBehavior.from(bottomSheet_resourcesTab);
     }
 
     override fun onMapReady(map: GoogleMap) =
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(atlantaLatitude, atlantaLongitude), defaultMapZoomLevel))
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(atlantaLatitude, atlantaLongitude), defaultMapZoomLevel))
 
-    private fun updateResourcesList(data: MutableList<ResourceProvider>) {
-        adapter.items = data
-
+    private fun showResourceProviderDetails(providerData: ResourceProvider) {
+        val fragment = ResourceProviderDetailsFragment.newInstance(providerData)
+        fragment.show(childFragmentManager, TAG_RESOURCE_PROVIDER_BOTTOMSHEET)
+        if (sheetBehavior.state != BottomSheetBehavior.STATE_COLLAPSED) {
+            sheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+        }
     }
 
     private fun updateProgressBarVisibility(visibility: Boolean) {
