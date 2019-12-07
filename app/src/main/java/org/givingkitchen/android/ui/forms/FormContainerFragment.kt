@@ -77,6 +77,8 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
             }
         }
 
+        val originalMode = activity?.window?.attributes?.softInputMode
+
         formPagerAdapter = FormPagerAdapter(fragmentManager!!)
         viewPager_questionsContainer.adapter = formPagerAdapter
         if (formPagerAdapter.count < 2) {
@@ -113,22 +115,15 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
         nextButton_questionsContainer.text = getString(state.text)
     }
 
-    private fun hideKeyboardIfShowing() {
-        val view = activity?.currentFocus
-        view?.let {
-            val inputMethodManager = context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-            inputMethodManager?.hideSoftInputFromWindow(view.windowToken, 0)
-        }
-    }
-
     private val backButtonClickListener = View.OnClickListener {
+        activity.hideKeyboard()
         if (!onBackPressed()) {
             findNavController().navigateUp()
         }
     }
 
     private val nextButtonClickListener = View.OnClickListener {
-        hideKeyboardIfShowing()
+        activity.hideKeyboard()
         savePageAnswers()
 
         viewPager_questionsContainer.setCurrentItem(viewPager_questionsContainer.currentItem + 1, true)
@@ -149,7 +144,7 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
     }
 
     private val submitButtonClickListener = View.OnClickListener {
-        hideKeyboardIfShowing()
+        activity.hideKeyboard()
         savePageAnswers()
         nextButton_questionsContainer.visibility = View.GONE
         progressBar_questionsContainer.visibility = View.VISIBLE

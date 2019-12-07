@@ -10,7 +10,9 @@ import androidx.annotation.DimenRes
 import androidx.fragment.app.Fragment
 import android.util.TypedValue
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
+import androidx.appcompat.widget.SearchView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import org.givingkitchen.android.R
 
@@ -50,12 +52,24 @@ inline fun <reified T: Enum<T>> Bundle.getEnum(key:String, default:T): T {
     }
 }
 
+fun SearchView.hasQuery(): Boolean {
+    return this.query.isNotEmpty()
+}
+
 fun Activity?.getGivingKitchenSharedPreferences(): SharedPreferences? {
     return this?.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
 }
 
+fun Activity?.hideKeyboard() {
+    val view = this?.currentFocus
+    view?.let {
+        val inputMethodManager = it.context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        inputMethodManager?.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+}
+
 /**
- * @param newState should be one of the BottomSheet states i.e.
+ * @param newState should be one of the BottomSheet states
  * STATE_DRAGGING = 1
  * STATE_SETTLING = 2
  * STATE_EXPANDED = 3

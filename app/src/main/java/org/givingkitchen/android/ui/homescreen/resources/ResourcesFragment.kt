@@ -1,9 +1,12 @@
 package org.givingkitchen.android.ui.homescreen.resources
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -18,6 +21,8 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.fragment_resources.*
 import org.givingkitchen.android.R
+import org.givingkitchen.android.util.hasQuery
+import org.givingkitchen.android.util.hideKeyboard
 import org.givingkitchen.android.util.setNewState
 
 class ResourcesFragment : Fragment(), OnMapReadyCallback {
@@ -29,12 +34,11 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
     }
 
     private lateinit var model: ResourcesViewModel
-    private lateinit var adapter: ResourcesAdapter
     private lateinit var sheetBehavior: BottomSheetBehavior<View>
+    private var adapter: ResourcesAdapter = ResourcesAdapter(mutableListOf<Any>())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = ResourcesAdapter(mutableListOf<Any>())
         adapter.resourceProviderClicks().subscribe { showResourceProviderDetails(it) }
 
         model = ViewModelProviders.of(this).get(ResourcesViewModel::class.java)
@@ -44,6 +48,9 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         model.isProgressBarVisible().observe(this, Observer<Boolean> { liveData ->
             updateProgressBarVisibility(liveData)
         })
+        model.getBottomSheetState().observe(this, Observer<Int> { liveData ->
+            updateBottomSheetState(liveData)
+        })
         model.loadResourceProviders()
     }
 
@@ -51,6 +58,13 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_resources, container, false)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        activity?.window?.setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -62,9 +76,22 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         recyclerView_resourcesTab.adapter = adapter
 
         sheetBehavior = BottomSheetBehavior.from(bottomSheet_resourcesTab);
-        searchView_resourcesTab.setOnSearchClickListener {
-            showExpandedSearchState(false)
+
+        searchView_resourcesTab.setOnQueryTextFocusChangeListener { _ , hasFocus ->
+            if (hasFocus) {
+                expandBottomSheet(searchView_resourcesTab.hasQuery())
+            } else {
+                collapseBottomSheet()
+                activity.hideKeyboard()
+            }
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        activity?.window?.setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
+        )
     }
 
     override fun onMapReady(map: GoogleMap) =
@@ -74,11 +101,15 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         ResourceProviderDetailsFragment
                 .newInstance(providerData)
                 .show(childFragmentManager, TAG_RESOURCE_PROVIDER_BOTTOMSHEET)
-        sheetBehavior.setNewState(BottomSheetBehavior.STATE_COLLAPSED)
+        model.setBottomSheetState(BottomSheetBehavior.STATE_COLLAPSED)
     }
 
-    private fun showExpandedSearchState(showCategoryMenuItems: Boolean) {
-        sheetBehavior.setNewState(BottomSheetBehavior.STATE_EXPANDED)
+    private fun expandBottomSheet(showCategoryMenuItems: Boolean) {
+        model.setBottomSheetState(BottomSheetBehavior.STATE_EXPANDED)
+    }
+
+    private fun collapseBottomSheet() {
+        model.setBottomSheetState(BottomSheetBehavior.STATE_COLLAPSED)
     }
 
     private fun updateProgressBarVisibility(visibility: Boolean) {
@@ -94,5 +125,9 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
                 searchViewDivider_resourcesTab.visibility = View.VISIBLE
             }
         }
+    }
+
+    private fun updateBottomSheetState(state: Int) {
+        sheetBehavior.setNewState(state)
     }
 }

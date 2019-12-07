@@ -16,7 +16,8 @@
             android:name="org.givingkitchen.android.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemeNoTitlebar">
+            android:theme="@style/AppThemeNoTitlebar"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

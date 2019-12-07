@@ -62,7 +62,6 @@ class EventsFragment : Fragment() {
     private fun goToEventDetails(event: Event) {
         val params = mapOf(EVENT_VIEW_DETAILS_EVENT_NAME to (event.title ?: ""))
         Analytics.logEvent(EVENT_VIEW_DETAILS, params)
-
         CustomTabs.openCustomTab(context, event.link!!)
     }
 
