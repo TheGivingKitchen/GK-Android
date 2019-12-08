@@ -108,32 +108,14 @@ class HomeFragment: Fragment()  {
                 HomeSection.SAFETYNET -> SafetynetFragment()
                 HomeSection.RESOURCES -> ResourcesFragment()
             }
-
-            detachCurrentFragment()
-            childFragmentManager
-                    .beginTransaction()
-                    .add(R.id.fragmentContainer_home, fragment, tag)
-                    .commit()
-        } else {
-            detachCurrentFragment()
-            childFragmentManager
-                    .beginTransaction()
-                    .attach(fragment)
-                    .commit()
         }
+
+        childFragmentManager
+                .beginTransaction()
+                .replace(R.id.fragmentContainer_home, fragment, tag)
+                .addToBackStack(null)
+                .commit()
 
         bottomNav_home.menu.getItem(homeSection.index).setChecked(true)
-    }
-
-    private fun getCurrentFragment(): Fragment? = childFragmentManager.findFragmentById(R.id.fragmentContainer_home)
-
-    private fun detachCurrentFragment() {
-        val currentFragment = getCurrentFragment()
-        if (currentFragment != null) {
-            childFragmentManager
-                    .beginTransaction()
-                    .detach(currentFragment)
-                    .commit()
-        }
     }
 }
