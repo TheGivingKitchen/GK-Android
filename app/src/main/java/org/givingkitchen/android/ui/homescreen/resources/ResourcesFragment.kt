@@ -19,6 +19,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.maps.android.clustering.ClusterManager
 import kotlinx.android.synthetic.main.fragment_resources.*
 import org.givingkitchen.android.R
 import org.givingkitchen.android.util.hasQuery
@@ -107,9 +108,6 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
         // map!!.setInfoWindowAdapter(ResourcesMapInfoWindow(context!!))
-        map!!.setOnInfoWindowClickListener {
-            showResourceProviderDetails(it.tag as ResourceProvider)
-        }
         showData()
         map!!.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(atlantaLatitude, atlantaLongitude), defaultMapZoomLevel))
     }
@@ -132,12 +130,20 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
     private fun showData() {
         if (resourceProviders != null && map != null) {
             adapter.items = resourceProviders!!
+            val markerClusterManager = ClusterManager<ResourcesMarkerItem>(context, map)
 
             for (resourceProvider in resourceProviders!!) {
                 if (resourceProvider.latitude != null && resourceProvider.longitude != null) {
-                    val latlng = LatLng(resourceProvider.latitude, resourceProvider.longitude)
-                    map!!.addMarker(MarkerOptions().position(latlng).title(resourceProvider.name).snippet(resourceProvider.description)).tag = resourceProvider
+                    val resourcesMarkerItem = ResourcesMarkerItem(resourceProvider.latitude, resourceProvider.longitude, resourceProvider.name, resourceProvider.description)
+                    markerClusterManager.addItem(resourcesMarkerItem)
                 }
+            }
+
+            map!!.setOnCameraIdleListener(markerClusterManager)
+            map!!.setOnMarkerClickListener(markerClusterManager.markerManager)
+
+            map!!.setOnInfoWindowClickListener {
+                showResourceProviderDetails(it.tag as ResourceProvider)
             }
         }
     }
