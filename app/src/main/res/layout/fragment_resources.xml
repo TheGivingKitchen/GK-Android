@@ -8,17 +8,28 @@
         android:id="@+id/map_resourcesTab"
         class="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginBottom="40dp"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottomSheet_resourcesTab"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:behavior_hideable="false"
-        app:behavior_peekHeight="400dp"
+        app:behavior_peekHeight="40dp"
         android:background="@color/white"
         android:accessibilityPaneTitle="@string/resources_tab_bottomsheet"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <View
+            android:id="@+id/dragIndicator_resourcesTab"
+            android:layout_width="50dp"
+            android:layout_height="4dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/draggable_indicator"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/searchView_resourcesTab"
@@ -26,14 +37,15 @@
             android:layout_height="wrap_content"
             app:iconifiedByDefault="false"
             android:imeOptions="actionSearch"
+            android:layout_marginTop="8dp"
             android:inputType="text|textAutoCorrect"
             app:queryHint="@string/resources_tab_searchview_hint"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/dragIndicator_resourcesTab" />
 
         <View
-            android:id="@+id/searchViewDivider_resourcesTab"
+            android:id="@+id/searchBottomDivider_resourcesTab"
             style="@style/DividerViewSmall"
             app:layout_constraintTop_toBottomOf="@id/searchView_resourcesTab"
             app:layout_constraintStart_toStartOf="parent"
@@ -55,7 +67,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/searchView_resourcesTab" />
+            app:layout_constraintTop_toBottomOf="@id/searchBottomDivider_resourcesTab" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

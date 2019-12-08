@@ -1,12 +1,10 @@
 package org.givingkitchen.android.ui.homescreen.resources
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.view.inputmethod.InputMethodManager
 import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -18,6 +16,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.fragment_resources.*
@@ -43,7 +42,12 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter.resourceProviderClicks().subscribe { showResourceProviderDetails(it) }
+        adapter.resourceProviderClicks().subscribe {
+            showResourceProviderDetails(it)
+            if (it.latitude != null && it.longitude != null) {
+                map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(it.latitude, it.longitude), detailMapZoomLevel))
+            }
+        }
 
         model = ViewModelProviders.of(this).get(ResourcesViewModel::class.java)
         model.getResourceProviders().observe(this, Observer<MutableList<ResourceProvider>> { liveData ->
@@ -80,7 +84,8 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         recyclerView_resourcesTab.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         recyclerView_resourcesTab.adapter = adapter
 
-        sheetBehavior = BottomSheetBehavior.from(bottomSheet_resourcesTab);
+        sheetBehavior = BottomSheetBehavior.from(bottomSheet_resourcesTab)
+        sheetBehavior.isFitToContents = false
 
         searchView_resourcesTab.setOnQueryTextFocusChangeListener { _ , hasFocus ->
             if (hasFocus) {
@@ -101,19 +106,19 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
+        // map!!.setInfoWindowAdapter(ResourcesMapInfoWindow(context!!))
+        map!!.setOnInfoWindowClickListener {
+            showResourceProviderDetails(it.tag as ResourceProvider)
+        }
         showData()
         map!!.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(atlantaLatitude, atlantaLongitude), defaultMapZoomLevel))
-
     }
 
     private fun showResourceProviderDetails(providerData: ResourceProvider) {
         ResourceProviderDetailsFragment
                 .newInstance(providerData)
                 .show(childFragmentManager, TAG_RESOURCE_PROVIDER_BOTTOMSHEET)
-        model.setBottomSheetState(BottomSheetBehavior.STATE_COLLAPSED)
-        if (providerData.latitude != null && providerData.longitude != null) {
-            map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(providerData.latitude, providerData.longitude), detailMapZoomLevel))
-        }
+        model.setBottomSheetState(BottomSheetBehavior.STATE_HALF_EXPANDED)
     }
 
     private fun expandBottomSheet(showCategoryMenuItems: Boolean) {
@@ -131,7 +136,7 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
             for (resourceProvider in resourceProviders!!) {
                 if (resourceProvider.latitude != null && resourceProvider.longitude != null) {
                     val latlng = LatLng(resourceProvider.latitude, resourceProvider.longitude)
-                    map!!.addMarker(MarkerOptions().position(latlng).title(resourceProvider.name))
+                    map!!.addMarker(MarkerOptions().position(latlng).title(resourceProvider.name).snippet(resourceProvider.description)).tag = resourceProvider
                 }
             }
         }
@@ -142,12 +147,12 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
             true -> {
                 progressBar_resourcesTab.visibility = View.VISIBLE
                 searchView_resourcesTab.visibility = View.GONE
-                searchViewDivider_resourcesTab.visibility = View.GONE
+                searchBottomDivider_resourcesTab.visibility = View.GONE
             }
             false -> {
                 progressBar_resourcesTab.visibility = View.GONE
                 searchView_resourcesTab.visibility = View.VISIBLE
-                searchViewDivider_resourcesTab.visibility = View.VISIBLE
+                searchBottomDivider_resourcesTab.visibility = View.VISIBLE
             }
         }
     }
