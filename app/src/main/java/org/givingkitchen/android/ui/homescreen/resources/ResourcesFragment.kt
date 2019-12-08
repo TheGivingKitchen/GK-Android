@@ -18,6 +18,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.fragment_resources.*
 import org.givingkitchen.android.R
@@ -27,15 +28,18 @@ import org.givingkitchen.android.util.setNewState
 
 class ResourcesFragment : Fragment(), OnMapReadyCallback {
     companion object {
-        const val atlantaLatitude = 33.774381
-        const val atlantaLongitude = -84.372775
-        const val defaultMapZoomLevel = 10f
+        private const val atlantaLatitude = 33.774381
+        private const val atlantaLongitude = -84.372775
+        private const val defaultMapZoomLevel = 10f
+        private const val detailMapZoomLevel = 16f
         private const val TAG_RESOURCE_PROVIDER_BOTTOMSHEET = "SafetynetFragment.Tag.ResourceProviderDetailsFragment"
     }
 
     private lateinit var model: ResourcesViewModel
     private lateinit var sheetBehavior: BottomSheetBehavior<View>
     private var adapter: ResourcesAdapter = ResourcesAdapter(mutableListOf<Any>())
+    private var map: GoogleMap? = null
+    private var resourceProviders: MutableList<ResourceProvider>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +47,8 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
 
         model = ViewModelProviders.of(this).get(ResourcesViewModel::class.java)
         model.getResourceProviders().observe(this, Observer<MutableList<ResourceProvider>> { liveData ->
-            adapter.items = liveData
+            resourceProviders = liveData
+            showData()
         })
         model.isProgressBarVisible().observe(this, Observer<Boolean> { liveData ->
             updateProgressBarVisibility(liveData)
@@ -94,14 +99,21 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         )
     }
 
-    override fun onMapReady(map: GoogleMap) =
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(atlantaLatitude, atlantaLongitude), defaultMapZoomLevel))
+    override fun onMapReady(googleMap: GoogleMap) {
+        map = googleMap
+        showData()
+        map!!.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(atlantaLatitude, atlantaLongitude), defaultMapZoomLevel))
+
+    }
 
     private fun showResourceProviderDetails(providerData: ResourceProvider) {
         ResourceProviderDetailsFragment
                 .newInstance(providerData)
                 .show(childFragmentManager, TAG_RESOURCE_PROVIDER_BOTTOMSHEET)
         model.setBottomSheetState(BottomSheetBehavior.STATE_COLLAPSED)
+        if (providerData.latitude != null && providerData.longitude != null) {
+            map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(providerData.latitude, providerData.longitude), detailMapZoomLevel))
+        }
     }
 
     private fun expandBottomSheet(showCategoryMenuItems: Boolean) {
@@ -110,6 +122,19 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
 
     private fun collapseBottomSheet() {
         model.setBottomSheetState(BottomSheetBehavior.STATE_COLLAPSED)
+    }
+
+    private fun showData() {
+        if (resourceProviders != null && map != null) {
+            adapter.items = resourceProviders!!
+
+            for (resourceProvider in resourceProviders!!) {
+                if (resourceProvider.latitude != null && resourceProvider.longitude != null) {
+                    val latlng = LatLng(resourceProvider.latitude, resourceProvider.longitude)
+                    map!!.addMarker(MarkerOptions().position(latlng).title(resourceProvider.name))
+                }
+            }
+        }
     }
 
     private fun updateProgressBarVisibility(visibility: Boolean) {
