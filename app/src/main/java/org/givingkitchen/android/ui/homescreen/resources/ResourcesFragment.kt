@@ -16,8 +16,6 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.maps.android.clustering.ClusterManager
 import kotlinx.android.synthetic.main.fragment_resources.*
@@ -107,9 +105,9 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
-        // map!!.setInfoWindowAdapter(ResourcesMapInfoWindow(context!!))
-        showData()
+        map!!.setInfoWindowAdapter(ResourcesMapInfoWindowAdapter(context!!))
         map!!.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(atlantaLatitude, atlantaLongitude), defaultMapZoomLevel))
+        showData()
     }
 
     private fun showResourceProviderDetails(providerData: ResourceProvider) {
@@ -140,10 +138,11 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
             }
 
             map!!.setOnCameraIdleListener(markerClusterManager)
-            map!!.setOnMarkerClickListener(markerClusterManager.markerManager)
+            map!!.setOnMarkerClickListener(markerClusterManager)
 
             map!!.setOnInfoWindowClickListener {
-                showResourceProviderDetails(it.tag as ResourceProvider)
+                // showResourceProviderDetails(it.tag as ResourceProvider)
+                // showResourceProviderDetails(it.title)
             }
         }
     }
