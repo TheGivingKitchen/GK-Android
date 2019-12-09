@@ -1,39 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:id="@+id/title_resourcesInfowindow"
-        android:layout_width="wrap_content"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:text="hello im an infowindow"
-        app:layout_constraintEnd_toStartOf="@id/infoIcon_resourcesInfowindow"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical"
+        android:layout_weight="1">
 
-    <TextView
-        android:id="@+id/description_resourcesInfowindow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:text="hello im an infowindow hello im an infowindow"
-        app:layout_constraintEnd_toStartOf="@id/infoIcon_resourcesInfowindow"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title_resourcesInfowindow" />
+        <TextView
+            android:id="@+id/title_resourcesInfowindow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textSize="7pt" />
+
+        <TextView
+            android:id="@+id/description_resourcesInfowindow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textSize="6pt" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <ImageView
         android:id="@+id/infoIcon_resourcesInfowindow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
         android:paddingStart="10dp"
         android:src="@drawable/ic_info"
-        android:tint="@color/gk_blue"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:tint="@color/light_blue" />
 
 </merge>
