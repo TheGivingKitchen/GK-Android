@@ -1,4 +1,4 @@
-package org.givingkitchen.android.ui.homescreen.resources
+package org.givingkitchen.android.ui.homescreen.resources.map
 
 import android.content.Context
 import android.util.AttributeSet

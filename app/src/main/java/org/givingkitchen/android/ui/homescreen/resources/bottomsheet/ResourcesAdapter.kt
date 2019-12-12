@@ -1,4 +1,4 @@
-package org.givingkitchen.android.ui.homescreen.resources
+package org.givingkitchen.android.ui.homescreen.resources.bottomsheet
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +9,7 @@ import io.reactivex.subjects.PublishSubject
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.view_social_service_provider.*
 import org.givingkitchen.android.R
+import org.givingkitchen.android.ui.homescreen.resources.ResourceProvider
 import org.givingkitchen.android.util.setTextIfItExists
 
 class ResourcesAdapter(var items: MutableList<*>): RecyclerView.Adapter<RecyclerView.ViewHolder>()  {

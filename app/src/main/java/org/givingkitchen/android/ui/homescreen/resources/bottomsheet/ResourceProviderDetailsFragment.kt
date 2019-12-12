@@ -1,6 +1,5 @@
-package org.givingkitchen.android.ui.homescreen.resources
+package org.givingkitchen.android.ui.homescreen.resources.bottomsheet
 
-import android.app.Dialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -13,6 +12,7 @@ import org.givingkitchen.android.R
 import org.givingkitchen.android.analytics.Analytics
 import org.givingkitchen.android.analytics.Events
 import org.givingkitchen.android.analytics.Parameter
+import org.givingkitchen.android.ui.homescreen.resources.ResourceProvider
 import org.givingkitchen.android.util.CustomTabs
 import org.givingkitchen.android.util.setTextIfItExists
 

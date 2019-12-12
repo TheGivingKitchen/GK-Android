@@ -1,4 +1,4 @@
-package org.givingkitchen.android.ui.homescreen.resources
+package org.givingkitchen.android.ui.homescreen.resources.map
 
 import android.app.Dialog
 import android.os.Bundle
@@ -13,13 +13,13 @@ class LocationPermissionRequestDialogFragment : AppCompatDialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
             val builder = AlertDialog.Builder(it)
-            builder.setMessage(R.string.rate_app_dialog_description)
-                    .setTitle(R.string.rate_app_dialog_header)
-                    .setPositiveButton(R.string.rate_app_dialog_positive_button) { _, _ ->
-                        onComplete?.invoke(false)
-                    }
-                    .setNegativeButton(R.string.rate_app_dialog_negative_button) { _, _ ->
+            builder.setMessage(R.string.resources_tab_location_dialog_message)
+                    .setTitle(R.string.resources_tab_location_dialog_title)
+                    .setPositiveButton(R.string.resources_tab_location_dialog_positive_button) { _, _ ->
                         onComplete?.invoke(true)
+                    }
+                    .setNegativeButton(R.string.resources_tab_location_dialog_negative_button) { _, _ ->
+                        onComplete?.invoke(false)
                     }
 
             builder.create()

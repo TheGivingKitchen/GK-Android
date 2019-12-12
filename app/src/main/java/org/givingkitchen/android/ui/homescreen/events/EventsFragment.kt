@@ -67,7 +67,7 @@ class EventsFragment : Fragment() {
 
     private fun setupVolunteerBanner() {
         val showBanner = activity.getGivingKitchenSharedPreferences()?.getBoolean(getString(R.string.show_events_volunteer_banner_key), true) ?: true
-        if (showBanner) {
+        if (showBanner && adapter.items.isNotEmpty()) {
             volunteerBanner_eventsTab.visibility = View.VISIBLE
             volunteerBanner_eventsTab.onTitleClick().subscribe { goToVolunteerForm() }
             volunteerBanner_eventsTab.onCloseClick().subscribe { closeVolunteerBanner() }
@@ -97,6 +97,7 @@ class EventsFragment : Fragment() {
         dataMutableList.add(0, Header())
         adapter.items = dataMutableList
         adapter.notifyDataSetChanged()
+        setupVolunteerBanner()
         model.setProgressBarVisibility(false)
     }
 

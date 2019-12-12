@@ -29,19 +29,23 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.maps.android.clustering.ClusterManager
 import kotlinx.android.synthetic.main.fragment_resources.*
 import org.givingkitchen.android.R
+import org.givingkitchen.android.ui.homescreen.resources.bottomsheet.ResourceProviderDetailsFragment
+import org.givingkitchen.android.ui.homescreen.resources.bottomsheet.ResourcesAdapter
+import org.givingkitchen.android.ui.homescreen.resources.map.LocationPermissionRequestDialogFragment
+import org.givingkitchen.android.ui.homescreen.resources.map.ResourcesMapInfoWindowAdapter
+import org.givingkitchen.android.ui.homescreen.resources.map.ResourcesMarkerItem
 import org.givingkitchen.android.util.hasQuery
 import org.givingkitchen.android.util.hideKeyboard
 import org.givingkitchen.android.util.setNewState
 
 class ResourcesFragment : Fragment(), OnMapReadyCallback {
     companion object {
-        private const val atlantaLatitude = 33.774381
-        private const val atlantaLongitude = -84.372775
         private const val cityMapZoomLevel = 10f
         private const val detailMapZoomLevel = 16f
         private const val TAG_RESOURCE_PROVIDER_BOTTOMSHEET = "SafetynetFragment.Tag.ResourceProviderDetailsFragment"
         private const val TAG_RESOURCE_PERMISSIONS_REQUEST_DIALOG = "SafetynetFragment.Tag.LocationPermissionRequestDialogFragment"
         private const val PERMISSIONS_REQUEST_CODE_LOCATION = 0
+        private val atlanta = LatLng(33.774381, -84.372775)
     }
 
     private lateinit var model: ResourcesViewModel
@@ -118,6 +122,8 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
                 // If request is cancelled, the result arrays is empty.
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     moveMapToUsersLocation()
+                } else {
+
                 }
             }
             else -> {
@@ -186,16 +192,22 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         model.setBottomSheetState(BottomSheetBehavior.STATE_COLLAPSED)
     }
 
+    private fun moveMapToDefaultLocation() {
+        map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(atlanta.latitude, atlanta.longitude), cityMapZoomLevel))
+    }
+
     private fun moveMapToUsersLocation() {
         fusedLocationClient.lastLocation
                 .addOnSuccessListener { location: Location? ->
                     // Got last known location. In some rare situations this can be null.
                     location?.let {
                         map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(it.latitude, it.longitude), cityMapZoomLevel))
+                    }  ?: run {
+                        moveMapToDefaultLocation()
                     }
                 }
                 .addOnFailureListener {
-                    val x = 7
+                    moveMapToDefaultLocation()
                 }
     }
 
