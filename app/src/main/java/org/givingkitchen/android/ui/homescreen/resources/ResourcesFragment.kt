@@ -36,7 +36,6 @@ import org.givingkitchen.android.ui.homescreen.resources.map.ResourcesMapInfoWin
 import org.givingkitchen.android.ui.homescreen.resources.map.ResourcesMarkerItem
 import org.givingkitchen.android.util.hasQuery
 import org.givingkitchen.android.util.hideKeyboard
-import org.givingkitchen.android.util.setNewState
 
 class ResourcesFragment : Fragment(), OnMapReadyCallback {
     companion object {
@@ -54,6 +53,7 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
     private var adapter: ResourcesAdapter = ResourcesAdapter(mutableListOf<Any>())
     private var map: GoogleMap? = null
     private var resourceProviders: MutableList<ResourceProvider>? = null
+    private var bottomsheetState = BottomSheetBehavior.STATE_HALF_EXPANDED
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,9 +74,7 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         model.isProgressBarVisible().observe(this, Observer<Boolean> { liveData ->
             updateProgressBarVisibility(liveData)
         })
-        model.getBottomSheetState().observe(this, Observer<Int> { liveData ->
-            updateBottomSheetState(liveData)
-        })
+
         model.loadResourceProviders()
     }
 
@@ -105,6 +103,16 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
 
         sheetBehavior = BottomSheetBehavior.from(bottomSheet_resourcesTab)
         sheetBehavior.isFitToContents = false
+        updateBottomsheetState(bottomsheetState)
+
+        val bottomSheetBehaviorCallback =
+                object : BottomSheetBehavior.BottomSheetCallback() {
+                    override fun onSlide(bottomSheet: View, slideOffset: Float) {}
+                    override fun onStateChanged(bottomSheet: View, newState: Int) {
+                        bottomsheetState = newState
+                    }
+                }
+        sheetBehavior.setBottomSheetCallback(bottomSheetBehaviorCallback)
 
         searchView_resourcesTab.setOnQueryTextFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
@@ -181,15 +189,15 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         ResourceProviderDetailsFragment
                 .newInstance(providerData)
                 .show(childFragmentManager, TAG_RESOURCE_PROVIDER_BOTTOMSHEET)
-        model.setBottomSheetState(BottomSheetBehavior.STATE_HALF_EXPANDED)
+        updateBottomsheetState(BottomSheetBehavior.STATE_HALF_EXPANDED)
     }
 
     private fun expandBottomSheet(showCategoryMenuItems: Boolean) {
-        model.setBottomSheetState(BottomSheetBehavior.STATE_EXPANDED)
+        updateBottomsheetState(BottomSheetBehavior.STATE_EXPANDED)
     }
 
     private fun collapseBottomSheet() {
-        model.setBottomSheetState(BottomSheetBehavior.STATE_COLLAPSED)
+        updateBottomsheetState(BottomSheetBehavior.STATE_COLLAPSED)
     }
 
     private fun moveMapToDefaultLocation() {
@@ -202,7 +210,7 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
                     // Got last known location. In some rare situations this can be null.
                     location?.let {
                         map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(it.latitude, it.longitude), cityMapZoomLevel))
-                    }  ?: run {
+                    } ?: run {
                         moveMapToDefaultLocation()
                     }
                 }
@@ -233,6 +241,19 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
+    /**
+     * @param state should be one of the BottomSheet states
+     * STATE_DRAGGING = 1
+     * STATE_SETTLING = 2
+     * STATE_EXPANDED = 3
+     * STATE_COLLAPSED = 4
+     * STATE_HIDDEN = 5
+     * STATE_HALF_EXPANDED = 6
+     */
+    private fun updateBottomsheetState(state: Int) {
+        sheetBehavior.state = state
+    }
+
     private fun updateProgressBarVisibility(visibility: Boolean) {
         when (visibility) {
             true -> {
@@ -246,9 +267,5 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
                 searchBottomDivider_resourcesTab.visibility = View.VISIBLE
             }
         }
-    }
-
-    private fun updateBottomSheetState(state: Int) {
-        sheetBehavior.setNewState(state)
     }
 }

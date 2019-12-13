@@ -16,7 +16,6 @@ class ResourcesViewModel : ViewModel() {
 
     private var resourceProviders: MutableLiveData<MutableList<ResourceProvider>> = MutableLiveData()
     private var progressBarVisible: MutableLiveData<Boolean> = MutableLiveData()
-    private var bottomSheetState: MutableLiveData<Int> = MutableLiveData()
 
     fun getResourceProviders(): LiveData<MutableList<ResourceProvider>> {
         return resourceProviders
@@ -32,14 +31,6 @@ class ResourcesViewModel : ViewModel() {
 
     private fun setProgressBarVisibility(visibility: Boolean) {
         progressBarVisible.value = visibility
-    }
-
-    fun getBottomSheetState(): LiveData<Int> {
-        return bottomSheetState
-    }
-
-    fun setBottomSheetState(state: Int) {
-        bottomSheetState.value = state
     }
 
     fun loadResourceProviders() {

@@ -7,6 +7,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.fragment_resource_provider_details.*
 import org.givingkitchen.android.R
 import org.givingkitchen.android.analytics.Analytics
@@ -16,7 +18,7 @@ import org.givingkitchen.android.ui.homescreen.resources.ResourceProvider
 import org.givingkitchen.android.util.CustomTabs
 import org.givingkitchen.android.util.setTextIfItExists
 
-class ResourceProviderDetailsFragment : BottomSheetDialogFragment() {
+class ResourceProviderDetailsFragment private constructor(): BottomSheetDialogFragment() {
     companion object {
         const val providerArg = "provider"
 
@@ -89,6 +91,12 @@ class ResourceProviderDetailsFragment : BottomSheetDialogFragment() {
         if (allButtonsGone) {
             callBottomDivider_resourceProviderBottomSheet.visibility = View.GONE
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        BottomSheetBehavior.from(dialog!!.findViewById<FrameLayout>(R.id.design_bottom_sheet))
+                .state = BottomSheetBehavior.STATE_EXPANDED
     }
 
     private val websiteButtonClickListener = View.OnClickListener {

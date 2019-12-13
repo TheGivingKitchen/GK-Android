@@ -69,21 +69,6 @@ fun Activity?.hideKeyboard() {
 }
 
 /**
- * @param newState should be one of the BottomSheet states
- * STATE_DRAGGING = 1
- * STATE_SETTLING = 2
- * STATE_EXPANDED = 3
- * STATE_COLLAPSED = 4
- * STATE_HIDDEN = 5
- * STATE_HALF_EXPANDED = 6
- */
-fun BottomSheetBehavior<View>.setNewState(newState: Int) {
-    if (this.state != newState) {
-        this.state = newState
-    }
-}
-
-/**
  * @return true if the text was set or false if the TextView is now Gone
  */
 fun TextView.setTextIfItExists(text: String?): Boolean {
