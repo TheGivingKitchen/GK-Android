@@ -1,23 +1,20 @@
 package org.givingkitchen.android.ui.homescreen.resources
 
 import android.Manifest
-import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.annotation.Nullable
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.crashlytics.android.Crashlytics
+import com.bumptech.glide.load.ResourceEncoder
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -31,20 +28,23 @@ import kotlinx.android.synthetic.main.fragment_resources.*
 import org.givingkitchen.android.R
 import org.givingkitchen.android.ui.homescreen.resources.bottomsheet.ResourceProviderDetailsFragment
 import org.givingkitchen.android.ui.homescreen.resources.bottomsheet.ResourcesAdapter
-import org.givingkitchen.android.ui.homescreen.resources.map.LocationPermissionRequestDialogFragment
 import org.givingkitchen.android.ui.homescreen.resources.map.ResourcesMapInfoWindowAdapter
 import org.givingkitchen.android.ui.homescreen.resources.map.ResourcesMarkerItem
+import org.givingkitchen.android.util.Constants.rootLocale
 import org.givingkitchen.android.util.hasQuery
 import org.givingkitchen.android.util.hideKeyboard
+import pub.devrel.easypermissions.AfterPermissionGranted
+import pub.devrel.easypermissions.EasyPermissions
+import java.util.*
 
 class ResourcesFragment : Fragment(), OnMapReadyCallback {
     companion object {
         private const val cityMapZoomLevel = 10f
         private const val detailMapZoomLevel = 16f
         private const val TAG_RESOURCE_PROVIDER_BOTTOMSHEET = "SafetynetFragment.Tag.ResourceProviderDetailsFragment"
-        private const val TAG_RESOURCE_PERMISSIONS_REQUEST_DIALOG = "SafetynetFragment.Tag.LocationPermissionRequestDialogFragment"
         private const val PERMISSIONS_REQUEST_CODE_LOCATION = 0
-        private val atlanta = LatLng(33.774381, -84.372775)
+        private val actuallyAtlanta = LatLng(33.774381, -84.372775)
+        private val atlanta = LatLng(35.1046, -106.6576) // Albuquerque
     }
 
     private lateinit var model: ResourcesViewModel
@@ -54,6 +54,33 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
     private var map: GoogleMap? = null
     private var resourceProviders: MutableList<ResourceProvider>? = null
     private var bottomsheetState = BottomSheetBehavior.STATE_HALF_EXPANDED
+    private val bottomSheetBehaviorCallback =
+            object : BottomSheetBehavior.BottomSheetCallback() {
+                override fun onSlide(bottomSheet: View, slideOffset: Float) {}
+                override fun onStateChanged(bottomSheet: View, newState: Int) {
+                    bottomsheetState = newState
+                    when (newState) {
+                        BottomSheetBehavior.STATE_HALF_EXPANDED -> {
+
+                        }
+                        BottomSheetBehavior.STATE_EXPANDED -> {
+
+                        }
+                        BottomSheetBehavior.STATE_COLLAPSED -> {
+
+                        }
+                        BottomSheetBehavior.STATE_DRAGGING -> {
+
+                        }
+                        BottomSheetBehavior.STATE_HIDDEN -> {
+
+                        }
+                        BottomSheetBehavior.STATE_SETTLING -> {
+
+                        }
+                    }
+                }
+            }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,20 +127,12 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
 
         recyclerView_resourcesTab.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         recyclerView_resourcesTab.adapter = adapter
-
         sheetBehavior = BottomSheetBehavior.from(bottomSheet_resourcesTab)
         sheetBehavior.isFitToContents = false
         updateBottomsheetState(bottomsheetState)
-
-        val bottomSheetBehaviorCallback =
-                object : BottomSheetBehavior.BottomSheetCallback() {
-                    override fun onSlide(bottomSheet: View, slideOffset: Float) {}
-                    override fun onStateChanged(bottomSheet: View, newState: Int) {
-                        bottomsheetState = newState
-                    }
-                }
         sheetBehavior.setBottomSheetCallback(bottomSheetBehaviorCallback)
 
+        searchView_resourcesTab.setOnQueryTextListener(SearchTextListener())
         searchView_resourcesTab.setOnQueryTextFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 expandBottomSheet(searchView_resourcesTab.hasQuery())
@@ -125,54 +144,18 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        when (requestCode) {
-            PERMISSIONS_REQUEST_CODE_LOCATION -> {
-                // If request is cancelled, the result arrays is empty.
-                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    moveMapToUsersLocation()
-                } else {
-
-                }
-            }
-            else -> {
-                Crashlytics.log("Encountered unexpected permission request code: $requestCode")
-            }
-        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
+        val mapSettings = map!!.uiSettings
+        mapSettings.isZoomControlsEnabled = false
+        mapSettings.isMyLocationButtonEnabled = true
+        mapSettings.isMapToolbarEnabled = false
 
-        if (ContextCompat.checkSelfPermission(activity!!, Manifest.permission.ACCESS_COARSE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(activity!!, Manifest.permission.ACCESS_COARSE_LOCATION)) {
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-                val locationPermissionRequestDialog = LocationPermissionRequestDialogFragment()
-                locationPermissionRequestDialog.setOnCompleteListener {
-                    if (it) {
-                        moveMapToUsersLocation()
-                    } else {
-                        Toast.makeText(context, "permission request dialog returned false", Toast.LENGTH_SHORT).show()
-                    }
-                }
-                locationPermissionRequestDialog.show(fragmentManager, TAG_RESOURCE_PERMISSIONS_REQUEST_DIALOG)
-            } else {
-                // No explanation needed, we can request the permission.
-                ActivityCompat.requestPermissions(activity!!, arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
-                        PERMISSIONS_REQUEST_CODE_LOCATION)
-
-                Toast.makeText(context, "No explanation needed, we can request the permission.", Toast.LENGTH_SHORT).show()
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
-            }
-        } else {
-            // Permission has already been granted
-            Toast.makeText(context, "Permission has already been granted", Toast.LENGTH_SHORT).show()
-            moveMapToUsersLocation()
-        }
+        requestLocationPermission()
 
         map!!.setInfoWindowAdapter(ResourcesMapInfoWindowAdapter(context!!))
         showData()
@@ -183,6 +166,17 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         activity?.window?.setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
         )
+    }
+
+    @AfterPermissionGranted(PERMISSIONS_REQUEST_CODE_LOCATION)
+    fun requestLocationPermission() {
+        val locationPermission = Manifest.permission.ACCESS_COARSE_LOCATION
+        if (EasyPermissions.hasPermissions(context!!, locationPermission)) {
+            moveMapToUsersLocation()
+        } else {
+            EasyPermissions.requestPermissions(this, getString(R.string.resources_tab_location_dialog_message), PERMISSIONS_REQUEST_CODE_LOCATION, locationPermission)
+            moveMapToDefaultLocation()
+        }
     }
 
     private fun showResourceProviderDetails(providerData: ResourceProvider) {
@@ -207,7 +201,6 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
     private fun moveMapToUsersLocation() {
         fusedLocationClient.lastLocation
                 .addOnSuccessListener { location: Location? ->
-                    // Got last known location. In some rare situations this can be null.
                     location?.let {
                         map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(it.latitude, it.longitude), cityMapZoomLevel))
                     } ?: run {
@@ -266,6 +259,40 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
                 searchView_resourcesTab.visibility = View.VISIBLE
                 searchBottomDivider_resourcesTab.visibility = View.VISIBLE
             }
+        }
+    }
+
+    // Filters results based on searchText. Hides header if searchText is present.
+    private fun setAdapterResults(searchText: String?) {
+        if (!searchText.isNullOrEmpty()) {
+            adapter.items = adapter.items.filter {
+                it is ResourceProvider
+                        && (searchFields(it.description, searchText)
+                        || searchFields(it.address, searchText)
+                        || searchFields(it.category, searchText)
+                        || searchFields(it.contactName, searchText)
+                        || searchFields(it.countiesServed, searchText)
+                        || searchFields(it.name, searchText)
+                        || searchFields(it.phone, searchText)
+                        || searchFields(it.website, searchText))
+            }.toMutableList()
+            adapter.notifyDataSetChanged()
+        }
+    }
+
+    private fun searchFields(responseString: String?, searchText: String): Boolean {
+        return responseString != null && responseString.toUpperCase(rootLocale).contains(searchText.toUpperCase(rootLocale))
+    }
+
+    private inner class SearchTextListener : SearchView.OnQueryTextListener {
+        override fun onQueryTextChange(text: String?): Boolean {
+            // logSearchForAnalytics(searchText)
+            setAdapterResults(text)
+            return true
+        }
+
+        override fun onQueryTextSubmit(text: String?): Boolean {
+            return true
         }
     }
 }

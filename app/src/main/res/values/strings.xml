@@ -115,10 +115,7 @@
     <string name="safetynet_bottomsheet_call_button">Call</string>
     <string name="safetynet_bottomsheet_serves_counties">Serves %1$s</string>
     <string name="resources_tab_searchview_hint">Search Stability Network</string>
-    <string name="resources_tab_location_dialog_message">message</string>
-    <string name="resources_tab_location_dialog_title">title</string>
-    <string name="resources_tab_location_dialog_positive_button">positive button</string>
-    <string name="resources_tab_location_dialog_negative_button">negative button</string>
+    <string name="resources_tab_location_dialog_message">Allow Giving Kitchen to look up your location while you\'re using the app? This allows us to show resources close to you.</string>
 
     <!-- Facebook Groups -->
     <string name="facebook_groups_header">JOIN US ON FACEBOOK</string>

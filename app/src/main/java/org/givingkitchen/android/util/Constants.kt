@@ -3,6 +3,7 @@ package org.givingkitchen.android.util
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import org.givingkitchen.android.R
+import java.util.*
 
 object Constants {
     const val firebaseStorageUrl = "gs://thegivingkitchen-cdd28.appspot.com"
@@ -11,6 +12,7 @@ object Constants {
     const val formsArg = "formsUrl"
     const val donePageArg = "formsDonePage"
     const val httpUnauthorizedError = 401
+    val rootLocale = Locale.ROOT
 }
 
 enum class DonePage(@DrawableRes val drawable: Int, @StringRes val title: Int, @StringRes val description: Int, @StringRes val buttonText: Int, @StringRes val shareString: Int? = null) {
