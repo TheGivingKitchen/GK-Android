@@ -41,13 +41,14 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         private const val detailMapZoomLevel = 16f
         private const val TAG_RESOURCE_PROVIDER_BOTTOMSHEET = "SafetynetFragment.Tag.ResourceProviderDetailsFragment"
         private const val PERMISSIONS_REQUEST_CODE_LOCATION = 0
-        private val actuallyAtlanta = LatLng(33.774381, -84.372775)
-        private val atlanta = LatLng(35.1046, -106.6576) // Albuquerque
+        private val atlanta = LatLng(33.774381, -84.372775)
+        // private val atlanta = LatLng(35.1046, -106.6576) // Albuquerque
     }
 
     private lateinit var model: ResourcesViewModel
     private lateinit var sheetBehavior: BottomSheetBehavior<View>
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var markerClusterManager: ClusterManager<ResourcesMarkerItem>
     private var adapter: ResourcesAdapter = ResourcesAdapter(mutableListOf<Any>())
     private var map: GoogleMap? = null
     private var resourceProviders: MutableList<ResourceProvider>? = null
@@ -148,12 +149,17 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
-        val mapSettings = map!!.uiSettings
-        mapSettings.isZoomControlsEnabled = false
-        mapSettings.isMyLocationButtonEnabled = true
-        mapSettings.isMapToolbarEnabled = false
-        requestLocationPermission()
+        markerClusterManager = ClusterManager(context, map)
+        map!!.setOnCameraIdleListener(markerClusterManager)
+        map!!.setOnMarkerClickListener(markerClusterManager)
 
+        map!!.uiSettings.apply {
+            this.isZoomControlsEnabled = false
+            this.isMyLocationButtonEnabled = true
+            this.isMapToolbarEnabled = false
+        }
+
+        requestLocationPermission()
         map!!.setInfoWindowAdapter(ResourcesMapInfoWindowAdapter(context!!))
         showData()
     }
@@ -212,7 +218,6 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
     private fun showData() {
         if (resourceProviders != null && map != null) {
             adapter.items = resourceProviders!!
-            val markerClusterManager = ClusterManager<ResourcesMarkerItem>(context, map)
 
             for (resourceProvider in resourceProviders!!) {
                 if (resourceProvider.latitude != null && resourceProvider.longitude != null) {
@@ -220,9 +225,6 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
                     markerClusterManager.addItem(resourcesMarkerItem)
                 }
             }
-
-            map!!.setOnCameraIdleListener(markerClusterManager)
-            map!!.setOnMarkerClickListener(markerClusterManager)
 
             map!!.setOnInfoWindowClickListener {
                 // showResourceProviderDetails(it.tag as ResourceProvider)
@@ -259,38 +261,52 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-    private fun updateListResults(searchText: String?) {
+    private fun filterResources(searchText: String): MutableList<ResourceProvider> {
+        return resourceProviders!!.filter {
+            searchFields(it.description, searchText)
+                    || searchFields(it.address, searchText)
+                    || searchFields(it.category, searchText)
+                    || searchFields(it.contactName, searchText)
+                    || searchFields(it.countiesServed, searchText)
+                    || searchFields(it.name, searchText)
+                    || searchFields(it.phone, searchText)
+                    || searchFields(it.website, searchText)
+        }.toMutableList()
+    }
+
+    private fun updateSearchResults(searchText: String?) {
         if (!searchText.isNullOrEmpty()) {
-            val searchResults = resourceProviders!!.filter {
-                        searchFields(it.description, searchText)
-                        || searchFields(it.address, searchText)
-                        || searchFields(it.category, searchText)
-                        || searchFields(it.contactName, searchText)
-                        || searchFields(it.countiesServed, searchText)
-                        || searchFields(it.name, searchText)
-                        || searchFields(it.phone, searchText)
-                        || searchFields(it.website, searchText)
-            }.toMutableList()
-            adapter.items = searchResults
-            adapter.notifyDataSetChanged()
+            adapter.items = filterResources(searchText)
         }
+        adapter.notifyDataSetChanged()
     }
 
     private fun searchFields(responseString: String?, searchText: String): Boolean {
         return responseString != null && responseString.toLowerCase(rootLocale).contains(searchText.toLowerCase(rootLocale))
     }
 
-    private fun updateMapMarkersResults(searchText: String?) {
-
-    }
-
     private inner class SearchTextListener : SearchView.OnQueryTextListener {
         override fun onQueryTextChange(text: String?): Boolean {
-            updateListResults(text)
+            updateSearchResults(text)
             return true
         }
 
-        override fun onQueryTextSubmit(text: String?): Boolean {
+        override fun onQueryTextSubmit(searchText: String?): Boolean {
+            if (!searchText.isNullOrEmpty()) {
+                map!!.clear()
+                markerClusterManager.clearItems()
+                markerClusterManager.clusterMarkerCollection.clear()
+                markerClusterManager.markerCollection.clear()
+                for (resourceProvider in filterResources(searchText)) {
+                    if (resourceProvider.latitude != null && resourceProvider.longitude != null) {
+                        val resourcesMarkerItem = ResourcesMarkerItem(resourceProvider.latitude, resourceProvider.longitude, resourceProvider.name, resourceProvider.description)
+                        markerClusterManager.addItem(resourcesMarkerItem)
+                    }
+                }
+                markerClusterManager.cluster()
+                updateBottomsheetState(BottomSheetBehavior.STATE_HALF_EXPANDED)
+                activity.hideKeyboard()
+            }
             return true
         }
     }
