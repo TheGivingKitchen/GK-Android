@@ -14,7 +14,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.load.ResourceEncoder
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -35,7 +34,6 @@ import org.givingkitchen.android.util.hasQuery
 import org.givingkitchen.android.util.hideKeyboard
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
-import java.util.*
 
 class ResourcesFragment : Fragment(), OnMapReadyCallback {
     companion object {
@@ -154,7 +152,6 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         mapSettings.isZoomControlsEnabled = false
         mapSettings.isMyLocationButtonEnabled = true
         mapSettings.isMapToolbarEnabled = false
-
         requestLocationPermission()
 
         map!!.setInfoWindowAdapter(ResourcesMapInfoWindowAdapter(context!!))
@@ -262,32 +259,34 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-    // Filters results based on searchText. Hides header if searchText is present.
-    private fun setAdapterResults(searchText: String?) {
+    private fun updateListResults(searchText: String?) {
         if (!searchText.isNullOrEmpty()) {
-            adapter.items = adapter.items.filter {
-                it is ResourceProvider
-                        && (searchFields(it.description, searchText)
+            val searchResults = resourceProviders!!.filter {
+                        searchFields(it.description, searchText)
                         || searchFields(it.address, searchText)
                         || searchFields(it.category, searchText)
                         || searchFields(it.contactName, searchText)
                         || searchFields(it.countiesServed, searchText)
                         || searchFields(it.name, searchText)
                         || searchFields(it.phone, searchText)
-                        || searchFields(it.website, searchText))
+                        || searchFields(it.website, searchText)
             }.toMutableList()
+            adapter.items = searchResults
             adapter.notifyDataSetChanged()
         }
     }
 
     private fun searchFields(responseString: String?, searchText: String): Boolean {
-        return responseString != null && responseString.toUpperCase(rootLocale).contains(searchText.toUpperCase(rootLocale))
+        return responseString != null && responseString.toLowerCase(rootLocale).contains(searchText.toLowerCase(rootLocale))
+    }
+
+    private fun updateMapMarkersResults(searchText: String?) {
+
     }
 
     private inner class SearchTextListener : SearchView.OnQueryTextListener {
         override fun onQueryTextChange(text: String?): Boolean {
-            // logSearchForAnalytics(searchText)
-            setAdapterResults(text)
+            updateListResults(text)
             return true
         }
 
