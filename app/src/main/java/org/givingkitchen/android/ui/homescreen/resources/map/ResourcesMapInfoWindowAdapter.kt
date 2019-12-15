@@ -15,10 +15,12 @@ import org.givingkitchen.android.util.setTextIfItExists
 
 class ResourcesMapInfoWindowAdapter(val context: Context): GoogleMap.InfoWindowAdapter {
 
-    override fun getInfoWindow(marker: Marker): View {
-        // return ResourcesMapInfoWindow(context)
-        // view.findViewById<TextView>(R.id.learnMoreButton_eventsTab).setOnClickListener { learnMoreClicks.onNext(false) }
-        return ResourcesMapInfoWindow(context, marker.title, marker.snippet)
+    override fun getInfoWindow(marker: Marker): View? {
+        return if (marker.title == null || marker.snippet == null) {
+            null
+        } else {
+            ResourcesMapInfoWindow(context, marker.title, marker.snippet)
+        }
     }
 
     override fun getInfoContents(marker: Marker): View? {

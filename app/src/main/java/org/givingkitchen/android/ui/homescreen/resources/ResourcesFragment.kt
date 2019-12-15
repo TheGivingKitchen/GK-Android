@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.annotation.Nullable
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -21,6 +22,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.maps.android.clustering.ClusterManager
 import kotlinx.android.synthetic.main.fragment_resources.*
@@ -81,6 +83,7 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
                 }
             }
 
+    @SuppressWarnings("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         adapter.resourceProviderClicks().subscribe {
@@ -150,6 +153,7 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
         markerClusterManager = ClusterManager(context, map)
+        // val markerClusterRenderer = MarkerClusterRenderer
         map!!.setOnCameraIdleListener(markerClusterManager)
         map!!.setOnMarkerClickListener(markerClusterManager)
 
@@ -160,7 +164,9 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         }
 
         requestLocationPermission()
-        map!!.setInfoWindowAdapter(ResourcesMapInfoWindowAdapter(context!!))
+        // map!!.setInfoWindowAdapter(ResourcesMapInfoWindowAdapter(context!!))
+
+        markerClusterManager.markerCollection.setOnInfoWindowAdapter(ResourcesMapInfoWindowAdapter(context!!))
         showData()
     }
 
@@ -218,17 +224,10 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
     private fun showData() {
         if (resourceProviders != null && map != null) {
             adapter.items = resourceProviders!!
-
-            for (resourceProvider in resourceProviders!!) {
-                if (resourceProvider.latitude != null && resourceProvider.longitude != null) {
-                    val resourcesMarkerItem = ResourcesMarkerItem(resourceProvider.latitude, resourceProvider.longitude, resourceProvider.name, resourceProvider.description)
-                    markerClusterManager.addItem(resourcesMarkerItem)
-                }
-            }
+            addMarkersToMap(resourceProviders!!)
 
             map!!.setOnInfoWindowClickListener {
-                // showResourceProviderDetails(it.tag as ResourceProvider)
-                // showResourceProviderDetails(it.title)
+                Toast.makeText(context, "maps Info Window Click Listener " + it.tag, Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -261,6 +260,15 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
+    private fun addMarkersToMap(resourceProviders: MutableList<ResourceProvider>) {
+        for (resourceProvider in resourceProviders) {
+            if (resourceProvider.latitude != null && resourceProvider.longitude != null) {
+                markerClusterManager.addItem(ResourcesMarkerItem(resourceProvider.latitude, resourceProvider.longitude, resourceProvider.name, resourceProvider.description, "im a tag"))
+            }
+        }
+        markerClusterManager.cluster()
+    }
+
     private fun filterResources(searchText: String): MutableList<ResourceProvider> {
         return resourceProviders!!.filter {
             searchFields(it.description, searchText)
@@ -274,9 +282,11 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         }.toMutableList()
     }
 
-    private fun updateSearchResults(searchText: String?) {
+    private fun updateSearchResultsList(searchText: String?) {
         if (!searchText.isNullOrEmpty()) {
             adapter.items = filterResources(searchText)
+        } else {
+            adapter.items = resourceProviders!!
         }
         adapter.notifyDataSetChanged()
     }
@@ -287,7 +297,7 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
 
     private inner class SearchTextListener : SearchView.OnQueryTextListener {
         override fun onQueryTextChange(text: String?): Boolean {
-            updateSearchResults(text)
+            updateSearchResultsList(text)
             return true
         }
 
@@ -297,13 +307,7 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
                 markerClusterManager.clearItems()
                 markerClusterManager.clusterMarkerCollection.clear()
                 markerClusterManager.markerCollection.clear()
-                for (resourceProvider in filterResources(searchText)) {
-                    if (resourceProvider.latitude != null && resourceProvider.longitude != null) {
-                        val resourcesMarkerItem = ResourcesMarkerItem(resourceProvider.latitude, resourceProvider.longitude, resourceProvider.name, resourceProvider.description)
-                        markerClusterManager.addItem(resourcesMarkerItem)
-                    }
-                }
-                markerClusterManager.cluster()
+                addMarkersToMap(filterResources(searchText))
                 updateBottomsheetState(BottomSheetBehavior.STATE_HALF_EXPANDED)
                 activity.hideKeyboard()
             }
