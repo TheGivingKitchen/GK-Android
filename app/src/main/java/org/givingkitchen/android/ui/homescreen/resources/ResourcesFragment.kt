@@ -29,6 +29,7 @@ import kotlinx.android.synthetic.main.fragment_resources.*
 import org.givingkitchen.android.R
 import org.givingkitchen.android.ui.homescreen.resources.bottomsheet.ResourceProviderDetailsFragment
 import org.givingkitchen.android.ui.homescreen.resources.bottomsheet.ResourcesAdapter
+import org.givingkitchen.android.ui.homescreen.resources.map.ResourcesClusterRenderer
 import org.givingkitchen.android.ui.homescreen.resources.map.ResourcesMapInfoWindowAdapter
 import org.givingkitchen.android.ui.homescreen.resources.map.ResourcesMarkerItem
 import org.givingkitchen.android.util.Constants.rootLocale
@@ -153,7 +154,7 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
         markerClusterManager = ClusterManager(context, map)
-        // val markerClusterRenderer = MarkerClusterRenderer
+        markerClusterManager.renderer = ResourcesClusterRenderer(context!!, map!!, markerClusterManager)
         map!!.setOnCameraIdleListener(markerClusterManager)
         map!!.setOnMarkerClickListener(markerClusterManager)
 
@@ -164,7 +165,7 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         }
 
         requestLocationPermission()
-        // map!!.setInfoWindowAdapter(ResourcesMapInfoWindowAdapter(context!!))
+        map!!.setInfoWindowAdapter(ResourcesMapInfoWindowAdapter(context!!))
 
         markerClusterManager.markerCollection.setOnInfoWindowAdapter(ResourcesMapInfoWindowAdapter(context!!))
         showData()
@@ -227,7 +228,7 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
             addMarkersToMap(resourceProviders!!)
 
             map!!.setOnInfoWindowClickListener {
-                Toast.makeText(context, "maps Info Window Click Listener " + it.tag, Toast.LENGTH_SHORT).show()
+                showResourceProviderDetails(it.tag as ResourceProvider)
             }
         }
     }
@@ -263,7 +264,7 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
     private fun addMarkersToMap(resourceProviders: MutableList<ResourceProvider>) {
         for (resourceProvider in resourceProviders) {
             if (resourceProvider.latitude != null && resourceProvider.longitude != null) {
-                markerClusterManager.addItem(ResourcesMarkerItem(resourceProvider.latitude, resourceProvider.longitude, resourceProvider.name, resourceProvider.description, "im a tag"))
+                markerClusterManager.addItem(ResourcesMarkerItem(resourceProvider))
             }
         }
         markerClusterManager.cluster()
