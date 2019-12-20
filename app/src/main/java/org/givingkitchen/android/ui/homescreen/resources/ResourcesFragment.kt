@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.annotation.Nullable
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -22,7 +21,6 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.maps.android.clustering.ClusterManager
 import kotlinx.android.synthetic.main.fragment_resources.*
@@ -34,7 +32,6 @@ import org.givingkitchen.android.ui.homescreen.resources.map.ResourcesMapInfoWin
 import org.givingkitchen.android.ui.homescreen.resources.map.ResourcesMarkerItem
 import org.givingkitchen.android.util.Constants.rootLocale
 import org.givingkitchen.android.util.hasQuery
-import org.givingkitchen.android.util.hideKeyboard
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
 
@@ -45,7 +42,7 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         private const val TAG_RESOURCE_PROVIDER_BOTTOMSHEET = "SafetynetFragment.Tag.ResourceProviderDetailsFragment"
         private const val PERMISSIONS_REQUEST_CODE_LOCATION = 0
         private val atlanta = LatLng(33.774381, -84.372775)
-        // private val atlanta = LatLng(35.1046, -106.6576) // Albuquerque
+        // private val atlanta = LatLng(35.1046, -106.6576) // Albuquerque (for testing)
     }
 
     private lateinit var model: ResourcesViewModel
@@ -56,39 +53,14 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
     private var map: GoogleMap? = null
     private var resourceProviders: MutableList<ResourceProvider>? = null
     private var bottomsheetState = BottomSheetBehavior.STATE_HALF_EXPANDED
-    private val bottomSheetBehaviorCallback =
-            object : BottomSheetBehavior.BottomSheetCallback() {
-                override fun onSlide(bottomSheet: View, slideOffset: Float) {}
-                override fun onStateChanged(bottomSheet: View, newState: Int) {
-                    bottomsheetState = newState
-                    when (newState) {
-                        BottomSheetBehavior.STATE_HALF_EXPANDED -> {
-
-                        }
-                        BottomSheetBehavior.STATE_EXPANDED -> {
-
-                        }
-                        BottomSheetBehavior.STATE_COLLAPSED -> {
-
-                        }
-                        BottomSheetBehavior.STATE_DRAGGING -> {
-
-                        }
-                        BottomSheetBehavior.STATE_HIDDEN -> {
-
-                        }
-                        BottomSheetBehavior.STATE_SETTLING -> {
-
-                        }
-                    }
-                }
-            }
 
     @SuppressWarnings("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         adapter.resourceProviderClicks().subscribe {
             showResourceProviderDetails(it)
+            updateBottomsheetState(BottomSheetBehavior.STATE_HALF_EXPANDED)
+            clearSearchViewFocus()
             if (it.latitude != null && it.longitude != null) {
                 map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(it.latitude, it.longitude), detailMapZoomLevel))
             }
@@ -128,20 +100,19 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
             mapFragment.getMapAsync(this)
         }
 
-        recyclerView_resourcesTab.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        recyclerView_resourcesTab.adapter = adapter
         sheetBehavior = BottomSheetBehavior.from(bottomSheet_resourcesTab)
         sheetBehavior.isFitToContents = false
         updateBottomsheetState(bottomsheetState)
         sheetBehavior.setBottomSheetCallback(bottomSheetBehaviorCallback)
 
+        recyclerView_resourcesTab.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        recyclerView_resourcesTab.adapter = adapter
+        recyclerView_resourcesTab.addOnScrollListener(recyclerViewScrollListener)
+
         searchView_resourcesTab.setOnQueryTextListener(SearchTextListener())
         searchView_resourcesTab.setOnQueryTextFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 expandBottomSheet(searchView_resourcesTab.hasQuery())
-            } else {
-                collapseBottomSheet()
-                activity.hideKeyboard()
             }
         }
     }
@@ -193,15 +164,10 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         ResourceProviderDetailsFragment
                 .newInstance(providerData)
                 .show(childFragmentManager, TAG_RESOURCE_PROVIDER_BOTTOMSHEET)
-        updateBottomsheetState(BottomSheetBehavior.STATE_HALF_EXPANDED)
     }
 
     private fun expandBottomSheet(showCategoryMenuItems: Boolean) {
         updateBottomsheetState(BottomSheetBehavior.STATE_EXPANDED)
-    }
-
-    private fun collapseBottomSheet() {
-        updateBottomsheetState(BottomSheetBehavior.STATE_COLLAPSED)
     }
 
     private fun moveMapToDefaultLocation() {
@@ -233,6 +199,10 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
+    private fun clearSearchViewFocus() {
+        searchView_resourcesTab.clearFocus()
+    }
+
     /**
      * @param state should be one of the BottomSheet states
      * STATE_DRAGGING = 1
@@ -262,6 +232,7 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun addMarkersToMap(resourceProviders: MutableList<ResourceProvider>) {
+        markerClusterManager.clearItems()
         for (resourceProvider in resourceProviders) {
             if (resourceProvider.latitude != null && resourceProvider.longitude != null) {
                 markerClusterManager.addItem(ResourcesMarkerItem(resourceProvider))
@@ -284,10 +255,11 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun updateSearchResultsList(searchText: String?) {
-        if (!searchText.isNullOrEmpty()) {
-            adapter.items = filterResources(searchText)
-        } else {
+        if (searchText.isNullOrEmpty()) {
             adapter.items = resourceProviders!!
+            addMarkersToMap(resourceProviders!!)
+        } else {
+            adapter.items = filterResources(searchText)
         }
         adapter.notifyDataSetChanged()
     }
@@ -295,6 +267,44 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
     private fun searchFields(responseString: String?, searchText: String): Boolean {
         return responseString != null && responseString.toLowerCase(rootLocale).contains(searchText.toLowerCase(rootLocale))
     }
+
+    private val recyclerViewScrollListener =
+            object: RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                    if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                        clearSearchViewFocus()
+                    }
+                }
+            }
+
+    private val bottomSheetBehaviorCallback =
+            object : BottomSheetBehavior.BottomSheetCallback() {
+                override fun onSlide(bottomSheet: View, slideOffset: Float) {}
+                override fun onStateChanged(bottomSheet: View, newState: Int) {
+                    bottomsheetState = newState
+                    when (newState) {
+                        BottomSheetBehavior.STATE_HALF_EXPANDED -> {
+
+                        }
+                        BottomSheetBehavior.STATE_EXPANDED -> {
+
+                        }
+                        BottomSheetBehavior.STATE_COLLAPSED -> {
+
+                        }
+                        BottomSheetBehavior.STATE_DRAGGING -> {
+                            clearSearchViewFocus()
+                        }
+                        BottomSheetBehavior.STATE_HIDDEN -> {
+
+                        }
+                        BottomSheetBehavior.STATE_SETTLING -> {
+
+                        }
+                    }
+                }
+            }
 
     private inner class SearchTextListener : SearchView.OnQueryTextListener {
         override fun onQueryTextChange(text: String?): Boolean {
@@ -304,13 +314,9 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
 
         override fun onQueryTextSubmit(searchText: String?): Boolean {
             if (!searchText.isNullOrEmpty()) {
-                map!!.clear()
-                markerClusterManager.clearItems()
-                markerClusterManager.clusterMarkerCollection.clear()
-                markerClusterManager.markerCollection.clear()
                 addMarkersToMap(filterResources(searchText))
                 updateBottomsheetState(BottomSheetBehavior.STATE_HALF_EXPANDED)
-                activity.hideKeyboard()
+                clearSearchViewFocus()
             }
             return true
         }
