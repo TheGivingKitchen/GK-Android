@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.annotation.Nullable
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -31,7 +32,6 @@ import org.givingkitchen.android.ui.homescreen.resources.map.ResourcesClusterRen
 import org.givingkitchen.android.ui.homescreen.resources.map.ResourcesMapInfoWindowAdapter
 import org.givingkitchen.android.ui.homescreen.resources.map.ResourcesMarkerItem
 import org.givingkitchen.android.util.Constants.rootLocale
-import org.givingkitchen.android.util.hasQuery
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
 
@@ -112,9 +112,11 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         searchView_resourcesTab.setOnQueryTextListener(SearchTextListener())
         searchView_resourcesTab.setOnQueryTextFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
-                expandBottomSheet(searchView_resourcesTab.hasQuery())
+                updateBottomsheetState(BottomSheetBehavior.STATE_EXPANDED)
             }
         }
+
+        filterButton_resourcesTab.setOnClickListener(filterButtonClickListener)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
@@ -166,10 +168,6 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
                 .show(childFragmentManager, TAG_RESOURCE_PROVIDER_BOTTOMSHEET)
     }
 
-    private fun expandBottomSheet(showCategoryMenuItems: Boolean) {
-        updateBottomsheetState(BottomSheetBehavior.STATE_EXPANDED)
-    }
-
     private fun moveMapToDefaultLocation() {
         map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(atlanta.latitude, atlanta.longitude), cityMapZoomLevel))
     }
@@ -199,6 +197,13 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
+    private val filterButtonClickListener = View.OnClickListener {
+        recyclerView_resourcesTab.visibility = View.GONE
+        filtersList_resourcesTab.visibility = View.VISIBLE
+        resourcesListHeader_resourcesTab.visibility = View.GONE
+
+    }
+
     private fun clearSearchViewFocus() {
         searchView_resourcesTab.clearFocus()
     }
@@ -220,13 +225,11 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         when (visibility) {
             true -> {
                 progressBar_resourcesTab.visibility = View.VISIBLE
-                searchView_resourcesTab.visibility = View.GONE
-                searchBottomDivider_resourcesTab.visibility = View.GONE
+                resourcesListHeader_resourcesTab.visibility = View.GONE
             }
             false -> {
                 progressBar_resourcesTab.visibility = View.GONE
-                searchView_resourcesTab.visibility = View.VISIBLE
-                searchBottomDivider_resourcesTab.visibility = View.VISIBLE
+                resourcesListHeader_resourcesTab.visibility = View.VISIBLE
             }
         }
     }

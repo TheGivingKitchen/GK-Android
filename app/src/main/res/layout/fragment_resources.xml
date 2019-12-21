@@ -9,16 +9,16 @@
         class="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/resources_bottomsheet_collapsed_height"/>
+        android:layout_marginBottom="@dimen/resources_bottomsheet_collapsed_height" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottomSheet_resourcesTab"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:accessibilityPaneTitle="@string/resources_tab_bottomsheet"
+        android:background="@color/white"
         app:behavior_hideable="false"
         app:behavior_peekHeight="@dimen/resources_bottomsheet_collapsed_height"
-        android:background="@color/white"
-        android:accessibilityPaneTitle="@string/resources_tab_bottomsheet"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <View
@@ -27,29 +27,55 @@
             android:layout_height="4dp"
             android:layout_marginTop="6dp"
             android:background="@drawable/draggable_indicator"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/searchView_resourcesTab"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:iconifiedByDefault="false"
-            android:imeOptions="actionSearch"
             android:layout_marginTop="8dp"
+            android:imeOptions="actionSearch"
             android:inputType="text|textAutoCorrect"
-            app:queryHint="@string/resources_tab_searchview_hint"
+            app:iconifiedByDefault="false"
+            app:queryBackground="@android:color/transparent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/dragIndicator_resourcesTab" />
+            app:layout_constraintTop_toTopOf="@id/dragIndicator_resourcesTab"
+            app:queryHint="@string/resources_tab_searchview_hint" />
 
         <View
             android:id="@+id/searchBottomDivider_resourcesTab"
             style="@style/DividerViewSmall"
-            app:layout_constraintTop_toBottomOf="@id/searchView_resourcesTab"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/searchView_resourcesTab" />
+
+        <TextView
+            android:id="@+id/filterButton_resourcesTab"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/resources_tab_filter_button"
+            android:textColor="@color/light_blue"
+            android:paddingStart="@dimen/universal_horizontal_spacing"
+            android:paddingEnd="@dimen/universal_horizontal_spacing"
+            android:paddingTop="10dp"
+            android:textSize="8pt"
+            android:drawableStart="@drawable/ic_filter"
+            android:drawableTint="@color/light_blue"
+            android:drawablePadding="10dp"
+            android:paddingBottom="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/searchBottomDivider_resourcesTab" />
+
+        <View
+            android:id="@+id/filterBottomDivider_resourcesTab"
+            style="@style/DividerViewLarge"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/filterButton_resourcesTab" />
 
         <ProgressBar
             android:id="@+id/progressBar_resourcesTab"
@@ -67,7 +93,26 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/searchBottomDivider_resourcesTab" />
+            app:layout_constraintTop_toBottomOf="@id/filterBottomDivider_resourcesTab" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/filtersList_resourcesTab"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scrollbars="vertical"
+            android:visibility="gone"
+            android:background="@color/light_yellow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/filterBottomDivider_resourcesTab" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/resourcesListHeader_resourcesTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:constraint_referenced_ids="searchView_resourcesTab,searchBottomDivider_resourcesTab,filterButton_resourcesTab,filterBottomDivider_resourcesTab" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
