@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.annotation.Nullable
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -28,11 +27,11 @@ import kotlinx.android.synthetic.main.fragment_resources.*
 import org.givingkitchen.android.R
 import org.givingkitchen.android.ui.homescreen.resources.bottomsheet.ResourceProviderDetailsFragment
 import org.givingkitchen.android.ui.homescreen.resources.bottomsheet.ResourcesAdapter
+import org.givingkitchen.android.ui.homescreen.resources.filterselection.CategoryFilterDialogFragment
 import org.givingkitchen.android.ui.homescreen.resources.map.ResourcesClusterRenderer
 import org.givingkitchen.android.ui.homescreen.resources.map.ResourcesMapInfoWindowAdapter
 import org.givingkitchen.android.ui.homescreen.resources.map.ResourcesMarkerItem
 import org.givingkitchen.android.util.Constants.rootLocale
-import org.givingkitchen.android.util.FragmentBackPressedListener
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
 
@@ -40,7 +39,8 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
     companion object {
         private const val cityMapZoomLevel = 10f
         private const val detailMapZoomLevel = 16f
-        private const val TAG_RESOURCE_PROVIDER_BOTTOMSHEET = "SafetynetFragment.Tag.ResourceProviderDetailsFragment"
+        private const val TAG_RESOURCE_PROVIDER_BOTTOMSHEET = "ResourcesFragment.Tag.ResourceProviderDetailsFragment"
+        private const val TAG_FILTER_DIALOG = "ResourcesFragment.Tag.CategoryFilterDialogFragment"
         private const val PERMISSIONS_REQUEST_CODE_LOCATION = 0
         private val atlanta = LatLng(33.774381, -84.372775)
         // private val atlanta = LatLng(35.1046, -106.6576) // Albuquerque (for testing)
@@ -200,10 +200,7 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
     }
 
     private val filterButtonClickListener = View.OnClickListener {
-        recyclerView_resourcesTab.visibility = View.GONE
-        filtersList_resourcesTab.visibility = View.VISIBLE
-        resourcesListHeader_resourcesTab.visibility = View.GONE
-
+        CategoryFilterDialogFragment().show(fragmentManager, TAG_FILTER_DIALOG)
     }
 
     private fun clearSearchViewFocus() {
