@@ -16,7 +16,7 @@ import org.givingkitchen.android.analytics.Events
 import org.givingkitchen.android.util.*
 import org.givingkitchen.android.util.Constants.givingKitchenUrl
 
-class AboutFragment : Fragment(), FragmentBackPressedListener  {
+class AboutFragment : Fragment()  {
 
     companion object {
         const val newsletterSignupUrl = "https://thegivingkitchen.us3.list-manage.com/subscribe?u=8ce234d2bdddfb2c1ba574d4f&id=9071a9bab9"

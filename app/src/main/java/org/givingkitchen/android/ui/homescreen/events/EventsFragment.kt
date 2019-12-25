@@ -21,7 +21,7 @@ import org.givingkitchen.android.ui.homescreen.events.EventsViewModel.Companion.
 import org.givingkitchen.android.ui.homescreen.give.GiveViewModel
 import org.givingkitchen.android.util.*
 
-class EventsFragment : Fragment(), FragmentBackPressedListener {
+class EventsFragment : Fragment() {
 
     private var adapter = EventsAdapter(mutableListOf(), this)
     private lateinit var model: EventsViewModel

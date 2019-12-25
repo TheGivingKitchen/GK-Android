@@ -36,7 +36,7 @@ import org.givingkitchen.android.util.FragmentBackPressedListener
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
 
-class ResourcesFragment : Fragment(), OnMapReadyCallback, FragmentBackPressedListener {
+class ResourcesFragment : Fragment(), OnMapReadyCallback {
     companion object {
         private const val cityMapZoomLevel = 10f
         private const val detailMapZoomLevel = 16f

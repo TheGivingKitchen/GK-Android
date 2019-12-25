@@ -18,7 +18,7 @@ import org.givingkitchen.android.ui.homescreen.assistance.AssistanceViewModel.Co
 import org.givingkitchen.android.util.*
 import org.givingkitchen.android.util.Constants.formsArg
 
-class AssistanceFragment : Fragment(), FragmentBackPressedListener {
+class AssistanceFragment : Fragment() {
     private lateinit var model: AssistanceViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {

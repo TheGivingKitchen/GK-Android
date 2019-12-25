@@ -21,7 +21,7 @@ import org.givingkitchen.android.ui.homescreen.give.GiveViewModel.Companion.give
 import org.givingkitchen.android.ui.homescreen.give.GiveViewModel.Companion.recurringDonationURL
 import org.givingkitchen.android.util.*
 
-class GiveFragment : Fragment(), FragmentBackPressedListener {
+class GiveFragment : Fragment() {
     private lateinit var model: GiveViewModel
     private lateinit var timerHandler: Handler
     private lateinit var timerRunnable: Runnable
