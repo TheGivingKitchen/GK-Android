@@ -58,10 +58,6 @@ class GiveFragment : Fragment(), FragmentBackPressedListener {
         timerHandler.postDelayed(timerRunnable, 0)
     }
 
-    override fun onBackPressed(): Boolean {
-
-    }
-
     override fun onPause() {
         super.onPause()
         timerHandler.removeCallbacks(timerRunnable)

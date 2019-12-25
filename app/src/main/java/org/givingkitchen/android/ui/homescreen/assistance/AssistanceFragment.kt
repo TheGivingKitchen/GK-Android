@@ -40,10 +40,6 @@ class AssistanceFragment : Fragment(), FragmentBackPressedListener {
         learn_more_button_assistanceTab.setOnClickListener(learnMoreButtonClickListener)
     }
 
-    override fun onBackPressed(): Boolean {
-
-    }
-
     private val forYouButtonClickListener = View.OnClickListener {
         val args = Bundle()
         args.putString(formsArg, selfAssistanceInquiryUrl)

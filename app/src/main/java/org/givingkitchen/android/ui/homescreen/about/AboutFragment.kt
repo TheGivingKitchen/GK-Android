@@ -55,10 +55,6 @@ class AboutFragment : Fragment(), FragmentBackPressedListener  {
         setupQprBanner()
     }
 
-    override fun onBackPressed(): Boolean {
-
-    }
-
     private val aboutUsButtonClickListener = View.OnClickListener {
         Analytics.logLearnedMore("crisis_grant_info_graphic")
         Navigation.findNavController(view!!).navigate(R.id.howItWorksFragment)

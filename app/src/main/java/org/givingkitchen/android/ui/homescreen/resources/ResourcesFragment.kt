@@ -121,10 +121,6 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback, FragmentBackPressedLis
         filterButton_resourcesTab.setOnClickListener(filterButtonClickListener)
     }
 
-    override fun onBackPressed(): Boolean {
-
-    }
-
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)

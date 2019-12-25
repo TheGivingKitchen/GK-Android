@@ -54,10 +54,6 @@ class EventsFragment : Fragment(), FragmentBackPressedListener {
         setupVolunteerBanner()
     }
 
-    override fun onBackPressed(): Boolean {
-
-    }
-
     private fun openLearnMoreLink() {
         Analytics.logLearnedMore("events_home")
         CustomTabs.openCustomTab(context, eventsLearnMoreURL)
