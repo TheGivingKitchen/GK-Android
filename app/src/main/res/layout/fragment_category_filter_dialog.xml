@@ -4,8 +4,9 @@
     android:layout_height="match_parent"
     android:background="@color/light_yellow">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_resourcesTab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="hi im a dialog ooooh"/>
+        />
 </LinearLayout>
