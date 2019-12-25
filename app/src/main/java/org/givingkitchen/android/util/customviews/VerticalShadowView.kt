@@ -1,4 +1,4 @@
-package org.givingkitchen.android.util
+package org.givingkitchen.android.util.customviews
 
 import android.content.Context
 import android.util.AttributeSet

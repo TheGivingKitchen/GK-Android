@@ -23,7 +23,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:scrollbars="vertical" />
 
-    <org.givingkitchen.android.util.BannerView
+    <org.givingkitchen.android.util.customviews.BannerView
         android:id="@+id/volunteerBanner_eventsTab"
         android:visibility="gone"
         android:layout_width="0dp"

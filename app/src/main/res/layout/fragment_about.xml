@@ -261,7 +261,7 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <org.givingkitchen.android.util.BannerView
+    <org.givingkitchen.android.util.customviews.BannerView
         android:id="@+id/qprBanner_aboutTab"
         android:visibility="gone"
         android:layout_width="0dp"

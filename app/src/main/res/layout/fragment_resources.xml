@@ -77,7 +77,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/filterButton_resourcesTab" />
 
-        <org.givingkitchen.android.util.VerticalShadowView
+        <org.givingkitchen.android.util.customviews.VerticalShadowView
             android:id="@+id/shadowView_resourcesTab"
             android:layout_width="0dp"
             android:layout_height="10dp"
