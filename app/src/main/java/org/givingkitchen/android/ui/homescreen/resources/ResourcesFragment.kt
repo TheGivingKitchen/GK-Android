@@ -32,10 +32,11 @@ import org.givingkitchen.android.ui.homescreen.resources.map.ResourcesClusterRen
 import org.givingkitchen.android.ui.homescreen.resources.map.ResourcesMapInfoWindowAdapter
 import org.givingkitchen.android.ui.homescreen.resources.map.ResourcesMarkerItem
 import org.givingkitchen.android.util.Constants.rootLocale
+import org.givingkitchen.android.util.FragmentBackPressedListener
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
 
-class ResourcesFragment : Fragment(), OnMapReadyCallback {
+class ResourcesFragment : Fragment(), OnMapReadyCallback, FragmentBackPressedListener {
     companion object {
         private const val cityMapZoomLevel = 10f
         private const val detailMapZoomLevel = 16f
@@ -53,6 +54,7 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
     private var map: GoogleMap? = null
     private var resourceProviders: MutableList<ResourceProvider>? = null
     private var bottomsheetState = BottomSheetBehavior.STATE_HALF_EXPANDED
+    private val searchTextListener = SearchTextListener()
 
     @SuppressWarnings("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -109,7 +111,7 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         recyclerView_resourcesTab.adapter = adapter
         recyclerView_resourcesTab.addOnScrollListener(recyclerViewScrollListener)
 
-        searchView_resourcesTab.setOnQueryTextListener(SearchTextListener())
+        searchView_resourcesTab.setOnQueryTextListener(searchTextListener)
         searchView_resourcesTab.setOnQueryTextFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 updateBottomsheetState(BottomSheetBehavior.STATE_EXPANDED)
@@ -117,6 +119,10 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         }
 
         filterButton_resourcesTab.setOnClickListener(filterButtonClickListener)
+    }
+
+    override fun onBackPressed(): Boolean {
+
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {

@@ -15,13 +15,10 @@ import org.givingkitchen.android.analytics.Analytics
 import org.givingkitchen.android.ui.homescreen.assistance.AssistanceViewModel.Companion.assistanceLearnMoreURL
 import org.givingkitchen.android.ui.homescreen.assistance.AssistanceViewModel.Companion.referralAssistanceInquiryUrl
 import org.givingkitchen.android.ui.homescreen.assistance.AssistanceViewModel.Companion.selfAssistanceInquiryUrl
-import org.givingkitchen.android.util.Constants
+import org.givingkitchen.android.util.*
 import org.givingkitchen.android.util.Constants.formsArg
-import org.givingkitchen.android.util.CustomTabs
-import org.givingkitchen.android.util.DonePage
-import org.givingkitchen.android.util.putEnum
 
-class AssistanceFragment : Fragment() {
+class AssistanceFragment : Fragment(), FragmentBackPressedListener {
     private lateinit var model: AssistanceViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,6 +38,10 @@ class AssistanceFragment : Fragment() {
         for_you_button_assistanceTab.setOnClickListener(forYouButtonClickListener)
         for_someone_else_button_assistanceTab.setOnClickListener(forSomeoneElseButtonClickListener)
         learn_more_button_assistanceTab.setOnClickListener(learnMoreButtonClickListener)
+    }
+
+    override fun onBackPressed(): Boolean {
+
     }
 
     private val forYouButtonClickListener = View.OnClickListener {

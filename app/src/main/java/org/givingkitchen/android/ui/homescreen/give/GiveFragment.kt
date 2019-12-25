@@ -19,12 +19,9 @@ import org.givingkitchen.android.analytics.Events
 import org.givingkitchen.android.ui.homescreen.give.GiveViewModel.Companion.oneTimeDonationURL
 import org.givingkitchen.android.ui.homescreen.give.GiveViewModel.Companion.giveLearnMoreURL
 import org.givingkitchen.android.ui.homescreen.give.GiveViewModel.Companion.recurringDonationURL
-import org.givingkitchen.android.util.Constants
-import org.givingkitchen.android.util.CustomTabs
-import org.givingkitchen.android.util.DonePage
-import org.givingkitchen.android.util.putEnum
+import org.givingkitchen.android.util.*
 
-class GiveFragment : Fragment() {
+class GiveFragment : Fragment(), FragmentBackPressedListener {
     private lateinit var model: GiveViewModel
     private lateinit var timerHandler: Handler
     private lateinit var timerRunnable: Runnable
@@ -59,6 +56,10 @@ class GiveFragment : Fragment() {
             }
         }
         timerHandler.postDelayed(timerRunnable, 0)
+    }
+
+    override fun onBackPressed(): Boolean {
+
     }
 
     override fun onPause() {

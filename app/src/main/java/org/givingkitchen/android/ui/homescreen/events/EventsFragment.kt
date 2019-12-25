@@ -21,7 +21,7 @@ import org.givingkitchen.android.ui.homescreen.events.EventsViewModel.Companion.
 import org.givingkitchen.android.ui.homescreen.give.GiveViewModel
 import org.givingkitchen.android.util.*
 
-class EventsFragment : Fragment() {
+class EventsFragment : Fragment(), FragmentBackPressedListener {
 
     private var adapter = EventsAdapter(mutableListOf(), this)
     private lateinit var model: EventsViewModel
@@ -52,6 +52,10 @@ class EventsFragment : Fragment() {
         recyclerView_eventsTab.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context, androidx.recyclerview.widget.RecyclerView.VERTICAL, false)
         recyclerView_eventsTab.adapter = adapter
         setupVolunteerBanner()
+    }
+
+    override fun onBackPressed(): Boolean {
+
     }
 
     private fun openLearnMoreLink() {

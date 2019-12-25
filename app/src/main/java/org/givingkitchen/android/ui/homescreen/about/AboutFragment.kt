@@ -1,6 +1,5 @@
 package org.givingkitchen.android.ui.homescreen.about
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -17,7 +16,7 @@ import org.givingkitchen.android.analytics.Events
 import org.givingkitchen.android.util.*
 import org.givingkitchen.android.util.Constants.givingKitchenUrl
 
-class AboutFragment : Fragment()  {
+class AboutFragment : Fragment(), FragmentBackPressedListener  {
 
     companion object {
         const val newsletterSignupUrl = "https://thegivingkitchen.us3.list-manage.com/subscribe?u=8ce234d2bdddfb2c1ba574d4f&id=9071a9bab9"
@@ -56,6 +55,10 @@ class AboutFragment : Fragment()  {
         setupQprBanner()
     }
 
+    override fun onBackPressed(): Boolean {
+
+    }
+
     private val aboutUsButtonClickListener = View.OnClickListener {
         Analytics.logLearnedMore("crisis_grant_info_graphic")
         Navigation.findNavController(view!!).navigate(R.id.howItWorksFragment)
@@ -63,7 +66,6 @@ class AboutFragment : Fragment()  {
 
     private val newsletterSignupClickListener = View.OnClickListener {
         Analytics.logEvent(Events.NEWSLETTER_SIGNUP_STARTED)
-
         CustomTabs.openCustomTab(context, newsletterSignupUrl)
     }
 
