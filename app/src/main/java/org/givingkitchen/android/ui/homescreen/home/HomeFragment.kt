@@ -21,9 +21,10 @@ import org.givingkitchen.android.ui.homescreen.give.GiveFragment
 import org.givingkitchen.android.ui.homescreen.resources.ResourcesFragment
 import org.givingkitchen.android.ui.homescreen.safetynet.safetynettab.SafetynetFragment
 import org.givingkitchen.android.util.FeatureFlags
+import org.givingkitchen.android.util.FragmentBackPressedListener
 import org.givingkitchen.android.util.getGivingKitchenSharedPreferences
 
-class HomeFragment: Fragment()  {
+class HomeFragment: Fragment(), FragmentBackPressedListener  {
     private lateinit var model: HomeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +53,11 @@ class HomeFragment: Fragment()  {
         if (!onboardingViewed) {
             Navigation.findNavController(view).navigate(R.id.onboardingContainerFragment)
         }
+    }
+
+    override fun onBackPressed(): Boolean {
+        activity?.finish()
+        return true
     }
 
     override fun onDestroy() {
