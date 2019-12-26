@@ -117,6 +117,9 @@
     <string name="resources_tab_searchview_hint">Search Stability Network</string>
     <string name="resources_tab_filter_button">Filter your search</string>
     <string name="resources_tab_location_dialog_message">Allow Giving Kitchen to look up your location while you\'re using the app? This allows us to show resources close to you.</string>
+    <string name="resources_tab_filter_toggle_button">Toggle All</string>
+    <string name="resources_tab_filter_save_button">Save</string>
+    <string name="resources_tab_filter_cancel_button">Cancel</string>
 
     <!-- Facebook Groups -->
     <string name="facebook_groups_header">JOIN US ON FACEBOOK</string>

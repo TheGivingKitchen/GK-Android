@@ -1,4 +1,4 @@
-package org.givingkitchen.android.ui.homescreen.resources.bottomsheet
+package org.givingkitchen.android.ui.homescreen.resources.filterselection
 
 import android.view.LayoutInflater
 import android.view.View
@@ -11,19 +11,18 @@ import io.reactivex.Observable
 import kotlinx.android.synthetic.main.view_resource_category.*
 import org.givingkitchen.android.ui.homescreen.resources.ResourceCategory
 
-class ResourceCategoriesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ResourceCategoriesAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val resourceCategoryClicks: PublishSubject<ResourceCategory> = PublishSubject.create()
+    val items = ResourceCategory.resourceCategories
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
             ResourceCategoryViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_resource_category, parent, false), resourceCategoryClicks)
 
-    override fun getItemCount(): Int {
-        return ResourceCategory.resourceCategories.size
-    }
+    override fun getItemCount() = items.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ResourceCategoryViewHolder) {
-            holder.bind(ResourceCategory.resourceCategories[position])
+            holder.bind(items[position])
         }
     }
 

@@ -5,13 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.fragment_category_filter_dialog.*
 import org.givingkitchen.android.R
 
 class CategoryFilterDialogFragment: DialogFragment() {
+    private var categoriesAdapter = ResourceCategoriesAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_category_filter_dialog, container, false)
     }
 
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        recyclerView_resourcesCategoryFilterDialog.apply {
+            this.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+            this.adapter = categoriesAdapter
+        }
+    }
 }

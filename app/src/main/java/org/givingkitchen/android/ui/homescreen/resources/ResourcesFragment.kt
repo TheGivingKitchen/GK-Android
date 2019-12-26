@@ -50,7 +50,7 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
     private lateinit var sheetBehavior: BottomSheetBehavior<View>
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var markerClusterManager: ClusterManager<ResourcesMarkerItem>
-    private var adapter: ResourcesAdapter = ResourcesAdapter(mutableListOf<Any>())
+    private var adapter = ResourcesAdapter(mutableListOf<Any>())
     private var map: GoogleMap? = null
     private var resourceProviders: MutableList<ResourceProvider>? = null
     private var bottomsheetState = BottomSheetBehavior.STATE_HALF_EXPANDED

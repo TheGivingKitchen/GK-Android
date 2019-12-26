@@ -15,10 +15,16 @@ class RateAppDialogFragment : AppCompatDialogFragment() {
             val builder = AlertDialog.Builder(it)
             builder.setMessage(R.string.rate_app_dialog_description)
                     .setTitle(R.string.rate_app_dialog_header)
-                    .setPositiveButton(R.string.rate_app_dialog_positive_button) { _, _ ->
+                    .setPositiveButton("Save") { _, _ ->
                         onComplete?.invoke(false)
                     }
-                    .setNegativeButton(R.string.rate_app_dialog_negative_button) { _, _ ->
+                    .setNeutralButton("Select All") { _, _ ->
+                        onComplete?.invoke(false)
+                    }
+                    .setNeutralButton("Clear Selections") { _, _ ->
+                        onComplete?.invoke(false)
+                    }
+                    .setNegativeButton("Cancel") { _, _ ->
                         onComplete?.invoke(true)
                     }
 
