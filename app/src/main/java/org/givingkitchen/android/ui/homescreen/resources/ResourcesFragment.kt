@@ -201,7 +201,7 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
     }
 
     private val filterButtonClickListener = View.OnClickListener {
-        val categoryFilterDialogFragment = CategoryFilterDialogFragment()
+        val categoryFilterDialogFragment = CategoryFilterDialogFragment(adapter.currentCategoryFilters.toSet())
         categoryFilterDialogFragment.saveButtonClicks().subscribe {
             filterButton_resourcesTab.text = getString(R.string.resources_tab_selected_filter_button, it.joinToString())
             addMarkersToMap(adapter.filterToCategories(it))

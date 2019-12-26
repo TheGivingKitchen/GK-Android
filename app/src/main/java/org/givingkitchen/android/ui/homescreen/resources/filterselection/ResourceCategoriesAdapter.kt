@@ -11,8 +11,8 @@ import io.reactivex.Observable
 import kotlinx.android.synthetic.main.view_resource_category.*
 import org.givingkitchen.android.ui.homescreen.resources.ResourceCategory
 
-class ResourceCategoriesAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val items = ResourceCategory.resourceCategories.map { ResourceCategoryCell(true, it) }
+class ResourceCategoriesAdapter(val currentlySelectedCategories: Set<String>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val items = ResourceCategory.resourceCategories.map { ResourceCategoryCell(it, it.title in currentlySelectedCategories) }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
             ResourceCategoryViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_resource_category, parent, false))
@@ -37,10 +37,9 @@ class ResourceCategoriesAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>()
             containerView.setOnClickListener {
                 checkbox_resourceCategory.toggle()
                 items[position].selected = checkbox_resourceCategory.isChecked
-                val x = 9
             }
         }
     }
 
-    private class ResourceCategoryCell(var selected: Boolean, val resourceCategory: ResourceCategory)
+    private class ResourceCategoryCell(val resourceCategory: ResourceCategory, var selected: Boolean)
 }

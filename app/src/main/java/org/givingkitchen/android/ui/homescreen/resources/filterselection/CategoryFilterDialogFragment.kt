@@ -12,9 +12,9 @@ import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_category_filter_dialog.*
 import org.givingkitchen.android.R
 
-class CategoryFilterDialogFragment: DialogFragment() {
+class CategoryFilterDialogFragment(currentlySelectedCategories: Set<String>): DialogFragment() {
     private val saveButtonClicks: PublishSubject<List<String>> = PublishSubject.create()
-    private val categoriesAdapter = ResourceCategoriesAdapter()
+    private val categoriesAdapter = ResourceCategoriesAdapter(currentlySelectedCategories)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_category_filter_dialog, container, false)
