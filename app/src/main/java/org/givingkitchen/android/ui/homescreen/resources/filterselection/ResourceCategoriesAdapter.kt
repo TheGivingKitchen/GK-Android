@@ -12,25 +12,35 @@ import kotlinx.android.synthetic.main.view_resource_category.*
 import org.givingkitchen.android.ui.homescreen.resources.ResourceCategory
 
 class ResourceCategoriesAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val resourceCategoryClicks: PublishSubject<ResourceCategory> = PublishSubject.create()
-    val items = ResourceCategory.resourceCategories
+    private val items = ResourceCategory.resourceCategories.map { ResourceCategoryCell(true, it) }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-            ResourceCategoryViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_resource_category, parent, false), resourceCategoryClicks)
+            ResourceCategoryViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_resource_category, parent, false))
 
     override fun getItemCount() = items.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ResourceCategoryViewHolder) {
-            holder.bind(items[position])
+            holder.bind(position)
         }
     }
 
-    fun resourceCategoryClicks(): Observable<ResourceCategory> = resourceCategoryClicks
-}
-
-class ResourceCategoryViewHolder(override val containerView: View, private val clicks: PublishSubject<ResourceCategory>) : RecyclerView.ViewHolder(containerView), LayoutContainer {
-    fun bind(resourceCategory: ResourceCategory) {
-        title_resourceCategory.text = resourceCategory.title
+    fun getSelectedFilters(): List<String> {
+        return items.filter { it.selected }.map { it.resourceCategory.title }
     }
+
+    inner class ResourceCategoryViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+        fun bind(position: Int) {
+            title_resourceCategory.text = items[position].resourceCategory.title
+            checkbox_resourceCategory.isChecked = items[position].selected
+
+            containerView.setOnClickListener {
+                checkbox_resourceCategory.toggle()
+                items[position].selected = checkbox_resourceCategory.isChecked
+                val x = 9
+            }
+        }
+    }
+
+    private class ResourceCategoryCell(var selected: Boolean, val resourceCategory: ResourceCategory)
 }

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.annotation.Nullable
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -50,9 +51,9 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
     private lateinit var sheetBehavior: BottomSheetBehavior<View>
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var markerClusterManager: ClusterManager<ResourcesMarkerItem>
-    private var adapter = ResourcesAdapter(mutableListOf<Any>())
+    private var adapter = ResourcesAdapter(listOf())
     private var map: GoogleMap? = null
-    private var resourceProviders: MutableList<ResourceProvider>? = null
+    private var resourceProviders: List<ResourceProvider>? = null
     private var bottomsheetState = BottomSheetBehavior.STATE_HALF_EXPANDED
     private val searchTextListener = SearchTextListener()
 
@@ -71,7 +72,7 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity!!)
 
         model = ViewModelProviders.of(this).get(ResourcesViewModel::class.java)
-        model.getResourceProviders().observe(this, Observer<MutableList<ResourceProvider>> { liveData ->
+        model.getResourceProviders().observe(this, Observer<List<ResourceProvider>> { liveData ->
             resourceProviders = liveData
             showData()
         })
@@ -200,7 +201,12 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
     }
 
     private val filterButtonClickListener = View.OnClickListener {
-        CategoryFilterDialogFragment().show(fragmentManager, TAG_FILTER_DIALOG)
+        val categoryFilterDialogFragment = CategoryFilterDialogFragment()
+        categoryFilterDialogFragment.saveButtonClicks().subscribe {
+            filterButton_resourcesTab.text = getString(R.string.resources_tab_selected_filter_button, it.joinToString())
+            addMarkersToMap(adapter.filterToCategories(it))
+        }
+        categoryFilterDialogFragment.show(fragmentManager, TAG_FILTER_DIALOG)
     }
 
     private fun clearSearchViewFocus() {
@@ -233,7 +239,7 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-    private fun addMarkersToMap(resourceProviders: MutableList<ResourceProvider>) {
+    private fun addMarkersToMap(resourceProviders: List<ResourceProvider>) {
         markerClusterManager.clearItems()
         for (resourceProvider in resourceProviders) {
             if (resourceProvider.latitude != null && resourceProvider.longitude != null) {
@@ -243,7 +249,7 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         markerClusterManager.cluster()
     }
 
-    private fun filterResources(searchText: String): MutableList<ResourceProvider> {
+    private fun filterResources(searchText: String): List<ResourceProvider> {
         return resourceProviders!!.filter {
             searchFields(it.description, searchText)
                     || searchFields(it.address, searchText)
@@ -253,7 +259,7 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
                     || searchFields(it.name, searchText)
                     || searchFields(it.phone, searchText)
                     || searchFields(it.website, searchText)
-        }.toMutableList()
+        }
     }
 
     private fun updateSearchResultsList(searchText: String?) {
