@@ -11,7 +11,7 @@ import io.reactivex.Observable
 import kotlinx.android.synthetic.main.view_resource_category.*
 import org.givingkitchen.android.ui.homescreen.resources.ResourceCategory
 
-class ResourceCategoriesAdapter(val currentlySelectedCategories: Set<String>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ResourceCategoriesAdapter(private val currentlySelectedCategories: Set<String>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val items = ResourceCategory.resourceCategories.map { ResourceCategoryCell(it, it.title in currentlySelectedCategories) }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
@@ -27,6 +27,25 @@ class ResourceCategoriesAdapter(val currentlySelectedCategories: Set<String>): R
 
     fun getSelectedFilters(): List<String> {
         return items.filter { it.selected }.map { it.resourceCategory.title }
+    }
+
+    fun toggleAllCheckboxes(): Boolean {
+        var someUnselected = false
+        for (item in items) {
+            if (!item.selected) {
+                someUnselected = true
+                item.selected = true
+            }
+        }
+
+        if (!someUnselected) {
+            for (item in items) {
+                item.selected = false
+            }
+        }
+
+        notifyDataSetChanged()
+        return !someUnselected
     }
 
     inner class ResourceCategoryViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {

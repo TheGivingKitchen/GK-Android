@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -30,6 +31,7 @@ class CategoryFilterDialogFragment(currentlySelectedCategories: Set<String>): Di
 
         cancelButton_resourcesCategoryFilterDialog.setOnClickListener { dismiss() }
         saveButton_resourcesCategoryFilterDialog.setOnClickListener(saveButtonClickListener)
+        toggleAllButton_resourcesCategoryFilterDialog.setOnClickListener(toggleButtonClickListener)
     }
 
     fun saveButtonClicks(): Observable<List<String>> = saveButtonClicks
@@ -37,5 +39,15 @@ class CategoryFilterDialogFragment(currentlySelectedCategories: Set<String>): Di
     private val saveButtonClickListener = View.OnClickListener {
         saveButtonClicks.onNext(categoriesAdapter.getSelectedFilters())
         dismiss()
+    }
+
+    private val toggleButtonClickListener = View.OnClickListener {
+        if (categoriesAdapter.toggleAllCheckboxes()) {
+            saveButton_resourcesCategoryFilterDialog.setOnClickListener(null)
+            saveButton_resourcesCategoryFilterDialog.setTextColor(ContextCompat.getColor(context!!, R.color.gk_blue_a30))
+        } else {
+            saveButton_resourcesCategoryFilterDialog.setOnClickListener(saveButtonClickListener)
+            saveButton_resourcesCategoryFilterDialog.setTextColor(ContextCompat.getColor(context!!, R.color.gk_blue))
+        }
     }
 }
