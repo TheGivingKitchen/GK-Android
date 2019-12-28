@@ -48,7 +48,7 @@
         android:layout_marginTop="@dimen/universal_horizontal_spacing"
         android:layout_marginStart="@dimen/universal_horizontal_spacing"
         android:layout_marginEnd="@dimen/universal_horizontal_spacing"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="@dimen/universal_vertical_spacing"
         android:text="@string/assistance_tab_cta_for_you"/>
 
     <Button
@@ -56,7 +56,7 @@
         style="@style/CTAButton"
         android:layout_marginStart="@dimen/universal_horizontal_spacing"
         android:layout_marginEnd="@dimen/universal_horizontal_spacing"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="@dimen/universal_vertical_spacing"
         android:text="@string/assistance_tab_cta_for_someone_else"/>
 
     <TextView

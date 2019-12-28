@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/universal_horizontal_spacing"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
+        android:paddingTop="@dimen/universal_vertical_spacing"
+        android:paddingBottom="@dimen/universal_vertical_spacing"
         android:text="@string/base_forms_prologue_cancel"
         android:textColor="@color/gk_blue" />
 
@@ -87,10 +87,10 @@
             android:orientation="vertical"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            android:paddingTop="10dp"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:paddingBottom="10dp"
+            android:paddingTop="@dimen/universal_vertical_spacing"
+            android:paddingStart="@dimen/universal_horizontal_spacing"
+            android:paddingEnd="@dimen/universal_horizontal_spacing"
+            android:paddingBottom="@dimen/universal_vertical_spacing"
             android:visibility="gone">
 
             <!-- todo: use a textview compound drawable instead? -->

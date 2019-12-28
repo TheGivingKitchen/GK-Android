@@ -100,8 +100,8 @@
                     android:id="@+id/collapseFacebookButton_aboutTab"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="@dimen/universal_vertical_spacing"
+                    android:layout_marginEnd="@dimen/universal_horizontal_spacing"
                     android:contentDescription="@string/safetynet_collapse_fb_section_button"
                     android:src="@drawable/ic_expand_less"
                     android:tint="@color/dark_grey"
@@ -161,9 +161,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:layout_marginStart="@dimen/universal_horizontal_spacing"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/universal_vertical_spacing"
                 android:layout_marginEnd="@dimen/universal_horizontal_spacing"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="@dimen/universal_vertical_spacing"
                 android:contentDescription="@string/about_tab_performer_story_image_description"
                 android:src="@drawable/pic_story_performer" />
 
@@ -181,9 +181,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:layout_marginStart="@dimen/universal_horizontal_spacing"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/universal_vertical_spacing"
                 android:layout_marginEnd="@dimen/universal_horizontal_spacing"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="@dimen/universal_vertical_spacing"
                 android:contentDescription="@string/about_tab_mental_health_story_image_description"
                 android:src="@drawable/pic_story_wine_glasses" />
 
@@ -201,9 +201,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:layout_marginStart="@dimen/universal_horizontal_spacing"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/universal_vertical_spacing"
                 android:layout_marginEnd="@dimen/universal_horizontal_spacing"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="@dimen/universal_vertical_spacing"
                 android:contentDescription="@string/about_tab_qpr_story_image_description"
                 android:src="@drawable/pic_story_staplehouse" />
 

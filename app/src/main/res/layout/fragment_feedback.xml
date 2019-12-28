@@ -14,7 +14,7 @@
             style="@style/RegularText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:padding="@dimen/universal_vertical_spacing"
             android:text="@string/feedback_screen_back"
             android:textColor="@color/gk_blue"
             android:textSize="8pt" />
@@ -60,7 +60,7 @@
             android:background="@drawable/edit_text_border"
             android:inputType="textMultiLine"
             android:lines="5"
-            android:padding="10dp" />
+            android:padding="@dimen/universal_vertical_spacing" />
 
         <Button
             android:id="@+id/submit_feedbackScreen"

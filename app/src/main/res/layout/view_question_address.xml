@@ -17,7 +17,7 @@
         style="@style/RegularText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="@dimen/universal_vertical_spacing"
         android:text="@string/address_question_street_label"
         android:textSize="8pt" />
 
@@ -37,7 +37,7 @@
         style="@style/RegularText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="@dimen/universal_vertical_spacing"
         android:text="@string/address_question_linetwo_label"
         android:textSize="8pt" />
 
@@ -57,7 +57,7 @@
         style="@style/RegularText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="@dimen/universal_vertical_spacing"
         android:text="@string/address_question_city_label"
         android:textSize="8pt" />
 
@@ -77,7 +77,7 @@
         style="@style/RegularText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="@dimen/universal_vertical_spacing"
         android:text="@string/address_question_state_label"
         android:textSize="8pt" />
 
@@ -97,7 +97,7 @@
         style="@style/RegularText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="@dimen/universal_vertical_spacing"
         android:text="@string/address_question_zipcode_label"
         android:textSize="8pt" />
 

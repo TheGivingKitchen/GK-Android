@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:padding="10dp"
+            android:padding="@dimen/universal_vertical_spacing"
             android:text="@string/feedback_screen_back"
             android:textColor="@color/gk_blue"
             android:textSize="8pt" />
