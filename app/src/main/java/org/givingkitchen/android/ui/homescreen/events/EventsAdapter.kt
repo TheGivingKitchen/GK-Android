@@ -6,13 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import org.givingkitchen.android.R
 import org.givingkitchen.android.util.setTextIfItExists
 
-class EventsAdapter(var items: MutableList<Any>, val fragment: Fragment) : androidx.recyclerview.widget.RecyclerView.Adapter<androidx.recyclerview.widget.RecyclerView.ViewHolder>() {
+class EventsAdapter(var items: MutableList<Any>, val fragment: Fragment) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val learnMoreClicks: PublishSubject<Boolean> = PublishSubject.create()
     private val eventClicks: PublishSubject<Event> = PublishSubject.create()
 
@@ -29,7 +30,7 @@ class EventsAdapter(var items: MutableList<Any>, val fragment: Fragment) : andro
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): androidx.recyclerview.widget.RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == VIEW_TYPE_HEADER) {
             HeaderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_events_header, parent, false), learnMoreClicks)
         } else {
@@ -37,7 +38,7 @@ class EventsAdapter(var items: MutableList<Any>, val fragment: Fragment) : andro
         }
     }
 
-    override fun onBindViewHolder(holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is EventViewHolder) {
             holder.bind(items[position] as Event, fragment)
         } else {
@@ -51,13 +52,13 @@ class EventsAdapter(var items: MutableList<Any>, val fragment: Fragment) : andro
     fun eventClicks(): Observable<Event> = eventClicks
 }
 
-class HeaderViewHolder(val view: View, private val learnMoreClicks: PublishSubject<Boolean>) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
+class HeaderViewHolder(val view: View, private val learnMoreClicks: PublishSubject<Boolean>) : RecyclerView.ViewHolder(view) {
     fun bind() {
         view.findViewById<TextView>(R.id.learnMoreButton_eventsTab).setOnClickListener { learnMoreClicks.onNext(false) }
     }
 }
 
-class EventViewHolder(val view: View, private val clicks: PublishSubject<Event>) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
+class EventViewHolder(val view: View, private val clicks: PublishSubject<Event>) : RecyclerView.ViewHolder(view) {
     fun bind(event: Event, fragment: Fragment) {
         view.findViewById<TextView>(R.id.title_EventsRecycler).setTextIfItExists(event.title)
         view.findViewById<TextView>(R.id.description_EventsRecycler).setTextIfItExists(event.subtitle?.replace("\n", ""))

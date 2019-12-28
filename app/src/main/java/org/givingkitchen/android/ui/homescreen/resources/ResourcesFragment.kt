@@ -191,6 +191,7 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
     private fun showData() {
         if (resourceProviders != null && map != null) {
             adapter.items = resourceProviders!!
+            adapter.setOriginalItems(resourceProviders!!)
             addMarkersToMap(resourceProviders!!)
 
             map!!.setOnInfoWindowClickListener {

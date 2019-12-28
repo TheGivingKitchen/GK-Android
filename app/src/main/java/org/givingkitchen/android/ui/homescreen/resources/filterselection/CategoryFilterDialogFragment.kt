@@ -29,9 +29,11 @@ class CategoryFilterDialogFragment(currentlySelectedCategories: Set<String>): Di
         recyclerView_resourcesCategoryFilterDialog.apply {
             this.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             this.adapter = categoriesAdapter
+            this.setHasFixedSize(true)
             this.addItemDecoration(DividerItemDecoration(ContextThemeWrapper(context, R.style.AppTheme), DividerItemDecoration.VERTICAL))
         }
 
+        categoriesAdapter.updateSaveButtonState().subscribe { updateSaveButtonState(it) }
         cancelButton_resourcesCategoryFilterDialog.setOnClickListener { dismiss() }
         saveButton_resourcesCategoryFilterDialog.setOnClickListener(saveButtonClickListener)
         toggleAllButton_resourcesCategoryFilterDialog.setOnClickListener(toggleButtonClickListener)
@@ -39,18 +41,22 @@ class CategoryFilterDialogFragment(currentlySelectedCategories: Set<String>): Di
 
     fun saveButtonClicks(): Observable<List<String>> = saveButtonClicks
 
+    private fun updateSaveButtonState(enable: Boolean) {
+        if (enable) {
+            saveButton_resourcesCategoryFilterDialog.setOnClickListener(saveButtonClickListener)
+            saveButton_resourcesCategoryFilterDialog.setTextColor(ContextCompat.getColor(context!!, R.color.gk_blue))
+        } else {
+            saveButton_resourcesCategoryFilterDialog.setOnClickListener(null)
+            saveButton_resourcesCategoryFilterDialog.setTextColor(ContextCompat.getColor(context!!, R.color.gk_blue_a30))
+        }
+    }
+
     private val saveButtonClickListener = View.OnClickListener {
         saveButtonClicks.onNext(categoriesAdapter.getSelectedFilters())
         dismiss()
     }
 
     private val toggleButtonClickListener = View.OnClickListener {
-        if (categoriesAdapter.toggleAllCheckboxes()) {
-            saveButton_resourcesCategoryFilterDialog.setOnClickListener(null)
-            saveButton_resourcesCategoryFilterDialog.setTextColor(ContextCompat.getColor(context!!, R.color.gk_blue_a30))
-        } else {
-            saveButton_resourcesCategoryFilterDialog.setOnClickListener(saveButtonClickListener)
-            saveButton_resourcesCategoryFilterDialog.setTextColor(ContextCompat.getColor(context!!, R.color.gk_blue))
-        }
+        updateSaveButtonState(categoriesAdapter.toggleAllCheckboxes())
     }
 }

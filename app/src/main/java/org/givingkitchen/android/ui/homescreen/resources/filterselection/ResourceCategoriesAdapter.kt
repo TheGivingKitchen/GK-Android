@@ -13,9 +13,10 @@ import org.givingkitchen.android.ui.homescreen.resources.ResourceCategory
 
 class ResourceCategoriesAdapter(private val currentlySelectedCategories: Set<String>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val items = ResourceCategory.resourceCategories.map { ResourceCategoryCell(it, it.title in currentlySelectedCategories) }
+    private val updateSaveButtonState: PublishSubject<Boolean> = PublishSubject.create()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-            ResourceCategoryViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_resource_category, parent, false))
+            ResourceCategoryViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_resource_category, parent, false), updateSaveButtonState)
 
     override fun getItemCount() = items.size
 
@@ -28,6 +29,8 @@ class ResourceCategoriesAdapter(private val currentlySelectedCategories: Set<Str
     fun getSelectedFilters(): List<String> {
         return items.filter { it.selected }.map { it.resourceCategory.title }
     }
+
+    fun updateSaveButtonState(): Observable<Boolean> = updateSaveButtonState
 
     fun toggleAllCheckboxes(): Boolean {
         var someUnselected = false
@@ -48,7 +51,7 @@ class ResourceCategoriesAdapter(private val currentlySelectedCategories: Set<Str
         return !someUnselected
     }
 
-    inner class ResourceCategoryViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    inner class ResourceCategoryViewHolder(override val containerView: View, private val updateSaveButtonState: PublishSubject<Boolean>) : RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun bind(position: Int) {
             title_resourceCategory.text = items[position].resourceCategory.title
             icon_resourceCategory.setImageDrawable(containerView.resources.getDrawable(items[position].resourceCategory.icon, containerView.context.theme))
@@ -56,7 +59,27 @@ class ResourceCategoriesAdapter(private val currentlySelectedCategories: Set<Str
 
             containerView.setOnClickListener {
                 checkbox_resourceCategory.toggle()
-                items[position].selected = checkbox_resourceCategory.isChecked
+            }
+
+            checkbox_resourceCategory.setOnCheckedChangeListener { _, isChecked ->
+                items[position].selected = isChecked
+
+                if (isChecked) {
+                    updateSaveButtonState.onNext(true)
+                } else {
+                    var atLeastOneChecked = false
+                    for (item in items) {
+                        if (item.selected) {
+                            updateSaveButtonState.onNext(true)
+                            atLeastOneChecked = true
+                            continue
+                        }
+                    }
+
+                    if (!atLeastOneChecked) {
+                        updateSaveButtonState.onNext(false)
+                    }
+                }
             }
         }
     }
