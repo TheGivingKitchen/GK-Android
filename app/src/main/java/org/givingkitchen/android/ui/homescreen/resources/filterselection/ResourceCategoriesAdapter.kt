@@ -51,6 +51,7 @@ class ResourceCategoriesAdapter(private val currentlySelectedCategories: Set<Str
     inner class ResourceCategoryViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun bind(position: Int) {
             title_resourceCategory.text = items[position].resourceCategory.title
+            icon_resourceCategory.setImageDrawable(containerView.resources.getDrawable(items[position].resourceCategory.icon, containerView.context.theme))
             checkbox_resourceCategory.isChecked = items[position].selected
 
             containerView.setOnClickListener {

@@ -15,6 +15,7 @@ import org.givingkitchen.android.util.setTextIfItExists
 
 class ResourcesAdapter(var items: List<ResourceProvider>): RecyclerView.Adapter<RecyclerView.ViewHolder>()  {
     private val resourceProviderClicks: PublishSubject<ResourceProvider> = PublishSubject.create()
+    private val originalItems = items
     var currentCategoryFilters = ResourceCategory.resourceCategories.map { it.title }.toSet()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =

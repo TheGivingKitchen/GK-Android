@@ -65,7 +65,6 @@
             android:paddingTop="10dp"
             android:paddingEnd="@dimen/universal_horizontal_spacing"
             android:paddingBottom="10dp"
-            android:text="@string/resources_tab_selected_filter_button"
             android:textColor="@color/light_blue"
             android:textSize="8pt"
             app:layout_constraintEnd_toEndOf="parent"

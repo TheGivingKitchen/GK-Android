@@ -91,9 +91,7 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
 
     override fun onResume() {
         super.onResume()
-        activity?.window?.setSoftInputMode(
-                WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
-        )
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -111,6 +109,7 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         recyclerView_resourcesTab.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         recyclerView_resourcesTab.adapter = adapter
         recyclerView_resourcesTab.addOnScrollListener(recyclerViewScrollListener)
+        filterButton_resourcesTab.text = getString(R.string.resources_tab_selected_filter_button, getFilterButtonLabelValue(adapter.currentCategoryFilters))
 
         searchView_resourcesTab.setOnQueryTextListener(searchTextListener)
         searchView_resourcesTab.setOnQueryTextFocusChangeListener { _, hasFocus ->
@@ -203,10 +202,18 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
     private val filterButtonClickListener = View.OnClickListener {
         val categoryFilterDialogFragment = CategoryFilterDialogFragment(adapter.currentCategoryFilters.toSet())
         categoryFilterDialogFragment.saveButtonClicks().subscribe {
-            filterButton_resourcesTab.text = getString(R.string.resources_tab_selected_filter_button, it.joinToString())
+            filterButton_resourcesTab.text = getString(R.string.resources_tab_selected_filter_button, getFilterButtonLabelValue(it))
             addMarkersToMap(adapter.filterToCategories(it))
         }
         categoryFilterDialogFragment.show(fragmentManager, TAG_FILTER_DIALOG)
+    }
+
+    private fun getFilterButtonLabelValue(selectedCategories: Collection<String>): String {
+        return if (selectedCategories.size == ResourceCategory.resourceCategories.size) {
+            getString(R.string.resources_tab_filter_all)
+        } else {
+            selectedCategories.joinToString()
+        }
     }
 
     private fun clearSearchViewFocus() {

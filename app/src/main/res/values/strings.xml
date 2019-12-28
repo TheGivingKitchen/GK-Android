@@ -115,7 +115,8 @@
     <string name="safetynet_bottomsheet_call_button">Call</string>
     <string name="safetynet_bottomsheet_serves_counties">Serves %1$s</string>
     <string name="resources_tab_searchview_hint">Search Stability Network</string>
-    <string name="resources_tab_selected_filter_button">Filtered To: %1$s</string>
+    <string name="resources_tab_selected_filter_button">Filtering To: %1$s</string>
+    <string name="resources_tab_filter_all">All</string>
     <string name="resources_tab_location_dialog_message">Allow Giving Kitchen to look up your location while you\'re using the app? This allows us to show resources close to you.</string>
     <string name="resources_tab_filter_toggle_button">Toggle All</string>
     <string name="resources_tab_filter_save_button">Save</string>
