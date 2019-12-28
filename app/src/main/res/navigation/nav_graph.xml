@@ -10,7 +10,7 @@
         android:label="EventsFragment"
         tools:layout="@layout/fragment_events" />
     <fragment
-        android:id="@+id/safetynetFragment"
+        android:id="@+id/resourcesFragment"
         android:name="org.givingkitchen.android.ui.homescreen.safetynet.safetynettab.SafetynetFragment"
         android:label="SafetynetFragment"
         tools:layout="@layout/fragment_safetynet" >

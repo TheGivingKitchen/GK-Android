@@ -2,7 +2,6 @@ package org.givingkitchen.android.ui.homescreen.home
 
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import android.content.Context
 import android.os.Bundle
 import androidx.annotation.Nullable
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -84,7 +83,7 @@ class HomeFragment: Fragment(), FragmentBackPressedListener  {
             R.id.giveFragment -> {
                 HomeSection.GIVE
             }
-            R.id.safetynetFragment -> {
+            R.id.resourcesFragment -> {
                 if (FeatureFlags.newResourcesTab) {
                     HomeSection.RESOURCES
                 } else {

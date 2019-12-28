@@ -17,7 +17,7 @@
         android:title="@string/tab_assistance" />
 
     <item
-        android:id="@+id/safetynetFragment"
+        android:id="@+id/resourcesFragment"
         android:icon="@drawable/ic_tab_resources"
         android:title="@string/tab_resources" />
 

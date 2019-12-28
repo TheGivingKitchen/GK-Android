@@ -12,7 +12,7 @@ enum class HomeSection(val id: Int, val screenName: String, val bottomNavId: Int
     ABOUT(R.id.aboutFragment, AboutFragment::class.java.simpleName, R.id.aboutFragment, 0),
     EVENTS(R.id.eventsFragment, EventsFragment::class.java.simpleName, R.id.eventsFragment, 1),
     ASSISTANCE(R.id.assistanceFragment, AssistanceFragment::class.java.simpleName, R.id.assistanceFragment, 2),
-    SAFETYNET(R.id.safetynetFragment, SafetynetFragment::class.java.simpleName, R.id.safetynetFragment, 3),
+    SAFETYNET(R.id.resourcesFragment, SafetynetFragment::class.java.simpleName, R.id.resourcesFragment, 3),
     RESOURCES(R.id.resourcesFragment, ResourcesFragment::class.java.simpleName, R.id.resourcesFragment, 3),
     GIVE(R.id.giveFragment, GiveFragment::class.java.simpleName, R.id.giveFragment, 4);
 
