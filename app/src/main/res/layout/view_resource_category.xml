@@ -2,27 +2,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingTop="@dimen/universal_vertical_spacing"
+    android:paddingBottom="@dimen/universal_vertical_spacing"
     android:orientation="horizontal">
 
     <CheckBox
         android:id="@+id/checkbox_resourceCategory"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"/>
+        android:layout_height="wrap_content" />
 
     <ImageView
         android:id="@+id/icon_resourceCategory"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="@dimen/universal_horizontal_spacing"
+        android:layout_marginEnd="@dimen/universal_horizontal_spacing"
         android:layout_gravity="center_vertical"
-        android:importantForAccessibility="no" />
+        android:importantForAccessibility="no"
+        />
 
     <TextView
         android:id="@+id/title_resourceCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-
-    <View style="@style/DividerViewSmall"
-        android:layout_marginTop="20dp"/>
 
 </LinearLayout>

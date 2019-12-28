@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.reactivex.Observable
@@ -27,6 +29,7 @@ class CategoryFilterDialogFragment(currentlySelectedCategories: Set<String>): Di
         recyclerView_resourcesCategoryFilterDialog.apply {
             this.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             this.adapter = categoriesAdapter
+            this.addItemDecoration(DividerItemDecoration(ContextThemeWrapper(context, R.style.AppTheme), DividerItemDecoration.VERTICAL))
         }
 
         cancelButton_resourcesCategoryFilterDialog.setOnClickListener { dismiss() }
