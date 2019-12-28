@@ -84,11 +84,7 @@ class HomeFragment: Fragment(), FragmentBackPressedListener  {
                 HomeSection.GIVE
             }
             R.id.resourcesFragment -> {
-                if (FeatureFlags.newResourcesTab) {
-                    HomeSection.RESOURCES
-                } else {
-                    HomeSection.SAFETYNET
-                }
+                HomeSection.RESOURCES
             }
             else -> {
                 Crashlytics.log("User tried to navigate to unexpected home tab: ${it.itemId}")
@@ -110,7 +106,6 @@ class HomeFragment: Fragment(), FragmentBackPressedListener  {
                 HomeSection.EVENTS -> EventsFragment()
                 HomeSection.ASSISTANCE -> AssistanceFragment()
                 HomeSection.GIVE -> GiveFragment()
-                HomeSection.SAFETYNET -> SafetynetFragment()
                 HomeSection.RESOURCES -> ResourcesFragment()
             }
         }

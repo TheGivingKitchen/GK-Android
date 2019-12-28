@@ -11,15 +11,6 @@
         tools:layout="@layout/fragment_events" />
     <fragment
         android:id="@+id/resourcesFragment"
-        android:name="org.givingkitchen.android.ui.homescreen.safetynet.safetynettab.SafetynetFragment"
-        android:label="SafetynetFragment"
-        tools:layout="@layout/fragment_safetynet" >
-        <action
-            android:id="@+id/action_safetynetFragment_to_facebookGroupsFragment"
-            app:destination="@id/facebookGroupsFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/resourcesFragment"
         android:name="org.givingkitchen.android.ui.homescreen.resources.ResourcesFragment"
         android:label="ResourcesFragment"
         tools:layout="@layout/fragment_resources" >
