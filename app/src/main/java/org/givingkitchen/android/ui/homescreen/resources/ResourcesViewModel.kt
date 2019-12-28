@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.crashlytics.android.Crashlytics
-import org.givingkitchen.android.ui.homescreen.safetynet.safetynettab.SafetynetViewModel
+import org.givingkitchen.android.util.Constants
 import org.givingkitchen.android.util.Services
 import org.givingkitchen.android.util.Services.moshi
 import java.io.BufferedReader
@@ -13,6 +13,10 @@ import java.io.FileReader
 import java.io.IOException
 
 class ResourcesViewModel : ViewModel() {
+
+    companion object {
+        const val safetynetDataUrl =  "${Constants.firebaseStorageUrl}/safetyNet/safetyNet.json"
+    }
 
     private var resourceProviders: MutableLiveData<MutableList<ResourceProvider>> = MutableLiveData()
     private var progressBarVisible: MutableLiveData<Boolean> = MutableLiveData()
@@ -37,7 +41,7 @@ class ResourcesViewModel : ViewModel() {
         val localFile = File.createTempFile("safetynet", "json")
         setProgressBarVisibility(true)
 
-        Services.firebaseInstance.getReferenceFromUrl(SafetynetViewModel.safetynetDataUrl)
+        Services.firebaseInstance.getReferenceFromUrl(safetynetDataUrl)
                 .getFile(localFile)
                 .addOnSuccessListener {
                     val stringBuilder = StringBuilder()

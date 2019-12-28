@@ -6,7 +6,6 @@ import org.givingkitchen.android.ui.homescreen.assistance.AssistanceFragment
 import org.givingkitchen.android.ui.homescreen.events.EventsFragment
 import org.givingkitchen.android.ui.homescreen.give.GiveFragment
 import org.givingkitchen.android.ui.homescreen.resources.ResourcesFragment
-import org.givingkitchen.android.ui.homescreen.safetynet.safetynettab.SafetynetFragment
 
 enum class HomeSection(val id: Int, val screenName: String, val bottomNavId: Int, val index: Int) {
     ABOUT(R.id.aboutFragment, AboutFragment::class.java.simpleName, R.id.aboutFragment, 0),

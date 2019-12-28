@@ -18,8 +18,6 @@ import org.givingkitchen.android.ui.homescreen.assistance.AssistanceFragment
 import org.givingkitchen.android.ui.homescreen.events.EventsFragment
 import org.givingkitchen.android.ui.homescreen.give.GiveFragment
 import org.givingkitchen.android.ui.homescreen.resources.ResourcesFragment
-import org.givingkitchen.android.ui.homescreen.safetynet.safetynettab.SafetynetFragment
-import org.givingkitchen.android.util.FeatureFlags
 import org.givingkitchen.android.util.FragmentBackPressedListener
 import org.givingkitchen.android.util.getGivingKitchenSharedPreferences
 
