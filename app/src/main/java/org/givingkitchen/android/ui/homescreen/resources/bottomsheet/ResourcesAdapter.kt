@@ -39,10 +39,9 @@ class ResourcesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         } else {
             categoryFilteredItems.filter {
                 searchFields(it.description, searchText)
-                        || searchFields(it.address, searchText)
+                        || searchFields(it.address1, searchText)
                         || searchFields(it.category, searchText)
                         || searchFields(it.contactName, searchText)
-                        || searchFields(it.countiesServed, searchText)
                         || searchFields(it.name, searchText)
                         || searchFields(it.phone, searchText)
                         || searchFields(it.website, searchText)

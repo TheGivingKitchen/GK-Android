@@ -15,17 +15,17 @@ import java.io.IOException
 class ResourcesViewModel : ViewModel() {
 
     companion object {
-        const val safetynetDataUrl =  "${Constants.firebaseStorageUrl}/safetyNet/safetyNet.json"
+        const val safetynetDataUrl = "${Constants.firebaseStorageUrl}/stabilityNet/stabilityNet.json"
     }
 
-    private var resourceProviders: MutableLiveData<MutableList<ResourceProvider>> = MutableLiveData()
+    private var resourceProviders: MutableLiveData<List<ResourceProvider>> = MutableLiveData()
     private var progressBarVisible: MutableLiveData<Boolean> = MutableLiveData()
 
-    fun getResourceProviders(): LiveData<MutableList<ResourceProvider>> {
+    fun getResourceProviders(): LiveData<List<ResourceProvider>> {
         return resourceProviders
     }
 
-    private fun setResourceProviders(data: MutableList<ResourceProvider>) {
+    private fun setResourceProviders(data: List<ResourceProvider>) {
         resourceProviders.value = data
     }
 
@@ -55,8 +55,10 @@ class ResourcesViewModel : ViewModel() {
                         bufferedReader.close()
                         moshi.adapter(ResourceProvidersList::class.java)
                                 .nullSafe()
-                                .fromJson(stringBuilder.toString())?.safetyNet?.let {
-                            setResourceProviders(it.toMutableList())
+                                .fromJson(stringBuilder.toString())?.records?.let {
+                            setResourceProviders(it.map { resourceProviderContainer ->
+                                resourceProviderContainer.fields
+                            })
                         }
                         setProgressBarVisibility(false)
                     } catch (e: IOException) {

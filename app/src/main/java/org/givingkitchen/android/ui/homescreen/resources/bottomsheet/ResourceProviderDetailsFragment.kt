@@ -60,7 +60,7 @@ class ResourceProviderDetailsFragment private constructor(): BottomSheetDialogFr
             allButtonsGone = false
         }
 
-        val directions = provider.address
+        val directions = combinedAddress(provider.address1, provider.address2)
         if (directions.isNullOrBlank()) {
             directionsDivider_resourceProviderBottomSheet.visibility = View.GONE
             directionsButton_resourceProviderBottomSheet.visibility = View.GONE
@@ -87,8 +87,8 @@ class ResourceProviderDetailsFragment private constructor(): BottomSheetDialogFr
         }
 
         val counties = provider.countiesServed
-        if (!counties.isNullOrBlank()) {
-            counties_resourceProviderBottomSheet.text = getString(R.string.safetynet_bottomsheet_serves_counties, counties)
+        if (counties != null) {
+            counties_resourceProviderBottomSheet.text = getString(R.string.safetynet_bottomsheet_serves_counties, counties.joinToString())
         } else {
             counties_resourceProviderBottomSheet.visibility = View.GONE
             callBottomDivider_resourceProviderBottomSheet.visibility = View.GONE
@@ -103,14 +103,14 @@ class ResourceProviderDetailsFragment private constructor(): BottomSheetDialogFr
 
     private val websiteButtonClickListener = View.OnClickListener {
         Analytics.logEvent(Events.SAFETY_NET_VISIT_WEBSITE, providerAnalytics(provider))
-
         CustomTabs.openCustomTab(context, provider.website!!)
     }
 
     private val directionsButtonClickListener = View.OnClickListener {
         Analytics.logEvent(Events.SAFETY_NET_VISIT_ADDRESS, providerAnalytics(provider))
-
-        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + provider.address!!)))
+        combinedAddress(provider.address1, provider.address2)?.let {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + it)))
+        }
     }
 
     private val phoneButtonClickListener = View.OnClickListener {
@@ -120,5 +120,21 @@ class ResourceProviderDetailsFragment private constructor(): BottomSheetDialogFr
 
     private fun providerAnalytics(provider: ResourceProvider): Map<Parameter, String> {
         return mapOf(Parameter.SAFETY_NET_NAME to provider.name)
+    }
+
+    private fun combinedAddress(address1: String?, address2: String?): String? {
+        if (address1.isNullOrBlank()) {
+            return null
+        }
+        var address = address1
+        if (!address2.isNullOrBlank()) {
+            val intermediateSpace = if (address.last() == ' ') {
+                ""
+            } else {
+                " "
+            }
+            address += intermediateSpace + address2
+        }
+        return address
     }
 }
