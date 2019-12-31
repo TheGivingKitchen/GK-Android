@@ -31,6 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/universal_vertical_spacing"
+            android:layout_marginBottom="@dimen/universal_vertical_spacing"
             android:gravity="center_horizontal"
             android:textColor="@color/gk_blue"
             android:textSize="8pt" />
@@ -39,7 +40,6 @@
             android:id="@+id/website_resourceProviderBottomSheet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/universal_vertical_spacing"
             android:gravity="center_horizontal"
             android:textColor="@color/dark_grey"
             android:textSize="8pt" />

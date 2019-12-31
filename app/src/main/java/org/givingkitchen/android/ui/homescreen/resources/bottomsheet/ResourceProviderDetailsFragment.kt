@@ -47,12 +47,6 @@ class ResourceProviderDetailsFragment private constructor(): BottomSheetDialogFr
         name_resourceProviderBottomSheet.setTextIfItExists(provider.name)
         category_resourceProviderBottomSheet.setTextIfItExists(provider.category)
         description_resourceProviderBottomSheet.setTextIfItExists(provider.description)
-        val counties = provider.countiesServed
-        if (!counties.isNullOrBlank()) {
-            counties_resourceProviderBottomSheet.text = getString(R.string.safetynet_bottomsheet_serves_counties, counties)
-        } else {
-            counties_resourceProviderBottomSheet.visibility = View.GONE
-        }
 
         var allButtonsGone = true
         val websiteLink = provider.website
@@ -89,6 +83,14 @@ class ResourceProviderDetailsFragment private constructor(): BottomSheetDialogFr
         }
 
         if (allButtonsGone) {
+            callBottomDivider_resourceProviderBottomSheet.visibility = View.GONE
+        }
+
+        val counties = provider.countiesServed
+        if (!counties.isNullOrBlank()) {
+            counties_resourceProviderBottomSheet.text = getString(R.string.safetynet_bottomsheet_serves_counties, counties)
+        } else {
+            counties_resourceProviderBottomSheet.visibility = View.GONE
             callBottomDivider_resourceProviderBottomSheet.visibility = View.GONE
         }
     }

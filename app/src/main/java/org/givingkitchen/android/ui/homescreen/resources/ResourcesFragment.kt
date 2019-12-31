@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.annotation.Nullable
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -32,7 +31,6 @@ import org.givingkitchen.android.ui.homescreen.resources.filterselection.Categor
 import org.givingkitchen.android.ui.homescreen.resources.map.ResourcesClusterRenderer
 import org.givingkitchen.android.ui.homescreen.resources.map.ResourcesMapInfoWindowAdapter
 import org.givingkitchen.android.ui.homescreen.resources.map.ResourcesMarkerItem
-import org.givingkitchen.android.util.Constants.rootLocale
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
 
@@ -44,22 +42,21 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         private const val TAG_FILTER_DIALOG = "ResourcesFragment.Tag.CategoryFilterDialogFragment"
         private const val PERMISSIONS_REQUEST_CODE_LOCATION = 0
         private val atlanta = LatLng(33.774381, -84.372775)
-        // private val atlanta = LatLng(35.1046, -106.6576) // Albuquerque (for testing)
     }
 
     private lateinit var model: ResourcesViewModel
     private lateinit var sheetBehavior: BottomSheetBehavior<View>
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var markerClusterManager: ClusterManager<ResourcesMarkerItem>
-    private var adapter = ResourcesAdapter(listOf())
+    private lateinit var adapter: ResourcesAdapter
     private var map: GoogleMap? = null
     private var resourceProviders: List<ResourceProvider>? = null
     private var bottomsheetState = BottomSheetBehavior.STATE_HALF_EXPANDED
-    private val searchTextListener = SearchTextListener()
 
     @SuppressWarnings("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        adapter = ResourcesAdapter()
         adapter.resourceProviderClicks().subscribe {
             showResourceProviderDetails(it)
             updateBottomsheetState(BottomSheetBehavior.STATE_HALF_EXPANDED)
@@ -92,6 +89,7 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
     override fun onResume() {
         super.onResume()
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+        searchView_resourcesTab.setOnQueryTextListener(SearchTextListener())
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -111,7 +109,6 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         recyclerView_resourcesTab.addOnScrollListener(recyclerViewScrollListener)
         filterButton_resourcesTab.text = getString(R.string.resources_tab_selected_filter_button, getFilterButtonLabelValue(adapter.currentCategoryFilters))
 
-        searchView_resourcesTab.setOnQueryTextListener(searchTextListener)
         searchView_resourcesTab.setOnQueryTextFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 updateBottomsheetState(BottomSheetBehavior.STATE_EXPANDED)
@@ -190,10 +187,7 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
 
     private fun showData() {
         if (resourceProviders != null && map != null) {
-            adapter.items = resourceProviders!!
-            adapter.setOriginalItems(resourceProviders!!)
-            addMarkersToMap(resourceProviders!!)
-
+            addMarkersToMap(adapter.filterToCategories(null, "", resourceProviders!!))
             map!!.setOnInfoWindowClickListener {
                 showResourceProviderDetails(it.tag as ResourceProvider)
             }
@@ -201,10 +195,15 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
     }
 
     private val filterButtonClickListener = View.OnClickListener {
-        val categoryFilterDialogFragment = CategoryFilterDialogFragment(adapter.currentCategoryFilters.toSet())
+        val categoryFilterDialogFragment = CategoryFilterDialogFragment(adapter.currentCategoryFilters)
         categoryFilterDialogFragment.saveButtonClicks().subscribe {
-            filterButton_resourcesTab.text = getString(R.string.resources_tab_selected_filter_button, getFilterButtonLabelValue(it))
-            addMarkersToMap(adapter.filterToCategories(it))
+            if (it.size == ResourceCategory.resourceCategories.size) {
+                filterButton_resourcesTab.text = getString(R.string.resources_tab_selected_filter_button, getString(R.string.resources_tab_filter_all))
+                addMarkersToMap(adapter.filterToCategories(null, searchView_resourcesTab.query.toString(), resourceProviders!!))
+            } else {
+                filterButton_resourcesTab.text = getString(R.string.resources_tab_selected_filter_button, it.joinToString())
+                addMarkersToMap(adapter.filterToCategories(it, searchView_resourcesTab.query.toString(), resourceProviders!!))
+            }
         }
         categoryFilterDialogFragment.show(fragmentManager, TAG_FILTER_DIALOG)
     }
@@ -257,35 +256,8 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         markerClusterManager.cluster()
     }
 
-    private fun filterResources(searchText: String): List<ResourceProvider> {
-        return resourceProviders!!.filter {
-            searchFields(it.description, searchText)
-                    || searchFields(it.address, searchText)
-                    || searchFields(it.category, searchText)
-                    || searchFields(it.contactName, searchText)
-                    || searchFields(it.countiesServed, searchText)
-                    || searchFields(it.name, searchText)
-                    || searchFields(it.phone, searchText)
-                    || searchFields(it.website, searchText)
-        }
-    }
-
-    private fun updateSearchResultsList(searchText: String?) {
-        if (searchText.isNullOrEmpty()) {
-            adapter.items = resourceProviders!!
-            addMarkersToMap(resourceProviders!!)
-        } else {
-            adapter.items = filterResources(searchText)
-        }
-        adapter.notifyDataSetChanged()
-    }
-
-    private fun searchFields(responseString: String?, searchText: String): Boolean {
-        return responseString != null && responseString.toLowerCase(rootLocale).contains(searchText.toLowerCase(rootLocale))
-    }
-
     private val recyclerViewScrollListener =
-            object: RecyclerView.OnScrollListener() {
+            object : RecyclerView.OnScrollListener() {
                 override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                     super.onScrollStateChanged(recyclerView, newState)
                     if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
@@ -299,38 +271,22 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
                 override fun onSlide(bottomSheet: View, slideOffset: Float) {}
                 override fun onStateChanged(bottomSheet: View, newState: Int) {
                     bottomsheetState = newState
-                    when (newState) {
-                        BottomSheetBehavior.STATE_HALF_EXPANDED -> {
-
-                        }
-                        BottomSheetBehavior.STATE_EXPANDED -> {
-
-                        }
-                        BottomSheetBehavior.STATE_COLLAPSED -> {
-
-                        }
-                        BottomSheetBehavior.STATE_DRAGGING -> {
-                            clearSearchViewFocus()
-                        }
-                        BottomSheetBehavior.STATE_HIDDEN -> {
-
-                        }
-                        BottomSheetBehavior.STATE_SETTLING -> {
-
-                        }
+                    if (newState == BottomSheetBehavior.STATE_DRAGGING) {
+                        clearSearchViewFocus()
                     }
                 }
             }
 
     private inner class SearchTextListener : SearchView.OnQueryTextListener {
         override fun onQueryTextChange(text: String?): Boolean {
-            updateSearchResultsList(text)
+            text?.let {
+                addMarkersToMap(adapter.searchWithinCategories(it))
+            }
             return true
         }
 
         override fun onQueryTextSubmit(searchText: String?): Boolean {
             if (!searchText.isNullOrEmpty()) {
-                addMarkersToMap(filterResources(searchText))
                 updateBottomsheetState(BottomSheetBehavior.STATE_HALF_EXPANDED)
                 clearSearchViewFocus()
             }
