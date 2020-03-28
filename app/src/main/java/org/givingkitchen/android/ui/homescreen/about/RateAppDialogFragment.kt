@@ -18,12 +18,6 @@ class RateAppDialogFragment : AppCompatDialogFragment() {
                     .setPositiveButton("Save") { _, _ ->
                         onComplete?.invoke(false)
                     }
-                    .setNeutralButton("Select All") { _, _ ->
-                        onComplete?.invoke(false)
-                    }
-                    .setNeutralButton("Clear Selections") { _, _ ->
-                        onComplete?.invoke(false)
-                    }
                     .setNegativeButton("Cancel") { _, _ ->
                         onComplete?.invoke(true)
                     }

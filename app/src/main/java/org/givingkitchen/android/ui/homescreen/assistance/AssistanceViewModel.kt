@@ -14,7 +14,7 @@ import org.givingkitchen.android.util.Constants.givingKitchenUrl
 
 class AssistanceViewModel: ViewModel() {
     companion object {
-        const val assistanceLearnMoreURL = "$givingKitchenUrl/grant-program"
+        const val assistanceLearnMoreURL = "$givingKitchenUrl/what-we-do"
         const val selfAssistanceInquiryUrl = "$firebaseStorageUrl/forms/assistanceInquirySelf.json"
         const val referralAssistanceInquiryUrl = "$firebaseStorageUrl/forms/assistanceInquiryReferral.json"
     }

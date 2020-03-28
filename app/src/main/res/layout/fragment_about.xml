@@ -157,6 +157,26 @@
                 android:text="@string/about_tab_stories_header" />
 
             <ImageView
+                android:id="@+id/storyZeroImage_aboutTab"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginStart="@dimen/universal_horizontal_spacing"
+                android:layout_marginTop="@dimen/universal_vertical_spacing"
+                android:layout_marginEnd="@dimen/universal_horizontal_spacing"
+                android:layout_marginBottom="@dimen/universal_vertical_spacing"
+                android:contentDescription="@string/about_tab_pink_house_story_image_description"
+                android:src="@drawable/pic_story_pink_house" />
+
+            <TextView
+                android:id="@+id/storyZeroLink_aboutTab"
+                style="@style/GiveTabButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/about_tab_story_zero_link" />
+
+            <View style="@style/DividerViewSmall" />
+
+            <ImageView
                 android:id="@+id/storyOneImage_aboutTab"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
@@ -221,7 +241,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/universal_horizontal_spacing"
-                android:text="@string/about_tab_stories_header" />
+                android:text="@string/about_tab_feedback_header" />
 
             <TextView
                 style="@style/GiveTabParagraph"

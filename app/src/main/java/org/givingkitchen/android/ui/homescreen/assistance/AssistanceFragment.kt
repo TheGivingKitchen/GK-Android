@@ -44,14 +44,14 @@ class AssistanceFragment : Fragment() {
         val args = Bundle()
         args.putString(formsArg, selfAssistanceInquiryUrl)
         args.putEnum(Constants.donePageArg, DonePage.ASSISTANCE_INQUIRY)
-        Navigation.findNavController(getView()!!).navigate(R.id.formsFragment, args)
+        Navigation.findNavController(view!!).navigate(R.id.formsFragment, args)
     }
 
     private val forSomeoneElseButtonClickListener = View.OnClickListener {
         val args = Bundle()
         args.putString(formsArg, referralAssistanceInquiryUrl)
         args.putEnum(Constants.donePageArg, DonePage.ASSISTANCE_INQUIRY)
-        Navigation.findNavController(getView()!!).navigate(R.id.formsFragment, args)
+        Navigation.findNavController(view!!).navigate(R.id.formsFragment, args)
     }
 
     private val learnMoreButtonClickListener = View.OnClickListener {

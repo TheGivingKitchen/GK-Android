@@ -23,6 +23,7 @@ class AboutFragment : Fragment()  {
         const val QprTrainingSignupUrl = "${Constants.firebaseStorageUrl}/forms/qprSignupForm.json"
         const val howItWorksPdfUrl = "https://firebasestorage.googleapis.com/v0/b/thegivingkitchen-cdd28.appspot.com/o/howitworks.pdf?alt=media&token=7bcc47e7-45f5-4b71-b4ad-9071e9d8efd8"
         const val gkContactUrl = "$givingKitchenUrl/contact"
+        const val storyZeroUrl = "$givingKitchenUrl/olde-pink-house-fire"
         const val storyOneUrl = "$givingKitchenUrl/reggie-ealy"
         const val storyTwoUrl = "$givingKitchenUrl/lets-talk-about-it"
         const val storyThreeUrl = "$givingKitchenUrl/why-qpr"
@@ -38,6 +39,8 @@ class AboutFragment : Fragment()  {
         super.onViewCreated(view, savedInstanceState)
         aboutUsButton_aboutTab.setOnClickListener(aboutUsButtonClickListener)
         newsletterSignup_aboutTab.setOnClickListener(newsletterSignupClickListener)
+        storyZeroImage_aboutTab.setOnClickListener(storyZeroClickListener)
+        storyZeroLink_aboutTab.setOnClickListener(storyZeroClickListener)
         storyOneImage_aboutTab.setOnClickListener(storyOneClickListener)
         storyOneLink_aboutTab.setOnClickListener(storyOneClickListener)
         storyTwoImage_aboutTab.setOnClickListener(storyTwoClickListener)
@@ -65,18 +68,23 @@ class AboutFragment : Fragment()  {
         CustomTabs.openCustomTab(context, newsletterSignupUrl)
     }
 
+    private val storyZeroClickListener = View.OnClickListener {
+        Analytics.logLearnedMore("story_olde_pink_house")
+        CustomTabs.openCustomTab(context, storyZeroUrl)
+    }
+
     private val storyOneClickListener = View.OnClickListener {
         Analytics.logLearnedMore("story_the_performer")
         CustomTabs.openCustomTab(context, storyOneUrl)
     }
 
     private val storyTwoClickListener = View.OnClickListener {
-        Analytics.logLearnedMore("when_irma_hit")
+        Analytics.logLearnedMore("story_talk_about_it")
         CustomTabs.openCustomTab(context, storyTwoUrl)
     }
 
     private val storyThreeClickListener = View.OnClickListener {
-        Analytics.logLearnedMore("comfort_in_athens")
+        Analytics.logLearnedMore("story_qpr_training")
         CustomTabs.openCustomTab(context, storyThreeUrl)
     }
 

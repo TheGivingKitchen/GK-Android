@@ -16,11 +16,11 @@
     <string name="onboarding_page_one_header">WELCOME!</string>
     <string name="onboarding_page_one_desciption">Thanks for supporting Giving Kitchen! You can request assistance for food service workers in crisis, see upcoming events that benefit GK, and join our forces - all through this app.</string>
     <string name="onboarding_page_two_header">ASSISTANCE</string>
-    <string name="onboarding_page_two_desciption">Request assistance for yourself or a food service worker in crisis. Just fill out our assistance inquiry form, and one of our team members will contact you.</string>
+    <string name="onboarding_page_two_desciption">Request assistance for yourself or a food service worker in crisis. Just fill out our ask for help form, and one of our team members will contact you.</string>
     <string name="onboarding_page_three_header">STABILITY NETWORK</string>
-    <string name="onboarding_page_three_description">We also have a Stability Network program to connect food service workers to community resource providers throughout Georgia.</string>
+    <string name="onboarding_page_three_description">We also have a Stability Network program to connect food service workers to community resource providers throughout Georgia and the United States.</string>
     <string name="onboarding_page_four_header">EVENTS</string>
-    <string name="onboarding_page_four_description">Get info about new upcoming events. Sign up through the app to get alerts about new volunteer opportunities.</string>
+    <string name="onboarding_page_four_description">Get info about upcoming events, and sign up to get alerts about volunteer opportunities.</string>
 
     <!-- About Tab -->
     <string name="about_tab_header">HEROES WITH APRONS INSTEAD OF CAPES</string>
@@ -29,9 +29,10 @@
     <string name="about_tab_about_us_button">How It Works</string>
     <string name="about_tab_newsletter_signup">Sign up for our newsletter</string>
     <string name="about_tab_stories_header">Stories</string>
+    <string name="about_tab_story_zero_link">Olde Pink House Fire (Read on)</string>
     <string name="about_tab_story_one_link">The Performer (Read on)</string>
     <string name="about_tab_story_two_link">Let\'s Talk About It (Read on)</string>
-    <string name="about_tab_story_three_link">Why QPR? (Read on)</string>
+    <string name="about_tab_story_three_link">Free Online Suicide Prevention Training (Read on)</string>
     <string name="about_tab_feedback_header">Feedback</string>
     <string name="about_tab_feedback_description">How do you like using the Giving Kitchen app?</string>
     <string name="about_tab_feedback_positive">I\'m a fan!</string>
@@ -55,7 +56,7 @@
     <string name="feedback_dialog_button">Awesome!</string>
 
     <!-- Events Tab -->
-    <string name="events_tab_header_description">Giving Kitchen\'s signature and third-party events are rooted in great food, drink, service - and care for those who serve us every day.</string>
+    <string name="events_tab_header_description">Giving Kitchen\'s signature and community partner events are rooted in great food, drink, service - and care for those who serve us every day.</string>
     <string name="events_tab_read_more">Read more \u2192</string>
     <string name="events_tab_learn_more">Learn more</string>
     <string name="events_tab_volunteer_banner">Give back! Volunteer at an event!</string>
@@ -68,10 +69,10 @@
     <string name="give_tab_volunteer_header">Volunteer</string>
     <string name="give_tab_volunteer_description">From educating the public about our program services to providing special event support, GK would not exist without the dedication of our volunteers! Join the team:</string>
     <string name="give_tab_volunteer_button">Volunteer!</string>
-    <string name="give_tab_join_forces_button">Join our forces</string>
+    <string name="give_tab_join_forces_button">Community Partner Form</string>
     <string name="give_tab_partner_header">Partner</string>
     <string name="give_tab_partner_description">Would you like to become part of Giving Kitchen\'s social service or community resource referral program? We\'d love to hear from you!</string>
-    <string name="give_tab_join_forces_description">Want to host an event to benefit GK? Join our forces!</string>
+    <string name="give_tab_join_forces_description">Want to host an event to benefit GK? Let us know!</string>
     <string name="give_tab_partner_button">Stability Network Partner</string>
     <string name="give_tab_examples_amount">$%1$d</string>
 
@@ -85,19 +86,19 @@
     <string name="give_tab_examples_total_grant">A total grant!!</string>
 
     <!-- Assistance Tab -->
-    <string name="assistance_tab_crisis_grants_title">CRISIS GRANTS\n</string>
+    <string name="assistance_tab_crisis_grants_title">FINANCIAL ASSISTANCE\n</string>
     <string name="assistance_tab_crisis_grants_description">GK can fund the cost of living expenses for food service workers who miss work due to an </string>
     <string name="assistance_tab_crisis_grants_illness">\u0020illness</string>
     <string name="assistance_tab_crisis_grants_injury">injury</string>
-    <string name="assistance_tab_crisis_grants_death">house fire or flood</string>
+    <string name="assistance_tab_crisis_grants_death">housing disaster</string>
     <string name="assistance_tab_crisis_grants_disaster">death of an immediate family member</string>
     <string name="assistance_tab_crisis_grants_comma">,\u0020</string>
     <string name="assistance_tab_crisis_grants_or">or\u0020</string>
     <string name="assistance_tab_crisis_grants_period">.</string>
     <string name="assistance_tab_cta_for_you">For You</string>
     <string name="assistance_tab_cta_for_someone_else">For Someone Else</string>
-    <string name="assistance_tab_start_inquiry">Start here to request assistance</string>
-    <string name="assistance_tab_start_inquiry_description">You can start an assistance inquiry for yourself, or for someone else.</string>
+    <string name="assistance_tab_start_inquiry">Start here to ask for help</string>
+    <string name="assistance_tab_start_inquiry_description">You can ask for help for yourself or someone else.</string>
     <string name="assistance_tab_learn_more">Learn more</string>
 
     <!-- Resources Tab -->
@@ -187,6 +188,7 @@
     <string name="safetynet_collapse_fb_section_button">Collapse or expand the Facebook Groups section</string>
     <string name="give_tab_salad_image_description">A group of people eating salad together</string>
     <string name="give_tab_teamwork_image_description">A meeting where people listen to a team leader</string>
+    <string name="about_tab_pink_house_story_image_description">Photo of Craig Jeffress, General Manager of Olde Pink House.</string>
     <string name="about_tab_performer_story_image_description">Reggie the performer</string>
     <string name="about_tab_irma_story_image_description">A family affected by hurricane Irma</string>
     <string name="about_tab_mental_health_story_image_description">Illustrated wine glasses in a row. Contents go from wine to flowers.</string>
