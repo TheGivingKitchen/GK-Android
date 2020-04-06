@@ -29,12 +29,12 @@
     <string name="about_tab_about_us_button">How It Works</string>
     <string name="about_tab_newsletter_signup">Sign up for our newsletter</string>
     <string name="about_tab_stories_header">Stories</string>
-    <string name="about_tab_story_zero_link">Olde Pink House Fire (Read on)</string>
-    <string name="about_tab_story_one_link">The Performer (Read on)</string>
+    <string name="about_tab_story_zero_link">Free Online Suicide Prevention Training (Read on)</string>
+    <string name="about_tab_story_one_link">Olde Pink House Fire (Read on)</string>
     <string name="about_tab_story_two_link">Let\'s Talk About It (Read on)</string>
-    <string name="about_tab_story_three_link">Free Online Suicide Prevention Training (Read on)</string>
+    <string name="about_tab_story_three_link">The Performer (Read on)</string>
     <string name="about_tab_feedback_header">Feedback</string>
-    <string name="about_tab_feedback_description">How do you like using the Giving Kitchen app?</string>
+    <string name="about_tab_feedback_description">How do you like using Giving Kitchen\'s app?</string>
     <string name="about_tab_feedback_positive">I\'m a fan!</string>
     <string name="about_tab_feedback_neutral">It could be better.</string>
     <string name="about_tab_feedback_negative">I\'d like to report a problem.</string>
@@ -86,7 +86,7 @@
     <string name="give_tab_examples_total_grant">A total grant!!</string>
 
     <!-- Assistance Tab -->
-    <string name="assistance_tab_crisis_grants_title">FINANCIAL ASSISTANCE\n</string>
+    <string name="assistance_tab_crisis_grants_title">FINANCIAL ASSISTANCE</string>
     <string name="assistance_tab_crisis_grants_description">GK can fund the cost of living expenses for food service workers who miss work due to an </string>
     <string name="assistance_tab_crisis_grants_illness">\u0020illness</string>
     <string name="assistance_tab_crisis_grants_injury">injury</string>
@@ -115,17 +115,21 @@
     <string name="safetynet_bottomsheet_directions_button">Get Directions</string>
     <string name="safetynet_bottomsheet_call_button">Call</string>
     <string name="safetynet_bottomsheet_serves_counties">Serves %1$s</string>
+    <string name="resources_tab_intro_dialog_title">STABILITY NETWORK</string>
+    <string name="resources_tab_intro_dialog_description">Our Stability Network program connects food service workers to various types of resources. Whether you receive financial assistance from GK or not, these local services are standing by to help you.</string>
+    <string name="resources_tab_intro_dialog_button">Okay</string>
     <string name="resources_tab_searchview_hint">Search Stability Network</string>
     <string name="resources_tab_selected_filter_button">Filtering To: %1$s</string>
     <string name="resources_tab_filter_all">All</string>
     <string name="resources_tab_location_dialog_message">Allow Giving Kitchen to look up your location while you\'re using the app? This allows us to show resources close to you.</string>
+    <string name="resources_tab_filter_title">Stability Network Categories</string>
     <string name="resources_tab_filter_toggle_button">Toggle All</string>
     <string name="resources_tab_filter_save_button">Save</string>
     <string name="resources_tab_filter_cancel_button">Cancel</string>
 
     <!-- Facebook Groups -->
     <string name="facebook_groups_header">JOIN US ON FACEBOOK</string>
-    <string name="facebook_groups_header_description">Our groups are places to share industry events, community resources (including job postings), and best practices.</string>
+    <string name="facebook_groups_header_description">Join the GK Food Service Workers group on Facebook for support and potential employment opportunities near you: </string>
     <string name="facebook_groups_group_metro_atl">Metro ATL</string>
     <string name="facebook_groups_group_athens">Athens</string>
     <string name="facebook_groups_group_columbus">Columbus</string>
@@ -135,6 +139,8 @@
     <string name="facebook_groups_group_north_ga">North GA</string>
     <string name="facebook_groups_group_south_ga">South GA</string>
     <string name="facebook_groups_group_coastal_ga">Coastal GA</string>
+    <string name="facebook_groups_group_north_carolina">North Carolina</string>
+    <string name="facebook_groups_group_south_carolina">South Carolina</string>
 
     <!-- Common Forms Strings -->
     <string name="forms_questions_back">Back</string>
@@ -185,6 +191,8 @@
     <string name="facebook_groups_north_ga">Go back the North Georgia Facebook Group</string>
     <string name="facebook_groups_south_ga">Go back the South Georgia Facebook Group</string>
     <string name="facebook_groups_coastal_ga">Go back the Coastal Georgia Facebook Group</string>
+    <string name="facebook_groups_north_carolina">Go back the North Carolina Facebook Group</string>
+    <string name="facebook_groups_south_carolina">Go back the South Carolina Facebook Group</string>
     <string name="safetynet_collapse_fb_section_button">Collapse or expand the Facebook Groups section</string>
     <string name="give_tab_salad_image_description">A group of people eating salad together</string>
     <string name="give_tab_teamwork_image_description">A meeting where people listen to a team leader</string>
@@ -232,6 +240,7 @@
     <!-- Shared Prefs -->
     <string name="preference_file_key">org.givingkitchen.android</string>
     <string name="facebook_groups_expanded_key">facebook_groups_expanded_key</string>
+    <string name="resources_intro_dialog_key">resources_intro_dialog_key</string>
     <string name="show_events_volunteer_banner_key">show_events_volunteer_banner_key</string>
     <string name="show_about_qpr_banner_key">show_about_qpr_banner_key</string>
     <string name="onboarding_viewed_key">onboarding_viewed_key</string>

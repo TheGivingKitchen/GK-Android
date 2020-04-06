@@ -15,9 +15,20 @@
         tools:ignore="ContentDescription"/>
 
     <TextView
+        android:id="@+id/header_title_assistanceTab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/universal_horizontal_spacing"
+        android:layout_marginEnd="@dimen/universal_horizontal_spacing"
+        android:text="@string/assistance_tab_crisis_grants_title"
+        style="@style/BoldLargeHeaderText"
+        android:textColor="@color/gk_orange"/>
+
+    <TextView
         android:id="@+id/header_description_assistanceTab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/universal_vertical_spacing"
         android:layout_marginStart="@dimen/universal_horizontal_spacing"
         android:layout_marginEnd="@dimen/universal_horizontal_spacing"
         style="@style/LargeHeaderText"/>

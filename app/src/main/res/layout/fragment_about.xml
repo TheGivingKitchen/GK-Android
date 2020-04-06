@@ -164,8 +164,8 @@
                 android:layout_marginTop="@dimen/universal_vertical_spacing"
                 android:layout_marginEnd="@dimen/universal_horizontal_spacing"
                 android:layout_marginBottom="@dimen/universal_vertical_spacing"
-                android:contentDescription="@string/about_tab_pink_house_story_image_description"
-                android:src="@drawable/pic_story_pink_house" />
+                android:contentDescription="@string/about_tab_qpr_story_image_description"
+                android:src="@drawable/pic_story_staplehouse" />
 
             <TextView
                 android:id="@+id/storyZeroLink_aboutTab"
@@ -184,8 +184,8 @@
                 android:layout_marginTop="@dimen/universal_vertical_spacing"
                 android:layout_marginEnd="@dimen/universal_horizontal_spacing"
                 android:layout_marginBottom="@dimen/universal_vertical_spacing"
-                android:contentDescription="@string/about_tab_performer_story_image_description"
-                android:src="@drawable/pic_story_performer" />
+                android:contentDescription="@string/about_tab_pink_house_story_image_description"
+                android:src="@drawable/pic_story_pink_house" />
 
             <TextView
                 android:id="@+id/storyOneLink_aboutTab"
@@ -224,8 +224,8 @@
                 android:layout_marginTop="@dimen/universal_vertical_spacing"
                 android:layout_marginEnd="@dimen/universal_horizontal_spacing"
                 android:layout_marginBottom="@dimen/universal_vertical_spacing"
-                android:contentDescription="@string/about_tab_qpr_story_image_description"
-                android:src="@drawable/pic_story_staplehouse" />
+                android:contentDescription="@string/about_tab_performer_story_image_description"
+                android:src="@drawable/pic_story_performer" />
 
             <TextView
                 android:id="@+id/storyThreeLink_aboutTab"
@@ -280,16 +280,4 @@
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-
-    <org.givingkitchen.android.util.customviews.BannerView
-        android:id="@+id/qprBanner_aboutTab"
-        android:visibility="gone"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:text_BannerView="@string/about_tab_qpr_banner"/>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

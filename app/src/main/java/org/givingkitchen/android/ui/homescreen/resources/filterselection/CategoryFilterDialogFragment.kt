@@ -30,7 +30,6 @@ class CategoryFilterDialogFragment(currentlySelectedCategories: Set<String>): Di
             this.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             this.adapter = categoriesAdapter
             this.setHasFixedSize(true)
-            this.addItemDecoration(DividerItemDecoration(ContextThemeWrapper(context, R.style.AppTheme), DividerItemDecoration.VERTICAL))
         }
 
         categoriesAdapter.updateSaveButtonState().subscribe { updateSaveButtonState(it) }

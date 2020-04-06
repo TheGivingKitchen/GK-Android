@@ -27,6 +27,8 @@ class FacebookGroupsFragment : Fragment() {
         const val northGaGroupId = "1836033839791219"
         const val southGaGroupId = "1763853010365060"
         const val coastalGaGroupId = "197473227547650"
+        const val northCarolinaGroupId = "365550184378708"
+        const val southCarolinaGroupId = "374109090187642"
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -45,6 +47,8 @@ class FacebookGroupsFragment : Fragment() {
         northGaTouchTarget_facebookGroups.setOnClickListener { openFacebookLink(northGaGroupId, "north_ga") }
         southGaTouchTarget_facebookGroups.setOnClickListener { openFacebookLink(southGaGroupId, "south_ga") }
         coastalGaTouchTarget_facebookGroups.setOnClickListener { openFacebookLink(coastalGaGroupId, "coastal_ga") }
+        northCarolinaTouchTarget_facebookGroups.setOnClickListener { openFacebookLink(northCarolinaGroupId, "north_carolina") }
+        southCarolinaTouchTarget_facebookGroups.setOnClickListener { openFacebookLink(southCarolinaGroupId, "south_carolina") }
     }
 
     private fun openFacebookLink(groupId: String, analyticsName: String) {

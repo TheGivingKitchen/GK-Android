@@ -54,7 +54,7 @@
             style="@style/FacebookGroupsPlaceIcon"
             android:layout_marginTop="40dp"
             android:contentDescription="@string/facebook_groups_metro_atl"
-            android:src="@drawable/ic_facebook_group_city"
+            android:src="@drawable/ic_facebook_group_atlanta"
             app:layout_constraintEnd_toStartOf="@+id/athensIcon_facebookGroups"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -82,7 +82,7 @@
             style="@style/FacebookGroupsPlaceIcon"
             android:layout_marginTop="40dp"
             android:contentDescription="@string/facebook_groups_athens"
-            android:src="@drawable/ic_facebook_group_city"
+            android:src="@drawable/ic_facebook_group_athens"
             app:layout_constraintEnd_toStartOf="@+id/columbusIcon_facebookGroups"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/metroAtlIcon_facebookGroups"
@@ -110,7 +110,7 @@
             style="@style/FacebookGroupsPlaceIcon"
             android:layout_marginTop="40dp"
             android:contentDescription="@string/facebook_groups_columbus"
-            android:src="@drawable/ic_facebook_group_city"
+            android:src="@drawable/ic_facebook_group_columbus"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/athensIcon_facebookGroups"
@@ -138,7 +138,7 @@
             style="@style/FacebookGroupsPlaceIcon"
             android:layout_marginTop="40dp"
             android:contentDescription="@string/facebook_groups_rome"
-            android:src="@drawable/ic_facebook_group_city"
+            android:src="@drawable/ic_facebook_group_rome"
             app:layout_constraintEnd_toStartOf="@+id/maconIcon_facebookGroups"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -166,7 +166,7 @@
             style="@style/FacebookGroupsPlaceIcon"
             android:layout_marginTop="40dp"
             android:contentDescription="@string/facebook_groups_macon"
-            android:src="@drawable/ic_facebook_group_city"
+            android:src="@drawable/ic_facebook_group_macon"
             app:layout_constraintEnd_toStartOf="@+id/columbusIcon_facebookGroups"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/romeIcon_facebookGroups"
@@ -194,7 +194,7 @@
             style="@style/FacebookGroupsPlaceIcon"
             android:layout_marginTop="40dp"
             android:contentDescription="@string/facebook_groups_gainesville"
-            android:src="@drawable/ic_facebook_group_city"
+            android:src="@drawable/ic_facebook_group_gainesville"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/maconIcon_facebookGroups"
@@ -300,6 +300,83 @@
             app:layout_constraintEnd_toEndOf="@id/coastalGaText_facebookGroups"
             app:layout_constraintStart_toStartOf="@id/coastalGaText_facebookGroups"
             app:layout_constraintTop_toTopOf="@id/coastalGaIcon_facebookGroups" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <ImageView
+            android:id="@+id/northCarolinaIcon_facebookGroups"
+            style="@style/FacebookGroupsPlaceIcon"
+            android:layout_marginTop="40dp"
+            android:contentDescription="@string/facebook_groups_north_carolina"
+            android:src="@drawable/ic_facebook_group_north_carolina"
+            app:layout_constraintEnd_toStartOf="@+id/southCarolinaIcon_facebookGroups"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/northGaText_facebookGroups" />
+
+        <TextView
+            android:id="@+id/northCarolinaText_facebookGroups"
+            style="@style/FacebookGroupsPlaceText"
+            android:text="@string/facebook_groups_group_north_carolina"
+            app:layout_constraintEnd_toEndOf="@id/northCarolinaIcon_facebookGroups"
+            app:layout_constraintStart_toStartOf="@id/northCarolinaIcon_facebookGroups"
+            app:layout_constraintTop_toBottomOf="@id/northCarolinaIcon_facebookGroups" />
+
+        <View
+            android:id="@+id/northCarolinaTouchTarget_facebookGroups"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/northCarolinaText_facebookGroups"
+            app:layout_constraintEnd_toEndOf="@id/northCarolinaText_facebookGroups"
+            app:layout_constraintStart_toStartOf="@id/northCarolinaText_facebookGroups"
+            app:layout_constraintTop_toTopOf="@id/northCarolinaIcon_facebookGroups" />
+
+        <ImageView
+            android:id="@+id/southCarolinaIcon_facebookGroups"
+            style="@style/FacebookGroupsPlaceIcon"
+            android:layout_marginTop="40dp"
+            android:contentDescription="@string/facebook_groups_south_carolina"
+            android:src="@drawable/ic_facebook_group_south_carolina"
+            app:layout_constraintEnd_toStartOf="@+id/coastalGaIcon_facebookGroups"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/northCarolinaIcon_facebookGroups"
+            app:layout_constraintTop_toBottomOf="@id/southGaText_facebookGroups" />
+
+        <TextView
+            android:id="@+id/southCarolinaText_facebookGroups"
+            style="@style/FacebookGroupsPlaceText"
+            android:text="@string/facebook_groups_group_south_carolina"
+            app:layout_constraintEnd_toEndOf="@id/southCarolinaIcon_facebookGroups"
+            app:layout_constraintStart_toStartOf="@id/southCarolinaIcon_facebookGroups"
+            app:layout_constraintTop_toBottomOf="@id/southCarolinaIcon_facebookGroups" />
+
+        <View
+            android:id="@+id/southCarolinaTouchTarget_facebookGroups"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/southCarolinaText_facebookGroups"
+            app:layout_constraintEnd_toEndOf="@id/southCarolinaText_facebookGroups"
+            app:layout_constraintStart_toStartOf="@id/southCarolinaText_facebookGroups"
+            app:layout_constraintTop_toTopOf="@id/southCarolinaIcon_facebookGroups" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

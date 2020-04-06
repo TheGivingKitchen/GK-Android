@@ -31,6 +31,7 @@ import org.givingkitchen.android.ui.homescreen.resources.filterselection.Categor
 import org.givingkitchen.android.ui.homescreen.resources.map.ResourcesClusterRenderer
 import org.givingkitchen.android.ui.homescreen.resources.map.ResourcesMapInfoWindowAdapter
 import org.givingkitchen.android.ui.homescreen.resources.map.ResourcesMarkerItem
+import org.givingkitchen.android.util.getGivingKitchenSharedPreferences
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
 
@@ -39,6 +40,7 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         private const val cityMapZoomLevel = 10f
         private const val detailMapZoomLevel = 16f
         private const val TAG_RESOURCE_PROVIDER_BOTTOMSHEET = "ResourcesFragment.Tag.ResourceProviderDetailsFragment"
+        private const val TAG_INTRO_DIALOG = "ResourcesFragment.Tag.IntroDialogFragment"
         private const val TAG_FILTER_DIALOG = "ResourcesFragment.Tag.CategoryFilterDialogFragment"
         private const val PERMISSIONS_REQUEST_CODE_LOCATION = 0
         private val atlanta = LatLng(33.774381, -84.372775)
@@ -94,9 +96,24 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         if (map == null) {
-            val mapFragment = childFragmentManager.findFragmentById(R.id.map_resourcesTab) as SupportMapFragment
-            mapFragment.getMapAsync(this)
+            val showIntroDialog = activity.getGivingKitchenSharedPreferences()?.getBoolean(getString(R.string.resources_intro_dialog_key), true) ?: false
+            if (showIntroDialog) {
+                val resourcesIntroDialogFragment = ResourcesIntroDialogFragment()
+                resourcesIntroDialogFragment.dialogDismissed().subscribe {
+                    showMap()
+                    activity.getGivingKitchenSharedPreferences()?.let {
+                        with(it.edit()) {
+                            putBoolean(getString(R.string.resources_intro_dialog_key), false)
+                            apply()
+                        }
+                    }
+                }
+                resourcesIntroDialogFragment.show(fragmentManager, TAG_INTRO_DIALOG)
+            } else {
+                showMap()
+            }
         }
 
         sheetBehavior = BottomSheetBehavior.from(bottomSheet_resourcesTab)
@@ -131,12 +148,12 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
         map!!.setOnMarkerClickListener(markerClusterManager)
 
         map!!.uiSettings.apply {
-            this.isZoomControlsEnabled = false
+            this.isZoomControlsEnabled = true
             this.isMyLocationButtonEnabled = true
-            this.isMapToolbarEnabled = false
+            this.isMapToolbarEnabled = true
         }
 
-        requestLocationPermission()
+        requestLocationPermissionIfNeeded()
         map!!.setInfoWindowAdapter(ResourcesMapInfoWindowAdapter(context!!))
 
         markerClusterManager.markerCollection.setOnInfoWindowAdapter(ResourcesMapInfoWindowAdapter(context!!))
@@ -151,7 +168,7 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
     }
 
     @AfterPermissionGranted(PERMISSIONS_REQUEST_CODE_LOCATION)
-    fun requestLocationPermission() {
+    fun requestLocationPermissionIfNeeded() {
         val locationPermission = Manifest.permission.ACCESS_COARSE_LOCATION
         if (EasyPermissions.hasPermissions(context!!, locationPermission)) {
             moveMapToUsersLocation()
@@ -244,6 +261,11 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
                 resourcesListHeader_resourcesTab.visibility = View.VISIBLE
             }
         }
+    }
+
+    private fun showMap() {
+        val mapFragment = childFragmentManager.findFragmentById(R.id.map_resourcesTab) as SupportMapFragment
+        mapFragment.getMapAsync(this)
     }
 
     private fun addMarkersToMap(resourceProviders: List<ResourceProvider>) {

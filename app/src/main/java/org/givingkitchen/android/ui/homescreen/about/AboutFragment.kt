@@ -23,10 +23,10 @@ class AboutFragment : Fragment()  {
         const val QprTrainingSignupUrl = "${Constants.firebaseStorageUrl}/forms/qprSignupForm.json"
         const val howItWorksPdfUrl = "https://firebasestorage.googleapis.com/v0/b/thegivingkitchen-cdd28.appspot.com/o/howitworks.pdf?alt=media&token=7bcc47e7-45f5-4b71-b4ad-9071e9d8efd8"
         const val gkContactUrl = "$givingKitchenUrl/contact"
-        const val storyZeroUrl = "$givingKitchenUrl/olde-pink-house-fire"
-        const val storyOneUrl = "$givingKitchenUrl/reggie-ealy"
+        const val storyZeroUrl = "$givingKitchenUrl/why-qpr"
+        const val storyOneUrl = "$givingKitchenUrl/olde-pink-house-fire"
         const val storyTwoUrl = "$givingKitchenUrl/lets-talk-about-it"
-        const val storyThreeUrl = "$givingKitchenUrl/why-qpr"
+        const val storyThreeUrl = "$givingKitchenUrl/reggie-ealy"
     }
 
     @Nullable
@@ -55,7 +55,6 @@ class AboutFragment : Fragment()  {
         setFacebookGroupsExpandedState(facebookSectionExpanded)
         collapseFacebookButton_aboutTab.setOnClickListener(collapseFacebookSectionClickListener)
         joinUsButton_aboutTab.setOnClickListener(joinFacebookGroupsClickListener)
-        setupQprBanner()
     }
 
     private val aboutUsButtonClickListener = View.OnClickListener {
@@ -69,12 +68,12 @@ class AboutFragment : Fragment()  {
     }
 
     private val storyZeroClickListener = View.OnClickListener {
-        Analytics.logLearnedMore("story_olde_pink_house")
-        CustomTabs.openCustomTab(context, storyZeroUrl)
+        Analytics.logLearnedMore("story_qpr_training")
+        goToQprForm()
     }
 
     private val storyOneClickListener = View.OnClickListener {
-        Analytics.logLearnedMore("story_the_performer")
+        Analytics.logLearnedMore("story_olde_pink_house")
         CustomTabs.openCustomTab(context, storyOneUrl)
     }
 
@@ -84,7 +83,7 @@ class AboutFragment : Fragment()  {
     }
 
     private val storyThreeClickListener = View.OnClickListener {
-        Analytics.logLearnedMore("story_qpr_training")
+        Analytics.logLearnedMore("story_the_performer")
         CustomTabs.openCustomTab(context, storyThreeUrl)
     }
 
@@ -136,31 +135,11 @@ class AboutFragment : Fragment()  {
         Navigation.findNavController(view!!).navigate(R.id.facebookGroupsFragment)
     }
 
-    private fun setupQprBanner() {
-        val showBanner = activity.getGivingKitchenSharedPreferences()?.getBoolean(getString(R.string.show_about_qpr_banner_key), true) ?: true
-        if (showBanner) {
-            qprBanner_aboutTab.visibility = View.VISIBLE
-            qprBanner_aboutTab.onTitleClick().subscribe { goToQprForm() }
-            qprBanner_aboutTab.onCloseClick().subscribe { closeQprBanner() }
-        }
-    }
-
     private fun goToQprForm() {
         val args = Bundle()
         args.putString(Constants.formsArg, QprTrainingSignupUrl)
         args.putEnum(Constants.donePageArg, DonePage.DEFAULT)
         Navigation.findNavController(view!!).navigate(R.id.formsFragment, args)
-    }
-
-    private fun closeQprBanner() {
-        qprBanner_aboutTab.visibility = View.GONE
-
-        activity.getGivingKitchenSharedPreferences()?.let {
-            with(it.edit()) {
-                putBoolean(getString(R.string.show_about_qpr_banner_key), false)
-                apply()
-            }
-        }
     }
 
     private fun setFacebookGroupsExpandedState(expanded: Boolean): Boolean {

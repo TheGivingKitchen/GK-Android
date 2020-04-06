@@ -28,7 +28,6 @@ class AssistanceViewModel: ViewModel() {
 
     fun setHeaderText(context: Context): SpannableStringBuilder {
         val builder = SpannableStringBuilder()
-        builder.append(addColoredString(context, R.string.assistance_tab_crisis_grants_title, R.color.gk_blue))
         builder.append(addColoredString(context, R.string.assistance_tab_crisis_grants_description, R.color.gk_blue))
         builder.append(addColoredString(context, R.string.assistance_tab_crisis_grants_illness, R.color.gk_orange))
         builder.append(addColoredString(context, R.string.assistance_tab_crisis_grants_comma, R.color.gk_blue))
