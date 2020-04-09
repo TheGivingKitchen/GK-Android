@@ -1,85 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/header_assistanceTab"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/header_image_height"
-        android:layout_marginTop="@dimen/header_image_top_margin"
-        android:layout_marginBottom="25dp"
-        android:src="@drawable/ic_tab_assistance"
-        tools:ignore="ContentDescription"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/header_title_assistanceTab"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/universal_horizontal_spacing"
-        android:layout_marginEnd="@dimen/universal_horizontal_spacing"
-        android:text="@string/assistance_tab_crisis_grants_title"
-        style="@style/BoldLargeHeaderText"
-        android:textColor="@color/gk_orange"/>
+        <ImageView
+            android:id="@+id/header_assistanceTab"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/header_image_height"
+            android:layout_marginTop="@dimen/header_image_top_margin"
+            android:layout_marginBottom="25dp"
+            android:src="@drawable/ic_tab_assistance"
+            tools:ignore="ContentDescription" />
 
-    <TextView
-        android:id="@+id/header_description_assistanceTab"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/universal_vertical_spacing"
-        android:layout_marginStart="@dimen/universal_horizontal_spacing"
-        android:layout_marginEnd="@dimen/universal_horizontal_spacing"
-        style="@style/LargeHeaderText"/>
+        <TextView
+            android:id="@+id/header_title_assistanceTab"
+            style="@style/BoldLargeHeaderText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/universal_horizontal_spacing"
+            android:layout_marginEnd="@dimen/universal_horizontal_spacing"
+            android:text="@string/assistance_tab_crisis_grants_title"
+            android:textColor="@color/gk_orange" />
 
-    <TextView
-        android:id="@+id/learn_more_button_assistanceTab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        style="@style/ParagraphText"
-        android:textColor="@color/gk_orange"
-        android:background="?android:attr/selectableItemBackground"
-        android:padding="5dp"
-        android:text="@string/assistance_tab_learn_more"
-        android:layout_marginTop="@dimen/universal_horizontal_spacing"/>
+        <TextView
+            android:id="@+id/header_description_assistanceTab"
+            style="@style/LargeHeaderText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/universal_horizontal_spacing"
+            android:layout_marginTop="@dimen/universal_vertical_spacing"
+            android:layout_marginEnd="@dimen/universal_horizontal_spacing" />
 
-    <TextView
-        style="@style/ParagraphText"
-        android:gravity="center_horizontal|bottom"
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:text="@string/assistance_tab_start_inquiry"/>
+        <TextView
+            android:id="@+id/learn_more_button_assistanceTab"
+            style="@style/ParagraphText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/universal_horizontal_spacing"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="5dp"
+            android:text="@string/assistance_tab_learn_more"
+            android:textColor="@color/gk_orange" />
 
-    <Button
-        android:id="@+id/for_you_button_assistanceTab"
-        style="@style/CTAButton"
-        android:layout_marginTop="@dimen/universal_horizontal_spacing"
-        android:layout_marginStart="@dimen/universal_horizontal_spacing"
-        android:layout_marginEnd="@dimen/universal_horizontal_spacing"
-        android:layout_marginBottom="@dimen/universal_vertical_spacing"
-        android:text="@string/assistance_tab_cta_for_you"/>
+        <TextView
+            style="@style/ParagraphText"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal|bottom"
+            android:text="@string/assistance_tab_start_inquiry" />
 
-    <Button
-        android:id="@+id/for_someone_else_button_assistanceTab"
-        style="@style/CTAButton"
-        android:layout_marginStart="@dimen/universal_horizontal_spacing"
-        android:layout_marginEnd="@dimen/universal_horizontal_spacing"
-        android:layout_marginBottom="@dimen/universal_vertical_spacing"
-        android:text="@string/assistance_tab_cta_for_someone_else"/>
+        <Button
+            android:id="@+id/for_you_button_assistanceTab"
+            style="@style/CTAButton"
+            android:layout_marginStart="@dimen/universal_horizontal_spacing"
+            android:layout_marginTop="@dimen/universal_horizontal_spacing"
+            android:layout_marginEnd="@dimen/universal_horizontal_spacing"
+            android:layout_marginBottom="@dimen/universal_vertical_spacing"
+            android:text="@string/assistance_tab_cta_for_you" />
 
-    <TextView
-        style="@style/RegularText"
-        android:textSize="7pt"
-        android:textColor="@color/dark_grey"
-        android:gravity="center_horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
-        android:text="@string/assistance_tab_start_inquiry_description"/>
+        <Button
+            android:id="@+id/for_someone_else_button_assistanceTab"
+            style="@style/CTAButton"
+            android:layout_marginStart="@dimen/universal_horizontal_spacing"
+            android:layout_marginEnd="@dimen/universal_horizontal_spacing"
+            android:layout_marginBottom="@dimen/universal_vertical_spacing"
+            android:text="@string/assistance_tab_cta_for_someone_else" />
 
-</LinearLayout>
+        <TextView
+            style="@style/RegularText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="15dp"
+            android:gravity="center_horizontal"
+            android:text="@string/assistance_tab_start_inquiry_description"
+            android:textColor="@color/dark_grey"
+            android:textSize="7pt" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

@@ -110,7 +110,7 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
                         }
                     }
                 }
-                resourcesIntroDialogFragment.show(fragmentManager, TAG_INTRO_DIALOG)
+                resourcesIntroDialogFragment.show(fragmentManager!!, TAG_INTRO_DIALOG)
             } else {
                 showMap()
             }
@@ -222,7 +222,7 @@ class ResourcesFragment : Fragment(), OnMapReadyCallback {
                 addMarkersToMap(adapter.filterToCategories(it, searchView_resourcesTab.query.toString(), resourceProviders!!))
             }
         }
-        categoryFilterDialogFragment.show(fragmentManager, TAG_FILTER_DIALOG)
+        categoryFilterDialogFragment.show(fragmentManager!!, TAG_FILTER_DIALOG)
     }
 
     private fun getFilterButtonLabelValue(selectedCategories: Collection<String>): String {

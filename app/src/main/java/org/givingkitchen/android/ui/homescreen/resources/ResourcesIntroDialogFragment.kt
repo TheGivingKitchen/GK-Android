@@ -25,7 +25,7 @@ class ResourcesIntroDialogFragment: DialogFragment() {
         button_resourcesIntroDialog.setOnClickListener { dismiss() }
     }
 
-    override fun onDismiss(dialog: DialogInterface?) {
+    override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
         dialogDismissed.onNext(false)
     }

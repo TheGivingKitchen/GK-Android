@@ -11,14 +11,18 @@ androidExtensions {
 }
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     defaultConfig {
         applicationId "org.givingkitchen.android"
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 102
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    compileOptions {
+        targetCompatibility = "8"
+        sourceCompatibility = "8"
     }
     buildTypes {
         release {
@@ -31,15 +35,15 @@ android {
 dependencies {
     def lifecycle_version = '2.0.0-beta01'
     def nav_version = "1.0.0"
-    def supportLib_version = '1.0.0'
+    def supportLib_version = '1.1.0'
     def rxBinding_version = "1.0.1"
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "androidx.appcompat:appcompat:$supportLib_version"
     implementation "com.google.android.material:material:$supportLib_version"
     implementation "androidx.recyclerview:recyclerview:$supportLib_version"
-    implementation "androidx.legacy:legacy-support-v4:$supportLib_version"
-    implementation "androidx.browser:browser:$supportLib_version"
+    implementation "androidx.legacy:legacy-support-v4:1.0.0"
+    implementation "androidx.browser:browser:1.2.0"
     implementation 'com.android.support:design:28.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'com.google.firebase:firebase-storage:17.0.0'

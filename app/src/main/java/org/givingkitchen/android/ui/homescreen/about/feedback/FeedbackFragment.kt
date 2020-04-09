@@ -35,6 +35,6 @@ class FeedbackFragment: Fragment()  {
         // todo: actually submit the feedback
         val dialog = SubmitFeedbackDialogFragment()
         dialog.setOnCompleteListener { navigateUp() }
-        dialog.show(fragmentManager, "Feedback_Submit_Success")
+        dialog.show(fragmentManager!!, "Feedback_Submit_Success")
     }
 }

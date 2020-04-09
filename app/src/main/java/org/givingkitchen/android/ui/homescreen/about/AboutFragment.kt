@@ -95,7 +95,7 @@ class AboutFragment : Fragment()  {
                 goToPlayStore()
             }
         }
-        rateAppDialog.show(fragmentManager, "Rate_App_Dialog")
+        rateAppDialog.show(fragmentManager!!, "Rate_App_Dialog")
     }
 
     private val feedbackNeutralClickListener = View.OnClickListener {

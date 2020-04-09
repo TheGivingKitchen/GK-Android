@@ -110,14 +110,14 @@ class FormPageFragment : Fragment() {
                     } else {
                         null
                     }
-                    DatePickerFragment().newInstance(dateQuestion, dateQuestion.dateYear, month, dateQuestion.dateDay).show(fragmentManager, "Date")
+                    DatePickerFragment().newInstance(dateQuestion, dateQuestion.dateYear, month, dateQuestion.dateDay).show(fragmentManager!!, "Date")
                 }
                 dateQuestion
             }
             QuestionType.time -> {
                 val timeQuestion = TimeQuestion(question, context!!)
                 timeQuestion.setOnClickListener {
-                    TimePickerFragment().newInstance(timeQuestion, timeQuestion.timeHour, timeQuestion.timeMinute).show(fragmentManager, "Time")
+                    TimePickerFragment().newInstance(timeQuestion, timeQuestion.timeHour, timeQuestion.timeMinute).show(fragmentManager!!, "Time")
                 }
                 timeQuestion
             }
