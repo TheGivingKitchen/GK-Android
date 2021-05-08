@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
-import com.crashlytics.android.Crashlytics
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.squareup.moshi.JsonAdapter
 import kotlinx.android.synthetic.main.fragment_form_prologue.*
 import org.givingkitchen.android.R
@@ -87,15 +87,15 @@ class FormPrologueFragment : Fragment() {
                             }
                         } catch (e: IOException) {
                             model.setProgressBarVisibility(false)
-                            Crashlytics.log("Trouble reading data file for form $formUrl")
+                            FirebaseCrashlytics.getInstance().log("Trouble reading data file for form $formUrl")
                         }
                     }.addOnFailureListener {
-                        Crashlytics.log("Could not get data file for form $formUrl")
+                        FirebaseCrashlytics.getInstance().log("Could not get data file for form $formUrl")
                     }
 
             localFile.deleteOnExit()
         } else {
-            Crashlytics.log("Arguments passed to form prologue were null")
+            FirebaseCrashlytics.getInstance().log("Arguments passed to form prologue were null")
         }
     }
 
@@ -131,7 +131,7 @@ class FormPrologueFragment : Fragment() {
             Navigation.findNavController(view!!).navigate(R.id.questionsContainerFragment, args)
         } else {
             Toast.makeText(context, getString(R.string.base_forms_prologue_error), Toast.LENGTH_SHORT).show()
-            Crashlytics.log("Could not enter form")
+            FirebaseCrashlytics.getInstance().log("Could not enter form")
         }
     }
 

@@ -146,10 +146,27 @@
 
         <View
             android:id="@+id/donateSectionDivider_giveTab"
-            style="@style/DividerViewLarge"
+            style="@style/DividerViewSmall"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/recurring_donate_button_giveTab" />
+
+        <TextView
+            android:id="@+id/other_ways_donate_button_giveTab"
+            style="@style/GiveTabButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/give_tab_other_ways_donation_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/donateSectionDivider_giveTab" />
+
+        <View
+            android:id="@+id/recurring_donate_divider_giveTab"
+            style="@style/DividerViewLarge"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/other_ways_donate_button_giveTab" />
 
         <TextView
             android:id="@+id/volunteerHeader_giveTab"
@@ -160,7 +177,7 @@
             android:text="@string/give_tab_volunteer_header"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/donateSectionDivider_giveTab" />
+            app:layout_constraintTop_toBottomOf="@id/recurring_donate_divider_giveTab" />
 
         <TextView
             android:id="@+id/volunteerDescription_giveTab"

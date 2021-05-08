@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Tabs -->
+    <string name="tab_assistance">Ayuda</string>
+    <string name="assistance_tab_cta_for_you">Pide Ayuda</string>
+    <string name="assistance_tab_cta_for_someone_else">Recomienda a alguien en busca de ayuda</string>
+</resources>

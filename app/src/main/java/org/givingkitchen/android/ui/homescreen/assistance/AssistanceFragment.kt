@@ -1,5 +1,6 @@
 package org.givingkitchen.android.ui.homescreen.assistance
 
+import android.os.Build
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.annotation.Nullable
@@ -12,11 +13,9 @@ import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_assistance.*
 import org.givingkitchen.android.R
 import org.givingkitchen.android.analytics.Analytics
-import org.givingkitchen.android.ui.homescreen.assistance.AssistanceViewModel.Companion.assistanceLearnMoreURL
-import org.givingkitchen.android.ui.homescreen.assistance.AssistanceViewModel.Companion.referralAssistanceInquiryUrl
-import org.givingkitchen.android.ui.homescreen.assistance.AssistanceViewModel.Companion.selfAssistanceInquiryUrl
 import org.givingkitchen.android.util.*
 import org.givingkitchen.android.util.Constants.formsArg
+import java.util.*
 
 class AssistanceFragment : Fragment() {
     private lateinit var model: AssistanceViewModel
@@ -41,21 +40,35 @@ class AssistanceFragment : Fragment() {
     }
 
     private val forYouButtonClickListener = View.OnClickListener {
-        val args = Bundle()
-        args.putString(formsArg, selfAssistanceInquiryUrl)
-        args.putEnum(Constants.donePageArg, DonePage.ASSISTANCE_INQUIRY)
-        Navigation.findNavController(view!!).navigate(R.id.formsFragment, args)
+        when (resources.currentLocale.language) {
+            "es" -> {
+                CustomTabs.openCustomTab(context, AssistanceViewModel.assistanceLearnMoreESURL)
+            }
+            else -> {
+                val args = Bundle()
+                args.putString(formsArg, AssistanceViewModel.selfAssistanceInquiryUrl)
+                args.putEnum(Constants.donePageArg, DonePage.ASSISTANCE_INQUIRY)
+                Navigation.findNavController(view!!).navigate(R.id.formsFragment, args)
+            }
+        }
     }
 
     private val forSomeoneElseButtonClickListener = View.OnClickListener {
-        val args = Bundle()
-        args.putString(formsArg, referralAssistanceInquiryUrl)
-        args.putEnum(Constants.donePageArg, DonePage.ASSISTANCE_INQUIRY)
-        Navigation.findNavController(view!!).navigate(R.id.formsFragment, args)
+        when (resources.currentLocale.language) {
+            "es" -> {
+                CustomTabs.openCustomTab(context, AssistanceViewModel.assistanceLearnMoreESURL)
+            }
+            else -> {
+                val args = Bundle()
+                args.putString(formsArg, AssistanceViewModel.referralAssistanceInquiryUrl)
+                args.putEnum(Constants.donePageArg, DonePage.ASSISTANCE_INQUIRY)
+                Navigation.findNavController(view!!).navigate(R.id.formsFragment, args)
+            }
+        }
     }
 
     private val learnMoreButtonClickListener = View.OnClickListener {
         Analytics.logLearnedMore("assistance_home")
-        CustomTabs.openCustomTab(context, assistanceLearnMoreURL)
+        CustomTabs.openCustomTab(context, AssistanceViewModel.assistanceLearnMoreURL)
     }
 }

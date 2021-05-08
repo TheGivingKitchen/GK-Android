@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Resources
+import android.os.Build
 import android.os.Bundle
 import androidx.annotation.DimenRes
 import androidx.fragment.app.Fragment
@@ -13,14 +14,23 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.appcompat.widget.SearchView
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import org.givingkitchen.android.R
+import java.util.*
 
 fun Resources.getFloatDimension(@DimenRes dimension: Int): Float {
     val outValue = TypedValue()
     this.getValue(dimension, outValue, true)
     return outValue.float
 }
+
+val Resources.currentLocale: Locale
+    get() {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            configuration.locales[0]
+        } else {
+            configuration.locale
+        }
+    }
 
 fun Fragment.startShareAction(str: String) {
     val sendIntent: Intent = Intent().apply {
@@ -40,14 +50,15 @@ fun convertToDp(sizeInDp: Int, resources: Resources): Int {
     return (sizeInDp * scale + 0.5f).toInt()
 }
 
-fun Bundle.putEnum(key:String, enum: Enum<*>){
+fun Bundle.putEnum(key: String, enum: Enum<*>) {
     putString(key, enum.name)
 }
 
-inline fun <reified T: Enum<T>> Bundle.getEnum(key:String, default:T): T {
+inline fun <reified T : Enum<T>> Bundle.getEnum(key: String, default: T): T {
+    val str = getString(key) ?: return default
     return try {
-        enumValueOf(getString(key))
-    } catch (e: IllegalStateException) {
+        enumValueOf(str)
+    } catch (e: Exception) {
         default
     }
 }

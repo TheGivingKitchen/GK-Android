@@ -10,7 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
-import com.crashlytics.android.Crashlytics
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.givingkitchen.android.R
 import org.givingkitchen.android.ui.homescreen.about.AboutFragment
@@ -72,9 +72,9 @@ class HomeFragment: Fragment(), FragmentBackPressedListener  {
             R.id.aboutFragment -> {
                 HomeSection.ABOUT
             }
-            R.id.eventsFragment -> {
-                HomeSection.EVENTS
-            }
+//            R.id.eventsFragment -> {
+//                HomeSection.EVENTS
+//            }
             R.id.assistanceFragment -> {
                 HomeSection.ASSISTANCE
             }
@@ -85,7 +85,7 @@ class HomeFragment: Fragment(), FragmentBackPressedListener  {
                 HomeSection.RESOURCES
             }
             else -> {
-                Crashlytics.log("User tried to navigate to unexpected home tab: ${it.itemId}")
+                FirebaseCrashlytics.getInstance().log("User tried to navigate to unexpected home tab: ${it.itemId}")
                 HomeSection.ABOUT
             }
         }
@@ -101,7 +101,7 @@ class HomeFragment: Fragment(), FragmentBackPressedListener  {
         if (fragment == null) {
             fragment = when (homeSection) {
                 HomeSection.ABOUT -> AboutFragment()
-                HomeSection.EVENTS -> EventsFragment()
+//                HomeSection.EVENTS -> EventsFragment()
                 HomeSection.ASSISTANCE -> AssistanceFragment()
                 HomeSection.GIVE -> GiveFragment()
                 HomeSection.RESOURCES -> ResourcesFragment()
@@ -114,6 +114,6 @@ class HomeFragment: Fragment(), FragmentBackPressedListener  {
                 .addToBackStack(null)
                 .commit()
 
-        bottomNav_home.menu.getItem(homeSection.index).setChecked(true)
+        bottomNav_home.menu.getItem(homeSection.index).isChecked = true
     }
 }

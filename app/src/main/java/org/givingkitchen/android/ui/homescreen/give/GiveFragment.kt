@@ -16,9 +16,6 @@ import kotlinx.android.synthetic.main.fragment_give.*
 import org.givingkitchen.android.R
 import org.givingkitchen.android.analytics.Analytics
 import org.givingkitchen.android.analytics.Events
-import org.givingkitchen.android.ui.homescreen.give.GiveViewModel.Companion.oneTimeDonationURL
-import org.givingkitchen.android.ui.homescreen.give.GiveViewModel.Companion.giveLearnMoreURL
-import org.givingkitchen.android.ui.homescreen.give.GiveViewModel.Companion.recurringDonationURL
 import org.givingkitchen.android.util.*
 
 class GiveFragment : Fragment() {
@@ -48,6 +45,7 @@ class GiveFragment : Fragment() {
         volunteer_button_giveTab.setOnClickListener(volunteerButtonClickListener)
         partner_button_giveTab.setOnClickListener(partnerButtonClickListener)
         joinOurForcesButton_giveTab.setOnClickListener(joinForcesButtonClickListener)
+        other_ways_donate_button_giveTab.setOnClickListener(otherWaysToGiveClickListener)
         timerHandler = Handler()
         timerRunnable = object : Runnable {
             override fun run() {
@@ -65,17 +63,22 @@ class GiveFragment : Fragment() {
 
     private val oneTimeDontationClickListener = View.OnClickListener {
         Analytics.logEvent(Events.DONATE_ONE_TIME_DONATION_STARTED)
-        CustomTabs.openCustomTab(context, oneTimeDonationURL)
+        CustomTabs.openCustomTab(context, GiveViewModel.oneTimeDonationURL)
     }
 
     private val recurringDonationClickListener = View.OnClickListener {
         Analytics.logEvent(Events.DONATE_RECURRING_DONATION_STARTED)
-        CustomTabs.openCustomTab(context, recurringDonationURL)
+        CustomTabs.openCustomTab(context, GiveViewModel.recurringDonationURL)
+    }
+
+    private val otherWaysToGiveClickListener = View.OnClickListener {
+        Analytics.logEvent(Events.DONATE_RECURRING_DONATION_STARTED)
+        CustomTabs.openCustomTab(context, GiveViewModel.otherWaysToGiveURL)
     }
 
     private val learnMoreButtonClickListener = View.OnClickListener {
         Analytics.logLearnedMore("donate_home")
-        CustomTabs.openCustomTab(context, giveLearnMoreURL)
+        CustomTabs.openCustomTab(context, GiveViewModel.giveLearnMoreURL)
     }
 
     private val volunteerButtonClickListener = View.OnClickListener {

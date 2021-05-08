@@ -19,7 +19,7 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
-import com.crashlytics.android.Crashlytics
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.squareup.moshi.JsonAdapter
 import kotlinx.android.synthetic.main.fragment_questions_container.*
 import org.givingkitchen.android.ui.forms.page.FormPageFragment
@@ -307,7 +307,7 @@ class FormContainerFragment : Fragment(), FragmentBackPressedListener {
     }
 
     private fun handleFormSubmissionError(logMessage: String, @StringRes toastMessage: Int = R.string.form_done_submit_error) {
-        Crashlytics.log(logMessage)
+        FirebaseCrashlytics.getInstance().log(logMessage)
         activity!!.runOnUiThread {
             Toast.makeText(context, getString(toastMessage), Toast.LENGTH_SHORT).show()
         }

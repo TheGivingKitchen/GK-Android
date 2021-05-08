@@ -5,7 +5,7 @@
     <!-- Tabs -->
     <string name="tab_about">About</string>
     <string name="tab_events">Events</string>
-    <string name="tab_assistance">Assistance</string>
+    <string name="tab_assistance">Ask for Help</string>
     <string name="tab_resources">Resources</string>
     <string name="tab_give">Give</string>
 
@@ -246,5 +246,6 @@
     <string name="onboarding_viewed_key">onboarding_viewed_key</string>
     <string name="resources_header_desc_closed_key">resources_header_desc_closed_key</string>
     <string name="home_tab_key">home_tab_key</string>
+    <string name="give_tab_other_ways_donation_button">Other Ways to Give</string>
 
 </resources>

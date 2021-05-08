@@ -10,11 +10,13 @@ import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import org.givingkitchen.android.R
 import org.givingkitchen.android.util.Constants.firebaseStorageUrl
+import org.givingkitchen.android.util.Constants.formShareWufooUrl
 import org.givingkitchen.android.util.Constants.givingKitchenUrl
 
 class AssistanceViewModel: ViewModel() {
     companion object {
         const val assistanceLearnMoreURL = "$givingKitchenUrl/what-we-do"
+        const val assistanceLearnMoreESURL = "${formShareWufooUrl}z1nnf9t30wn1abe/"
         const val selfAssistanceInquiryUrl = "$firebaseStorageUrl/forms/assistanceInquirySelf.json"
         const val referralAssistanceInquiryUrl = "$firebaseStorageUrl/forms/assistanceInquiryReferral.json"
     }

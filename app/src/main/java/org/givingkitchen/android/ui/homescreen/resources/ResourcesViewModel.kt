@@ -3,7 +3,7 @@ package org.givingkitchen.android.ui.homescreen.resources
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.crashlytics.android.Crashlytics
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import org.givingkitchen.android.util.Constants
 import org.givingkitchen.android.util.Services
 import org.givingkitchen.android.util.Services.moshi
@@ -63,11 +63,11 @@ class ResourcesViewModel : ViewModel() {
                         setProgressBarVisibility(false)
                     } catch (e: IOException) {
                         setProgressBarVisibility(false)
-                        Crashlytics.log("Trouble reading Safetynet json file")
+                        FirebaseCrashlytics.getInstance().log("Trouble reading Safetynet json file")
                     }
                 }.addOnFailureListener {
                     setProgressBarVisibility(false)
-                    Crashlytics.log("Could not download Safetynet data from Firebase")
+                    FirebaseCrashlytics.getInstance().log("Could not download Safetynet data from Firebase")
                 }
 
         localFile.deleteOnExit()
