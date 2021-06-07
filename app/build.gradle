@@ -6,6 +6,13 @@ apply plugin: "androidx.navigation.safeargs"
 apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: 'com.google.gms.google-services'
 
+def signingProperties = new Properties()
+
+try {
+    def signingPropertiesFile = rootProject.file("keystore.properties")
+    signingProperties.load(new FileInputStream(signingPropertiesFile))
+} catch(Exception e) {}
+
 androidExtensions {
     experimental = true
 }
@@ -24,8 +31,18 @@ android {
         targetCompatibility = "8"
         sourceCompatibility = "8"
     }
+    signingConfigs {
+        release {
+            storeFile file("$project.rootDir/${signingProperties["store_file"]}")
+            storePassword signingProperties["store_password"]
+            keyAlias signingProperties["key_alias"]
+            keyPassword signingProperties["key_password"]
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

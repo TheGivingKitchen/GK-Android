@@ -86,3 +86,5 @@ lint/tmp/
 # lint/reports/
 
 .idea/
+
+keystore.properties
